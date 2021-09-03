@@ -1,0 +1,11 @@
+{
+    "name": "nexus-it/genomax",
+    "description": "GenomaX MD",
+    "authors": [
+        {
+            "name": "Juan M Palacio",
+            "email": "gerencia@nexus-it.co"
+        }
+    ],
+    "require": {}
+}

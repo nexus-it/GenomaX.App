@@ -1,0 +1,44 @@
+body {
+	background-color: #333;
+	text-align: center;
+}
+
+#content {
+	background-color: #DEDEDE;
+	width: 100%;
+	border-top-style: ridge;
+	border-bottom-style: ridge;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-color: #666;
+	border-bottom-color: #666;
+}
+
+#titulo {
+	margin:0 auto 0 auto;
+	background-image: url(images/nexus-it.png);
+	background-repeat: no-repeat;
+	height: 150px;
+	width: 505px;
+	top: 30px;
+	background-position: center;
+}
+
+.cloudcarrousel {
+	margin:0 auto 0 auto;
+	width:800px;
+	height:480px;
+	overflow:scroll;
+}
+
+.cloudcarousel {
+	-webkit-transition: margin 0.5s ease-out;
+    -moz-transition: margin 0.5s ease-out;
+    -o-transition: margin 0.5s ease-out;
+	
+	-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.1)));
+}
+.cloudcarousel:hover {
+	
+	-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));
+}

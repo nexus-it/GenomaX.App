@@ -1,0 +1,27 @@
+<?php
+
+include '00trnsctns.php';
+
+	$Consec=LoadConsec("klplanes", "Codigo_PLA", $_POST['plan'], $conexion, "Nombre_PLA");
+	$totalsv=365;
+	for ($i = 1; $i <= $totalsv; $i++) {
+		$ValDia=0;
+		if ($_POST['dia'.$i]!="") {
+			$ValDia=$_POST['dia'.$i];
+		}
+		$SQL="Select individual_PLA from klplanesprecios where Codigo_PLA='".$Consec."' and Dias_PLA=".$i.";";
+		$result = mysqli_query($conexion, $SQL);
+		if($row = mysqli_fetch_row($result)) {
+			$SQL="Update klplanesprecios set individual_PLA=".$ValDia." where Codigo_PLA='".$Consec."' and Dias_PLA=".$i.";";
+		} else {
+			$SQL="Insert Into klplanesprecios(Codigo_PLA, Dias_PLA, individual_PLA, Pareja_PLA, Hijos_PLA) values('".$Consec."', ".$i.", ".$ValDia.", 0, 0)";
+		}
+		mysqli_free_result($result);
+		EjecutarSQL($SQL, $conexion);
+	}
+	
+	it_aud('1', 'Modalidad Individual', 'No. '.$Consec);
+
+include '99trnsctns.php';
+
+?>

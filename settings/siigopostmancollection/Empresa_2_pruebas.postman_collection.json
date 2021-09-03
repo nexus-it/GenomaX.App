@@ -1,0 +1,1774 @@
+{
+	"info": {
+		"_postman_id": "b27b3477-d659-4599-9356-50104f658331",
+		"name": "Empresa_2_pruebas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Factura",
+			"item": [
+				{
+					"name": "Invoice Save  (Basic)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Header\": {\n        \"DocCode\": 45558, \n        \"Number\": 0,\n        \"DocDate\": \"20200415\",\n        \"VATTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": -1,\n        \"SelfWithholdingTaxID\": -1,\n        \"TotalValue\": 57209.31,\n        \"TotalBase\": 57209.31,\n        \"SalesmanIdentification\": \"963852741\",\n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Tercero Prueba\",\n            \"IdTypeCode\": \"31\",\n            \"Identification\": \"13832099\",\n            \"CheckDigit\": 8,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"City\": {\n                \"CountryCode\": \"Co\",\n                \"StateCode\": \"05\",\n                \"CityCode\": \"05001\"\n            },\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Number\": 0\n            }\n        },\n        \"Contact\": {\n            \"Phone1\": {\n                \"Number\": 0\n            },\n            \"Mobile\": {\n                \"Number\": 0\n            },\n            \"EMail\": \"juan.mesa@siigo.com\",\n            \"FirstName\": \"Juan\",\n            \"LastName\": \"Mesa\",\n            \"IsPrincipal\": true\n        }\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Producto configurado sin IVA\",\n            \"GrossValue\": 19069.77,\n            \"BaseValue\": 19069.77,\n            \"Quantity\": 1,\n            \"UnitValue\": 19069.77,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxDiscountId\": -1,\n            \"TotalValue\": 19069.77,\n            \"TaxAdd2Id\": -1\n        },\n        {\n            \"ProductCode\": \"Item-2\",\n            \"Description\": \"Producto configurado con IVA incluido\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxAddValue\": 0,\n            \"TaxAddPercentage\": 0,\n            \"TaxDiscountName\": \"\",\n            \"TaxDiscountId\": -1,\n            \"TaxDiscountValue\": 0,\n            \"TaxDiscountPercentage\": 0,\n            \"TotalValue\": 38139.54,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 2036,\n            \"Value\": 57209.31,\n            \"DueDate\": \"20200303\",\n            \"DueQuote\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Invoice",
+								"Save"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\n    \"Header\": {\n        \"Id\": 0,\n        \"DocCode\": 40102, \\\\ Get ERPDocumentType GetAllByType item factura  \n        \"Number\": 0,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20191009\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": -1,\n        \"TotalValue\": 41190.70,\n        \"TotalBase\": 41190.70,\n        \"SalesmanIdentification\": 901087958,\\\\ User GetAll \\\\  numero de identificacion  \n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": false,\n            \"FullName\": \"\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IdTypeCode\": 13,\n            \"Identification\": \"1099697452\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Indicative\": 0,\n                \"Number\": \"9466474\",\n                \"Extention\": 0\n            }\n        },\n        \"Contact\": {\n            \"Code\": 1,\n            \"Phone1\": {\n                \"Indicative\": 1,\n                \"Number\": 6337150,\n                \"Extention\": 1320\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 0,\n                \"Extention\": 0\n            },\n            \"EMail\": \"contacto@prueba.com\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"\"\n        },\n        \"CostCenterCode\": \"\",\n        \"SubCostCenterCode\": \"\"\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Nombre Producto Prueba API\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"IVA 19%\",\n            \"TaxAddId\": 26265,      \\\\ Get Tax GetAll \\\\ item  iva  \n            \"TaxAddValue\": 7246.51,\n            \"TaxAddPercentage\": 19,\n            \"TaxDiscountName\": \"Retefuente 11%\",\n            \"TaxDiscountId\": 26282,   \\\\ Get Tax GetAll \\\\ item  retefuente  \n            \"TaxDiscountValue\": 4195.35,\n            \"TaxDiscountPercentage\": 11,\n            \"TotalValue\": 41190.70,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\"\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 17722,  \\\\Get PaymentMeans GetAll \\\\\"ACPaymentMeanID\": 703, \\\\depende de  forma de pago  en esta caso efectivo  \n            \"Value\": 41190.70,\n            \"DueDate\": \"\",\n            \"DueQuote\": 0\n        }\n    ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice Save (Payments: Crédito)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Header\": {\n        \"Id\": 0,\n        \"DocCode\": 45558,\n        \"Number\": 0,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20200203\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 7246.51,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 4195.35,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": -1,\n        \"TotalValue\": 41190.7,\n        \"TotalBase\": 38139.54,\n        \"SalesmanIdentification\": \"963852741\",\n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Industrias API\",\n            \"FirstName\": \"\",\n            \"LastName\": \"\",\n            \"IdTypeCode\": \"31\",\n            \"Identification\": \"28412116\",\n            \"CheckDigit\": null,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"City\": {\n                \"CountryCode\": \"Co\",\n                \"StateCode\": \"11\",\n                \"CityCode\": \"11001\"\n            },\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Indicative\": 0,\n                \"Number\": 9466474,\n                \"Extention\": 0\n            }\n        },\n        \"Contact\": {\n            \"Code\": 1,\n            \"Phone1\": {\n                \"Indicative\": 1,\n                \"Number\": 6337150,\n                \"Extention\": 1320\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 0,\n                \"Extention\": 0\n            },\n            \"EMail\": \"juan.mesa@siigo.com\",\n            \"FirstName\": \"Juan\",\n            \"LastName\": \"Mesa\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"\"\n        },\n        \"CostCenterCode\": \"\",\n        \"SubCostCenterCode\": \"\"\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Descripción producto\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"IVA 19%\",\n            \"TaxAddId\": 3440,\n            \"TaxAddValue\": 7246.51,\n            \"TaxAddPercentage\": 19,\n            \"TaxDiscountName\": \"Retefuente 11%\",\n            \"TaxDiscountId\": 3446,\n            \"TaxDiscountValue\": 4195.35,\n            \"TaxDiscountPercentage\": 11,\n            \"TotalValue\": 41190.7,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": null,\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 2036,\n            \"Value\": 41190.7,\n            \"DueDate\": \"20200303\",\n            \"DueQuote\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Invoice",
+								"Save"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\n    \"Header\": {\n        \"Id\": 0,\n        \"DocCode\": 40102, \\\\ Get ERPDocumentType GetAllByType item factura  \n        \"Number\": 0,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20191009\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": -1,\n        \"TotalValue\": 41190.70,\n        \"TotalBase\": 41190.70,\n        \"SalesmanIdentification\": 901087958,\\\\ User GetAll \\\\  numero de identificacion  \n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": false,\n            \"FullName\": \"\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IdTypeCode\": 13,\n            \"Identification\": \"1099697452\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Indicative\": 0,\n                \"Number\": \"9466474\",\n                \"Extention\": 0\n            }\n        },\n        \"Contact\": {\n            \"Code\": 1,\n            \"Phone1\": {\n                \"Indicative\": 1,\n                \"Number\": 6337150,\n                \"Extention\": 1320\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 0,\n                \"Extention\": 0\n            },\n            \"EMail\": \"contacto@prueba.com\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"\"\n        },\n        \"CostCenterCode\": \"\",\n        \"SubCostCenterCode\": \"\"\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Nombre Producto Prueba API\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"IVA 19%\",\n            \"TaxAddId\": 26265,      \\\\ Get Tax GetAll \\\\ item  iva  \n            \"TaxAddValue\": 7246.51,\n            \"TaxAddPercentage\": 19,\n            \"TaxDiscountName\": \"Retefuente 11%\",\n            \"TaxDiscountId\": 26282,   \\\\ Get Tax GetAll \\\\ item  retefuente  \n            \"TaxDiscountValue\": 4195.35,\n            \"TaxDiscountPercentage\": 11,\n            \"TotalValue\": 41190.70,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\"\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 17722,  \\\\Get PaymentMeans GetAll \\\\\"ACPaymentMeanID\": 703, \\\\depende de  forma de pago  en esta caso efectivo  \n            \"Value\": 41190.70,\n            \"DueDate\": \"\",\n            \"DueQuote\": 0\n        }\n    ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice Save (Payments: Efectivo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Header\": {\n        \"Id\": 0,\n        \"DocCode\": 45558,\n        \"Number\": 0,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20200406\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 7246.51,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 4195.35,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": 0,\n        \"TotalValue\": 41190.7,\n        \"TotalBase\": 38139.54,\n        \"SalesmanIdentification\": \"963852741\",\n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": false,\n            \"FullName\": \"\",\n            \"FirstName\": \"Miguel\",\n            \"LastName\": \"Castellanos\",\n            \"IdTypeCode\": \"13\",\n            \"Identification\": \"28472115\",\n            \"CheckDigit\": null,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"City\": {\n                \"CountryCode\": \"Co\",\n                \"StateCode\": \"11\",\n                \"CityCode\": \"11001\"\n            },\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Indicative\": 0,\n                \"Number\": 9466474,\n                \"Extention\": 0\n            }\n        },\n        \"Contact\": {\n            \"Code\": 1,\n            \"Phone1\": {\n                \"Indicative\": 1,\n                \"Number\": 6337150,\n                \"Extention\": 1320\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 0,\n                \"Extention\": 0\n            },\n            \"EMail\": \"juan.mesa@siigo.com\",\n            \"FirstName\": \"Juan\",\n            \"LastName\": \"Mesa\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"\"\n        },\n        \"CostCenterCode\": \"1\",\n        \"SubCostCenterCode\": \"2\"\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Disco #\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"IVA 19%\",\n            \"TaxAddId\": 3440,\n            \"TaxAddValue\": 7246.51,\n            \"TaxAddPercentage\": 19,\n            \"TaxDiscountName\": \"Retefuente 11%\",\n            \"TaxDiscountId\": 3446,\n            \"TaxDiscountValue\": 4195.35,\n            \"TaxDiscountPercentage\": 11,\n            \"TotalValue\": 41190.7,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": null,\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 2035,\n            \"Value\": 41190.7,\n            \"DueDate\": \"\",\n            \"DueQuote\": 0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Invoice",
+								"Save"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\n    \"Header\": {\n        \"Id\": 0,\n        \"DocCode\": 40102, \\\\ Get ERPDocumentType GetAllByType item factura  \n        \"Number\": 0,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20191009\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": -1,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": -1,\n        \"TotalValue\": 41190.70,\n        \"TotalBase\": 41190.70,\n        \"SalesmanIdentification\": 901087958,\\\\ User GetAll \\\\  numero de identificacion  \n        \"Observations\": \"Registro automático API\",\n        \"Account\": {\n            \"IsSocialReason\": false,\n            \"FullName\": \"\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IdTypeCode\": 13,\n            \"Identification\": \"1099697452\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 0,\n            \"IsVATCompanyType\": false,\n            \"Address\": \"Dirección Tercero\",\n            \"Phone\": {\n                \"Indicative\": 0,\n                \"Number\": \"9466474\",\n                \"Extention\": 0\n            }\n        },\n        \"Contact\": {\n            \"Code\": 1,\n            \"Phone1\": {\n                \"Indicative\": 1,\n                \"Number\": 6337150,\n                \"Extention\": 1320\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 0,\n                \"Extention\": 0\n            },\n            \"EMail\": \"contacto@prueba.com\",\n            \"FirstName\": \"Martin\",\n            \"LastName\": \"Vivanco\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"\"\n        },\n        \"CostCenterCode\": \"\",\n        \"SubCostCenterCode\": \"\"\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"Item-1\",\n            \"Description\": \"Nombre Producto Prueba API\",\n            \"GrossValue\": 38139.54,\n            \"BaseValue\": 38139.54,\n            \"Quantity\": 2,\n            \"UnitValue\": 19069.77,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"IVA 19%\",\n            \"TaxAddId\": 26265,      \\\\ Get Tax GetAll \\\\ item  iva  \n            \"TaxAddValue\": 7246.51,\n            \"TaxAddPercentage\": 19,\n            \"TaxDiscountName\": \"Retefuente 11%\",\n            \"TaxDiscountId\": 26282,   \\\\ Get Tax GetAll \\\\ item  retefuente  \n            \"TaxDiscountValue\": 4195.35,\n            \"TaxDiscountPercentage\": 11,\n            \"TotalValue\": 41190.70,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\"\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 17722,  \\\\Get PaymentMeans GetAll \\\\\"ACPaymentMeanID\": 703, \\\\depende de  forma de pago  en esta caso efectivo  \n            \"Value\": 41190.70,\n            \"DueDate\": \"\",\n            \"DueQuote\": 0\n        }\n    ]\n}"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8e500d3b-658d-43be-8d88-3cfaea3cf2a8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "046bc09b-a738-400e-8024-7f2b9d2a16dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Crear Terceros / Clientes",
+			"item": [
+				{
+					"name": "Accounts Create (Complete) - Step 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Id\": 0,\n    \"IsLeaflet\": false,\n    \"IsCustomer\": true,\n    \"IsSupplier\": false,\n    \"IsDealer\": false,\n    \"IsBank\": false,\n    \"IsSocialReason\": false,\n    \"FullName\": \"Yeferson Alvarez\",\n    \"FirstName\": \"Yeferson\",\n    \"LastName\": \"Alvarez\",\n    \"IdTypeCode\": \"13\",\n    \"Identification\": \"13987150\",\n    \"CheckDigit\": null,\n    \"BranchOffice\": 0,\n    \"IsVATCompanyType\": true,\n    \"WebSite\": null,\n    \"Address\": \"Calle falsa 123\",\n    \"PostalCode\": null,\n    \"Fax\": {\n        \"Indicative\": 0,\n        \"Number\": 0,\n        \"Extention\": 0\n    },\n    \"Phone\": {\n        \"Indicative\": 57,\n        \"Number\": 3202287106,\n        \"Extention\": 0\n    },\n    \"City\": {\n        \"CountryCode\": \"Co\",\n        \"StateCode\": \"05\",\n        \"CityCode\": \"05001\"\n    },\n    \"EMail\": \"\",\n    \"IsActive\": true,\n    \"DirectorID\": 0,\n    \"SalesmanID\": 0,\n    \"CollectorID\": 0,\n    \"PrincipalContactID\": 0,\n    \"FiscalResponsibilities\": [\n        \"R-99-PN\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Accounts/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Accounts",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\r\n    \"Id\": 92563, // Id que se usa  en  (Contact Create) \r\n    \"IsLeaflet\": false,\r\n    \"IsCustomer\": true,\r\n    \"IsSupplier\": false,\r\n    \"IsDealer\": false,\r\n    \"IsBank\": false,\r\n    \"IsSocialReason\": false,\r\n    \"FullName\": \"\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"IdTypeCode\": \"13\",\r\n    \"Identification\": \"1099697452\",\r\n    \"CheckDigit\": 0,\r\n    \"BranchOffice\": 0,\r\n    \"IsVATCompanyType\": true,\r\n    \"WebSite\": \"\",\r\n    \"City\": {\r\n        \"CountryCode\": \"Co\",\r\n        \"StateCode\": \"11\",\r\n        \"CityCode\": \"11001\"\r\n    },\r\n    \"Address\": \"Calle 13 # 58-65\",\r\n    \"PostalCode\": null,\r\n    \"Fax\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"Phone\": {\r\n        \"Indicative\": 1,\r\n        \"Number\": 2899925,\r\n        \"Extention\": null\r\n    },\r\n    \"EMail\": \"prueba@siigo.com\",\r\n    \"IsActive\": true,\r\n    \"DirectorID\": 0,\r\n    \"SalesmanID\": 0,\r\n    \"CollectorID\": 0,\r\n    \"PrincipalContactID\": 0,\r\n    \"FiscalResponsibilities\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Contact Create (Complete) - Step 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 0,\r\n    \"Code\": null,\r\n    \"AccountID\": 1003619,    \r\n    \"Phone1\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"Mobile\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"EMail\": \"contacto@prueba.com\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"Fax\": null,\r\n    \"IsPrincipal\": true,\r\n    \"Gender\": null,\r\n    \"ChargeID\": null,\r\n    \"BirthDate\": null\r\n}"
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Contacts/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Contacts",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "\"Id\": 0,\r\n    \"Code\": null,\r\n    \"AccountID\": 92563, Post(Accounts Create \"Id\": 92563,)    \r\n    \"Phone1\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"Mobile\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"EMail\": \"contacto@prueba.com\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"Fax\": null,\r\n    \"IsPrincipal\": true,\r\n    \"Gender\": null,\r\n    \"ChargeID\": null,\r\n    \"BirthDate\": null\r\n}"
+					},
+					"response": [
+						{
+							"name": "Invoice Save",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "a752cf215ecb4e1cade6489c444de796",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSIsImtpZCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSJ9.eyJpc3MiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAiLCJhdWQiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAvcmVzb3VyY2VzIiwiZXhwIjoxNTU5OTQ4MTEzLCJuYmYiOjE1NTk4NTgxMTMsImNsaWVudF9pZCI6IlNpaWdvV2ViIiwic2NvcGUiOlsib2ZmbGluZV9hY2Nlc3MiLCJXZWJBcGkiXSwic3ViIjoiODA2IiwiYXV0aF90aW1lIjoxNTU5ODU4MTEzLCJpZHAiOiJpZHNydiIsIm1haWxfc2lpZ28iOiJhZG1pbkBsYXN1cy5jb20uY28iLCJjbG91ZF90ZW5hbnRfY29tcGFueV9rZXkiOiJHRVNUSU9OREVDT01QUkFTRU1QUkVTQVJJQUxFU1NBUyIsImFtciI6WyJwYXNzd29yZCJdfQ.C5HES7dg_c_2pfGrk_S2bZhoPQfKrGYszfvAJgbLXwun_VolgR82kh6KFShUsPL4j4XlCgX921z0FRjGrKDHBrjOaWOyLNFj-ka2Cm0JbujWlft5g44e_S4ezCv4nWtqWvRe-Sa2oLUR6sGmS1RLnufGYb8qPbVj9jh0d_jDp7_lrmK687IlwZX2dYC7lBjdrwNaTZlwmgld3T_axPXldiRxzMzsCjeTuB0D05bDABWlsYGmDY3TQ7mwvaHqHNf1AV8sboSjNLUTzEKKrzm1EksMajVoBp9xnsxmi74lWiRBffuzOWiAnkmPsPHyYTTZYicoZ75sOi3Iorwz3vPA-A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"Header\": {\r\n    \"Id\": 0,\r\n    \"DocCode\": 21640,\r\n    \"Number\": 0,\r\n    \"EmailToSend\": null,\r\n    \"DocDate\": \"20190607\",\r\n    \"MoneyCode\": \"\",\r\n    \"ExchangeValue\": null,\r\n    \"DiscountValue\": 0,\r\n    \"VATTotalValue\": 0,\r\n    \"ConsumptionTaxTotalValue\": 0,\r\n    \"TaxDiscTotalValue\": 0,\r\n    \"RetVATTotalID\": -1,\r\n    \"RetVATTotalPercentage\": 0,\r\n    \"RetVATTotalValue\": 0,\r\n    \"RetICATotalID\": -1,\r\n    \"RetICATotalValue\": 0,\r\n    \"RetICATotaPercentage\": 0,\r\n    \"TotalValue\": 10000,\r\n    \"TotalBase\": 10000,\r\n    \"SalesmanIdentification\": \"9999999\",\r\n    \"Observations\": \"\",\r\n    \"Account\": {\r\n      \"IsSocialReason\": true,\r\n      \"FullName\": \"Empresa Prueba Facturación\",\r\n      \"FirstName\": null,\r\n      \"LastName\": null,\r\n      \"IdTypeCode\": 12,\r\n      \"Identification\": \"99999999\",\r\n      \"CheckDigit\": 0,\r\n      \"BranchOffice\": 111,\r\n      \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\r\n    },\r\n    \"Contact\": {\r\n      \"Code\": null,\r\n      \"Phone1\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"Mobile\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"EMail\": \"prueba@lasus.com.co\",\r\n      \"FirstName\": \"Prueba\",\r\n      \"LastName\": \"Contacto\",\r\n      \"IsPrincipal\": true,\r\n      \"Gender\": 1,\r\n      \"BirthDate\": \"19811231\"\r\n    }\r\n  },\r\n  \"Items\": [\r\n    {\r\n      \"ProductCode\": \"99999\",\r\n      \"Description\": \"Producto prueba facturación\",\r\n      \"GrossValue\": 10000,\r\n      \"BaseValue\": 10000,\r\n      \"Quantity\": 10,\r\n      \"UnitValue\": 1000,\r\n      \"DiscountValue\": 0,\r\n      \"DiscountPercentage\": 0,\r\n      \"TaxAddName\": \"\",\r\n      \"TaxAddId\": -1,\r\n      \"TaxAddValue\": 0,\r\n      \"TaxAddPercentage\": 0,\r\n      \"TaxDiscountName\": \"\",\r\n      \"TaxDiscountId\": -1,\r\n      \"TaxDiscountValue\": 0,\r\n      \"TaxDiscountPercentage\": 0,\r\n      \"TotalValue\": 10000,\r\n      \"ProductSubType\": 0,\r\n      \"TaxAdd2Name\": \"\",\r\n      \"TaxAdd2Id\": -1,\r\n      \"TaxAdd2Value\": 0,\r\n      \"TaxAdd2Percentage\": 0,\r\n      \"WareHouseCode\": \"\"\r\n    }\r\n  ],\r\n  \"Payments\": [\r\n    {\r\n      \"PaymentMeansCode\": 4622,\r\n      \"Value\": 10000,\r\n      \"DueDate\": \"20190607\",\r\n      \"DueQuote\": 1\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=1",
+									"protocol": "http",
+									"host": [
+										"siigoapi",
+										"azure-api",
+										"net"
+									],
+									"path": [
+										"siigo",
+										"api",
+										"v1",
+										"Invoice",
+										"Save"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "845"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "ARRAffinity=4a10b31a5e04132d6316219d62c57f010f20c138a61fdf60c59002cbf8ac3306;Path=/;HttpOnly;Domain=isiigo3acsiigoapi.azurewebsites.net"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Jun 2019 16:46:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Header\": {\n        \"Id\": 110075,\n        \"DocCode\": 21640,\n        \"Number\": 836,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20190607\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": 0,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": 0,\n        \"TotalValue\": 10000,\n        \"TotalBase\": 10000,\n        \"SalesmanIdentification\": \"9999999\",\n        \"Observations\": \"\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Empresa Prueba Facturación\",\n            \"FirstName\": null,\n            \"LastName\": null,\n            \"IdTypeCode\": 12,\n            \"Identification\": \"99999999\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 111,\n            \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\n        },\n        \"Contact\": {\n            \"Code\": 0,\n            \"Phone1\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"EMail\": \"prueba@lasus.com.co\",\n            \"FirstName\": \"Prueba\",\n            \"LastName\": \"Contacto\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"19811231\"\n        },\n        \"CostCenterCode\": null,\n        \"SubCostCenterCode\": null\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"99999\",\n            \"Description\": \"Producto prueba facturación\",\n            \"GrossValue\": 10000,\n            \"BaseValue\": 10000,\n            \"Quantity\": 10,\n            \"UnitValue\": 1000,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxAddValue\": 0,\n            \"TaxAddPercentage\": 0,\n            \"TaxDiscountName\": \"\",\n            \"TaxDiscountId\": -1,\n            \"TaxDiscountValue\": 0,\n            \"TaxDiscountPercentage\": 0,\n            \"TotalValue\": 10000,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\",\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 4622,\n            \"Value\": 10000,\n            \"DueDate\": \"20190607\",\n            \"DueQuote\": 1\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Accounts Create (Basic) - Step 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"IsCustomer\": true,\n    \"IsSocialReason\": false,\n    \"FullName\": \"Yeferson Alvarez\",\n    \"FirstName\": \"Yeferson\",\n    \"LastName\": \"Alvarez\",\n    \"IdTypeCode\": \"13\",\n    \"Identification\": \"13987150\",\n    \"CheckDigit\": null,\n    \"BranchOffice\": 0,\n    \"IsVATCompanyType\": true,\n    \"Address\": \"Calle falsa 123\",\n    \"Phone\": {\n        \"Indicative\": 57,\n        \"Number\": 3202287106,\n        \"Extention\": 0\n    },\n    \"City\": {\n        \"CountryCode\": \"Co\",\n        \"StateCode\": \"05\",\n        \"CityCode\": \"05001\"\n    },\n    \"IsActive\": true,\n    \"FiscalResponsibilities\": [\n        \"R-99-PN\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Accounts/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Accounts",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\r\n    \"Id\": 92563, // Id que se usa  en  (Contact Create) \r\n    \"IsLeaflet\": false,\r\n    \"IsCustomer\": true,\r\n    \"IsSupplier\": false,\r\n    \"IsDealer\": false,\r\n    \"IsBank\": false,\r\n    \"IsSocialReason\": false,\r\n    \"FullName\": \"\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"IdTypeCode\": \"13\",\r\n    \"Identification\": \"1099697452\",\r\n    \"CheckDigit\": 0,\r\n    \"BranchOffice\": 0,\r\n    \"IsVATCompanyType\": true,\r\n    \"WebSite\": \"\",\r\n    \"City\": {\r\n        \"CountryCode\": \"Co\",\r\n        \"StateCode\": \"11\",\r\n        \"CityCode\": \"11001\"\r\n    },\r\n    \"Address\": \"Calle 13 # 58-65\",\r\n    \"PostalCode\": null,\r\n    \"Fax\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"Phone\": {\r\n        \"Indicative\": 1,\r\n        \"Number\": 2899925,\r\n        \"Extention\": null\r\n    },\r\n    \"EMail\": \"prueba@siigo.com\",\r\n    \"IsActive\": true,\r\n    \"DirectorID\": 0,\r\n    \"SalesmanID\": 0,\r\n    \"CollectorID\": 0,\r\n    \"PrincipalContactID\": 0,\r\n    \"FiscalResponsibilities\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Contact Create (Basic) - Step 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"AccountID\": 1003623,    \r\n    \"EMail\": \"contacto@prueba.com\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"IsPrincipal\": true\r\n}"
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Contacts/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Contacts",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "\"Id\": 0,\r\n    \"Code\": null,\r\n    \"AccountID\": 92563, Post(Accounts Create \"Id\": 92563,)    \r\n    \"Phone1\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"Mobile\": {\r\n        \"Indicative\": null,\r\n        \"Number\": null,\r\n        \"Extention\": null\r\n    },\r\n    \"EMail\": \"contacto@prueba.com\",\r\n    \"FirstName\": \"Martin\",\r\n    \"LastName\": \"Vivanco\",\r\n    \"Fax\": null,\r\n    \"IsPrincipal\": true,\r\n    \"Gender\": null,\r\n    \"ChargeID\": null,\r\n    \"BirthDate\": null\r\n}"
+					},
+					"response": [
+						{
+							"name": "Invoice Save",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "a752cf215ecb4e1cade6489c444de796",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSIsImtpZCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSJ9.eyJpc3MiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAiLCJhdWQiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAvcmVzb3VyY2VzIiwiZXhwIjoxNTU5OTQ4MTEzLCJuYmYiOjE1NTk4NTgxMTMsImNsaWVudF9pZCI6IlNpaWdvV2ViIiwic2NvcGUiOlsib2ZmbGluZV9hY2Nlc3MiLCJXZWJBcGkiXSwic3ViIjoiODA2IiwiYXV0aF90aW1lIjoxNTU5ODU4MTEzLCJpZHAiOiJpZHNydiIsIm1haWxfc2lpZ28iOiJhZG1pbkBsYXN1cy5jb20uY28iLCJjbG91ZF90ZW5hbnRfY29tcGFueV9rZXkiOiJHRVNUSU9OREVDT01QUkFTRU1QUkVTQVJJQUxFU1NBUyIsImFtciI6WyJwYXNzd29yZCJdfQ.C5HES7dg_c_2pfGrk_S2bZhoPQfKrGYszfvAJgbLXwun_VolgR82kh6KFShUsPL4j4XlCgX921z0FRjGrKDHBrjOaWOyLNFj-ka2Cm0JbujWlft5g44e_S4ezCv4nWtqWvRe-Sa2oLUR6sGmS1RLnufGYb8qPbVj9jh0d_jDp7_lrmK687IlwZX2dYC7lBjdrwNaTZlwmgld3T_axPXldiRxzMzsCjeTuB0D05bDABWlsYGmDY3TQ7mwvaHqHNf1AV8sboSjNLUTzEKKrzm1EksMajVoBp9xnsxmi74lWiRBffuzOWiAnkmPsPHyYTTZYicoZ75sOi3Iorwz3vPA-A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"Header\": {\r\n    \"Id\": 0,\r\n    \"DocCode\": 21640,\r\n    \"Number\": 0,\r\n    \"EmailToSend\": null,\r\n    \"DocDate\": \"20190607\",\r\n    \"MoneyCode\": \"\",\r\n    \"ExchangeValue\": null,\r\n    \"DiscountValue\": 0,\r\n    \"VATTotalValue\": 0,\r\n    \"ConsumptionTaxTotalValue\": 0,\r\n    \"TaxDiscTotalValue\": 0,\r\n    \"RetVATTotalID\": -1,\r\n    \"RetVATTotalPercentage\": 0,\r\n    \"RetVATTotalValue\": 0,\r\n    \"RetICATotalID\": -1,\r\n    \"RetICATotalValue\": 0,\r\n    \"RetICATotaPercentage\": 0,\r\n    \"TotalValue\": 10000,\r\n    \"TotalBase\": 10000,\r\n    \"SalesmanIdentification\": \"9999999\",\r\n    \"Observations\": \"\",\r\n    \"Account\": {\r\n      \"IsSocialReason\": true,\r\n      \"FullName\": \"Empresa Prueba Facturación\",\r\n      \"FirstName\": null,\r\n      \"LastName\": null,\r\n      \"IdTypeCode\": 12,\r\n      \"Identification\": \"99999999\",\r\n      \"CheckDigit\": 0,\r\n      \"BranchOffice\": 111,\r\n      \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\r\n    },\r\n    \"Contact\": {\r\n      \"Code\": null,\r\n      \"Phone1\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"Mobile\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"EMail\": \"prueba@lasus.com.co\",\r\n      \"FirstName\": \"Prueba\",\r\n      \"LastName\": \"Contacto\",\r\n      \"IsPrincipal\": true,\r\n      \"Gender\": 1,\r\n      \"BirthDate\": \"19811231\"\r\n    }\r\n  },\r\n  \"Items\": [\r\n    {\r\n      \"ProductCode\": \"99999\",\r\n      \"Description\": \"Producto prueba facturación\",\r\n      \"GrossValue\": 10000,\r\n      \"BaseValue\": 10000,\r\n      \"Quantity\": 10,\r\n      \"UnitValue\": 1000,\r\n      \"DiscountValue\": 0,\r\n      \"DiscountPercentage\": 0,\r\n      \"TaxAddName\": \"\",\r\n      \"TaxAddId\": -1,\r\n      \"TaxAddValue\": 0,\r\n      \"TaxAddPercentage\": 0,\r\n      \"TaxDiscountName\": \"\",\r\n      \"TaxDiscountId\": -1,\r\n      \"TaxDiscountValue\": 0,\r\n      \"TaxDiscountPercentage\": 0,\r\n      \"TotalValue\": 10000,\r\n      \"ProductSubType\": 0,\r\n      \"TaxAdd2Name\": \"\",\r\n      \"TaxAdd2Id\": -1,\r\n      \"TaxAdd2Value\": 0,\r\n      \"TaxAdd2Percentage\": 0,\r\n      \"WareHouseCode\": \"\"\r\n    }\r\n  ],\r\n  \"Payments\": [\r\n    {\r\n      \"PaymentMeansCode\": 4622,\r\n      \"Value\": 10000,\r\n      \"DueDate\": \"20190607\",\r\n      \"DueQuote\": 1\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=1",
+									"protocol": "http",
+									"host": [
+										"siigoapi",
+										"azure-api",
+										"net"
+									],
+									"path": [
+										"siigo",
+										"api",
+										"v1",
+										"Invoice",
+										"Save"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "845"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "ARRAffinity=4a10b31a5e04132d6316219d62c57f010f20c138a61fdf60c59002cbf8ac3306;Path=/;HttpOnly;Domain=isiigo3acsiigoapi.azurewebsites.net"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Jun 2019 16:46:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Header\": {\n        \"Id\": 110075,\n        \"DocCode\": 21640,\n        \"Number\": 836,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20190607\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": 0,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": 0,\n        \"TotalValue\": 10000,\n        \"TotalBase\": 10000,\n        \"SalesmanIdentification\": \"9999999\",\n        \"Observations\": \"\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Empresa Prueba Facturación\",\n            \"FirstName\": null,\n            \"LastName\": null,\n            \"IdTypeCode\": 12,\n            \"Identification\": \"99999999\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 111,\n            \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\n        },\n        \"Contact\": {\n            \"Code\": 0,\n            \"Phone1\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"EMail\": \"prueba@lasus.com.co\",\n            \"FirstName\": \"Prueba\",\n            \"LastName\": \"Contacto\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"19811231\"\n        },\n        \"CostCenterCode\": null,\n        \"SubCostCenterCode\": null\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"99999\",\n            \"Description\": \"Producto prueba facturación\",\n            \"GrossValue\": 10000,\n            \"BaseValue\": 10000,\n            \"Quantity\": 10,\n            \"UnitValue\": 1000,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxAddValue\": 0,\n            \"TaxAddPercentage\": 0,\n            \"TaxDiscountName\": \"\",\n            \"TaxDiscountId\": -1,\n            \"TaxDiscountValue\": 0,\n            \"TaxDiscountPercentage\": 0,\n            \"TotalValue\": 10000,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\",\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 4622,\n            \"Value\": 10000,\n            \"DueDate\": \"20190607\",\n            \"DueQuote\": 1\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "767f0354-4974-4605-90fe-06aba0477d75",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "16790123-430e-436c-a49e-21db55ad991c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Crear Productos / Servicios",
+			"item": [
+				{
+					"name": "AccountGroups_GetAll - Grupos de inventario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/AccountGroups/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"AccountGroups",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Create (Basic)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Code\": \"PR-1001\",\n    \"Description\": \"Camisa de algodón\",\n    \"AccountGroupID\":  455,\n    \"MeasurementUnitCode\": 94\n}"
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Products/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Products",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\n    \"Id\": 0,\n    \"Code\": \"Item-1\",\n    \"Description\": \"Nombre Producto Prueba API\",\n    \"ReferenceManufactures\": \"Ref_Fabrica\",\n    \"ProductTypeKey\": \"ProductType_Product\",\n    \"MeasureUnit\": \"\",\n    \"CodeBars\": \"\",\n    \"Comments\": \"\",\n    \"TaxAddID\": 10156,\n    \"TaxDiscID\": 10158,\n    \"IsIncluded\": true,\n    \"Cost\": 0,\n    \"IsInventoryControl\": false,\n    \"State\": 1,\n    \"PriceList1\": 19069.77,\n    \"PriceList2\": null,\n    \"PriceList3\": null,\n    \"PriceList4\": null,\n    \"PriceList5\": null,\n    \"PriceList6\": null,\n    \"PriceList7\": null,\n    \"PriceList8\": null,\n    \"PriceList9\": null,\n    \"PriceList10\": null,\n    \"PriceList11\": null,\n    \"PriceList12\": null,\n    \"Image\": null,\n    \"AccountGroupID\":  157,  Get (AccountGroups_GetAll: como resultado  nos genera este codigo   )\n    \"SubType\": 0,\n    \"TaxAdd2ID\": 0,\n    \"TaxImpoValue\": 0\n}"
+					},
+					"response": [
+						{
+							"name": "Invoice Save",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "a752cf215ecb4e1cade6489c444de796",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSIsImtpZCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSJ9.eyJpc3MiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAiLCJhdWQiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAvcmVzb3VyY2VzIiwiZXhwIjoxNTU5OTQ4MTEzLCJuYmYiOjE1NTk4NTgxMTMsImNsaWVudF9pZCI6IlNpaWdvV2ViIiwic2NvcGUiOlsib2ZmbGluZV9hY2Nlc3MiLCJXZWJBcGkiXSwic3ViIjoiODA2IiwiYXV0aF90aW1lIjoxNTU5ODU4MTEzLCJpZHAiOiJpZHNydiIsIm1haWxfc2lpZ28iOiJhZG1pbkBsYXN1cy5jb20uY28iLCJjbG91ZF90ZW5hbnRfY29tcGFueV9rZXkiOiJHRVNUSU9OREVDT01QUkFTRU1QUkVTQVJJQUxFU1NBUyIsImFtciI6WyJwYXNzd29yZCJdfQ.C5HES7dg_c_2pfGrk_S2bZhoPQfKrGYszfvAJgbLXwun_VolgR82kh6KFShUsPL4j4XlCgX921z0FRjGrKDHBrjOaWOyLNFj-ka2Cm0JbujWlft5g44e_S4ezCv4nWtqWvRe-Sa2oLUR6sGmS1RLnufGYb8qPbVj9jh0d_jDp7_lrmK687IlwZX2dYC7lBjdrwNaTZlwmgld3T_axPXldiRxzMzsCjeTuB0D05bDABWlsYGmDY3TQ7mwvaHqHNf1AV8sboSjNLUTzEKKrzm1EksMajVoBp9xnsxmi74lWiRBffuzOWiAnkmPsPHyYTTZYicoZ75sOi3Iorwz3vPA-A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"Header\": {\r\n    \"Id\": 0,\r\n    \"DocCode\": 21640,\r\n    \"Number\": 0,\r\n    \"EmailToSend\": null,\r\n    \"DocDate\": \"20190607\",\r\n    \"MoneyCode\": \"\",\r\n    \"ExchangeValue\": null,\r\n    \"DiscountValue\": 0,\r\n    \"VATTotalValue\": 0,\r\n    \"ConsumptionTaxTotalValue\": 0,\r\n    \"TaxDiscTotalValue\": 0,\r\n    \"RetVATTotalID\": -1,\r\n    \"RetVATTotalPercentage\": 0,\r\n    \"RetVATTotalValue\": 0,\r\n    \"RetICATotalID\": -1,\r\n    \"RetICATotalValue\": 0,\r\n    \"RetICATotaPercentage\": 0,\r\n    \"TotalValue\": 10000,\r\n    \"TotalBase\": 10000,\r\n    \"SalesmanIdentification\": \"9999999\",\r\n    \"Observations\": \"\",\r\n    \"Account\": {\r\n      \"IsSocialReason\": true,\r\n      \"FullName\": \"Empresa Prueba Facturación\",\r\n      \"FirstName\": null,\r\n      \"LastName\": null,\r\n      \"IdTypeCode\": 12,\r\n      \"Identification\": \"99999999\",\r\n      \"CheckDigit\": 0,\r\n      \"BranchOffice\": 111,\r\n      \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\r\n    },\r\n    \"Contact\": {\r\n      \"Code\": null,\r\n      \"Phone1\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"Mobile\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"EMail\": \"prueba@lasus.com.co\",\r\n      \"FirstName\": \"Prueba\",\r\n      \"LastName\": \"Contacto\",\r\n      \"IsPrincipal\": true,\r\n      \"Gender\": 1,\r\n      \"BirthDate\": \"19811231\"\r\n    }\r\n  },\r\n  \"Items\": [\r\n    {\r\n      \"ProductCode\": \"99999\",\r\n      \"Description\": \"Producto prueba facturación\",\r\n      \"GrossValue\": 10000,\r\n      \"BaseValue\": 10000,\r\n      \"Quantity\": 10,\r\n      \"UnitValue\": 1000,\r\n      \"DiscountValue\": 0,\r\n      \"DiscountPercentage\": 0,\r\n      \"TaxAddName\": \"\",\r\n      \"TaxAddId\": -1,\r\n      \"TaxAddValue\": 0,\r\n      \"TaxAddPercentage\": 0,\r\n      \"TaxDiscountName\": \"\",\r\n      \"TaxDiscountId\": -1,\r\n      \"TaxDiscountValue\": 0,\r\n      \"TaxDiscountPercentage\": 0,\r\n      \"TotalValue\": 10000,\r\n      \"ProductSubType\": 0,\r\n      \"TaxAdd2Name\": \"\",\r\n      \"TaxAdd2Id\": -1,\r\n      \"TaxAdd2Value\": 0,\r\n      \"TaxAdd2Percentage\": 0,\r\n      \"WareHouseCode\": \"\"\r\n    }\r\n  ],\r\n  \"Payments\": [\r\n    {\r\n      \"PaymentMeansCode\": 4622,\r\n      \"Value\": 10000,\r\n      \"DueDate\": \"20190607\",\r\n      \"DueQuote\": 1\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=1",
+									"protocol": "http",
+									"host": [
+										"siigoapi",
+										"azure-api",
+										"net"
+									],
+									"path": [
+										"siigo",
+										"api",
+										"v1",
+										"Invoice",
+										"Save"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "845"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "ARRAffinity=4a10b31a5e04132d6316219d62c57f010f20c138a61fdf60c59002cbf8ac3306;Path=/;HttpOnly;Domain=isiigo3acsiigoapi.azurewebsites.net"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Jun 2019 16:46:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Header\": {\n        \"Id\": 110075,\n        \"DocCode\": 21640,\n        \"Number\": 836,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20190607\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": 0,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": 0,\n        \"TotalValue\": 10000,\n        \"TotalBase\": 10000,\n        \"SalesmanIdentification\": \"9999999\",\n        \"Observations\": \"\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Empresa Prueba Facturación\",\n            \"FirstName\": null,\n            \"LastName\": null,\n            \"IdTypeCode\": 12,\n            \"Identification\": \"99999999\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 111,\n            \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\n        },\n        \"Contact\": {\n            \"Code\": 0,\n            \"Phone1\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"EMail\": \"prueba@lasus.com.co\",\n            \"FirstName\": \"Prueba\",\n            \"LastName\": \"Contacto\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"19811231\"\n        },\n        \"CostCenterCode\": null,\n        \"SubCostCenterCode\": null\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"99999\",\n            \"Description\": \"Producto prueba facturación\",\n            \"GrossValue\": 10000,\n            \"BaseValue\": 10000,\n            \"Quantity\": 10,\n            \"UnitValue\": 1000,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxAddValue\": 0,\n            \"TaxAddPercentage\": 0,\n            \"TaxDiscountName\": \"\",\n            \"TaxDiscountId\": -1,\n            \"TaxDiscountValue\": 0,\n            \"TaxDiscountPercentage\": 0,\n            \"TotalValue\": 10000,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\",\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 4622,\n            \"Value\": 10000,\n            \"DueDate\": \"20190607\",\n            \"DueQuote\": 1\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Product Create (Complete)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Id\": 0,\n    \"Code\": \"PR-1001\",\n    \"Description\": \"Camisa de algodón\",\n    \"ReferenceManufactures\": \"\",\n    \"ProductTypeKey\": \"ProductType_Product\",\n    \"MeasureUnit\": \"\",\n    \"CodeBars\": \"\",\n    \"Comments\": \"\",\n    \"TaxAddID\": -1,\n    \"TaxDiscID\": -1,\n    \"IsIncluded\": false,\n    \"Cost\": 0,\n    \"IsInventoryControl\": false,\n    \"State\": 1,\n    \"PriceList1\": null,\n    \"PriceList2\": null,\n    \"PriceList3\": null,\n    \"PriceList4\": null,\n    \"PriceList5\": null,\n    \"PriceList6\": null,\n    \"PriceList7\": null,\n    \"PriceList8\": null,\n    \"PriceList9\": null,\n    \"PriceList10\": null,\n    \"PriceList11\": null,\n    \"PriceList12\": null,\n    \"Image\": null,\n    \"AccountGroupID\":  455,\n    \"TaxAdd2ID\": -1,\n    \"TaxImpoValue\": 0.0,\n    \"Model\": null,\n    \"Tariff\": null,\n    \"Brand\": null,\n    \"MeasurementUnitCode\": 94\n}"
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Products/Create?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Products",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						},
+						"description": "{\n    \"Id\": 0,\n    \"Code\": \"Item-1\",\n    \"Description\": \"Nombre Producto Prueba API\",\n    \"ReferenceManufactures\": \"Ref_Fabrica\",\n    \"ProductTypeKey\": \"ProductType_Product\",\n    \"MeasureUnit\": \"\",\n    \"CodeBars\": \"\",\n    \"Comments\": \"\",\n    \"TaxAddID\": 10156,\n    \"TaxDiscID\": 10158,\n    \"IsIncluded\": true,\n    \"Cost\": 0,\n    \"IsInventoryControl\": false,\n    \"State\": 1,\n    \"PriceList1\": 19069.77,\n    \"PriceList2\": null,\n    \"PriceList3\": null,\n    \"PriceList4\": null,\n    \"PriceList5\": null,\n    \"PriceList6\": null,\n    \"PriceList7\": null,\n    \"PriceList8\": null,\n    \"PriceList9\": null,\n    \"PriceList10\": null,\n    \"PriceList11\": null,\n    \"PriceList12\": null,\n    \"Image\": null,\n    \"AccountGroupID\":  157,  Get (AccountGroups_GetAll: como resultado  nos genera este codigo   )\n    \"SubType\": 0,\n    \"TaxAdd2ID\": 0,\n    \"TaxImpoValue\": 0\n}"
+					},
+					"response": [
+						{
+							"name": "Invoice Save",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "a752cf215ecb4e1cade6489c444de796",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSIsImtpZCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSJ9.eyJpc3MiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAiLCJhdWQiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAvcmVzb3VyY2VzIiwiZXhwIjoxNTU5OTQ4MTEzLCJuYmYiOjE1NTk4NTgxMTMsImNsaWVudF9pZCI6IlNpaWdvV2ViIiwic2NvcGUiOlsib2ZmbGluZV9hY2Nlc3MiLCJXZWJBcGkiXSwic3ViIjoiODA2IiwiYXV0aF90aW1lIjoxNTU5ODU4MTEzLCJpZHAiOiJpZHNydiIsIm1haWxfc2lpZ28iOiJhZG1pbkBsYXN1cy5jb20uY28iLCJjbG91ZF90ZW5hbnRfY29tcGFueV9rZXkiOiJHRVNUSU9OREVDT01QUkFTRU1QUkVTQVJJQUxFU1NBUyIsImFtciI6WyJwYXNzd29yZCJdfQ.C5HES7dg_c_2pfGrk_S2bZhoPQfKrGYszfvAJgbLXwun_VolgR82kh6KFShUsPL4j4XlCgX921z0FRjGrKDHBrjOaWOyLNFj-ka2Cm0JbujWlft5g44e_S4ezCv4nWtqWvRe-Sa2oLUR6sGmS1RLnufGYb8qPbVj9jh0d_jDp7_lrmK687IlwZX2dYC7lBjdrwNaTZlwmgld3T_axPXldiRxzMzsCjeTuB0D05bDABWlsYGmDY3TQ7mwvaHqHNf1AV8sboSjNLUTzEKKrzm1EksMajVoBp9xnsxmi74lWiRBffuzOWiAnkmPsPHyYTTZYicoZ75sOi3Iorwz3vPA-A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"Header\": {\r\n    \"Id\": 0,\r\n    \"DocCode\": 21640,\r\n    \"Number\": 0,\r\n    \"EmailToSend\": null,\r\n    \"DocDate\": \"20190607\",\r\n    \"MoneyCode\": \"\",\r\n    \"ExchangeValue\": null,\r\n    \"DiscountValue\": 0,\r\n    \"VATTotalValue\": 0,\r\n    \"ConsumptionTaxTotalValue\": 0,\r\n    \"TaxDiscTotalValue\": 0,\r\n    \"RetVATTotalID\": -1,\r\n    \"RetVATTotalPercentage\": 0,\r\n    \"RetVATTotalValue\": 0,\r\n    \"RetICATotalID\": -1,\r\n    \"RetICATotalValue\": 0,\r\n    \"RetICATotaPercentage\": 0,\r\n    \"TotalValue\": 10000,\r\n    \"TotalBase\": 10000,\r\n    \"SalesmanIdentification\": \"9999999\",\r\n    \"Observations\": \"\",\r\n    \"Account\": {\r\n      \"IsSocialReason\": true,\r\n      \"FullName\": \"Empresa Prueba Facturación\",\r\n      \"FirstName\": null,\r\n      \"LastName\": null,\r\n      \"IdTypeCode\": 12,\r\n      \"Identification\": \"99999999\",\r\n      \"CheckDigit\": 0,\r\n      \"BranchOffice\": 111,\r\n      \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\r\n    },\r\n    \"Contact\": {\r\n      \"Code\": null,\r\n      \"Phone1\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"Mobile\": {\r\n        \"Indicative\": 0,\r\n        \"Number\": 999999999,\r\n        \"Extention\": 0\r\n      },\r\n      \"EMail\": \"prueba@lasus.com.co\",\r\n      \"FirstName\": \"Prueba\",\r\n      \"LastName\": \"Contacto\",\r\n      \"IsPrincipal\": true,\r\n      \"Gender\": 1,\r\n      \"BirthDate\": \"19811231\"\r\n    }\r\n  },\r\n  \"Items\": [\r\n    {\r\n      \"ProductCode\": \"99999\",\r\n      \"Description\": \"Producto prueba facturación\",\r\n      \"GrossValue\": 10000,\r\n      \"BaseValue\": 10000,\r\n      \"Quantity\": 10,\r\n      \"UnitValue\": 1000,\r\n      \"DiscountValue\": 0,\r\n      \"DiscountPercentage\": 0,\r\n      \"TaxAddName\": \"\",\r\n      \"TaxAddId\": -1,\r\n      \"TaxAddValue\": 0,\r\n      \"TaxAddPercentage\": 0,\r\n      \"TaxDiscountName\": \"\",\r\n      \"TaxDiscountId\": -1,\r\n      \"TaxDiscountValue\": 0,\r\n      \"TaxDiscountPercentage\": 0,\r\n      \"TotalValue\": 10000,\r\n      \"ProductSubType\": 0,\r\n      \"TaxAdd2Name\": \"\",\r\n      \"TaxAdd2Id\": -1,\r\n      \"TaxAdd2Value\": 0,\r\n      \"TaxAdd2Percentage\": 0,\r\n      \"WareHouseCode\": \"\"\r\n    }\r\n  ],\r\n  \"Payments\": [\r\n    {\r\n      \"PaymentMeansCode\": 4622,\r\n      \"Value\": 10000,\r\n      \"DueDate\": \"20190607\",\r\n      \"DueQuote\": 1\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Invoice/Save?namespace=1",
+									"protocol": "http",
+									"host": [
+										"siigoapi",
+										"azure-api",
+										"net"
+									],
+									"path": [
+										"siigo",
+										"api",
+										"v1",
+										"Invoice",
+										"Save"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "845"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "ARRAffinity=4a10b31a5e04132d6316219d62c57f010f20c138a61fdf60c59002cbf8ac3306;Path=/;HttpOnly;Domain=isiigo3acsiigoapi.azurewebsites.net"
+								},
+								{
+									"key": "X-AspNet-Version",
+									"value": "4.0.30319"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Jun 2019 16:46:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Header\": {\n        \"Id\": 110075,\n        \"DocCode\": 21640,\n        \"Number\": 836,\n        \"EmailToSend\": null,\n        \"DocDate\": \"20190607\",\n        \"MoneyCode\": \"\",\n        \"ExchangeValue\": 0,\n        \"DiscountValue\": 0,\n        \"VATTotalValue\": 0,\n        \"ConsumptionTaxTotalValue\": 0,\n        \"TaxDiscTotalValue\": 0,\n        \"RetVATTotalID\": -1,\n        \"RetVATTotalPercentage\": 0,\n        \"RetVATTotalValue\": 0,\n        \"RetICATotalID\": -1,\n        \"RetICATotalValue\": 0,\n        \"RetICATotaPercentage\": 0,\n        \"TotalValue\": 10000,\n        \"TotalBase\": 10000,\n        \"SalesmanIdentification\": \"9999999\",\n        \"Observations\": \"\",\n        \"Account\": {\n            \"IsSocialReason\": true,\n            \"FullName\": \"Empresa Prueba Facturación\",\n            \"FirstName\": null,\n            \"LastName\": null,\n            \"IdTypeCode\": 12,\n            \"Identification\": \"99999999\",\n            \"CheckDigit\": 0,\n            \"BranchOffice\": 111,\n            \"Address\": \"ACL85 CR48-1BL28 LC3 Centro Mayorista\"\n        },\n        \"Contact\": {\n            \"Code\": 0,\n            \"Phone1\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"Mobile\": {\n                \"Indicative\": 0,\n                \"Number\": 999999999,\n                \"Extention\": 0\n            },\n            \"EMail\": \"prueba@lasus.com.co\",\n            \"FirstName\": \"Prueba\",\n            \"LastName\": \"Contacto\",\n            \"IsPrincipal\": true,\n            \"Gender\": 1,\n            \"BirthDate\": \"19811231\"\n        },\n        \"CostCenterCode\": null,\n        \"SubCostCenterCode\": null\n    },\n    \"Items\": [\n        {\n            \"ProductCode\": \"99999\",\n            \"Description\": \"Producto prueba facturación\",\n            \"GrossValue\": 10000,\n            \"BaseValue\": 10000,\n            \"Quantity\": 10,\n            \"UnitValue\": 1000,\n            \"DiscountValue\": 0,\n            \"DiscountPercentage\": 0,\n            \"TaxAddName\": \"\",\n            \"TaxAddId\": -1,\n            \"TaxAddValue\": 0,\n            \"TaxAddPercentage\": 0,\n            \"TaxDiscountName\": \"\",\n            \"TaxDiscountId\": -1,\n            \"TaxDiscountValue\": 0,\n            \"TaxDiscountPercentage\": 0,\n            \"TotalValue\": 10000,\n            \"ProductSubType\": 0,\n            \"TaxAdd2Name\": \"\",\n            \"TaxAdd2Id\": -1,\n            \"TaxAdd2Value\": 0,\n            \"TaxAdd2Percentage\": 0,\n            \"WareHouseCode\": \"\",\n            \"SalesmanIdentification\": null\n        }\n    ],\n    \"Payments\": [\n        {\n            \"PaymentMeansCode\": 4622,\n            \"Value\": 10000,\n            \"DueDate\": \"20190607\",\n            \"DueQuote\": 1\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bf1e80fa-875d-493a-81af-19c716744793",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f788b519-1d3f-4ee8-abac-2bcb55562ef6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Productos",
+			"item": [
+				{
+					"name": "Product GetProductBalanceByCode - Cantidad",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Products/GetProductBalanceByCode?code=Item-1&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Products",
+								"GetProductBalanceByCode"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "Item-1"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetWarehousesByProductId - Cantidad por bodega",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Products/GetWarehousesByProductId/557112?namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Products",
+								"GetWarehousesByProductId",
+								"557112"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f5fac08c-eacb-454d-8121-d5048a408e1e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "03116be6-d676-4fbd-a2e5-497ae63a054b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Tipos de Comprobante",
+			"item": [
+				{
+					"name": "ERPDocumentType GetByCode (DocCode)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/ERPDocumentTypes/GetByCode?docClass=FV&docCode=2&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"ERPDocumentTypes",
+								"GetByCode"
+							],
+							"query": [
+								{
+									"key": "docClass",
+									"value": "FV"
+								},
+								{
+									"key": "docCode",
+									"value": "2"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b441709d-e6fe-4dd9-b0af-99d733f463e7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "683771e8-661a-4ec3-bae7-96fa6a1afae5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Centros de Costo",
+			"item": [
+				{
+					"name": "CostCenter GetAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/CostCenter/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"CostCenter",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8489488a-d731-4cc3-b709-9903c1bf19f3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "84a6e3b1-1f1f-45e2-8e17-81064029bc0e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Impuestos",
+			"item": [
+				{
+					"name": "Tax GetAll - Impuestos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Taxes/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Taxes",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "19f9b4e7-8596-425d-a36d-2748ec683657",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "88c4ecae-11dc-4a79-82f2-fc2d290c0edb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Usuarios Siigo",
+			"item": [
+				{
+					"name": "User GetAll - Usuarios (SalemanIdentification)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Users/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Users",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3fdf5697-e167-49b8-b131-d1f5841f3c5a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "31eff585-def8-4c91-be14-d23c500cf93b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Bodegas",
+			"item": [
+				{
+					"name": "Warehouses GetAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/Warehouses/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"Warehouses",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f72573e3-712c-4429-b39d-b36c7e94cb4c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "517224b6-d67d-4d25-9052-189225efdd80",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultar Formas de Pago",
+			"item": [
+				{
+					"name": "PaymentMeans GetAll - Formas de pago",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"type": "text",
+								"value": "184165d1878e45f2910bc99e870ac781"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://siigoapi.azure-api.net/siigo/api/v1/PaymentMeans/GetAll?numberPage=0&namespace=v1",
+							"protocol": "http",
+							"host": [
+								"siigoapi",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"siigo",
+								"api",
+								"v1",
+								"PaymentMeans",
+								"GetAll"
+							],
+							"query": [
+								{
+									"key": "numberPage",
+									"value": "0"
+								},
+								{
+									"key": "namespace",
+									"value": "v1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d98fda3-180f-4e43-b9b0-0f595eea2b58",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f1eb24e-25be-440f-b24b-e696b71c1d19",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authorization - Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9ac9f7be-62e4-45d4-8fe2-8a58612ebddb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "29a915a0-69ef-43d6-828e-3c6667738052",
+						"exec": [
+							"const token = pm.response.json();\r",
+							"pm.collectionVariables.set(\"Token\", token.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic U2lpZ29XZWI6QUJBMDhCNkEtQjU2Qy00MEE1LTkwQ0YtN0MxRTU0ODkxQjYx"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "EMPRESA2CAPACITACION\\empresa2@apionmicrosoft.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "s112pempresa2#",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "WebApi offline_access",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://siigonube.siigo.com:50050/connect/token",
+					"protocol": "https",
+					"host": [
+						"siigonube",
+						"siigo",
+						"com"
+					],
+					"port": "50050",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "07ef4b6b-9743-42cf-b377-98ec5a0968ae",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d0b68d3d-a0e8-4f94-bbba-6fdd189eb2a9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "368d0f2c-9866-40b3-b777-87af5998c2d3",
+			"key": "Token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImhtMnFEV284cmlHQ0ZiZlJFSnFxdTlxZUoyOCIsImtpZCI6ImhtMnFEV284cmlHQ0ZiZlJFSnFxdTlxZUoyOCJ9.eyJpc3MiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAiLCJhdWQiOiJodHRwczovL3NpaWdvbnViZS5zaWlnby5jb206NTAwNTAvcmVzb3VyY2VzIiwiZXhwIjoxNjA2MzI1MTQ4LCJuYmYiOjE2MDYyMzUxNDgsImNsaWVudF9pZCI6IlNpaWdvV2ViIiwic2NvcGUiOlsib2ZmbGluZV9hY2Nlc3MiLCJXZWJBcGkiXSwic3ViIjoiNDg5NDQyIiwiYXV0aF90aW1lIjoxNjA2MjM1MTQ4LCJpZHAiOiJpZHNydiIsIm5hbWUiOiJlbXByZXNhMkBhcGlvbm1pY3Jvc29mdC5jb20iLCJtYWlsX3NpaWdvIjoiZW1wcmVzYTJAYXBpb25taWNyb3NvZnQuY29tIiwiY2xvdWRfdGVuYW50X2NvbXBhbnlfa2V5IjoiRU1QUkVTQTJDQVBBQ0lUQUNJT04iLCJ1c2Vyc19pZCI6IjQxNTIiLCJ0ZW5hbnRfaWQiOiIweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMTE2Mzk0IiwidXNlcl9saWNlbnNlX3R5cGUiOiI1IiwicGxhbl90eXBlIjoiNSIsInRlbmFudF9zdGF0ZSI6IjEiLCJtdWx0aXRlbmFudF9pZCI6IjM0IiwiYW1yIjpbInBhc3N3b3JkIl19.sNMFX9Zb2gyu94o3o5uXY6_fsAlMpYK8fEZsqa0ThZo-WmEKNgsJd4kvA3nC_YEeKJTJYQac0T6zyBtdep0SjKXC14kGnDuh_NO7Y-VoCGwoD0-Uf8WDmVfVunOnY3mESw6PHyDj0I7GE8POz0CshcLnKKGgHRxrjK3y7u7FCOP-vpZWG0vKvr7iCB0nEJHPKZTnhauPOzLMNFS8o4Rqyknctnnra5wqOs1xocntqgf0Ja8TY46jcow33scMxCyKXvIRwb4jhtPyFW3SI5aW9HRoadktmlOBkYxmey2u_AM_MNScBRebc3s6Ag0YThmFUSA0cfm1pab3IBbStLTQvg"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

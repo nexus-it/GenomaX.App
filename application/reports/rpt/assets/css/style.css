@@ -1,0 +1,124 @@
+ body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: #729d3b;
+  background-color: #eff7ec;
+  }
+  .tblDetalle tr th{
+  text-align: center;
+  background-color: #668e33;
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  }
+  .tblDetalle tr {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  }
+  .dt-button{
+    color: #fff;
+    background-color: #398439;
+    border-color: #255625;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+  }
+  section .container {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  #render-data_filter, #render-data_length, #render-data_info, #render-data_paginate {
+    color: #668e33;
+  }
+  input {
+    color: #668e33;
+    border-radius: 3px;
+    border-color: #668e33;
+    background-color: #f9f9f9;
+    border-style: solid;
+    border-width: 1px;
+    outline-offset: 0px;
+  }
+  select {
+    color: #668e33;
+    border-radius: 3px;
+    border-color: #668e33;
+    background-color: #f9f9f9;
+    border-style: solid;
+    border-width: 1px;
+    outline-offset: 0px;
+  }
+  .table {
+    color: #455f25;
+  }
+  h5 {
+    font-size: 1.00rem;
+  }
+  h4 {
+    font-size: 1.30rem;
+  }
+header.masthead {
+  position: relative;
+  background-color: #343a40;
+  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+header.masthead .overlay {
+  position: absolute;
+  background-color: #212529;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+.showcase .container {
+  min-height: 350px;
+  background-color: #F9F9F9;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.call-to-action {
+  position: relative;
+  background-color: #343a40;
+  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.call-to-action .overlay {
+  position: absolute;
+  background-color: #212529;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+.padall {
+  padding: 3px;
+}
+footer.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+footer.footer a {
+  color: #9F9F9F;
+}
