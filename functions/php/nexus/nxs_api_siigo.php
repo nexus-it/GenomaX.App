@@ -52,7 +52,7 @@
         try
         {
             $response = curl_exec($ch);
-            // error_log($response);
+             error_log($response);
             $response = json_decode($response, true);
             return ($response);
         }
@@ -111,6 +111,22 @@
     "ReferenceManufactures": "'.$nRef.'",
     "State": 1
 }';
+        $body= '{
+            "code": "'.$nCode.'",
+            "name": "'.$nDesc.'",
+            "account_group": '.$nGroup.',
+            "type": "Product",
+            "stock_control": false,
+            "active": true,
+            "tax_classification": "Exempt",
+            "tax_included": false,
+            "tax_consumption_value": 0,
+            "unit": "94",
+            "unit_label": "unidad",
+            "reference": "'.$nRef.'",
+            "description": "'.$nDesc.'"
+            
+          }';
     	$url = $_SESSION["Siigourl"]."Products/Create?namespace=v1";
 		$ch = curl_init();
 		$header = array(
@@ -130,6 +146,7 @@
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		
+        error_log($body);
 		  $data = curl_exec($ch);
 		  curl_close($ch);
 		  return $data;

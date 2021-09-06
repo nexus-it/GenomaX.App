@@ -209,8 +209,8 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 		mysqli_free_result($result);
 	$strServices=$strServices.'
 ],';	
-	
 	$BodyInvoice=$strHeaderFac. $strAccount. $strServices. $strPayments;
+	error_log('Empresa: '.$_SESSION["DB_NAME"].' ---'.$BodyInvoice);
 	$resultado=createInvoice($BodyInvoice);
 	error_log('factura: '.$resultado);
 	$ConsecFE=json_decode($resultado, true);

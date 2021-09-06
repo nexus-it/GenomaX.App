@@ -25,18 +25,8 @@ mysqli_query($conexion, $MyZone);
 $SQL="Update gxordenesdet b, gxordenescab a, gxmanualestarifarios c, gxcontratos d, gxadmision e Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where a.Codigo_ORD=b.Codigo_ORD and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER AND a.Fecha_ORD between c.FechaIni_TAR and c.FechaFin_TAR and e.Codigo_ADM=a.Codigo_ADM AND a.Codigo_ADM IN (SELECT codigo_adm FROM gxfacturas WHERE codigo_fac LIKE 'tmp%') ;";
 EjecutarSQL($SQL, $conexion);
 /* init */
-$SQL="SELECT distinct e.CUPS_PRC, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxprocedimientos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1';";
-$resultyy = mysqli_query($conexion, $SQL);
-$contador=0;
-while($rowyy = mysqli_fetch_row($resultyy)) {
-    createProduct($rowyy[4], $rowyy[1], $rowyy[2], $rowyy[3], $rowyy[0]);
-    $SQL="Update gxservicios Set xPortSiigo_SER='1' where codigo_ser='".$rowyy[4]."'";
-    EjecutarSQL($SQL, $conexion);
-    error_log($SQL);
-}
-mysqli_free_result($resultyy);
-// Se crean los productos que no existan en Siigo
-$SQL="SELECT distinct e.CUM_MED, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxmedicamentos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1';";
+// Se crean los productos y servicios que no existan en Siigo
+$SQL="SELECT distinct e.CUM_MED, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxmedicamentos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1' UNION SELECT distinct e.CUPS_PRC, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxprocedimientos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1';";
 error_log($SQL);
 $resultyy = mysqli_query($conexion, $SQL);
 $contador=0;
@@ -104,10 +94,11 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
         }
 		mysqli_free_result($result);
 		// Informacion de la cuenta y el contacto
-		$SQL="SELECT distinct c.Nombre_TER, c.ID_TER, c.Direccion_TER, c.Telefono_TER, PhoneContact_EPS, CellContact_EPS, lower(EmailContact_EPS), NameContact_EPS, LastnameContact_EPS FROM gxeps a, gxfacturas b, czterceros c WHERE a.Codigo_EPS=b.Codigo_EPS AND a.Codigo_TER=c.Codigo_TER AND b.Codigo_FAC='".$rowxxx[0]."' and b.Codigo_ADM='".$rowxxx[3]."';";
+		$SQL="SELECT distinct c.Nombre_TER, c.ID_TER, c.Direccion_TER, c.Telefono_TER, PhoneContact_EPS, CellContact_EPS, lower(EmailContact_EPS), NameContact_EPS, LastnameContact_EPS, b.Codigo_EPS, CodMin_EPS  FROM gxeps a, gxfacturas b, czterceros c WHERE a.Codigo_EPS=b.Codigo_EPS AND a.Codigo_TER=c.Codigo_TER AND b.Codigo_FAC='".$rowxxx[0]."' and b.Codigo_ADM='".$rowxxx[3]."';";
 		// error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
+        $entidad="";
 		if($rowp = mysqli_fetch_row($result)) {
 			$strAccount=$strAccount.'
 		"Account": {
@@ -140,14 +131,15 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
             "IsPrincipal": true
         }
     },';
+        $entidad=$rowp[9].$rowp[10];
         }
 		mysqli_free_result($result);
 		// Verificamos que los productos se encuentren en Siigo
         if ($rowxxx[6]=='E') {
             $SQL="SELECT a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, avg(a.ValorEntidad_ORD), sum(a.Cantidad_ORD) FROM gxordenesdet a, gxservicios b, gxordenescab c WHERE c.Codigo_ORD=a.Codigo_ORD and a.Codigo_SER=b.Codigo_SER and c.codigo_adm='".(int)$rowxxx[3]."' and c.Estado_ORD='1' Group By a.Codigo_SER, b.Nombre_SER, b.Tipo_SER Order By 1;";
         } else {
-            $CodProd=uniqid();
-            $SQL="SELECT '".$CodProd."', concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
+            $CodProd='CPT'.$entidad;
+            $SQL="SELECT concat('".$CodProd."',MONTH(NOW()), DAY(NOW()), year(NOW()),HOUR(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
         }
 		error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
@@ -176,7 +168,8 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
     "TaxAdd2Id": -1
 }';
         if ($rowxxx[6]!='E') {
-    		createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5]);
+            error_log($rowp[0]);
+    		createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5],$rowp[0]);
         }
 		}
 		mysqli_free_result($result);
@@ -184,7 +177,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 ],';	
 	
 	$BodyInvoice=$strHeaderFac. $strAccount. $strServices. $strPayments;
-    error_log($BodyInvoice);
+    error_log('Empresa: '.$_SESSION["DB_NAME"].' ---'.$BodyInvoice);
 	$resultado=createInvoice($BodyInvoice);
 	error_log('factura: '.$resultado);
 	$ConsecFE=json_decode($resultado, true);

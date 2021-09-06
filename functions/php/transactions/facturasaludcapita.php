@@ -82,10 +82,11 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
         }
 		mysqli_free_result($result);
 		// Informacion de la cuenta y el contacto
-		$SQL="SELECT distinct c.Nombre_TER, c.ID_TER, c.Direccion_TER, c.Telefono_TER, PhoneContact_EPS, CellContact_EPS, lower(EmailContact_EPS), NameContact_EPS, LastnameContact_EPS FROM gxeps a, gxfacturas b, czterceros c WHERE a.Codigo_EPS=b.Codigo_EPS AND a.Codigo_TER=c.Codigo_TER AND b.Codigo_FAC='".$rowxxx[0]."' and b.Tipo_FAC='C';";
+		$SQL="SELECT distinct c.Nombre_TER, c.ID_TER, c.Direccion_TER, c.Telefono_TER, PhoneContact_EPS, CellContact_EPS, lower(EmailContact_EPS), NameContact_EPS, LastnameContact_EPS, b.Codigo_EPS, CodMin_EPS  FROM gxeps a, gxfacturas b, czterceros c WHERE a.Codigo_EPS=b.Codigo_EPS AND a.Codigo_TER=c.Codigo_TER AND b.Codigo_FAC='".$rowxxx[0]."' and b.Tipo_FAC='C';";
 		error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
+		$entidad="";
 		if($rowp = mysqli_fetch_row($result)) {
 			$strAccount=$strAccount.'
 		"Account": {
@@ -118,11 +119,12 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
             "IsPrincipal": true
         }
     },';
+		$entidad=$rowp[9].$rowp[10];
         }
 		mysqli_free_result($result);
-		$CodProd=uniqid();
+		$CodProd='CPT'.$entidad;
 		// Verificamos que los productos se encuentren en Siigo
-		$SQL="SELECT '".$CodProd."', concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
+		$SQL="SELECT concat('".$CodProd."',MONTH(NOW()), DAY(NOW()), year(NOW()),HOUR(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
 		error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
@@ -149,6 +151,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
     "TotalValue": '.number_format($rowp[3]*$rowp[4],2,'.','').',
     "TaxAdd2Id": -1
 }';
+			error_log($rowp[0]);
 			createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5], $rowp[0]);
 		}
 		mysqli_free_result($result);
