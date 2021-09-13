@@ -13,7 +13,7 @@
 		$result=findProduct($nCode);
 		if ($result=="NO") {
 			$creaProducto=postProduct($nCode, $nDesc, $nType, $nGroup, $nRef);
-			error_log($creaProducto);
+			//error_log($creaProducto);
 		
 		}
 	}
@@ -52,7 +52,7 @@
         try
         {
             $response = curl_exec($ch);
-             error_log($response);
+             //error_log($response);
             $response = json_decode($response, true);
             return ($response);
         }
@@ -97,11 +97,12 @@
     }
     function postProduct($nCode, $nDesc, $nType, $nGroup, $nRef) {
     	if ($nType=="2") {
-    		$nType="ProductType_Product";
+    		$nType="Product";
     	} else {
-    		$nType="ProductType_Service";
+    		$nType="Service";
     	}
     	$Tkn=AccesToken();
+        error_log($nCode.' - '.$nDesc.' - '.$nType.' - '.$nGroup.' - '.$nRef);
     	$body= '{
     "Code": "'.$nCode.'",
     "Description": "'.$nDesc.'",
@@ -115,7 +116,7 @@
             "code": "'.$nCode.'",
             "name": "'.$nDesc.'",
             "account_group": '.$nGroup.',
-            "type": "Product",
+            "type": "'.$nType.'",
             "stock_control": false,
             "active": true,
             "tax_classification": "Exempt",
@@ -146,14 +147,14 @@
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		
-        error_log($body);
+        //error_log($body);
 		  $data = curl_exec($ch);
 		  curl_close($ch);
 		  return $data;
     }
     function postInvoice($Cadena) {
     	$Tkn=AccesToken();
-    	error_log($Tkn);
+    	//error_log($Tkn);
     	$body= $Cadena;
     	$url = $_SESSION["Siigourl"]."Invoice/Save?namespace=v1";
 		$ch = curl_init();

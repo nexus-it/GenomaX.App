@@ -124,7 +124,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 		mysqli_free_result($result);
 		$CodProd='CPT'.$entidad;
 		// Verificamos que los productos se encuentren en Siigo
-		$SQL="SELECT concat('".$CodProd."',MONTH(NOW()), DAY(NOW()), year(NOW()),HOUR(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
+		$SQL="SELECT concat('".$CodProd."', year(NOW()),MONTH(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
 		error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
