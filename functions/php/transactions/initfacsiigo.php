@@ -145,6 +145,10 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 		$contador=0;
 		while($rowp = mysqli_fetch_row($result)) {
 			$contador++;
+            $sufix="";
+            if ($rowxxx[6]=='E') {
+                $sufix=$contador;
+            }
 			// Crear extracto de la cadena creacion de factura (productos)
 			if ($contador>1) {
 				$strServices=$strServices.',';	
@@ -154,7 +158,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 			}
 			$strServices=$strServices.'
 {
-    "ProductCode": "'.$rowp[0].'",
+    "ProductCode": "'.$rowp[0].$sufix.'",
     "Description": "'.$rowp[1].'",
     "GrossValue": '.number_format($rowp[3]*$rowp[4],2,'.','').',
     "BaseValue": '.number_format($rowp[3]*$rowp[4],2,'.','').',
