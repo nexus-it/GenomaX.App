@@ -131,23 +131,23 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
             "IsPrincipal": true
         }
     },';
-        $entidad=$rowp[9].$rowp[10];
+        $entidad=$rowp[10];
         }
 		mysqli_free_result($result);
 		// Verificamos que los productos se encuentren en Siigo
         if ($rowxxx[6]=='E') {
             $SQL="SELECT a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, avg(a.ValorEntidad_ORD), sum(a.Cantidad_ORD) FROM gxordenesdet a, gxservicios b, gxordenescab c WHERE c.Codigo_ORD=a.Codigo_ORD and a.Codigo_SER=b.Codigo_SER and c.codigo_adm='".(int)$rowxxx[3]."' and c.Estado_ORD='1' Group By a.Codigo_SER, b.Nombre_SER, b.Tipo_SER Order By 1;";
         } else {
-            $CodProd='CPT'.$entidad;
-            $SQL="SELECT concat('".$CodProd."', year(NOW()),MONTH(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
+            $CodProd='C'.$entidad;
+            $SQL="SELECT concat('".$CodProd."', MONTH(NOW())), concat(Servicio_FAC, ' PERIODO: Del ', FechaIni_FAC, ' Al ',FechaFin_FAC), '1', ValTotal_FAC/Cantidad_FAC, Cantidad_FAC, GrupoFE_SER FROM gxfacturascapita, gxserviciostipos  WHERE Codigo_FAC='".$rowxxx[0]."' and Tipo_SER ='1'";
         }
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
 		while($rowp = mysqli_fetch_row($result)) {
 			$contador++;
             $sufix="";
-            if ($rowxxx[6]=='E') {
-                $sufix=$contador;
+            if ($rowxxx[6]!='E') {
+                $sufix=number_format($rowp[3]*$rowp[4],0,'.','');
             }
 			// Crear extracto de la cadena creacion de factura (productos)
 			if ($contador>1) {
