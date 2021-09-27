@@ -32,6 +32,7 @@
 	$AntecedentesHCT="0";
 	$DxHCT="0";
 	$OdontogramaHCT="0";
+	$ValHeridasHCT="0";
 	$IncapacidadHCT="0";
 	$FormatHCYes="0";
 	$RiesgoEspecifHCT="0";
@@ -301,6 +302,9 @@ if ($FormatHCX=="1") {
 			  <?php if ($row["Odontograma_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_odontograma<?php echo $NumWindow; ?>" data-toggle="pill">Odontograma</a></li>
 			  <?php } ?>
+			  <?php if ($row["ValHeridas_HCT"]=="1") { ?>
+			  <li role="presentation"><a href="#hc_valheridas<?php echo $NumWindow; ?>" data-toggle="pill">Ubicación Anatómica</a></li>
+			  <?php } ?>
 			  <?php if ($row["RiesgoEspecif_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_riesgoespecif<?php echo $NumWindow; ?>" data-toggle="pill">Ident. Riesgos Especif.</a></li>
 			  <?php } ?>
@@ -369,6 +373,7 @@ if ($FormatHCX=="1") {
 	  				$AntecedentesHCT=$row["Antecedentes_HCT"];
 	  				$DxHCT=$row["Dx_HCT"];
 	  				$OdontogramaHCT=$row["Odontograma_HCT"];
+					$ValHeridasHCT=$row["ValHeridas_HCT"];
 	  				$IncapacidadHCT=$row["Incapacidad_HCT"];
 	  				$RiesgoEspecifHCT=$row["RiesgoEspecif_HCT"];
 	  				$AntGineObsHCT=$row["AntGineObs_HCT"];
@@ -899,6 +904,10 @@ if ($FormatHCX=="1") {
 	  			// Odontograma
 	  			if ($OdontogramaHCT=="1") {
 	  			  require 'hc.odontograma.php';
+	  			}
+		  		// Valoracion Heridas
+	  			if ($ValHeridasHCT=="1") {
+	  			  require 'hc.valheridas.php';
 	  			}
 		  		// Identificación de Riesgos especificos
 		  		if ($RiesgoEspecifHCT=="1") {
