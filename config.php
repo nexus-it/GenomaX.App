@@ -5,7 +5,7 @@ include_once  'settings/connections/nxs_gnx.php';
  
 $conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NXS);
 if (!$conexion) {
-    echo "Conexion fallida (settings).".$_SESSION["DB_SUFFIX"].' '.DB_HOST.' '.DB_USER.' '.DB_NXS;
+    header('Location: 404.html');
     exit;
 }
 $SQL="Select concat(DB_PREFIX,DB_NAME) from gnxconect where CODE_NAME='".DB_SUFFIX."' and STATE_CONN='1';";
