@@ -76,14 +76,14 @@ session_start();
  <?php  ?>
 <?php 
 	//Aplicaciones
-	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From itaplicaciones Where Activo_APP='1' Order By Codigo_APP";
+	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From nxs_gnx.itaplicaciones Where Activo_APP='1' Order By Codigo_APP";
 	$resultX = mysqli_query($conexion, $SQL);
 	//echo $SQL;
 	while($rowX = mysqli_fetch_array($resultX)) {
 		echo '<div class="panel-group" id="div_'.str_replace(" ","_",$rowX[1])."_".$rowX[0].'xAPP" role="tablist">
     	<h3><span class="label label-success">'.($rowX[1]).'</span></h3>';
 		//Modulos
-		$SQL="Select Codigo_MOD, Nombre_MOD from itmodulos where Activo_MOD='1' and Codigo_APP='".$rowX[0]."' order by Codigo_MOD";
+		$SQL="Select Codigo_MOD, Nombre_MOD from nxs_gnx.itmodulos where Activo_MOD='1' and Codigo_APP='".$rowX[0]."' order by Codigo_MOD";
 		$resultXX = mysqli_query($conexion, $SQL);
 		while($rowXX = mysqli_fetch_array($resultXX)) {
 				echo '
@@ -98,7 +98,7 @@ session_start();
 				echo '
 			<div id="div_'.str_replace(" ","_",$rowXX[1])."_".$rowXX[0].'" >';
 			
-			$SQL="Select Codigo_MNU, Nombre_MNU from itmenu where Activo_MNU='1' and Codigo_APP='".$rowX[0]."' and Codigo_MOD='".$rowXX[0]."' order by Codigo_MNU;";
+			$SQL="Select Codigo_MNU, Nombre_MNU from nxs_gnx.itmenu where Activo_MNU='1' and Codigo_APP='".$rowX[0]."' and Codigo_MOD='".$rowXX[0]."' order by Codigo_MNU;";
 			$resultXXX = mysqli_query($conexion, $SQL);
 			while($rowXXX = mysqli_fetch_array($resultXXX)) {
 			

@@ -5,7 +5,7 @@ function nxsLoadModules($Aplicacion, $Perfil)
 	$html="";
 	$conexion=Conexion();
 	if ($Perfil=='0') {
-		$SQL="Select a.Codigo_MOD, 'SISTEMA', Icono_MOD from nxs_gnx.itmodulos a, nxs_gnx.itmenu as b where Activo_MOD='1' and a.Codigo_APP='0' and b.Codigo_MOD=a.Codigo_MOD Union Select a.Codigo_MOD, Nombre_MOD, Icono_MOD from itmodulos a, itmenu as b where Activo_MOD='1' and a.Codigo_APP='".$Aplicacion."' and b.Codigo_MOD=a.Codigo_MOD Order by 1;";	
+		$SQL="Select a.Codigo_MOD, 'SISTEMA', Icono_MOD from nxs_gnx.itmodulos a, nxs_gnx.itmenu as b where Activo_MOD='1' and a.Codigo_APP='0' and b.Codigo_MOD=a.Codigo_MOD Union Select a.Codigo_MOD, Nombre_MOD, Icono_MOD from nxs_gnx.itmodulos a, nxs_gnx.itmenu as b where Activo_MOD='1' and a.Codigo_APP='".$Aplicacion."' and b.Codigo_MOD=a.Codigo_MOD Order by 1;";	
 	} else {
 		$SQL="Select distinct a.Codigo_MOD, Nombre_MOD, Icono_MOD from nxs_gnx.itmodulos a, nxs_gnx.itmenu as b, nxs_gnx.ititems as c, itpermisos as d where Activo_MOD='1' and a.Codigo_APP='".$Aplicacion."' and b.Codigo_MOD=a.Codigo_MOD and c.Codigo_MNU=b.Codigo_MNU and d.Codigo_ITM=c.Codigo_ITM and d.Codigo_PRF='".$Perfil."' Order by a.Codigo_MOD;";
 	}
@@ -125,7 +125,7 @@ function gxCargarItemsAdmin($Aplicacion, $Modulo, $Menu, $Item)
 function gxCargarItems($Aplicacion, $Modulo, $Menu, $Item, $Perfil)
 {
 	$conexion=Conexion();
-	$SQL="Select distinct a.Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ititems as a, itpermisos as b, itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='".$Aplicacion."' and a.Codigo_MOD='".$Modulo."' and c.Nombre_MNU='".$Menu."' and Padre_ITM='".$Item."' and b.Codigo_ITM=a.Codigo_ITM and b.Codigo_PRF='".$Perfil."' Order by a.Codigo_ITM;";	
+	$SQL="Select distinct a.Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, itpermisos as b, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='".$Aplicacion."' and a.Codigo_MOD='".$Modulo."' and c.Nombre_MNU='".$Menu."' and Padre_ITM='".$Item."' and b.Codigo_ITM=a.Codigo_ITM and b.Codigo_PRF='".$Perfil."' Order by a.Codigo_ITM;";	
 	//echo $SQL;
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_row($result)) 
