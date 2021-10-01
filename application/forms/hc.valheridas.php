@@ -22,7 +22,7 @@
 			  </ul>
 			</div>
 			<div class="row well well-sm">
-				<div id="seccionDientes" class="displayInlineBlockTop col-md-12" style="padding: 10px; height: 500px; border-style: double; text-align: center;">
+				<div id="seccionImg" class="displayInlineBlockTop col-md-12" style="padding: 10px; height: 500px; border-style: double; text-align: center; background-image: url(http://cdn.genomax.co/media/image/valher/posanatombas<?php echo $_GET["sexo"]; ?>.jpg); background-repeat: no-repeat; background-position: right;background-color: white;">
 				<!-- onmouseout="symbolsOut('<?php echo $NumWindow; ?>');" --> 
 					<div class="nxsanimation"  style="height: 460px;text-align: left;background-color: #EFEFEF; width: 120px; border-color: #004040; position: absolute; border-width: thin;border-style: dotted;z-index:99; overflow: auto;" onmouseover="symbolsHover('<?php echo $NumWindow; ?>');" id="div_symbols<?php echo $NumWindow; ?>" >
 						<?php 
@@ -39,9 +39,11 @@
 						mysqli_free_result($result);
 						?>
 					</div>
-				<?php
-				include "hc.odontograma.dientes.php";
-				?>
+
+                    <div style="padding-left: 120px;" >
+	                    <input type="hidden" id="hiddenEstados" value="<? /* =$_POST['estados']==''?count($arrayTOdontograma)>0?$arrayTOdontograma[0]->getEstados():'':$_POST['estados'] */?>">
+
+                    </div>
 				</div>
 				<div id="seccionRegistrarTratamiento" class="textAlignLeft sombraFormulario col-md-12" style="background-color: white;">
 					<div class="displayInlineBlockMiddle col-md-3" style="display: none;">

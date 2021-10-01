@@ -907,7 +907,7 @@ if ($FormatHCX=="1") {
 	  			}
 		  		// Valoracion Heridas
 	  			if ($ValHeridasHCT=="1") {
-	  			  require 'hc.valheridas.php';
+	  			  require 'hc.valheridas.php?sexo='.$SexoPcte;
 	  			}
 		  		// Identificación de Riesgos especificos
 		  		if ($RiesgoEspecifHCT=="1") {
