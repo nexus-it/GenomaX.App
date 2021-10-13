@@ -158,7 +158,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 			}
 			$strServices=$strServices.'
 {
-    "ProductCode": "'.$rowp[0].$sufix.'",
+    "ProductCode": "'.$rowp[0].'",
     "Description": "'.$rowp[1].'",
     "GrossValue": '.number_format($rowp[3]*$rowp[4],2,'.','').',
     "BaseValue": '.number_format($rowp[3]*$rowp[4],2,'.','').',

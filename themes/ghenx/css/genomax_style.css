@@ -188,7 +188,35 @@
 	.user-header {
 		height: auto;
 	}
-
+	.vlgrid {
+		height: 470px; 
+		width: 660px; 
+		text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+  		align-content: space-around;
+		margin: 0 auto;
+	}
+	.vhcell0 {
+		height: 10px;
+		width: 10px;
+		display: grid;
+		background-color: rgba(0, 0, 0, 0);
+		border-radius: 50%;
+	}
+	.vhcell1 {
+		height: 10px;
+		width: 10px;
+		display: grid;
+		background-color: rgba(221, 26, 26, 0.836);
+		border-radius: 50%;
+	}
+	.vhcell0:hover {
+		background-color: rgba(117, 231, 117, 0.6);
+	}
+	.vhcell1:hover {
+		background-color: rgba(25, 231, 25, 0.753);
+	}
 	.textDiente
 {
 	border: none;
