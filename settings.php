@@ -21,6 +21,7 @@
 
 	$conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if (!$conexion) {
+		error_log('Fail Conection: '.DB_HOST.'-'.DB_USER.'-'.DB_PASSWORD.'-'.DB_NAME);
 		header('Location: 404.shtml');
 	    /* echo "Conexion fallida (settings).".$_SESSION["DB_SUFFIX"].' '.DB_HOST.' '.DB_USER.' '.DB_NAME; */
 	    exit;

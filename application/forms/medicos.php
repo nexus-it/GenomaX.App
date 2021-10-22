@@ -7,6 +7,7 @@ session_start();
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
+	$rndm=uniqid();
 ?>
 <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" class="form-horizontal" id="frm_form<?php echo $NumWindow; ?>"  enctype="multipart/form-data" target="upload_target<?php echo $NumWindow; ?>" onreset="document.frm_form<?php echo $NumWindow; ?>.hdn_terceros<?php echo $NumWindow; ?>.value='<?php echo session_id(); ?>';FirmaMed<?php echo $NumWindow; ?>('white.png');">
 	<div class="row">
@@ -323,7 +324,7 @@ session_start();
 
 			<div class="form-group">
 	  			<label >Firma / Sello</label>
-<input name="hdn_firmas<?php echo $NumWindow; ?>" type="hidden" id="hdn_firmas<?php echo $NumWindow; ?>" value="<?php echo session_id(); ?>" />
+<input name="hdn_firmas<?php echo $NumWindow; ?>" type="hidden" id="hdn_firmas<?php echo $NumWindow; ?>" value="<?php echo session_id().$rndm; ?>" />
 <input name="hdn_jpg<?php echo $NumWindow; ?>" type="hidden" id="hdn_jpg<?php echo $NumWindow; ?>" value="" />
 
 <div id="div_firmas<?php echo $NumWindow; ?>" class="img-thumbnail img-responsive center-block" style="background-repeat: no-repeat;background-position: center; background-size: contain; height: 136px;" onclick="LoadImage<?php echo $NumWindow; ?>();" >
@@ -384,11 +385,11 @@ document.frm_form".$NumWindow.".txt_idempleado".$NumWindow.".value='".$_GET["IdE
 		if($row = mysqli_fetch_array($result)) {
 			//Extraigo la firma de la bd
 			$urly= explode('application/forms/medicos.php', $_SERVER['REQUEST_URI'], 2);
-			$urljpg='http://'.$_SERVER["SERVER_NAME"] .$urly[0].'files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/hc/'.$row["Codigo_TER"].'.jpg';
-			$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/hc/'.$row["Codigo_TER"].'.jpg';
-			$LeFirma2='files/'.$_SESSION["DB_SUFFIX"].'/upload/images/firmas/hc/'.$row["Codigo_TER"].'.jpg';
+			$urljpg='http://'.$_SERVER["SERVER_NAME"] .$urly[0].'files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/hc/'.$row["Codigo_TER"].$rndm.'.jpg';
+			$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/hc/'.$row["Codigo_TER"].$rndm.'.jpg';
+			$LeFirma2='files/'.$_SESSION["DB_SUFFIX"].'/upload/images/firmas/hc/'.$row["Codigo_TER"].$rndm.'.jpg';
 			// Imagen en directorio temporal
-			$imgtemp='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/session/'.session_id().'.jpg';
+			$imgtemp='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/session/'.session_id().$rndm.'.jpg';
 			//Se crea la carpeta si no existe...
 			$RutaSESSION='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/session';
 			if (!(is_dir($RutaSESSION))) {
@@ -535,7 +536,7 @@ function archivo<?php echo $NumWindow; ?>(input) {
       	cont=e.target.result;
         $("#div_firmas<?php echo $NumWindow; ?>").css("background-image", "url('"+cont+"')"); // Renderizamos la imagen
         document.getElementById("hdn_jpg<?php echo $NumWindow; ?>").value="url("+cont+")";
-        document.getElementById('hdn_firmas<?php echo $NumWindow; ?>').value ="<?php echo session_id(); ?>";
+        document.getElementById('hdn_firmas<?php echo $NumWindow; ?>').value ="<?php echo session_id().$rndm; ?>";
       }
       reader.readAsDataURL(input.files[0]);
        

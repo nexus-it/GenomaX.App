@@ -13,8 +13,7 @@
 		$result=findProduct($nCode);
 		if ($result=="NO") {
 			$creaProducto=postProduct($nCode, $nDesc, $nType, $nGroup, $nRef);
-			//error_log($creaProducto);
-		
+			error_log($creaProducto);
 		}
 	}
 	function findProduct($nCode) {
