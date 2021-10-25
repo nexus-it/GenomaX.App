@@ -5,16 +5,12 @@ if(isset($_POST["filtro"])){
 	//echo $filtro;
 }
  
-
-
 	session_start();
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
-
-	
 
 ?>
 
@@ -64,8 +60,6 @@ $(document).ready(function() {
             $row3 = mysqli_fetch_row($result3);
             $action='onclick="CargarForm(\'application/'.$row3[2].'\', \''.$row3[1].'\', \''.$row3[4].'\'); AddFavsForm(\''.$row3[0].'\');"'; 
             $action=  '<a title="Crear nueva cuenta evento " class="manito" '.$action.'><i class="fa fa-file"></i></a> ';//.$row3[1];
-
-			
 
             $html .= '<div class="btn btn-success">'.$action.'</div>';
             
@@ -221,8 +215,6 @@ function editarFactura(filtro){
 
    }
 
-
-
 $(document).ready(function() {
            $( "#editar" ).click(function() {
 			  
@@ -231,7 +223,6 @@ $(document).ready(function() {
             });
 			
       });
-
 
 $(document).ready(function() {	
     $( ".enviarfactdian" ).click(function() {
@@ -242,11 +233,10 @@ $(document).ready(function() {
     });
 });
 
-
 function putSendFactura(factura){
     $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main/functions/php/GenomaXBackend/putSendFactura.php',
+            url: '../../functions/php/GenomaXBackend/putSendFactura.php',
             data: {
               factura: factura
 
@@ -277,7 +267,6 @@ function putSendFactura(factura){
                 console.log(data);
               }
             });
-
    }
 
    function estadoFactura(zipkey){
@@ -308,7 +297,6 @@ function putSendFactura(factura){
             });
    }
 
-
    function estadoFacturaDoc(cufe,factura){
       $.ajax({
             type: 'POST',
@@ -337,7 +325,6 @@ function putSendFactura(factura){
                 $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
                 }
 
-
                 //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
 
               },
@@ -346,7 +333,6 @@ function putSendFactura(factura){
               }
             });
    }   
-
 
    $(document).ready(function() {	
     $( ".estadoFacturaDoc" ).click(function() {
