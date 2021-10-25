@@ -11,16 +11,14 @@ function listarFacturas($filtro,$ini,$fin){
    if($ini == ''){
       $ini=0;
    }
-   if($fin <> 10){
+   if($fin <> 20){
       $ini=$fin;
-      $fin=10;
+      $fin=20;
    }
 
    $html="";	
 
-
-
-  $SQL="SELECT * FROM gxfacturas t1 
+  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM  FROM gxfacturas t1 
   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
   INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
@@ -29,23 +27,23 @@ function listarFacturas($filtro,$ini,$fin){
   if($filtro <> ''){
    $SQL .=  " where T1.codigo_fac = '$filtro' "; 
   }
-  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit $ini,$fin  ";
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,1 desc limit $ini,$fin  ";
 
-  
+  error_log($SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
       //echo $SQL;
       if($ini <>''){
-			$html = '<thead>
+			$html = '
 			<tr>
-				<td>Factura</td>
-				<td>Fecha</td>
-				<td>Paciente / Cliente</td>
-				<td>Entidad</td>
-				<td>Estados</td>
+				<th>Factura</th>
+				<th>Fecha</th>
+				<th>Paciente / Cliente</th>
+				<th>Entidad</th>
+				<th colspan="2">Estados</th>
 			</tr>
-			</thead>';
+			';
 		}      
 		$html .= '<tbody class="row items">';
 
@@ -53,31 +51,29 @@ function listarFacturas($filtro,$ini,$fin){
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       
-      
-
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
       while($row = mysqli_fetch_array($result)){
             $html .= '<tr class="item">';
-            $html .= '<td> '.($row[1]).'</td>';
-            $html .= '<td> '.($row['Fecha_FAC']).'</td>'; 
-            $html .= '<td> '.($row['Nombre_TER']).'</td>';
-            $html .= '<td> '.($row['Nombre_EPS']).'</td>';
+            $html .= '<td> '.($row[0]).'</td>';
+            $html .= '<td> '.($row[1]).'</td>'; 
+            $html .= '<td> '.($row[2]).'</td>';
+            $html .= '<td> '.($row[3]).'</td>';
 
-            $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[3].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $action1=  '<a title="Editar Factura" class="manito" '.$action1.'><i class="fa fa-broom"></i></a> ';/*.$row4[1].*/
       
             $html .= '<td>'.$action1.'</td>';
 
             $cadnit = explode("-",verficarEmpresaReg());
-            $cadfac = explode("-",$row[1]);
+            $cadfac = explode("-",$row[0]);
             $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/FES-".$cadfac[0].$cadfac[1].".pdf")? 'existe' : 'no existe';
             $cufe = ValidarCUfe($cadnit[0],$cadfac[0],$cadfac[1]);
 
 
             if($url == 'existe' and $cufe <> ''){
-               $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[1].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
+               $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
             }else{
-               $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[1].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
+               $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[0].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
             }
 
             $html .= '</tr>';
@@ -85,7 +81,7 @@ function listarFacturas($filtro,$ini,$fin){
       $html .= '</tbody>';
 
       echo $html;
-
+/* 
       $SQL1="SELECT count(*) as conteo FROM gxfacturas t1 
       INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
       INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
@@ -97,15 +93,13 @@ function listarFacturas($filtro,$ini,$fin){
       }
       mysqli_free_result($result);
       return $conteo;
-   
+    */
 
 	} else {
-		echo '<span class="error">No se pudo acceder a la versión del sistema.</span>';
+		echo '<span class="error">No se pudo acceder informacion de facturacion.</span>';
 	}
 	mysqli_free_result($result);	
 }
-
-
 
 function listarNotasCredito($filtro,$ini,$fin){
    

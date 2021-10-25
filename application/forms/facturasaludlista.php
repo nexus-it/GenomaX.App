@@ -14,7 +14,6 @@ if(isset($_POST["filtro"])){
 
 ?>
 
-
 <!--
 <script type="text/javascript">
 $(document).ready(function() {	
@@ -53,19 +52,9 @@ $(document).ready(function() {
 	  <div class="row well well-sm">
 
 	        <div class="container">  
-			<?php
-			if(isset($_POST["filtro"])==""){
-	        $SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 588 order by Codigo_ITM;";
-            $result3 = mysqli_query($conexion, $SQL);
-            $row3 = mysqli_fetch_row($result3);
-            $action='onclick="CargarForm(\'application/'.$row3[2].'\', \''.$row3[1].'\', \''.$row3[4].'\'); AddFavsForm(\''.$row3[0].'\');"'; 
-            $action=  '<a title="Crear nueva cuenta evento " class="manito" '.$action.'><i class="fa fa-file"></i></a> ';//.$row3[1];
+<button class="btn btn-success" title="Crear nueva cuenta evento " onclick="CargarForm('application/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>';
 
-            $html .= '<div class="btn btn-success">'.$action.'</div>';
-            
-			echo $html;
-			}
-			?>
+
 			</div>
 			<br>
 	<div class="col-md-12">
@@ -79,7 +68,6 @@ $page = $_GET['page'];
 $rowsPerPage = NUM_ITEMS_BY_PAGE;
 $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
-
 
 if($ini==''){
 //$filtro = '';
@@ -103,20 +91,20 @@ if($filtro == ""){
 <div id="resultadofiltro"></div>
 <?php
 }
-echo '<table class="table table-striped">';
+echo '<table class="table table-striped table-condensed tblDetalle table-bordered">'; 
 		
 			$conteo = listarFacturas($filtro,$ini,$fin);
 		
 echo '</table>';
 
-if($filtro == ""){
+/* if($filtro == ""){
 $num_total_rows = $conteo;
 
 $conteo = $conteo/10;
 for($i=0;$i<=$conteo;$i++){
   // echo "<a href='#'>$i</a>"." - ";
    
-}
+} */
 
 /*
 //echo "<br>".$num_total_rows;
@@ -141,9 +129,9 @@ if ($num_pages > 1 and $page == "") {
 	echo '</div>';
 	echo '</div>';
 }
-*/
-}
 
+}
+*/
 ?>
 
 <script>
@@ -173,8 +161,6 @@ function filtrarFactura(filtro){
 
    }
 
-
-
 $(document).ready(function() {
            $( "#filtrar" ).click(function() {
 			  
@@ -184,11 +170,6 @@ $(document).ready(function() {
             });
 			
       });
-
-
-
-
-
 
 function editarFactura(filtro){
     $.ajax({
@@ -345,4 +326,3 @@ function putSendFactura(factura){
     });
 });
 </script>
-
