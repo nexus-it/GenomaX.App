@@ -52,7 +52,7 @@ $(document).ready(function() {
 	  <div class="row well well-sm">
 
 	        <div class="container">  
-<button class="btn btn-success" title="Crear nueva cuenta evento " onclick="CargarForm('application/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>';
+<button class="btn btn-success" title="Crear nueva cuenta evento " onclick="CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>
 
 
 			</div>
