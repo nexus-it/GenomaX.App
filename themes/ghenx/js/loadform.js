@@ -48,7 +48,6 @@ function AbrirSearch(Contenedor, Destino, Titulo, Where)
 function AbrirChngPass(Contenedor)
 {
 	$("#"+Contenedor).load('application/forms/clave.php');
-	
 }
 
 function MngrToolBar(NomWind,NumWind) {

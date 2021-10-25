@@ -40,27 +40,25 @@ session_start();
             curl_setopt($ch, CURLOPT_HTTP_VERSION , CURL_HTTP_VERSION_1_1);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST , 'POST'); 
             curl_setopt($ch, CURLOPT_POST, 1);
-            try
-            {
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $response = json_decode($response);
-                return $response;
-            }
+                $_SESSION["SiigoToken"] = json_encode($response);
+            /*
             catch (HttpException $ex)
             {
                 echo $ex;
-                return null;
+                $_SESSION["SiigoToken"] = null;
             }
-
+            */
         } else {
-            return null;
+            $_SESSION["SiigoToken"] = null;
         }
         mysqli_free_result($result);
 
     }
 
-    $_SESSION["SiigoToken"] = json_encode(getToken());
+    getToken();
     
     // error_log('Token: '.$_SESSION["SiigoToken"]);
 

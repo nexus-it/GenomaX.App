@@ -8,10 +8,11 @@ if (!$conexion) {
     echo "Conexion fallida (settings).".$_SESSION["DB_SUFFIX"].' '.DB_HOST.' '.DB_USER.' '.DB_NXS;
     exit;
 }
-$SQL="Select concat(DB_PREFIX,DB_NAME) from gnxconect where CODE_NAME='".DB_SUFFIX."' and STATE_CONN='1';";
+$SQL="Select concat(DB_PREFIX,DB_NAME), Codigo_APP from gnxconect where CODE_NAME='".DB_SUFFIX."' and STATE_CONN='1';";
 $result0 = mysqli_query($conexion, $SQL);
 if($row0 = mysqli_fetch_row($result0)) {
     define('DB_NAME',$row0[0]);
+    define('NEXUS_APP',$row0[1]);
 }
 mysqli_free_result($result0);
 ?>

@@ -6,7 +6,6 @@ include '../../functions/php/nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-
 class PDF extends FPDF
 {
 var $B;
@@ -276,7 +275,6 @@ function encabezadoz($titulo, $folioint){
 		$this->Cell(9,5,'Sexo','B',0,'L',1);
 		$this->SetFont('Arial','',9);
 		$this->Cell(0,5,$row0["5"],'BR',0,'L',1);
-
 		$this->Ln();
 
 		$this->SetFont('Arial','B',9);
@@ -392,6 +390,18 @@ function NewItem($Bold, $Titulo) {
 		$this->Cell(0,5,utf8_decode($Titulo),'B',0,'L',0);
 	}
 	$this->SetDrawColor(90);
+}
+function loadubicanatom($Tercero, $Folio, $PositionY) {
+	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$SQL="Select PosX_HUA, PosY_HUA From hcubicanatom a, czterceros c Where a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$Folio."' and c.ID_TER='".$Tercero."'";
+	$resultvh = mysqli_query($conexion, $SQL);
+	while ($rowvh = mysqli_fetch_row($resultvh)) {
+		$CoordX = 38+$rowvh[0]*2;
+		$CoordY = $PositionY -3 + $rowvh[1]*2;
+		$this->Image('http://cdn.genomax.co/media/image/valher/point.png',$CoordX,$CoordY,2);
+	}
+	mysqli_free_result($resultvh);
+	
 }
 function loadOdonto($Tercero, $Folio, $Theme) {
 	$Nota="";
@@ -795,12 +805,12 @@ mysqli_free_result($result1);
 //Datos del folio
 if (isset($_GET["FORMATO"])) {
 	if ($_GET["FORMATO"]=='*') {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	} else {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	}
 } else {
-	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 }
 error_log($SQL);
 $resultx = mysqli_query($conexion, $SQL);
@@ -989,12 +999,33 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		$pdf->Cell(0,3,"",'',0,'R',1);
 		$pdf->Ln();
 	}
-	// campos del formato de la hc
 	$Posx=10;
 	$Posy=$pdf->GetY();
 	$Posyfin=$Posy;
 	$TamW=196;
 	$pdf->SetX($Posx);
+	
+	// VALORACION DE HERIDA - Ubicación Anatómica
+	if ($rowx[37]!="0") {
+		$SQL="Select Codigo_SEX from gxpacientes a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."'";
+		$resultx2 = mysqli_query($conexion, $SQL);
+		if ($rowx2 = mysqli_fetch_row($resultx2)) {
+			$SexoPcte=lcfirst($rowx2[0]);
+		}
+		mysqli_free_result($resultx2);
+		$pdf->NewItem("B", "Ubicación Anatómica");
+		$pdf->Cell(0,5,'','B',0,'L',0);
+		$pdf->Ln();
+		$pdf->Image('http://cdn.genomax.co/media/image/valher/posanatombas'.$SexoPcte.'.jpg',41,$Posy+7,130);
+		$pdf->loadubicanatom($_GET["HISTORIA"], $rowx[1], $Posy+5);
+		$pdf->SetY($Posy+94);
+		$pdf->SetX(10);
+		$pdf->Ln();	
+		$pdf->Ln();	
+		
+	}
+
+	// campos del formato de la hc
 	$SQL="Select a.* From hc_". $rowx[20]." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
 	$resultx2 = mysqli_query($conexion, $SQL);
 	$DatosHC = mysqli_fetch_array($resultx2);

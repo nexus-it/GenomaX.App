@@ -53,8 +53,10 @@ include '00trnsctns.php';
 	$CtrlPreNatHCT="0";
 	$RiesgoCardVHCT="0";
 	$FraminghamHCT="0";
+	$ValHeridasHCT="0";
 	//Buscamos los parametros del formato para guardar la hc
-	$SQL="Select SV_HCT, Antecedentes_HCT, Dx_HCT, AyudasDiag_HCT, Qx_HCT, Med_HCT, Ordenes_HCT, Indicaciones_HCT, Medico2_HCT, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Insumos_HCT from hctipos Where Codigo_HCT='".$_POST['formatohc']."'";
+	$SQL="Select SV_HCT, Antecedentes_HCT, Dx_HCT, AyudasDiag_HCT, Qx_HCT, Med_HCT, Ordenes_HCT, Indicaciones_HCT, Medico2_HCT, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Insumos_HCT, ValHeridas_HCT from hctipos Where Codigo_HCT='".$_POST['formatohc']."'";
+	error_log($SQL);
 	$resultHCT = mysqli_query($conexion, $SQL);
 	if($rowHCT = mysqli_fetch_row($resultHCT)) {
 		$SV_HCT=$rowHCT[0];
@@ -76,6 +78,8 @@ include '00trnsctns.php';
 		$RiesgoCardVHCT=$rowHCT["RiesgoCardV_HCT"];
 		$FraminghamHCT=$rowHCT["Framingham_HCT"];
 		$Insumos_HCT=$rowHCT["Insumos_HCT"];
+		$ValHeridasHCT=$rowHCT["ValHeridas_HCT"];
+		error_log('xValHeridas: '.$rowHCT["ValHeridas_HCT"]);
 	}
 	mysqli_free_result($resultHCT);
 	// SIGNOS VITALES
@@ -252,6 +256,18 @@ include '00trnsctns.php';
 		$SQL="Insert Into hcctrlprentl(".$campox.") Values(".$valorex.");";
 		
 		EjecutarSQL($SQL, $conexion);
+	}
+	error_log('Val Heridas: '.$ValHeridasHCT);
+	if ($ValHeridasHCT!="0") {
+		for ($i = 1; $i <= 47; $i++) {
+			for ($j = 1; $j <= 66; $j++) {
+				if (isset($_POST['VH'.$j.'-'.$i])) {
+					$SQL="Insert Into hcubicanatom(Codigo_TER, Codigo_HCF, PosX_HUA, PosY_HUA) Values('".$_POST['codigoter']."', '".$ElFolio."', '".$j."', '".$i."');";
+					error_log($SQL);
+					EjecutarSQL($SQL, $conexion);
+				}
+			}
+		}
 	}
 	// ANTECEDENTES
 	if ($Antecedentes_HCT!="0") {

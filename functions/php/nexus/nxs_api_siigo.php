@@ -14,7 +14,6 @@
 		if ($result=="NO") {
 			$creaProducto=postProduct($nCode, $nDesc, $nType, $nGroup, $nRef);
 			error_log($creaProducto);
-		
 		}
 	}
 	function findProduct($nCode) {
@@ -52,7 +51,7 @@
         try
         {
             $response = curl_exec($ch);
-            // error_log($response);
+             //error_log($response);
             $response = json_decode($response, true);
             return ($response);
         }
@@ -97,11 +96,12 @@
     }
     function postProduct($nCode, $nDesc, $nType, $nGroup, $nRef) {
     	if ($nType=="2") {
-    		$nType="ProductType_Product";
+    		$nType="Product";
     	} else {
-    		$nType="ProductType_Service";
+    		$nType="Service";
     	}
     	$Tkn=AccesToken();
+        error_log($nCode.' - '.$nDesc.' - '.$nType.' - '.$nGroup.' - '.$nRef);
     	$body= '{
     "Code": "'.$nCode.'",
     "Description": "'.$nDesc.'",
@@ -111,6 +111,22 @@
     "ReferenceManufactures": "'.$nRef.'",
     "State": 1
 }';
+        $body= '{
+            "code": "'.$nCode.'",
+            "name": "'.$nDesc.'",
+            "account_group": '.$nGroup.',
+            "type": "'.$nType.'",
+            "stock_control": false,
+            "active": true,
+            "tax_classification": "Exempt",
+            "tax_included": false,
+            "tax_consumption_value": 0,
+            "unit": "94",
+            "unit_label": "unidad",
+            "reference": "'.$nRef.'",
+            "description": "'.$nDesc.'"
+            
+          }';
     	$url = $_SESSION["Siigourl"]."Products/Create?namespace=v1";
 		$ch = curl_init();
 		$header = array(
@@ -130,13 +146,14 @@
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		
+        //error_log($body);
 		  $data = curl_exec($ch);
 		  curl_close($ch);
 		  return $data;
     }
     function postInvoice($Cadena) {
     	$Tkn=AccesToken();
-    	error_log($Tkn);
+    	//error_log($Tkn);
     	$body= $Cadena;
     	$url = $_SESSION["Siigourl"]."Invoice/Save?namespace=v1";
 		$ch = curl_init();
