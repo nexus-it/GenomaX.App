@@ -45,22 +45,22 @@ session_start();
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $response = json_decode($response);
-                return $response;
+                $_SESSION["SiigoToken"] = json_encode($response);
             }
             catch (HttpException $ex)
             {
                 echo $ex;
-                return null;
+                $_SESSION["SiigoToken"] = null;
             }
 
         } else {
-            return null;
+            $_SESSION["SiigoToken"] = null;
         }
         mysqli_free_result($result);
 
     }
 
-    $_SESSION["SiigoToken"] = json_encode(getToken());
+    getToken();
     
     // error_log('Token: '.$_SESSION["SiigoToken"]);
 

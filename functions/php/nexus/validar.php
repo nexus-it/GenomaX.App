@@ -36,7 +36,7 @@ session_start();
 				mysqli_query($conexion, $MyZone);
 				it_aud('0', 'LogIn', 'Ingreso al Sistema');
 				// Se verifica Si hay Token Para FE
-				include 'getToken.php';	
+				include 'getToken.php';	  
 				if (isset($_GET["nxsdb"])) {
 					header('Location: ../../../index.php?nxsdb='.$_SESSION["DB_SUFFIX"]);
 				} else {
