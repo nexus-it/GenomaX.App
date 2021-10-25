@@ -171,7 +171,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
     "TaxAdd2Id": -1
 }';
         if ($rowxxx[6]!='E') {
-            createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5],$rowp[0]);
+            createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5],$rowp[0]); 
         }
 		}
 		mysqli_free_result($result);
