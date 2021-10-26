@@ -11,7 +11,7 @@ session_start();
 
 <iframe src='' frameborder='0' allowtransparency='true' style='margin:0; padding:0; width:100%; height: 100%; ' name='iframecont<?php echo $NumWindow; ?>' id="iframecont<?php echo $NumWindow; ?>" class="pdf1 panel-body">   
 </iframe>
-
+ 
 <script >
 
 	window.frames.iframecont<?php echo $NumWindow; ?>.location.href = "http://intranet.clinicasandiego.co/blog/"

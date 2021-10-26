@@ -55,7 +55,20 @@ function PutLogo() {
 
 }
 
-function NombreMes($mes){
+//realizado leandro castro 2021/10/05
+function verficarEmpresaReg(){
+   $SQL="Select  NIT_DCD from itconfig";
+   $conexion=conexion();
+   $resultadoEmp = mysqli_query($conexion, $SQL);
+   if ($rowEmp = mysqli_fetch_row($resultadoEmp)) {
+      $nitEmp = $rowEmp[0]; 
+   }
+   return $nitEmp;
+   error_log($nitEmp);
+ }
+
+
+ function NombreMes($mes){
    switch($mes) {
        case '01': return 'Enero'; break;
        case '02': return 'Febrero'; break;

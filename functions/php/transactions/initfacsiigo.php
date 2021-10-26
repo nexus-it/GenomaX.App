@@ -21,10 +21,10 @@ $MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
 mysqli_query($conexion, $MyZone);
 // $SQL="SELECT a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, d.GrupoFE_SER, avg(a.ValorEntidad_ORD), sum(a.Cantidad_ORD) FROM gxordenesdet a, gxservicios b, gxordenescab c, gxserviciostipos d WHERE d.Tipo_SER=b.Tipo_SER and c.Codigo_ORD=a.Codigo_ORD and a.Codigo_SER=b.Codigo_SER and c.codigo_adm='".(int)$rowxxx[3]."' Group By a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, d.GrupoFE_SER Order By 1";
       
-
+/*
 $SQL="Update gxordenesdet b, gxordenescab a, gxmanualestarifarios c, gxcontratos d, gxadmision e Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where a.Codigo_ORD=b.Codigo_ORD and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER AND a.Fecha_ORD between c.FechaIni_TAR and c.FechaFin_TAR and e.Codigo_ADM=a.Codigo_ADM AND a.Codigo_ADM IN (SELECT codigo_adm FROM gxfacturas WHERE codigo_fac LIKE 'tmp%') ;";
 EjecutarSQL($SQL, $conexion);
-/* init */
+ init */
 // Se crean los productos y servicios que no existan en Siigo
 $SQL="SELECT distinct e.CUM_MED, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxmedicamentos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1' UNION SELECT distinct e.CUPS_PRC, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxprocedimientos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1';";
 //error_log($SQL);
@@ -171,7 +171,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
     "TaxAdd2Id": -1
 }';
         if ($rowxxx[6]!='E') {
-            createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5],$rowp[0]);
+            createProduct($rowp[0], $rowp[1], $rowp[2], $rowp[5],$rowp[0]); 
         }
 		}
 		mysqli_free_result($result);

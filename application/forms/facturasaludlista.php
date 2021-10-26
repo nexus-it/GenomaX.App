@@ -5,8 +5,6 @@ if(isset($_POST["filtro"])){
 	//echo $filtro;
 }
  
-
-
 	session_start();
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
@@ -14,10 +12,7 @@ if(isset($_POST["filtro"])){
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
-	
-
 ?>
-
 
 <!--
 <script type="text/javascript">
@@ -57,21 +52,9 @@ $(document).ready(function() {
 	  <div class="row well well-sm">
 
 	        <div class="container">  
-			<?php
-			if(isset($_POST["filtro"])==""){
-	        $SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 588 order by Codigo_ITM;";
-            $result3 = mysqli_query($conexion, $SQL);
-            $row3 = mysqli_fetch_row($result3);
-            $action='onclick="CargarForm(\'application/'.$row3[2].'\', \''.$row3[1].'\', \''.$row3[4].'\'); AddFavsForm(\''.$row3[0].'\');"'; 
-            $action=  '<a title="Crear nueva cuenta evento " class="manito" '.$action.'><i class="fa fa-file"></i></a> ';//.$row3[1];
+<button class="btn btn-success" title="Crear nueva cuenta evento " onclick="CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>
 
-			
 
-            $html .= '<div class="btn btn-success">'.$action.'</div>';
-            
-			echo $html;
-			}
-			?>
 			</div>
 			<br>
 	<div class="col-md-12">
@@ -80,17 +63,16 @@ $(document).ready(function() {
 <?php } ?>
 <?php
 
-$page = $_GET['page'];
+/* $page = $_GET['page'];
 //echo "paginas= ".$page."<br>";
 $rowsPerPage = NUM_ITEMS_BY_PAGE;
 $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
-
-
+ */
 if($ini==''){
 //$filtro = '';
 $ini=0;
-$fin=10;
+$fin=20;
 }else{
 	$ini=$_GET['ini'];
 	$fin=$_GET['fin'];
@@ -109,20 +91,20 @@ if($filtro == ""){
 <div id="resultadofiltro"></div>
 <?php
 }
-echo '<table class="table table-striped">';
+echo '<table class="table table-striped table-condensed tblDetalle table-bordered">'; 
 		
 			$conteo = listarFacturas($filtro,$ini,$fin);
 		
 echo '</table>';
 
-if($filtro == ""){
+/* if($filtro == ""){
 $num_total_rows = $conteo;
 
 $conteo = $conteo/10;
 for($i=0;$i<=$conteo;$i++){
   // echo "<a href='#'>$i</a>"." - ";
    
-}
+} */
 
 /*
 //echo "<br>".$num_total_rows;
@@ -147,9 +129,9 @@ if ($num_pages > 1 and $page == "") {
 	echo '</div>';
 	echo '</div>';
 }
-*/
-}
 
+}
+*/
 ?>
 
 <script>
@@ -179,8 +161,6 @@ function filtrarFactura(filtro){
 
    }
 
-
-
 $(document).ready(function() {
            $( "#filtrar" ).click(function() {
 			  
@@ -190,11 +170,6 @@ $(document).ready(function() {
             });
 			
       });
-
-
-
-
-
 
 function editarFactura(filtro){
     $.ajax({
@@ -221,8 +196,6 @@ function editarFactura(filtro){
 
    }
 
-
-
 $(document).ready(function() {
            $( "#editar" ).click(function() {
 			  
@@ -231,7 +204,6 @@ $(document).ready(function() {
             });
 			
       });
-
 
 $(document).ready(function() {	
     $( ".enviarfactdian" ).click(function() {
@@ -242,11 +214,10 @@ $(document).ready(function() {
     });
 });
 
-
 function putSendFactura(factura){
     $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main/functions/php/GenomaXBackend/putSendFactura.php',
+            url: 'functions/php/GenomaXBackend/putSendFactura.php',
             data: {
               factura: factura
 
@@ -257,7 +228,7 @@ function putSendFactura(factura){
              },
 
               success: function (data) {
-                
+                //alert(data);
                 //$("#resultadoEnvioFactura").html(data)
                 
                 obj = JSON.parse(data);
@@ -277,13 +248,12 @@ function putSendFactura(factura){
                 console.log(data);
               }
             });
-
    }
 
    function estadoFactura(zipkey){
       $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main//functions/php/GenomaXBackend/estadoFactura.php',
+            url: 'functions/php/GenomaXBackend/estadoFactura.php',
             data: {
               zipkey: zipkey
 
@@ -308,11 +278,10 @@ function putSendFactura(factura){
             });
    }
 
-
    function estadoFacturaDoc(cufe,factura){
       $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main//functions/php/GenomaXBackend/estadoFacturaDoc.php',
+            url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
             data: {
               cufe: cufe,
               factura: factura
@@ -337,7 +306,6 @@ function putSendFactura(factura){
                 $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
                 }
 
-
                 //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
 
               },
@@ -346,7 +314,6 @@ function putSendFactura(factura){
               }
             });
    }   
-
 
    $(document).ready(function() {	
     $( ".estadoFacturaDoc" ).click(function() {
@@ -359,4 +326,3 @@ function putSendFactura(factura){
     });
 });
 </script>
-

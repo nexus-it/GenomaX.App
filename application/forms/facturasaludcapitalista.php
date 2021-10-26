@@ -251,7 +251,7 @@ $(document).ready(function() {
 function putSendFacturaCapita(factura){
     $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main/functions/php/GenomaXBackend/putSendFacturaCapita.php',
+            url: '../../functions/php/GenomaXBackend/putSendFacturaCapita.php',
             data: {
               factura: factura
 
@@ -278,7 +278,7 @@ function putSendFacturaCapita(factura){
    function estadoFacturaDoc(cufe,factura){
       $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main/functions/php/GenomaXBackend/estadoFacturaDoc.php',
+            url: '../../functions/php/GenomaXBackend/estadoFacturaDoc.php',
             data: {
               cufe: cufe,
               factura: factura
