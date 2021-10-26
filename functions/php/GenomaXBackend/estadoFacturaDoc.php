@@ -15,6 +15,8 @@ curl_setopt_array($curl, array(
 	"sendmail": false,
     "atacheddocument_name_prefix": "'.$_POST['factura'].'"
 }',
+CURLOPT_SSL_VERIFYPEER => false, 
+  
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     'Accept: application/json',

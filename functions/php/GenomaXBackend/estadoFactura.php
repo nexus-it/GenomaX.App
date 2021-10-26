@@ -22,6 +22,8 @@ curl_setopt_array($curl, array(
     "sendmailtome": false,
     "atacheddocument_name_prefix": "SETP-"
 }',
+CURLOPT_SSL_VERIFYPEER => false, 
+  
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     'Accept: application/json',

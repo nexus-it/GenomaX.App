@@ -56,7 +56,6 @@ function validarRegistroEmp($nit){
   $result = mysqli_query($conexion, $sql);
   $datosEmp = mysqli_fetch_array($result);
   
-
   return $datosEmp;
 }
 

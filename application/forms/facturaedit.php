@@ -1,6 +1,5 @@
 <?php
 	
-	
 	session_start();
 	$NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -32,7 +31,7 @@
 <div class="form-group">
 <label for="txt_Ingreso<?php echo $NumWindow; ?>">Ingreso</label>
 	<div class="input-group">
- 		 <input name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*')};" style="font-size:15px; font-weight: bold; color:#0E5012;" />
+		 <input value="<?php if(isset($_GET['numeroIng'])){ echo $_GET['numeroIng']; } ?>" name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*')};" style="font-size:15px; font-weight: bold; color:#0E5012;" />
 		 <span class="input-group-btn"> 		
  		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="IngFacPeriodo" onclick="javascript:CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		 </span>
@@ -407,6 +406,17 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 </div>
 
 </form>
+
+<div class="col-md-2">
+    <div class="form-group">
+        <input type="button" name="sendFactura" id="sendFactura" value="Enviar factura"  >
+        
+    </div>
+    <div id="resultadoSendFactura"></div>
+</div>
+
+
+
 <script >
 
 $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
@@ -551,4 +561,49 @@ function HCDxOnBlur<?php echo $NumWindow; ?>() {
 	$("input[type=number]").addClass("form-control");
 
 
+
+
+
+
+function putSendFactura(ingreso){
+    $.ajax({
+            type: 'POST',
+            url: '../../../GenomaXBackend/putSendFactura.php',
+            data: {
+                ingreso: ingreso
+
+            },
+            beforeSend: function()
+             {
+                
+             },
+
+              success: function (data) {
+                
+                $("#resultadoResolucion").html("Factura Enviada con exito")
+
+              },
+              error: function() { 
+                console.log(data);
+              }
+            });
+
+   }
+
+
+
+
+
+
+$(document).ready(function() {
+           $( "#sendFactura" ).click(function() {
+			 putSendFactura($("#txt_Ingreso<?php echo $NumWindow; ?>").val()
+                            );
+            });
+      });
+
+
+
 </script>
+
+

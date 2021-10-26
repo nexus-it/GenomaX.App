@@ -1,11 +1,11 @@
 <?php
 //var_dump($_POST);exit();
 include('params.php');
-include '../php/nexus/database.php';
-$conexion = mysqli_connect("localhost","root", "", "gnx_prueba");
-	mysqli_query ($conexion, "SET NAMES 'utf8'");
+include '../nexus/database.php';
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
+$SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.ValTotal_FAC , c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
 , SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION
 ,nc.Codigo_NCT, nc.Descripcion_NCT, date(nc.Fecha_NCT) as Fecha_NCT, time(nc.Fecha_NCT) as Time_NCT
 From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
@@ -26,7 +26,7 @@ $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_array($resultH)) {
 
 
-	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD))  , d.Codigo_SER , d.Nombre_SER, ncd.ValorDet_NCT AS valor FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d, cznotascontablesdet ncd WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='20' AND b.Codigo_PLA='1' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH['Codigo_ADM']."',10,'0') and ncd.Codigo_NCT='".$_POST["notacredito"]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
+	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD))  , d.Codigo_SER , d.Nombre_SER, ncd.ValorDet_NCT AS valor FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d, cznotascontablesdet ncd WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH['Codigo_EPS']."' AND b.Codigo_PLA='".$rowH['Codigo_PLA']."' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH['Codigo_ADM']."',10,'0') and ncd.Codigo_NCT='".$_POST["notacredito"]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	$result = mysqli_query($conexion, $SQL_DET);
 	//echo $SQL_DET;
 	while ($row = mysqli_fetch_array($result)) {
@@ -122,7 +122,7 @@ $curl = curl_init();
 
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'credit-note/cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8',
+  CURLOPT_URL => $prefixUrl.'credit-note/442810ba-2837-4e22-ae53-0180e6731747',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -131,10 +131,12 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>$payload,
+  CURLOPT_SSL_VERIFYPEER => false, 
+  
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     'Accept: application/json',
-    'Authorization: Bearer 5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec'
+    'Authorization: Bearer '.$bearer
   ),
 ));
 

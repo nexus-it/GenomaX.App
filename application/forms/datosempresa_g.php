@@ -33,6 +33,7 @@ if(isset($_POST['nit'])){
         "phone": '.$tel.',
         "email": "'.$email.'"
     }';
+
     $autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
 
     $result = llamarApi($url,$metodo,$datos,$autorizacion);
@@ -42,9 +43,10 @@ if(isset($_POST['nit'])){
     $data =  json_decode($result,true);
 
     if( isset($data["success"])){
-        echo $data["message"]."<br>";
-        //echo $data["token"];
+        echo $data."<br>";
+        echo $data["token"];
     }else{
+        echo $data;
         echo "Dato con errores favor verificar";
     }
 }

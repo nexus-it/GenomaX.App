@@ -64,6 +64,7 @@ function verficarEmpresaReg(){
       $nitEmp = $rowEmp[0]; 
    }
    return $nitEmp;
+   error_log($nitEmp);
  }
 
 

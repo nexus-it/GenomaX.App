@@ -4,8 +4,6 @@ if(isset($_POST["filtro"])){
 	$filtro = $_POST["filtro"];
 	//echo $filtro;
 }
- 
-
 
 	session_start();
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -14,10 +12,7 @@ if(isset($_POST["filtro"])){
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
-	
-
 ?>
-
 
 <!--
 <script type="text/javascript">
@@ -56,51 +51,35 @@ $(document).ready(function() {
 	<?php if(isset($_POST["filtro"])==""){ ?><label class="label label-default">Listado de Notas Credito</label><?php }?>
 	  <div class="row well well-sm">
 
-	        <div class="container">  
-			<?php
-			if(isset($_POST["filtro"])==""){
-	          $SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 385 order by Codigo_ITM;";
-            $result3 = mysqli_query($conexion, $SQL);
-            $row3 = mysqli_fetch_row($result3);
-            $action='onclick="CargarForm(\'application/'.$row3[2].'\', \''.$row3[1].'\', \''.$row3[4].'\'); AddFavsForm(\''.$row3[0].'\');"'; 
-            $action=  '<a title="Crear Nota Credito" class="manito" '.$action.'><i class="fa fa-file"></i></a> ';//.$row3[1];
-
-           
-			
-
-            $html .= '<div class="btn btn-success">'.$action.'</div>';
-            
-			echo $html;
-			}
-			?>
-			</div>
-			<br>
-	<div class="col-md-12">
+      <div class="container">  
+        <button class="btn btn-success" onclick="CargarForm('application/forms/notascredito.php', 'Notas Crédito', 'money_add.png');">Crear Nueva Nota <i class="fa fa-file"></i></button>
+  		</div>
+	  <div class="col-md-12">
 
 <div class="form-group">
 <?php } ?>
 <?php
 
-$page = $_GET['page'];
+/* $page = $_GET['page'];
 //echo "paginas= ".$page."<br>";
 $rowsPerPage = NUM_ITEMS_BY_PAGE;
 $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
-
+ */
 
 if($ini==''){
 //$filtro = '';
 $ini=0;
-$fin=10;
+$fin=20;
 }else{
 	$ini=$_GET['ini'];
 	$fin=$_GET['fin'];
 }
 
-if(isset($page)){
-$ini = ($page - 1) * $rowsPerPage;
+/* if(isset($page)){
+  $ini = ($page - 1) * $rowsPerPage;
 }//echo $ini;
-
+ */
 if($filtro == ""){
 ?>
 <form method="POST" action="">
@@ -110,19 +89,13 @@ if($filtro == ""){
 <div id="resultadofiltro"></div>
 <?php
 }
-echo '<table class="table table-striped">';
+echo '<table class="table table-striped table-condensed tblDetalle table-bordered">';
 		
 			$conteo = listarNotasCredito($filtro,$ini,$fin);
 		
 echo '</table>';
 
-
-echo '<table class="table table-striped">';
-		
-			$conteo = listarNotasCreditoCapita($filtro,$ini,$fin);
-		
-echo '</table>';
-
+/*
 if($filtro == ""){
 $num_total_rows = $conteo;
 
@@ -132,7 +105,6 @@ for($i=0;$i<=$conteo;$i++){
    
 }
 
-/*
 //echo "<br>".$num_total_rows;
 $num_pages = ceil($num_total_rows / NUM_ITEMS_BY_PAGE);
 //echo "<br>".$num_pages;
@@ -155,8 +127,8 @@ if ($num_pages > 1 and $page == "") {
 	echo '</div>';
 	echo '</div>';
 }
-*/
 }
+*/
 
 ?>
 
@@ -187,8 +159,6 @@ function filtrarNotaCredito(filtro){
 
    }
 
-
-
 $(document).ready(function() {
            $( "#filtrar" ).click(function() {
 			  
@@ -198,9 +168,6 @@ $(document).ready(function() {
             });
 			
       });
-
-
-
 
 
 $(document).ready(function() {	
@@ -220,7 +187,7 @@ $(document).ready(function() {
 function putSendNC(notacredito){
     $.ajax({
             type: 'POST',
-            url: '../../functions/php/GenomaXBackend/putSendNC.php',
+            url: 'functions/php/GenomaXBackend/putSendNC.php',
             data: {
               notacredito: notacredito
 
@@ -265,7 +232,7 @@ $(document).ready(function() {
 function putSendNCCapita(factura){
     $.ajax({
             type: 'POST',
-            url: '../../functions/php/GenomaXBackend/putSendNCCapita.php',
+            url: 'functions/php/GenomaXBackend/putSendNCCapita.php',
             data: {
               factura: factura
 

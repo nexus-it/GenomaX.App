@@ -18,7 +18,7 @@ function listarFacturas($filtro,$ini,$fin){
 
    $html="";	
 
-  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM  FROM gxfacturas t1 
+  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC  FROM gxfacturas t1 
   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
   INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
@@ -27,15 +27,13 @@ function listarFacturas($filtro,$ini,$fin){
   if($filtro <> ''){
    $SQL .=  " where T1.codigo_fac = '$filtro' "; 
   }
-  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,1 desc limit $ini,$fin  ";
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,1 desc  limit 0,20"; //  limit $ini,$fin
 
-  error_log($SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
       //echo $SQL;
-      if($ini <>''){
-			$html = '
+      	$html = '
 			<tr>
 				<th>Factura</th>
 				<th>Fecha</th>
@@ -44,7 +42,6 @@ function listarFacturas($filtro,$ini,$fin){
 				<th colspan="2">Estados</th>
 			</tr>
 			';
-		}      
 		$html .= '<tbody class="row items">';
 
       $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
@@ -64,13 +61,13 @@ function listarFacturas($filtro,$ini,$fin){
       
             $html .= '<td>'.$action1.'</td>';
 
-            $cadnit = explode("-",verficarEmpresaReg());
+/*             $cadnit = explode("-",verficarEmpresaReg());
             $cadfac = explode("-",$row[0]);
             $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/FES-".$cadfac[0].$cadfac[1].".pdf")? 'existe' : 'no existe';
             $cufe = ValidarCUfe($cadnit[0],$cadfac[0],$cadfac[1]);
+ */
 
-
-            if($url == 'existe' and $cufe <> ''){
+            if($row[5] != '0'){
                $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
             }else{
                $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[0].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
@@ -106,54 +103,40 @@ function listarNotasCredito($filtro,$ini,$fin){
    if($ini == ''){
       $ini=0;
    }
-   if($fin <> 10){
+   if($fin <> 20){
       $ini=$fin;
-      $fin=10;
+      $fin=20;
    }
 
    $html="";	
 
-
-
-  $SQL="SELECT * FROM gxfacturas t1 
-  INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
-  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
-  INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS
-  INNER JOIN cznotascontablesenc t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT";
+  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesenc t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT";
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
   
   if($filtro <> ''){
    $SQL .=  " where T5.Codigo_NCT = '$filtro' "; 
   }
-  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit $ini,$fin  ";
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit 0,20  ";
 
   
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
       //echo $SQL;
-      if($ini <>''){
-			$html = '<thead>
-			<tr>
-            <td>Notas Credito</td>
-            <td>Fecha NC</td>
-				<td>Factura</td>
-				<td>Fecha</td>
-				<td>Paciente / Cliente</td>
-				<td>Entidad</td>
-				<td>Estados</td>
-            <td></td>
-			</tr>
-			</thead>';
-		}      
+      	$html = '<tr>
+            <th>Notas Credito</th>
+            <th>Fecha NC</th>
+				<th>Factura</th>
+				<th>Fecha</th>
+				<th>Paciente / Cliente</th>
+				<th>Entidad</th>
+				<th colspan="2">Estados</th>
+			</tr>';
 		$html .= '<tbody class="row items">';
 
       $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
-      
-      
-
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
       while($row = mysqli_fetch_array($result)){
             $html .= '<tr class="item">';
@@ -169,16 +152,14 @@ function listarNotasCredito($filtro,$ini,$fin){
       
             //$html .= '<td>'.$action1.'</td>';
             
-            $cadnit = explode("-",verficarEmpresaReg());
+            /* $cadnit = explode("-",verficarEmpresaReg());
             $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/NCS-9".$row['Codigo_NCT'].".pdf")? 'existe' : 'no existe';
-            
+             */
             if($url == 'existe'){
                $html .= '<td><i title="Nota Credito Enviada" class="fa fa-paper-plane"></i></td>';
             }else{
                $html .= '<td> <a title="Enviar Nota Credito a la DIAN" href="#" class="enviarnotacreditodian" data="'.$row['Codigo_NCT'].'"><i class="fa fa-paper-plane"></i></a><div id="resultadoEnvioNC"></div> </td>';
             }
-
-            
 
             $html .= '</tr>';
       }
@@ -186,7 +167,7 @@ function listarNotasCredito($filtro,$ini,$fin){
 
       echo $html;
 
-      $SQL1="SELECT count(*) as conteo FROM gxfacturas t1 
+      /* $SQL1="SELECT count(*) as conteo FROM gxfacturas t1 
       INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
       INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
       INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
@@ -196,7 +177,7 @@ function listarNotasCredito($filtro,$ini,$fin){
           $conteo =  $row1[0];
       }
       mysqli_free_result($result);
-      return $conteo;
+      return $conteo; */
    
 
 	} else {

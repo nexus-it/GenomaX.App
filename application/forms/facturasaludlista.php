@@ -63,16 +63,16 @@ $(document).ready(function() {
 <?php } ?>
 <?php
 
-$page = $_GET['page'];
+/* $page = $_GET['page'];
 //echo "paginas= ".$page."<br>";
 $rowsPerPage = NUM_ITEMS_BY_PAGE;
 $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
-
+ */
 if($ini==''){
 //$filtro = '';
 $ini=0;
-$fin=10;
+$fin=20;
 }else{
 	$ini=$_GET['ini'];
 	$fin=$_GET['fin'];
@@ -217,7 +217,7 @@ $(document).ready(function() {
 function putSendFactura(factura){
     $.ajax({
             type: 'POST',
-            url: '../../functions/php/GenomaXBackend/putSendFactura.php',
+            url: 'functions/php/GenomaXBackend/putSendFactura.php',
             data: {
               factura: factura
 
@@ -228,7 +228,7 @@ function putSendFactura(factura){
              },
 
               success: function (data) {
-                
+                //alert(data);
                 //$("#resultadoEnvioFactura").html(data)
                 
                 obj = JSON.parse(data);
@@ -253,7 +253,7 @@ function putSendFactura(factura){
    function estadoFactura(zipkey){
       $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main//functions/php/GenomaXBackend/estadoFactura.php',
+            url: 'functions/php/GenomaXBackend/estadoFactura.php',
             data: {
               zipkey: zipkey
 
@@ -281,7 +281,7 @@ function putSendFactura(factura){
    function estadoFacturaDoc(cufe,factura){
       $.ajax({
             type: 'POST',
-            url: '../../GenomaX.App-main//functions/php/GenomaXBackend/estadoFacturaDoc.php',
+            url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
             data: {
               cufe: cufe,
               factura: factura

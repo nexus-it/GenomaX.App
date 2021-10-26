@@ -37,6 +37,8 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'PUT',
   CURLOPT_POSTFIELDS =>$payload,
+  CURLOPT_SSL_VERIFYPEER => false, 
+  
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     'cache-control: no-cache',
