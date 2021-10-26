@@ -4,9 +4,9 @@ define('DB_MOTOR', 'mysql');
 
 define('DB_NXS', 'nxs_gnx');
 
-define('DB_USER', 'gnx');
+define('DB_USER', 'root');
 
-define('DB_PASSWORD', 'Clave12345*');
+define('DB_PASSWORD', '');
 
 define('DB_HOST', 'localhost');
 
