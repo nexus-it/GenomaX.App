@@ -20,7 +20,7 @@ $conexion=Conexion();
 $MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
 mysqli_query($conexion, $MyZone);
 // $SQL="SELECT a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, d.GrupoFE_SER, avg(a.ValorEntidad_ORD), sum(a.Cantidad_ORD) FROM gxordenesdet a, gxservicios b, gxordenescab c, gxserviciostipos d WHERE d.Tipo_SER=b.Tipo_SER and c.Codigo_ORD=a.Codigo_ORD and a.Codigo_SER=b.Codigo_SER and c.codigo_adm='".(int)$rowxxx[3]."' Group By a.Codigo_SER, b.Nombre_SER, b.Tipo_SER, d.GrupoFE_SER Order By 1";
-      
+
 /*
 $SQL="Update gxordenesdet b, gxordenescab a, gxmanualestarifarios c, gxcontratos d, gxadmision e Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where a.Codigo_ORD=b.Codigo_ORD and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER AND a.Fecha_ORD between c.FechaIni_TAR and c.FechaFin_TAR and e.Codigo_ADM=a.Codigo_ADM AND a.Codigo_ADM IN (SELECT codigo_adm FROM gxfacturas WHERE codigo_fac LIKE 'tmp%') ;";
 EjecutarSQL($SQL, $conexion);
