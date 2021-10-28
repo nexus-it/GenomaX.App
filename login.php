@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 if(isset($_SESSION["it_user"])) {
 	$_GET["nxsdb"]=DB_NAME;
@@ -61,7 +61,7 @@ function listar_directorios_rutajs($ruta, $ver){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="http://cdn.genomax.co/media/image/favicon.ico">
 <link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/bower_components/bootstrap/dist/css/bootstrap.min.css?v=<?php echo $version; ?>">
-<link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/login.css?v=<?php echo $revision; ?>">
+<link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/css/login.css?v=<?php echo $revision; ?>">
 <link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/bower_components/font-awesome/css/font-awesome.min.css?v=<?php echo $version; ?>">
 <title>Inicio de Sesión</title>
 </head>
