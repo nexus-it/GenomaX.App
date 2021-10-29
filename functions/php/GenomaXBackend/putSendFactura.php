@@ -27,9 +27,7 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 $string = $_POST["factura"];
 //var_dump($_POST["factura"]);
 $NUMERACION = preg_replace('/[^0-9]/', '', $string);
-
 $cadena = explode($NUMERACION,$string);
-
 $PREFIJO = $cadena[0];
 
 //var_dump($prefijo);
@@ -122,7 +120,7 @@ $PREFIJO = $cadena[0];
 
 
 //error_log('pay: '.$payload);exit();
-var_dump($payload);exit();
+//var_dump($payload);exit();
 $payload = json_encode($payload);
 
 // error_log('pay: '.$payload);
@@ -130,7 +128,7 @@ $payload = json_encode($payload);
 $curl = curl_init();
 
 //$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
-$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
+//$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => $prefixUrl.'invoice/'.$TestSetId_vision,
