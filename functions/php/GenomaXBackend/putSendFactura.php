@@ -23,6 +23,18 @@ $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_array($resultH)) {
 	
 
+
+$string = $_POST["factura"];
+//var_dump($_POST["factura"]);
+$NUMERACION = preg_replace('/[^0-9]/', '', $string);
+
+$cadena = explode($NUMERACION,$string);
+
+$PREFIJO = $cadena[0];
+
+//var_dump($prefijo);
+
+
 	$bearer = ValidarBearer(verficarEmpresaReg());
 	
 
@@ -51,12 +63,12 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 		);
 	}
 
-	$payload= array('number'=>$rowH['NUMERACION'],
+	$payload= array('number'=>$NUMERACION, //$rowH['NUMERACION'],
 					'type_document_id'=>1,
 					'date'=>$rowH['Fecha_FAC'],
 					'time'=>'00:00:00',
 					'resolution_number'=>$rowH['Resolucion_AFC'],
-					'prefix'=>$rowH['PREFIJO'],
+					'prefix'=>$PREFIJO, //$rowH['PREFIJO'],
 					'notes'=>'factura electronica',
 					'disable_confirmation_text'=>true,
 					'establishment_name'=>$rowH['Razonsocial_DCD'],
@@ -110,7 +122,7 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 
 
 //error_log('pay: '.$payload);exit();
-//var_dump($payload);exit();
+var_dump($payload);exit();
 $payload = json_encode($payload);
 
 // error_log('pay: '.$payload);
