@@ -5,7 +5,7 @@ include '../nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.ValTotal_FAC , c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
+$SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.ValTotal_FAC , c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER as nompasciente, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
 , SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION
 ,nc.Codigo_NCT, nc.Descripcion_NCT, date(nc.Fecha_NCT) as Fecha_NCT, time(nc.Fecha_NCT) as Time_NCT
 From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
@@ -25,12 +25,13 @@ AND SPLIT_STR(c.CODIGO_FAC, '-', 2)  <= '".($_GET["CODIGO_FINAL"])."')
 $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_array($resultH)) {
 
+	$bearer = ValidarBearer(verficarEmpresaReg());
 
 	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD))  , d.Codigo_SER , d.Nombre_SER, ncd.ValorDet_NCT AS valor FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d, cznotascontablesdet ncd WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH['Codigo_EPS']."' AND b.Codigo_PLA='".$rowH['Codigo_PLA']."' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH['Codigo_ADM']."',10,'0') and ncd.Codigo_NCT='".$_POST["notacredito"]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	$result = mysqli_query($conexion, $SQL_DET);
 	//echo $SQL_DET;
 	while ($row = mysqli_fetch_array($result)) {
-		$detalle =array(
+		$detalle[] =array(
 					"unit_measure_id"=> 70,
 					"invoiced_quantity"=> "1",
 					"line_extension_amount"=> $row['valor'],
@@ -53,8 +54,10 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 	}
 
 
-	$cufe = ValidarCUfe($rowH['NIT_DCD'],$rowH['PREFIJO'],$rowH['NUMERACION']);
-
+	$cadena = explode("-",ValidarCUfe($rowH['NIT_DCD'],$rowH['PREFIJO'],$rowH['NUMERACION']));
+    //var_dump($cufe);
+	$cufe = $cadena[0];
+	$establishment_municipality = $cadena[1];
 
 	$payload= array("billing_reference"=> array (
 			"number"=> $rowH['Codigo_FAC'],
@@ -73,7 +76,7 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 		"establishment_name"=> $rowH['Razonsocial_DCD'],
 		"establishment_address"=>$rowH['Direccion_DCD'],
 		"establishment_phone"=>$rowH['Telefonos_DCD'],
-		"establishment_municipality"=> 126,
+		"establishment_municipality"=> $establishment_municipality,
 		"sendmail"=> true,
 		"sendmailtome"=> true,
 		"seze"=> "2021-2017",
@@ -92,22 +95,21 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 			"type_liability_id"=> 7,
 			"municipality_id"=> 822,
 			"type_regime_id"=> 1
-		),
-		/*"tax_totals": [
-			{
-				"tax_id": 1,
-				"tax_amount": "159663.865",
-				"percent": "19",
-				"taxable_amount": "840336.134"
-			}
-		],*/
+		),/*
+		"tax_totals"=> array(
+				"tax_id"=> 1,
+				"tax_amount"=> "159663.865",
+				"percent"=> "19",
+				"taxable_amount"=> "840336.134"
+		)
+		,*/
 		"legal_monetary_totals"=> array(
 			"line_extension_amount"=> $rowH['ValEntidad_FAC'],
 			"tax_exclusive_amount"=> "0",
 			"tax_inclusive_amount"=> $rowH['ValEntidad_FAC'],
-			"payable_amount"=> $rowH['ValEntidad_FAC']
+			"payable_amount"=> $rowH['ValEntidad_FAC']+1
 		),
-		"credit_note_lines"=>[$detalle] 
+		"credit_note_lines"=>$detalle 
 		);
 
 }
@@ -120,9 +122,11 @@ $payload = json_encode($payload);
 
 $curl = curl_init();
 
+//$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
+$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'credit-note/442810ba-2837-4e22-ae53-0180e6731747',
+  CURLOPT_URL => $prefixUrl.'credit-note/'.$TestSetId_vision,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,

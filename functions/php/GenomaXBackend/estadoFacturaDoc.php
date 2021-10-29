@@ -1,6 +1,13 @@
 <?php
 include('params.php');
+include '../nexus/database.php';
+
+$bearer = ValidarBearer(verficarEmpresaReg());
+
 $curl = curl_init();
+
+
+
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => $prefixUrl.'status/document/'.$_POST['cufe'],

@@ -23,6 +23,9 @@ $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_array($resultH)) {
 	
 
+	$bearer = ValidarBearer(verficarEmpresaReg());
+	
+
 	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)) AS valor FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH['Codigo_EPS']."' AND b.Codigo_PLA='".$rowH['Codigo_PLA']."' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH["Codigo_ADM"]."',10,'0') GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	$result = mysqli_query($conexion, $SQL_DET);
 	//echo $SQL_DET;
@@ -104,19 +107,21 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 
 }
 
-//var_dump($payload);
 
-//error_log('pay: '.$payload);
 
+//error_log('pay: '.$payload);exit();
+//var_dump($payload);exit();
 $payload = json_encode($payload);
 
 // error_log('pay: '.$payload);
 
 $curl = curl_init();
 
+//$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
+$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'invoice/442810ba-2837-4e22-ae53-0180e6731747',
+  CURLOPT_URL => $prefixUrl.'invoice/'.$TestSetId_vision,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,

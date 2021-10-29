@@ -1,6 +1,9 @@
 <?php
 //var_dump($_POST);exit();
 include('params.php');
+include '../nexus/database.php';
+
+$bearer = ValidarBearer(verficarEmpresaReg());
 
 if($_POST['TipoDoc'] == 1){
     $payload= array('type_document_id'=>$_POST['TipoDoc'],
@@ -47,7 +50,7 @@ curl_setopt_array($curl, array(
     'Host: localhost',
     'accept: application/json',
     'X-CSRF-TOKEN: ',
-    'Authorization: Bearer 5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec'
+    'Authorization: Bearer '.$bearer
   ),
 ));
 
