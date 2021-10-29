@@ -2,6 +2,9 @@
 //var_dump($_POST);exit();
 include('params.php');
 include '../php/nexus/database.php';
+
+$bearer = ValidarBearer(verficarEmpresaReg());
+
 $conexion = mysqli_connect("localhost","root", "", "gnx_prueba");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 

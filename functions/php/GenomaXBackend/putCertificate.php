@@ -1,6 +1,10 @@
 <?php
 //var_dump($_POST);exit();
 include('params.php');
+include '../nexus/database.php';
+
+$bearer = ValidarBearer(verficarEmpresaReg());
+
 $payload= array('certificate'=>$_POST['certificado'],'password'=>$_POST['password']
 );
 $payload = json_encode($payload);
@@ -27,7 +31,7 @@ curl_setopt_array($curl, array(
     'Host: localhost',
     'accept: application/json',
     'X-CSRF-TOKEN: ',
-    'Authorization: Bearer 5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec'
+    'Authorization: Bearer '.$bearer
   ),
 ));
 
