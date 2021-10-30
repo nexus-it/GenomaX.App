@@ -100,6 +100,15 @@ $PREFIJO = $cadena[0];
 						"payment_due_date"=> $rowH['Fecha_FAC'],
 						"duration_measure"=> "60"
 					),
+					"allowance_charges"=> array(
+						
+							"discount_id"=> 1,
+							"charge_indicator"=> false,
+							"allowance_charge_reason"=> "DESCUENTO COPAGO",
+							"amount"=> $rowH['ValPaciente_FAC'],
+							"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
+						
+					),
 					"legal_monetary_totals"=> array(
 						"line_extension_amount"=> $rowH['ValTotal_FAC'],
 						"tax_exclusive_amount"=> "0",
@@ -120,7 +129,7 @@ $PREFIJO = $cadena[0];
 
 
 //error_log('pay: '.$payload);exit();
-//var_dump($payload);exit();
+var_dump($payload);exit();
 $payload = json_encode($payload);
 
 // error_log('pay: '.$payload);
