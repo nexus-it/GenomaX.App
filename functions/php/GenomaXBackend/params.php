@@ -2,7 +2,7 @@
 
 
 
- $prefixUrl="https://backend.estrateg.com/nexusIt/public/api/ubl2.1/";
+ $prefixUrl="https://backend.estrateg.com/API/public/api/ubl2.1/";
  //$bearer = "4ec827f8bca31484ba62f9d54bd5fc9ab546be928f765b1eead483f8d6c7ddcb";  //AUTORIZACION vision capital
  //$bearer = "5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec";  //AUTORIZACION TECNOWEBS
 
@@ -18,9 +18,6 @@ $result = mysqli_query($conexion1, $sql);
   $datosEmp = mysqli_fetch_array($result);
 return $datosEmp['bearer'];
 }
-
-
-
 
  function ValidarCUfe($nit,$prefix,$number){
     $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");

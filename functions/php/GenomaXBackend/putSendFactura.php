@@ -6,7 +6,7 @@ $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 $SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.ValTotal_FAC, c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER as nompasciente, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
-, SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION
+, SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION, Correo_TER
 From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
 czterceros g, cztipoid h, gxplanes i WHERE c.Codigo_AFC = b.Codigo_AFC  and d.Codigo_EPS= c.Codigo_EPS  and e.Codigo_TER= d.Codigo_TER   and f.Codigo_ADM =c.Codigo_ADM   and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA 
 AND c.Codigo_FAC = '".$_POST["factura"]."' and estado_fac = 1
@@ -74,7 +74,7 @@ $PREFIJO = $cadena[0];
 					'establishment_phone'=>$rowH['Telefonos_DCD'],
 					'establishment_municipality'=>126,
 					'atacheddocument_name_prefix'=>$rowH['Codigo_FAC'],
-					'establishment_email'=>"ing.leandro.castro@gmail.com",
+					'establishment_email'=>$rowH['Correo_TER'],
 					'sendmail'=> false,
 					'sendmailtome'=> false,
 					'seze'=> "2021-2017",
@@ -100,6 +100,15 @@ $PREFIJO = $cadena[0];
 						"payment_due_date"=> $rowH['Fecha_FAC'],
 						"duration_measure"=> "60"
 					),
+					/* "allowance_charges"=> array(
+						
+							"discount_id"=> 1,
+							"charge_indicator"=> false,
+							"allowance_charge_reason"=> "DESCUENTO COPAGO",
+							"amount"=> $rowH['ValPaciente_FAC'],
+							"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
+						
+					), */
 					"legal_monetary_totals"=> array(
 						"line_extension_amount"=> $rowH['ValTotal_FAC'],
 						"tax_exclusive_amount"=> "0",
@@ -122,16 +131,17 @@ $PREFIJO = $cadena[0];
 //error_log('pay: '.$payload);exit();
 //var_dump($payload);exit();
 $payload = json_encode($payload);
-
+//print_r($payload);exit();
 // error_log('pay: '.$payload);
 
 $curl = curl_init();
 
+$TestSetId_vision="";
 //$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
 //$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'invoice/'.$TestSetId_vision,
+  CURLOPT_URL => $prefixUrl.'invoice'.$TestSetId_vision,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -148,9 +158,9 @@ curl_setopt_array($curl, array(
   ),
 ));
 
-error_log('curl: '.$curl);
+//error_log('curl: '.$curl);
 $response = curl_exec($curl);
-error_log('response: '.$response);
+//error_log('response: '.$response);
 curl_close($curl);
 
 

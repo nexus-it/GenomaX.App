@@ -21,7 +21,8 @@ include '00trnsctns.php';
 			// se intenta generar nuevamente la factura
 			$Consec=LoadConsecFact($conexion, $_POST['sede']);
 			$MSG='Se ha generado correctamente la factura '.add_ceros($Consec,10);
-			$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Nota_FAC, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', '".(int)$_POST['Ingreso']."', '".$_POST["fechafac"]."', '".$_POST['totalpte']."',  '".$_POST["totalent"]."', '".$_POST["totalent"]."', '".$_POST["contrato"]."', '".$_POST["plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["nota"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
+			$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Nota_FAC, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', '".(int)$_POST['Ingreso']."', '".$_POST["fechafac"]." ".$_POST["horafac"]."', '".$_POST['totalpte']."',  '".$_POST["totalent"]."', '".$_POST["totalent"]."', '".$_POST["contrato"]."', '".$_POST["plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["nota"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
+			error_log("Fecha y hora: ".$SQL);
 			EjecutarSQL($SQL, $conexion);
 		}
 	}

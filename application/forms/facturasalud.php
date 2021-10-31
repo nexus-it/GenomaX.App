@@ -118,7 +118,7 @@
 </div> 
 
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 
 <div class="form-group">
   <label for="txt_NombreEPS<?php echo $NumWindow; ?>">Contrato</label>
@@ -137,7 +137,7 @@
 </div> 
 
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 
 <div class="form-group">
   <label for="txt_cama<?php echo $NumWindow; ?>">Cama</label>
@@ -167,6 +167,14 @@
 </div>  
 
   	</div>
+	  <div class="col-md-2">
+
+<div class="form-group">
+  <label for="txt_fechafac<?php echo $NumWindow; ?>">Hora Factura</label>
+	<input name="txt_horafac<?php echo $NumWindow; ?>" id="txt_horafac<?php echo $NumWindow; ?>" type="time" <?php echo $Dizabled; ?> value="00:00:00"/>
+</div>  
+
+	</div>
 	<div class="col-md-2">
 
 <div class="form-group">  
@@ -478,6 +486,7 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 </form>
 <script >
 FechaActual('txt_fechafac<?php echo $NumWindow; ?>');
+HoraActual("txt_horafac<?php echo $NumWindow; ?>");
 $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 <?php
 	$SQL="Select month(now()), year(now());";
