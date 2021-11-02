@@ -109,6 +109,18 @@ ul, p {
     margin-left: 10%;
 }
 
+#razonsocial {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    text-align: right; 
+    color: #f2f5f6c2;
+    text-shadow: #4a476ad4 1px 1px 5px ;
+    font-family: courier;
+    font: size 13px;
+}
+
 .login_box{
     background: #1d9c47; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */

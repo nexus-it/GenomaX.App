@@ -1,6 +1,5 @@
 <?php
 	
-
 session_start();
 	include 'database.php';	
 	include 'auditoria.php';
@@ -16,6 +15,7 @@ session_start();
 			{
 			//Ahora hacemos una consulta en la cual buscamos tanto al usuario como la clave. 
 			$SQL = "Select Codigo_USR, Nombre_USR, ID_USR, a.Codigo_PRF, Nombre_PRF from itusuarios a, itperfiles b where a.Codigo_PRF=b.Codigo_PRF and ID_USR= '".$_POST["txt_loginuser"]."' and Clave_USR = SHA1('".$_POST["txt_loginpass"]."') and Activo_USR='1'";
+			error_log($SQL);
 			$result = mysqli_query($conexion, $SQL);
 			$row = mysqli_fetch_array($result);
 			//Si la consulta es diferente de cero la contraseña es válida

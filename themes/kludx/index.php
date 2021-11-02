@@ -1,5 +1,5 @@
 <?php
-$SQL="Select Version_DCD From itconfig";
+$SQL="Select Update_DCD  From itconfig";
 $resultrt = mysqli_query($conexion, $SQL);
 $version="0";
 if ($rowrt = mysqli_fetch_array($resultrt)) {
@@ -7,13 +7,16 @@ if ($rowrt = mysqli_fetch_array($resultrt)) {
 	$_SESSION["VERSION_CONTROL"]= $version;
 }
 mysqli_free_result($resultrt);
-LoadHead($version);
+CargarHead($version);
 $NoSession="";
 if (isset($_GET["nxsdb"])){
 	$NoSession="?nxsdb=".$_GET["nxsdb"];
 }
 ?>
 <body id="bdy_kludx" class="body-kludx">
-<div class="cover_lazy" id="cvr_lazy"></div>
 </body>
+<script type="text/javascript" src="themes/kludx/js/kludx_functions.js"></script>
+<?php 
+// LoadFoot($version);
+?>
 </html>

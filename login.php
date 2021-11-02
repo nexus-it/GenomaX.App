@@ -105,21 +105,22 @@ listar_directorios_rutajs("functions/js/", $revision);
 ?>
 
 <script type="text/javascript">
+	function encrypt() {
+		passl=document.querySelector("#txt_loginpass").value;
+		document.querySelector("#txt_loginpass").value= hex_md5(passl);
+		document.querySelector("#frm_login").submit();
+	}
 	var div1 = document.getElementById('dvauth');
 	div1.style.visibility = 'hidden';
-	$("#dvlgn").show();
-	nishal=$("#hdn_ni0").val();
-	nisha2=$("#hdn_sha1").val();
+	document.querySelector("#dvlgn").display=true;
+	nishal=document.querySelector("#hdn_ni0").value;
+	nisha2=document.querySelector("#hdn_sha1").value;
 	document.getElementById("hdn_browsername").value=BrowserDetect.browser;
 	document.getElementById("hdn_browserversion").value=BrowserDetect.version;
 	document.getElementById("hdn_plataforma").value=BrowserDetect.OS;
 	document.getElementById("razonsocial").innerHTML ='Versión: <?php echo $version.' '.$plan.' ['.$revision.']'; ?>';
-	authsecure(document.getElementById("hdn_ni0").value);
-	function encrypt() {
-		passl=$("#txt_loginpass").val();
-		$("#txt_loginpass").attr('value', hex_md5(passl));
-		$("#frm_login").submit();
-	}
+	 authsecure(document.getElementById("hdn_ni0").value); 
+	
 </script>
 
 </body>

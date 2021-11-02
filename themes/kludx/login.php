@@ -11,10 +11,7 @@
         <strong>Error:</strong> '.$msg_login.' <span class="glyphicon glyphicon-warning-sign" aria-hidden="hiden"></span>
         </h5>
     </div>';
-    } else {
-        echo '';
-    }
-    
+    } 
     // Todo esto solo es para que cambie el video de fondo vada vez que alguien se loguee...
     $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
     $SQL="Select Codigo_LGN, Nombre_LGN from nxs_videologin where Codigo_LGN in (select case when a.Codigo_LGN=max(b.Codigo_LGN) then '1' else (a.Codigo_LGN+1) end from nxs_videologin a, nxs_videologin b where a.Actual_LGN='1');";
@@ -28,6 +25,7 @@
         mysqli_query($conexion, $SQL);
     }
 ?>
+    <div id="razonsocial">Cargando Versión...</div>
     <section class="login_box">
         <div class="login_control">
             <div class="kludtitle" align="center">
