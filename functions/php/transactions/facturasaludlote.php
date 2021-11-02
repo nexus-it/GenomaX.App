@@ -13,7 +13,7 @@ include '00trnsctns.php';
 			$kontador++;
 			$MSG='Se han generado correctamente las facturas '.$Consec;
 			 
-			$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', '".$_POST['ingreso'.$contador]."', '".$_POST['fechafac']."', '".$_POST['valorPte'.$contador]."',  '".$_POST["valorEnt".$contador]."',  '".$_POST["valorEnt".$contador]."', '".$_POST["Contrato"]."', '".$_POST["Plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
+			$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', '".$_POST['ingreso'.$contador]."', '".$_POST['fechafac'].' '.date("H:i:s")."', '".$_POST['valorPte'.$contador]."',  '".$_POST["valorEnt".$contador]."',  '".$_POST["valorEnt".$contador]."', '".$_POST["Contrato"]."', '".$_POST["Plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
 			EjecutarSQL($SQL, $conexion);
 			$SQL="Update gxadmision Set Estado_ADM='F' Where LPAD(Codigo_ADM,10,'0')=LPAD('".$_POST['ingreso'.$contador]."',10,'0');";
 			EjecutarSQL($SQL, $conexion);

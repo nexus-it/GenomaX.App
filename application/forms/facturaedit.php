@@ -1,5 +1,4 @@
 <?php
-	
 	session_start();
 	$NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -97,6 +96,60 @@
 	<input id="txt_paciente2<?php echo $NumWindow; ?>" type="text" disabled="disabled" name="txt_paciente2<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#0E5012; ">
 </div>
 	</div>
+	<div class="col-md-2">
+
+	<div class="form-group">
+		<label for="txt_factura<?php echo $NumWindow; ?>">Factura</label>
+		<input id="txt_factura<?php echo $NumWindow; ?>" type="text" disabled="disabled" name="txt_factura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
+	</div>
+	</div>
+	<div class="col-md-2">
+	<div class="form-group">
+		<label for="txt_ffactura<?php echo $NumWindow; ?>">Fecha Factura</label>
+		<input id="txt_ffactura<?php echo $NumWindow; ?>" type="date"  name="txt_ffactura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
+	</div>
+	</div>
+	<div class="col-md-2">
+<div class="form-group">
+  <label for="txt_horafac<?php echo $NumWindow; ?>">Hora Factura</label>
+	<input name="txt_horafac<?php echo $NumWindow; ?>" id="txt_horafac<?php echo $NumWindow; ?>" type="time" <?php echo $Dizabled; ?> value="00:00:00"/>
+</div>  
+	</div>
+	<div class="col-md-2">
+	<div class="form-group">
+		<label for="txt_vfactura<?php echo $NumWindow; ?>">Valor</label>
+		<input id="txt_vfactura<?php echo $NumWindow; ?>" type="text" disabled="disabled" name="txt_vfactura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
+	</div>
+	</div>
+	<div class="col-md-2">
+
+<div class="form-group">  
+  <label for="cmb_mes<?php echo $NumWindow; ?>">Mes</label>
+  <select name="cmb_mes<?php echo $NumWindow; ?>" id="cmb_mes<?php echo $NumWindow; ?>" >
+    <option value="ENERO">ENERO</option>
+    <option value="FEBRERO">FEBRERO</option>
+    <option value="MARZO">MARZO</option>
+    <option value="ABRIL">ABRIL</option>
+    <option value="MAYO">MAYO</option>
+    <option value="JUNIO">JUNIO</option>
+    <option value="JULIO">JULIO</option>
+    <option value="AGOSTO">AGOSTO</option>
+    <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+    <option value="OCTUBRE">OCTUBRE</option>
+    <option value="NOVIEMBRE">NOVIEMBRE</option>
+    <option value="DICIEMBRE">DICIEMBRE</option>
+  </select>
+</div> 
+
+	</div>
+	<div class="col-md-1">
+
+<div class="form-group">  
+  <label for="txt_anyo<?php echo $NumWindow; ?>">Año</label>
+  <input name="txt_anyo<?php echo $NumWindow; ?>" type="number" id="txt_anyo<?php echo $NumWindow; ?>" min="2020" />
+</div> 
+
+	</div>
 	<div class="col-md-1">
 
 <div class="form-group">
@@ -156,7 +209,7 @@
 </div>
     
     </div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 
 <div class="form-group">
 	<label for="txt_NombreDx<?php echo $NumWindow; ?>">Diagnóstico Previo</label>
@@ -191,54 +244,7 @@
 </div> 
 
 	</div>
-	<div class="col-md-2">
-
-	<div class="form-group">
-		<label for="txt_factura<?php echo $NumWindow; ?>">Factura</label>
-		<input id="txt_factura<?php echo $NumWindow; ?>" type="text" disabled="disabled" name="txt_factura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
-	</div>
-	</div>
-	<div class="col-md-2">
-	<div class="form-group">
-		<label for="txt_ffactura<?php echo $NumWindow; ?>">Fecha Factura</label>
-		<input id="txt_ffactura<?php echo $NumWindow; ?>" type="date"  name="txt_ffactura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
-	</div>
-	</div>
-	<div class="col-md-2">
-	<div class="form-group">
-		<label for="txt_vfactura<?php echo $NumWindow; ?>">Valor</label>
-		<input id="txt_vfactura<?php echo $NumWindow; ?>" type="text" disabled="disabled" name="txt_vfactura<?php echo $NumWindow; ?>" style="font-size:15px; font-weight: bold; color:#50120E; ">
-	</div>
-	</div>
-	<div class="col-md-1">
-
-<div class="form-group">  
-  <label for="cmb_mes<?php echo $NumWindow; ?>">Mes</label>
-  <select name="cmb_mes<?php echo $NumWindow; ?>" id="cmb_mes<?php echo $NumWindow; ?>" >
-    <option value="ENERO">ENERO</option>
-    <option value="FEBRERO">FEBRERO</option>
-    <option value="MARZO">MARZO</option>
-    <option value="ABRIL">ABRIL</option>
-    <option value="MAYO">MAYO</option>
-    <option value="JUNIO">JUNIO</option>
-    <option value="JULIO">JULIO</option>
-    <option value="AGOSTO">AGOSTO</option>
-    <option value="SEPTIEMBRE">SEPTIEMBRE</option>
-    <option value="OCTUBRE">OCTUBRE</option>
-    <option value="NOVIEMBRE">NOVIEMBRE</option>
-    <option value="DICIEMBRE">DICIEMBRE</option>
-  </select>
-</div> 
-
-	</div>
-	<div class="col-md-1">
-
-<div class="form-group">  
-  <label for="txt_anyo<?php echo $NumWindow; ?>">Año</label>
-  <input name="txt_anyo<?php echo $NumWindow; ?>" type="number" id="txt_anyo<?php echo $NumWindow; ?>" min="2020" />
-</div> 
-
-	</div>
+	
 
 	</div>
 
@@ -386,7 +392,13 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
  </div><input name="hdn_controw<?php echo $NumWindow; ?>" type="hidden" id="hdn_controw<?php echo $NumWindow; ?>" value="<?php echo $contarow; ?>" />
 
  		</div>
-		<div class="col-md-3 col-md-offset-9">
+		 <div class="col-md-9">
+ 			<div class="form-group">
+			  <label for="txt_nota<?php echo $NumWindow; ?>">Nota:</label>
+			  <textarea name="txt_nota<?php echo $NumWindow; ?>" rows="3" id="txt_nota<?php echo $NumWindow; ?>" ></textarea>
+			</div> 
+ 		</div>
+		<div class="col-md-3"> 
 
   <label for="txt_totalpaciente<?php echo $NumWindow; ?>">Total Paciente</label>
   <input name="hdn_totalpte<?php echo $NumWindow; ?>" type="hidden" id="hdn_totalpte<?php echo $NumWindow; ?>" value="<?php echo $totalpaciente; ?>" />
@@ -449,7 +461,7 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 
 	if (isset($_GET["Ingreso"])) {	
 	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, w.Fecha_FAC, w.ValTotal_FAC from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA and u.PeriodoActual_XFC=concat(LPAD(month(w.Fecha_FAC),2,'0'),'.',year(w.Fecha_FAC))";
-	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, w.Fecha_FAC, w.ValTotal_FAC, month_fac, year_fac from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA ";
+	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, date(w.Fecha_FAC), w.ValTotal_FAC, month_fac, year_fac, Nota_FAC, time(w.Fecha_FAC) from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA ";
 	$result = mysqli_query($conexion, $SQL);
 	//$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -473,9 +485,11 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 		document.frm_form".$NumWindow.".txt_diagnostico".$NumWindow.".value='".$row[19]."';
 		document.frm_form".$NumWindow.".txt_factura".$NumWindow.".value='".$row[20]."';
 		document.frm_form".$NumWindow.".txt_ffactura".$NumWindow.".value='".($row[21])."';
+		document.frm_form".$NumWindow.".txt_horafac".$NumWindow.".value='".($row[26])."';
 		document.frm_form".$NumWindow.".txt_vfactura".$NumWindow.".value='".number_format($row[22], 2, ",", ".")."';
 		document.frm_form".$NumWindow.".cmb_mes".$NumWindow.".value='".($row[23])."';
 		document.frm_form".$NumWindow.".txt_anyo".$NumWindow.".value='".($row[24])."';
+		document.frm_form".$NumWindow.".txt_nota".$NumWindow.".value='".preg_replace("/\r\n|\n|\r/", "<br/>",$row[25])."';
 		
 		document.frm_form".$NumWindow.".txt_ffactura".$NumWindow.".value='".($row[21])."';
 		HCDxOnBlur".$NumWindow."();

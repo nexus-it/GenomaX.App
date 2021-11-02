@@ -170,7 +170,7 @@
 	  <div class="col-md-2">
 
 <div class="form-group">
-  <label for="txt_fechafac<?php echo $NumWindow; ?>">Hora Factura</label>
+  <label for="txt_horafac<?php echo $NumWindow; ?>">Hora Factura</label>
 	<input name="txt_horafac<?php echo $NumWindow; ?>" id="txt_horafac<?php echo $NumWindow; ?>" type="time" <?php echo $Dizabled; ?> value="00:00:00"/>
 </div>  
 
