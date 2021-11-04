@@ -36,46 +36,43 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	/////ADICIONO EL QR  2021-11-03 LEANDRO CASTRO
 	if(is_null($_SESSION["SiigoToken"])) {
 
-		$SQL_INFO = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,'-',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
-		, SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION, IdFE_FAC
-		From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
-		czterceros g, cztipoid h, gxplanes i WHERE c.Codigo_AFC = b.Codigo_AFC  and d.Codigo_EPS= c.Codigo_EPS  and e.Codigo_TER= d.Codigo_TER   and f.Codigo_ADM =c.Codigo_ADM   and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA 
-		AND c.CODIGO_FAC = '$codfac'	";
-		error_log($SQL_INFO);
+		$SQL_INFO = "SELECT codigo_fac AS 'NumFac', date(fecha_fac) AS 'FecFac', TIME(fecha_fac) AS 'HorFac', b.ID_TER AS 'NitFac', c.ID_TER AS 'DocAdq', a.ValTotal_FAC AS 'ValFac', a.IdFE_FAC AS 'CUFE' FROM gxfacturas a, czterceros b, czterceros c, gxeps d WHERE b.Codigo_TER='X' AND a.Codigo_EPS=d.Codigo_EPS AND d.Codigo_TER=c.Codigo_TER AND a.Codigo_FAC= '$codfac'";
 		$RESULTADO_INFO = mysqli_query($conexion, $SQL_INFO);
 		$row_INFO = mysqli_fetch_array($RESULTADO_INFO);
 		
 		if ($row_INFO['IdFE_FAC']!="0") {
 
-			$string = $codfac;
+			/* $string = $codfac;
 			//var_dump($_POST["factura"]);
 			$NUMERACION = preg_replace('/[^0-9]/', '', $string);
 			$cadena = explode($NUMERACION,$string);
-			$PREFIJO = $cadena[0];
+			$PREFIJO = $cadena[0]; */
 
-			$CUFE = $row_INFO['IdFE_FAC']; // ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION);
+			$CUFE = $row_INFO['CUFE']; // ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION);
 			/* $cad = explode("-",ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION));
 			$CUFE = $cad[0]; */
 
-			$cadena='NumFac:'.$row_INFO['Codigo_FAC'].PHP_EOL
-					.'FecFac:'.$row_INFO['Fecha_FAC'].PHP_EOL
-					.'NitFac:'.$row_INFO['NIT_DCD'].PHP_EOL
-					.'DocAdq:'.$row_INFO['ID_TER'].PHP_EOL
-					.'ValFac:'.$row_INFO['ValTotal_FAC'].PHP_EOL
-					.'ValIva:0.00'.PHP_EOL
-					.'ValOtroIm:0.00'.PHP_EOL
-					.'ValTotal:'.$row_INFO['ValTotal_FAC'].PHP_EOL
-					.'CUFE:'.$CUFE.PHP_EOL
-					.'https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
+			$cadena='NumFac: '.$row_INFO['NumFac'].PHP_EOL
+					.'FecFac: '.$row_INFO['FecFac'].PHP_EOL
+					.'HorFac: '.$row_INFO['HorFac'].PHP_EOL
+					.'NitFac: '.$row_INFO['NitFac'].PHP_EOL
+					.'DocAdq: '.$row_INFO['DocAdq'].PHP_EOL
+					.'ValFac: '.$row_INFO['ValFac'].PHP_EOL
+					.'ValIva: 0.00'.PHP_EOL
+					.'ValOtroIm: 0.00'.PHP_EOL
+					.'ValTotal: '.$row_INFO['ValFac'].PHP_EOL
+					.'CUFE: '.$CUFE.PHP_EOL
+					.'QRCode: https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
 					;
-			$this->Image("http://" . $_SERVER['HTTP_HOST']."/his/application/reports/qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");
+			$currentDir = str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+			$this->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");
 			$this->SetY(-64);
 			$this->SetFont('Arial','B',8);
 			$this->Cell(0,5,'CUFE: '.$CUFE,'',0,'L',0);
 			
 		}
 	}
-	// FIN COD LEANDRO
+	// FIN COD QR
 
 	$this->SetY(-88);
 	$this->SetFont('Arial','',10);
