@@ -6,7 +6,7 @@ define('DB_NXS', 'nxs_gnx');
 
 define('DB_USER', 'root');
 
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'Tg@82071560763');
 
 define('DB_HOST', 'localhost');
 

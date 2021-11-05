@@ -6,6 +6,10 @@ include '../../functions/php/nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
+include '../../functions/php/GenomaXBackend/params.php';
+require_once("phpqrcode/qrlib.php");
+//create a QR Code and save it as a png image file named test.png
+QRcode::png("coded number here","test.png");
 
 class PDF extends FPDF
 {
@@ -29,6 +33,52 @@ function Header()
 }
 function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $valcred, $subtotalfac, $conexion)
 {
+	/////ADICIONO EL QR  2021-11-03 LEANDRO CASTRO
+	if(is_null($_SESSION["SiigoToken"])) {
+
+		$SQL_INFO = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,'-',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
+		, SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION, IdFE_FAC
+		From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
+		czterceros g, cztipoid h, gxplanes i WHERE c.Codigo_AFC = b.Codigo_AFC  and d.Codigo_EPS= c.Codigo_EPS  and e.Codigo_TER= d.Codigo_TER   and f.Codigo_ADM =c.Codigo_ADM   and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA 
+		AND c.CODIGO_FAC = '$codfac'	";
+		error_log($SQL_INFO);
+		$RESULTADO_INFO = mysqli_query($conexion, $SQL_INFO);
+		$row_INFO = mysqli_fetch_array($RESULTADO_INFO);
+		
+		if ($row_INFO['IdFE_FAC']!="0") {
+
+			$string = $codfac;
+			//var_dump($_POST["factura"]);
+			$NUMERACION = preg_replace('/[^0-9]/', '', $string);
+			$cadena = explode($NUMERACION,$string);
+			$PREFIJO = $cadena[0];
+
+			$CUFE = $row_INFO['IdFE_FAC']; // ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION);
+			/* $cad = explode("-",ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION));
+			$CUFE = $cad[0]; */
+
+			$cadena='NumFac:'.$row_INFO['Codigo_FAC'].PHP_EOL
+					.'FecFac:'.$row_INFO['Fecha_FAC'].PHP_EOL
+					.'NitFac:'.$row_INFO['NIT_DCD'].PHP_EOL
+					.'DocAdq:'.$row_INFO['ID_TER'].PHP_EOL
+					.'ValFac:'.$row_INFO['ValTotal_FAC'].PHP_EOL
+					.'ValIva:0.00'.PHP_EOL
+					.'ValOtroIm:0.00'.PHP_EOL
+					.'ValTotal:'.$row_INFO['ValTotal_FAC'].PHP_EOL
+					.'CUFE:'.$CUFE.PHP_EOL
+					.'https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
+					;
+
+			$currentDir = str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+			$this->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");		
+			$this->SetY(-64);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(0,5,'CUFE: '.$CUFE,'',0,'L',0);
+			
+		}
+	}
+	// FIN COD LEANDRO
+
 	$this->SetY(-88);
 	$this->SetFont('Arial','',10);
 	$this->Cell(118,5,'','TLR',0,'R',0);
@@ -92,16 +142,16 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	$this->SetFont('Arial','',9);
 	$SQL="Select a.Codigo_USR, a.Nombre_USR, a.PieFirma_USR, Firma_USR From gxfacturas c, itusuarios a Where a.Codigo_USR=c.Codigo_USR and c.Codigo_FAC='".$codfac."' ";
 	$result = mysqli_query($conexion, $SQL);
-//	echo $SQL;
+	
 	while ($row = mysqli_fetch_row($result)) {
 		if (!(file_exists('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg'))) {
 			$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg';
 			file_put_contents($LeFirma, $row[3]);
 		}	
 		// $this->Image('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg',11,234,40);
-		$this->Cell(70,3,'Responsable: '.$row[1],'T',0,'L',0);
+		$this->Cell(70,3,'Responsable: '.utf8_decode($row[1]),'T',0,'L',0);
 		$this->Ln();
-		$this->Cell(60,3,$row[2],'',0,'L',0);
+		$this->Cell(60,3,utf8_decode($row[2]),'',0,'L',0);
 		}
 		mysqli_free_result($result);
 	/*if ($rowH[43]!="") {
@@ -132,11 +182,11 @@ function CabFactura($rsocial, $nit, $dir, $tel, $ciudad, $estado, $contrato, $pa
 	$this->SetFont('Arial','B',10);
 	$this->Cell(60,7,'NIT: '.$nit,'',0,'C',0);
 	$this->SetY(10);
-	$this->Cell(0,6,$dir,'',0,'C',0);
+	$this->Cell(0,6,utf8_decode($dir),'',0,'C',0);
 	$this->SetY(15);
 	$this->Cell(0,6,'Tel. '.$tel,'',0,'C',0);
 	$this->SetY(20);
-	$this->Cell(0,6,$ciudad,'',0,'C',0);
+	$this->Cell(0,6,utf8_decode($ciudad),'',0,'C',0);
 	if ($estado=="0") {
 		$this->Image('../../anulado.jpg',35,45,0);
 	}
@@ -144,7 +194,7 @@ function CabFactura($rsocial, $nit, $dir, $tel, $ciudad, $estado, $contrato, $pa
 	$this->SetFont('Arial','',9);
 	$this->Cell(60,5,'Cliente:','LT',0,'L',0);
 	$this->SetFont('Arial','B',9);
-	$this->Cell(65,5,'Contrato: '.$contrato,'LTR',0,'R',0);
+	$this->Cell(65,5,'Contrato: '.utf8_decode($contrato),'LTR',0,'R',0);
 	$this->Ln();
 	$this->SetFont('Arial','B',10);
 	if ($tipocont=="PARTIC") {
@@ -265,7 +315,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 }
 error_log($SQL);
 mysqli_free_result($resultH);
-
+error_log("Factura salud:". $SQL);
 $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->AddPage();
@@ -390,7 +440,12 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	mysqli_free_result($result);
     $pdf->PieFactura($rowH[14], $rowH[13], $rowH[15], $rowH[4], $rowH[5], $rowH[10], $rowH[37], $subtotalfac, $conexion);
 	
+
+	$pdf->Output(dirname(__DIR__,2)."\\functions\php\GenomaXBackend\sendmails\archivos\FES-".$rowH[10].".pdf","F");
+
 	}
+	
+	
 	
 	mysqli_free_result($resultH);
 	$pdf->Ln();

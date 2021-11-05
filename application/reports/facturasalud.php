@@ -14,7 +14,7 @@ var $B;
 var $I;
 var $U;
 var $HREF;
-function PDF($orientation='P',$unit='mm',$format='Letter')
+function _construct($orientation='P',$unit='mm',$format='Letter')
 {
     //Llama al constructor de la clase padre
     $this->FPDF($orientation,$unit,$format);
@@ -26,7 +26,7 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-	$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',3,1,0);
+	//$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',3,1,0);
 }
 function Footer()
 {

@@ -61,14 +61,18 @@ function listarFacturas($filtro,$ini,$fin){
       
             $html .= '<td>'.$action1.'</td>';
 
-/*             $cadnit = explode("-",verficarEmpresaReg());
-            $cadfac = explode("-",$row[0]);
-            $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/FES-".$cadfac[0].$cadfac[1].".pdf")? 'existe' : 'no existe';
-            $cufe = ValidarCUfe($cadnit[0],$cadfac[0],$cadfac[1]);
- */
+            $cadnit = explode("-",verficarEmpresaReg());
+            $string = $row[0];
+            $NUMERACION = preg_replace('/[^0-9]/', '', $string);
+            $cadena = explode($NUMERACION,$string);
+            $PREFIJO = $cadena[0];
+            //$url = url_exists("https://backend.estrateg.com/API/storage/app/public/".$cadnit[0]."/FES-".$cadfac[0].$cadfac[1].".pdf")? 'existe' : 'no existe';
+            $cad = ValidarCUfe($cadnit[0],$PREFIJO,$NUMERACION);
+            $cad = explode("-",$cad);
+            $cufe = $cad[0];
 
             if($row[5] != '0'){
-               $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
+               $html .= '<td><i title="Factura Enviada'.$cufe.'" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
             }else{
                $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[0].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
             }

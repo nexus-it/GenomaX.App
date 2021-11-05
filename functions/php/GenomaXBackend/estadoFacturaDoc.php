@@ -6,7 +6,7 @@ $bearer = ValidarBearer(verficarEmpresaReg());
 
 $curl = curl_init();
 
-
+//print_r($_POST['cufe']);exit();
 
 
 curl_setopt_array($curl, array(

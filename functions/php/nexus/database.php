@@ -67,6 +67,26 @@ function verficarEmpresaReg(){
    error_log($nitEmp);
  }
 
+ function datosEnvioMail($factura){
+   $SQL = "SELECT a.NIT_DCD, a.Razonsocial_DCD,  e.ID_TER, e.Nombre_TER, e.Correo_TER
+   From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i
+   Where c.Codigo_AFC = b.Codigo_AFC and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM 
+   and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA
+   and c.Codigo_FAC = '$factura' and c.EnvioFacCli = ''
+   Order By c.Codigo_FAC";
+   $conexion=conexion();
+   $resultadoEmp = mysqli_query($conexion, $SQL);
+   if ($rowEmp = mysqli_fetch_row($resultadoEmp)) {
+      return $rowEmp;
+   }
+ }
+
+ function actualizarEstadoEnvioFact($factura){
+    $SQL = "UPDATE gxfacturas SET EnvioFacCli = 1 WHERE Codigo_FAC = '$factura' ";
+    $conexion=conexion();
+    $resultadoEmp = mysqli_query($conexion, $SQL);
+    return $resultadoEmp;
+ }
 
  function NombreMes($mes){
    switch($mes) {

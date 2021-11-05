@@ -9,6 +9,7 @@ if(isset($_POST["filtro"])){
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
+  include '../../functions/php/GenomaXBackend/sendmails/adjuntarArchivos.php';
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
@@ -303,7 +304,9 @@ function putSendFactura(factura){
                 if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 0){
                   $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
                 }else{
-                $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+                  $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+                  //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
+                  adjuntarArvhivos(factura);
                 }
 
                 //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
@@ -325,4 +328,30 @@ function putSendFactura(factura){
       estadoFacturaDoc(factura,cufe)
     });
 });
+
+
+
+function adjuntarArvhivos(factura){
+  $.ajax({
+            type: 'POST',
+            url: 'functions/php/GenomaXBackend/sendmails/adjuntarArchivos.php',
+            data: {
+              factura: factura
+
+            },
+            beforeSend: function()
+             {
+                
+             },
+              success: function (data) {
+                obj = JSON.parse(data);
+                alert("correo enviado");
+              },
+              error: function() { 
+                console.log(data);
+              }
+            });
+}
+
+
 </script>

@@ -111,7 +111,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 	elseif(is_dir(dirname(__FILE__).'/font'))
 		$this->fontpath = dirname(__FILE__).'/font/';
 	else
-		$this->fontpath = 'http://cdn.genomax.co/media/fpdffonts/';
+		$this->fontpath = '';
 	// Core fonts
 	$this->CoreFonts = array('courier', 'helvetica', 'times', 'symbol', 'zapfdingbats');
 	// Scale factor
@@ -127,7 +127,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 		$this->Error('Incorrect unit: '.$unit);
 	// Page sizes
 	$this->StdPageSizes = array('a3'=>array(841.89,1190.55), 'a4'=>array(595.28,841.89), 'a5'=>array(420.94,595.28),
-		'letter'=>array(612,792), 'legal'=>array(612,1008), 'halfletter'=>array(612,396));
+		'letter'=>array(612,792), 'legal'=>array(612,1008));
 	$size = $this->_getpagesize($size);
 	$this->DefPageSize = $size;
 	$this->CurPageSize = $size;
@@ -1081,7 +1081,7 @@ function _getpagesize($size)
 	{
 		$size = strtolower($size);
 		if(!isset($this->StdPageSizes[$size]))
-			$this->Error('Tamaño desconocido de página: '.$size);
+			$this->Error('Unknown page size: '.$size);
 		$a = $this->StdPageSizes[$size];
 		return array($a[0]/$this->k, $a[1]/$this->k);
 	}
