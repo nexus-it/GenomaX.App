@@ -72,7 +72,7 @@ function verficarEmpresaReg(){
    From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i
    Where c.Codigo_AFC = b.Codigo_AFC and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM 
    and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA
-   and c.Codigo_FAC = '$factura' and c.EnvioFacCli = ''
+   and c.Codigo_FAC = '$factura' and c.EnvioFacCli_FAC = ''
    Order By c.Codigo_FAC";
    $conexion=conexion();
    $resultadoEmp = mysqli_query($conexion, $SQL);
