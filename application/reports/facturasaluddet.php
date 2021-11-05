@@ -40,7 +40,7 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 		$RESULTADO_INFO = mysqli_query($conexion, $SQL_INFO);
 		$row_INFO = mysqli_fetch_array($RESULTADO_INFO);
 		
-		if ($row_INFO['IdFE_FAC']!="0") {
+		if ($row_INFO['CUFE']!="0") {
 
 			/* $string = $codfac;
 			//var_dump($_POST["factura"]);

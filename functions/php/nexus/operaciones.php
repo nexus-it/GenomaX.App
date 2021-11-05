@@ -7,18 +7,9 @@ define('NUM_ITEMS_BY_PAGE', 10);
 
 
 function listarFacturas($filtro,$ini,$fin){
-   
-   if($ini == ''){
-      $ini=0;
-   }
-   if($fin <> 20){
-      $ini=$fin;
-      $fin=20;
-   }
-
    $html="";	
-
-  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC  FROM gxfacturas t1 
+  
+  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC, ObtenNumeros(t1.Codigo_FAC)  FROM gxfacturas t1 
   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
   INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
@@ -27,7 +18,7 @@ function listarFacturas($filtro,$ini,$fin){
   if($filtro <> ''){
    $SQL .=  " where T1.codigo_fac = '$filtro' "; 
   }
-  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,1 desc  limit 0,20"; //  limit $ini,$fin
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
 
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
@@ -39,7 +30,7 @@ function listarFacturas($filtro,$ini,$fin){
 				<th>Fecha</th>
 				<th>Paciente / Cliente</th>
 				<th>Entidad</th>
-				<th colspan="2">Estados</th>
+				<th >Acciones</th>
 			</tr>
 			';
 		$html .= '<tbody class="row items">';
@@ -56,46 +47,87 @@ function listarFacturas($filtro,$ini,$fin){
             $html .= '<td> '.($row[2]).'</td>';
             $html .= '<td> '.($row[3]).'</td>';
 
-            $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
-            $action1=  '<a title="Editar Factura" class="manito" '.$action1.'><i class="fa fa-broom"></i></a> ';/*.$row4[1].*/
+            $string = str_replace(' ','',str_replace('-',' ',$row[0]));
+            $Consecutivo = preg_replace('/[^0-9]/', '', $string);
+            $cadena = explode($Consecutivo,$string);
+            $Pref = $cadena[0];
+            $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
+            $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice(\''.$Pref.'\',\''.$Consecutivo.'\')"';
+            if($row[5] != '0'){
+               $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
+            }else{
+               $sendInvoice = ' ';
+            }
+            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="...">
+               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.'> <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
+            </div>';
+            $html .= '<td align="center">'.$botonera.'</td>'; 
+            /* $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $action1=  '<a title="Editar Factura" class="manito" '.$action1.'><i class="fa fa-broom"></i></a> ';
       
-            $html .= '<td>'.$action1.'</td>';
-
-/*             $cadnit = explode("-",verficarEmpresaReg());
-            $cadfac = explode("-",$row[0]);
-            $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/FES-".$cadfac[0].$cadfac[1].".pdf")? 'existe' : 'no existe';
-            $cufe = ValidarCUfe($cadnit[0],$cadfac[0],$cadfac[1]);
- */
+            $html .= '<td>'.$action1.'</td>'; 
 
             if($row[5] != '0'){
                $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
             }else{
                $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[0].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
             }
-
+            */
             $html .= '</tr>';
       }
       $html .= '</tbody>';
 
       echo $html;
-/* 
-      $SQL1="SELECT count(*) as conteo FROM gxfacturas t1 
-      INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
-      INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
-      INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
-      $conexion=conexion();
-      $result1 = mysqli_query($conexion, $SQL1);
-      if($row1 = mysqli_fetch_row($result1)) {
-          $conteo =  $row1[0];
-      }
-      mysqli_free_result($result);
-      return $conteo;
-    */
 
 	} else {
 		echo '<span class="error">No se pudo acceder informacion de facturacion.</span>';
 	}
 	mysqli_free_result($result);	
+}
+
+function contarFacts($pag, $ShowReg) {
+   $TotalFact=0;
+   $filtro="";
+   $btnatras="";
+   $btnadelante="";
+   $SQLx="SELECT count(*) FROM gxfacturas t1 ";
+   if($filtro <> ''){
+    $SQLx .=  " where T1.codigo_fac = '$filtro' "; 
+   }
+   $conexion=conexion();
+   $resultx = mysqli_query($conexion, $SQLx);
+      if($rowx = mysqli_fetch_array($resultx)) {
+         $TotalFact=$rowx[0];
+      }
+   mysqli_free_result($resultx);
+   $TotPaginas=$TotalFact/$ShowReg;
+   $rndTotPag=round($TotPaginas);
+   if($rndTotPag<>$TotPaginas) {
+      $TotPaginas=round($TotPaginas+1);
+   }
+   if($pag=="1") {
+      $btnatras=' disabled="disabled"';
+   }
+   if($pag==$TotPaginas) {
+      $btnadelante=' disabled="disabled"';
+   }
+   $html='<div class="row">
+   <div class="col-lg-2">
+     <div class="input-group">
+       <span class="input-group-btn">
+         <button class="btn btn-success pagefact" type="button" title="Atrás" '.$btnatras.' data="'.($pag - 1).'"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> </button>
+       </span>
+       <input type="text" class="form-control" placeholder="Página"  disabled="disabled" value="'.$pag.' / '.$TotPaginas.'" style="text-align:center;">
+       <span class="input-group-btn">
+         <button class="btn btn-success pagefact" type="button" title="Adelante" '.$btnadelante.' data="'.($pag + 1).'"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </button>
+       </span>
+     </div>
+   </div>
+ </div>';
+ echo $html;
 }
 
 function listarNotasCredito($filtro,$ini,$fin){

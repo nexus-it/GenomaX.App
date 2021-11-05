@@ -129,7 +129,6 @@ if (isset($_GET["nxsdb"])){
 <?php
   $SQL="Select Class_ALR, Titulo_ALR, Texto_ALR From italertas Where Estado_ALR='1'";
   $resultrt = mysqli_query($conexion, $SQL);
-  $version="0";
   while ($rowrt = mysqli_fetch_array($resultrt)) {
     echo '<div class="alert alert-'.$rowrt[0].'" role="alert" style="color: white; padding: 5px;margin-bottom: 2px;""><strong>'.$rowrt[1].'</strong> '.$rowrt[2].'</div>';
   }

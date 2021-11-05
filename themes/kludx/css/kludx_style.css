@@ -35,25 +35,25 @@
     position: absolute;
     top: 0px;
     height: 100%;
-	transition: all 1.2s ease-in-out;
-	-webkit-transition: all 1.2s ease-in-out;
-	-moz-transition: all 1.2s ease-in-out;
+	transition: all .3s ease-in-out;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
 
 }
 #kld_container {
     width: 100%;
-	transition: all 1.2s ease-in-out;
-	-webkit-transition: all 1.2s ease-in-out;
-	-moz-transition: all 1.2s ease-in-out;
+	transition: all .3s ease-in-out;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
     
 }
 #kld_logo {
     top: 0px;
     left: 0px;
     height: 50px;
-    transition: all 1.2s ease-in-out;
-	-webkit-transition: all 1.2s ease-in-out;
-	-moz-transition: all 1.2s ease-in-out;
+    transition: all .3s ease-in-out;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -148,9 +148,9 @@
     #kld_logo {
         top: 0px;
         left: 0px;
-        transition: all 1.2s ease-in-out;
-        -webkit-transition: all 1.2s ease-in-out;
-        -moz-transition: all 1.2s ease-in-out;
+        transition: all .3s ease-in-out;
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
         background-color:rgba(15, 3, 87, 0.30);
     
     }

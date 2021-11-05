@@ -6,46 +6,21 @@ if(isset($_POST["filtro"])){
 }
  
 	session_start();
+  $NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
-
+  $showRows=50;
+  $page="1";
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  }
+  $ini=(($page-1)*$showRows)+1;
+  $fin=$page*$showRows;
 ?>
 
-<!--
-<script type="text/javascript">
-$(document).ready(function() {	
-    $('.pagination li a').on('click', function(){
-        $('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
-
-        var page = $(this).attr('data');
-		//alert(page);		
-        var dataString = 'page='+page;
-		//alert(dataString);
-        $.ajax({
-            type: "GET",
-            url: "application/forms/facturasaludlista.php",
-            data: dataString,
-            success: function(data) {
-                $('.items').fadeIn(2000).html(data);
-                $('.pagination li').removeClass('active');
-                $('.pagination li a[data="'+page+'"]').parent().addClass('active');
-				//alert(data);
-				exit();
-				return false;
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("Algo salio mal");
-			}
-        });
-        return false;
-    });              
-});    
-</script>
--->
-<?php if($_GET['page'] == ""){ ?>
 <div class="col-md-12">
 
 	<?php if(isset($_POST["filtro"])==""){ ?><label class="label label-default">Listado de facturas</label><?php }?>
@@ -60,27 +35,9 @@ $(document).ready(function() {
 	<div class="col-md-12">
 
 <div class="form-group">
-<?php } ?>
+
 <?php
 
-/* $page = $_GET['page'];
-//echo "paginas= ".$page."<br>";
-$rowsPerPage = NUM_ITEMS_BY_PAGE;
-$offset = ($page - 1) * $rowsPerPage;
-sleep(1);
- */
-if($ini==''){
-//$filtro = '';
-$ini=0;
-$fin=20;
-}else{
-	$ini=$_GET['ini'];
-	$fin=$_GET['fin'];
-}
-
-if(isset($page)){
-$ini = ($page - 1) * $rowsPerPage;
-}//echo $ini;
 
 if($filtro == ""){
 ?>
@@ -97,41 +54,7 @@ echo '<table class="table table-striped table-condensed tblDetalle table-bordere
 		
 echo '</table>';
 
-/* if($filtro == ""){
-$num_total_rows = $conteo;
-
-$conteo = $conteo/10;
-for($i=0;$i<=$conteo;$i++){
-  // echo "<a href='#'>$i</a>"." - ";
-   
-} */
-
-/*
-//echo "<br>".$num_total_rows;
-$num_pages = ceil($num_total_rows / NUM_ITEMS_BY_PAGE);
-//echo "<br>".$num_pages;
-if ($num_pages > 1 and $page == "") {
-	echo '<div class="row">';
-	echo '<div class="col-lg-12">';
-	echo '<nav aria-label="Paginacion de facturas">';
-	echo '<ul class="pagination justify-content-end">';
-
-	for ($i=1;$i<=$num_pages;$i++) {
-		$class_active = '';
-		if ($i == 1) {
-			$class_active = 'active';
-		}
-		echo '<li class="page-item '.$class_active.'"><a class="page-link" href="#" data="'.$i.'">'.$i.'</a></li>';
-	}
-
-	echo '</ul>';
-	echo '</nav>';
-	echo '</div>';
-	echo '</div>';
-}
-
-}
-*/
+contarFacts($page, $showRows);
 ?>
 
 <script>
@@ -183,26 +106,20 @@ function editarFactura(filtro){
              {
                 
              },
-
               success: function (data) {
-                
                 $("#resultadofiltro").html(data)
-				
               },
               error: function() { 
                 console.log(data);
               }
             });
-
    }
 
 $(document).ready(function() {
            $( "#editar" ).click(function() {
-			  
 			editarFactura($("#factura<?php echo $NumWindow; ?>").val()
                             );
             });
-			
       });
 
 $(document).ready(function() {	
@@ -214,6 +131,12 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {	
+    $( ".pagefact" ).click(function() {
+      var newpage = $(this).attr('data');
+		  AbrirForm('application/forms/facturasaludlista.php', '<?php echo $NumWindow; ?>', '&page='+newpage);
+    });
+});
 function putSendFactura(factura){
     $.ajax({
             type: 'POST',

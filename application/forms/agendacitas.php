@@ -341,6 +341,11 @@ function HCResetea<?php echo $NumWindow; ?>() {
 	AbrirForm('application/forms/agendacitas.php', '<?php echo $NumWindow; ?>', '');	
 }
 
+function LoadPcte<?php echo $NumWindow; ?>(fila) {
+	IdPte=document.getElementById('txt_paciente'+fila+'<?php echo $NumWindow; ?>').value;
+	CargarWind('Pacientes ', 'forms/pacientes.php?IdPte='+IdPte+'&mode=modal&wnd=agendacitas', '1.PatientMale.png', 'agendacitas.php','<?php echo $NumWindow; ?>' );
+}
+
     $("input[type=text]").addClass("form-control");
     $("input[type=password]").addClass("form-control");
 	$("textarea").addClass("form-control");
