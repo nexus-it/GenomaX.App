@@ -907,8 +907,6 @@ function Guardar_pacientesmod(Ventana)
 		xError="Digite el apellido del paciente.";}
 	if (document.getElementById('txt_nombre1'+Ventana).value=="") {
 		xError="Digite el nombre del paciente.";}
-	if (document.getElementById('txt_expedicion'+Ventana).value=="") {
-		xError="Digite el lugar de expedicion del documento.";}
 	if (document.getElementById('txt_idpaciente'+Ventana).value=="") {
 		xError="No se encuentra el Id del paciente.";}
 
@@ -1160,12 +1158,8 @@ function Guardar_ingresos(Ventana)
 	//Se verifica la validez de los campos...
 	if (document.getElementById('txt_Contrato'+Ventana).value=="N/A") {
 		xError="Verifique los datos de contrato y plan del paciente.";}
-	if (document.getElementById('txt_observacion'+Ventana).value=="") {
-		xError="Digite una descripcion del ingreso en el campo de observacion.";}
 	if (document.getElementById('txt_autorizacion'+Ventana).value=="") {
 		xError="Digite el numero de autorizacion.";}
-	if (document.getElementById('txt_motivo'+Ventana).value=="") {
-		xError="Digite el motivo de la consulta.";}
 	if (document.getElementById('cmb_TipoIng'+Ventana).value=="H7") {
 		if (document.getElementById('txt_ips'+Ventana).value=="") {
 			xError="Digite el nombre de la I.P.S. de la cual es remitido el paciente.";}

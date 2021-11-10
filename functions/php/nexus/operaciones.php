@@ -16,7 +16,7 @@ function listarFacturas($filtro,$ini,$fin){
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
   
   if($filtro <> ''){
-   $SQL .=  " where T1.codigo_fac = '$filtro' "; 
+   $SQL .=  $filtro; 
   }
   $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
 
@@ -59,11 +59,13 @@ function listarFacturas($filtro,$ini,$fin){
             }else{
                $sendInvoice = ' ';
             }
-            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="...">
-               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
-               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.'> <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
+               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
                <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
-            </div>';
+            </div>
+            <div class="progress" style="display: none; margin-top: 0px;" name="prgFE'.($row[0]).'" id="prgFE'.($row[0]).'"> <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 99%; height: 16px; margin-top: 0px;"> <span class="sr-only">Enviando Factura</span> </div></div>
+            ';
             $html .= '<td align="center">'.$botonera.'</td>'; 
             /* $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $action1=  '<a title="Editar Factura" class="manito" '.$action1.'><i class="fa fa-broom"></i></a> ';

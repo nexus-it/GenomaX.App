@@ -46,6 +46,8 @@ var varMenu=0;
         } else {
             nxsY="0";
         }
+        document.getElementById('kld_nameagency').classList.remove('wagency'+nxsY);
+        document.getElementById('kld_nameagency').classList.add('wagency'+nxsW); 
         document.getElementById('kld_menu').classList.remove('menukl'+nxsY);
         document.getElementById('kld_menu').classList.add('menukl'+nxsW); 
         document.getElementById('kld_container').classList.remove('deskkl'+nxsY);
@@ -56,6 +58,7 @@ var varMenu=0;
         document.getElementById('lglg').classList.add('logo_lg'+nxsW); 
         document.getElementById('lgmini').classList.remove('logo_mini'+nxsY);
         document.getElementById('lgmini').classList.add('logo_mini'+nxsW); 
+        
         
         varMenu =nxsW;
     }

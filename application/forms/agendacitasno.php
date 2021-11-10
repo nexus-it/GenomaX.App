@@ -123,16 +123,17 @@ session_start();
 				<tbody id="tbDetallemar<?php echo $NumWindow; ?>">
 				<tr id="trh<?php echo $NumWindow; ?>"> 
 					<th id="thd2<?php echo $NumWindow; ?>" width="11%" >Area</th> 
-					<th id="thd1<?php echo $NumWindow; ?>" width="8%" >Consultorio</th> 
+					<th id="thd1<?php echo $NumWindow; ?>" width="6%" >Consultorio</th> 
 					<th id="thd1<?php echo $NumWindow; ?>" width="6%" >Fecha</th> 
 					<th id="thd1<?php echo $NumWindow; ?>" width="20%" >Profesional</th> 
-					<th id="thd1<?php echo $NumWindow; ?>" width="16%" >Especialidad</th> 
-					<th id="thd1<?php echo $NumWindow; ?>" width="8%" >Tipo Atencion</th> 
+					<th id="thd1<?php echo $NumWindow; ?>" width="12%" >Especialidad</th> 
+					<th id="thd1<?php echo $NumWindow; ?>" width="6%" >Tipo Atencion</th> 
 					<th id="thd0<?php echo $NumWindow; ?>" width="20%" >Paciente</th>
+					<th id="thd0<?php echo $NumWindow; ?>" width="8%" >Nota</th>
 					<th id="thd1<?php echo $NumWindow; ?>" width="11%" >Acción</th>  					
 				</tr> 
 				<tr>
-					<td colspan="7">
+					<td colspan="9">
 						<div class="progress">
 						  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
 						  </div>
@@ -146,7 +147,6 @@ session_start();
 			
 		</div>
 		
-
 	</div>
 
 </form>

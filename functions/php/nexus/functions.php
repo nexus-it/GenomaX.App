@@ -1712,8 +1712,8 @@ case 'FillConfCitas' :
 	$fecha = $_GET['fecha'];
 	$paciente = $_GET['paciente'];
 
-	$tabla='<tr> <th id="thh'.$_GET['ventana'].'" colspan="9"><span id="NombreDia'.$_GET['ventana'].'"> '.$array_dias[date('l', strtotime($fecha))].'. '.$_GET['fecha'].' </span></th> </tr> <tr id="trh'.$_GET['ventana'].'"> <th id="thd2'.$_GET['ventana'].'" >Hora</th> <th id="thd3'.$_GET['ventana'].'" >Paciente</th> <th id="thd3'.$_GET['ventana'].'">Nombre</th> <th id="thd3'.$_GET['ventana'].'" >Profesional</th> <th id="thd4'.$_GET['ventana'].'" >Especialidad</th> <th id="thd5'.$_GET['ventana'].'" >Area</th> <th id="thd6'.$_GET['ventana'].'" >Consultorio</th> <th id="thd6'.$_GET['ventana'].'" >Atención</th> <th id="thd8'.$_GET['ventana'].'" >Confirmar</th> </tr> ';
-	$SQL="Select g.Codigo_CIT, c.Nombre_ARE, d.Nombre_CNS, b.Fecha_AGE, b.Hora_AGE, e.Nombre_TER, f.Nombre_ESP, h.Nombre_TER, h.ID_TER, g.Codigo_CIT, Nota_CIT, Nombre_TAH From gxagendacab a, gxagendadet b, gxareas c, gxconsultorios d, czterceros e, gxespecialidades f, gxcitasmedicas g, czterceros h, hctipoatencion i Where i.Codigo_TAH=g.Codigo_TAH and a.Codigo_AGE=b.Codigo_AGE and c.Codigo_ARE=a.Codigo_ARE and d.Codigo_CNS=a.Codigo_CNS and e.Codigo_TER=a.Codigo_TER and f.Codigo_ESP=a.Codigo_ESP and g.Codigo_AGE=a.Codigo_AGE and h.Codigo_TER=g.Codigo_TER and b.Fecha_AGE=g.Fecha_AGE and b.Hora_AGE=g.Hora_AGE and b.Fecha_AGE='".$_GET['fecha']."' and a.Estado_AGE='1' and b.Estado_AGE='1' and g.Estado_CIT='P' and Confirma_CIT='0' ";	
+	$tabla='<tr> <th id="thh'.$_GET['ventana'].'" colspan="10"><span id="NombreDia'.$_GET['ventana'].'"> '.$array_dias[date('l', strtotime($fecha))].'. '.$_GET['fecha'].' </span></th> </tr> <tr id="trh'.$_GET['ventana'].'"> <th id="thd2'.$_GET['ventana'].'" >Hora</th> <th id="thd3'.$_GET['ventana'].'" >Paciente</th> <th id="thd3'.$_GET['ventana'].'">Nombre</th> <th id="thd3'.$_GET['ventana'].'">Nota</th> <th id="thd3'.$_GET['ventana'].'" >Profesional</th> <th id="thd4'.$_GET['ventana'].'" >Especialidad</th> <th id="thd5'.$_GET['ventana'].'" >Area</th> <th id="thd6'.$_GET['ventana'].'" >Consultorio</th> <th id="thd6'.$_GET['ventana'].'" >Atención</th> <th id="thd8'.$_GET['ventana'].'" >Confirmar</th> </tr> ';
+	$SQL="Select g.Codigo_CIT, c.Nombre_ARE, d.Nombre_CNS, b.Fecha_AGE, time_format(b.Hora_AGE, '%H:%i'), e.Nombre_TER, f.Nombre_ESP, h.Nombre_TER, h.ID_TER, g.Codigo_CIT, Nota_CIT, Nombre_TAH From gxagendacab a, gxagendadet b, gxareas c, gxconsultorios d, czterceros e, gxespecialidades f, gxcitasmedicas g, czterceros h, hctipoatencion i Where i.Codigo_TAH=g.Codigo_TAH and a.Codigo_AGE=b.Codigo_AGE and c.Codigo_ARE=a.Codigo_ARE and d.Codigo_CNS=a.Codigo_CNS and e.Codigo_TER=a.Codigo_TER and f.Codigo_ESP=a.Codigo_ESP and g.Codigo_AGE=a.Codigo_AGE and h.Codigo_TER=g.Codigo_TER and b.Fecha_AGE=g.Fecha_AGE and b.Hora_AGE=g.Hora_AGE and b.Fecha_AGE='".$_GET['fecha']."' and a.Estado_AGE='1' and b.Estado_AGE='1' and g.Estado_CIT='P' and Confirma_CIT='0' ";	
 	if ($paciente!="") {
 		$SQL=$SQL." and h.ID_TER='".$paciente."'";
 	}
@@ -1730,6 +1730,7 @@ case 'FillConfCitas' :
 					<td  align="center"><strong>'.$row[4].'</strong></td>
 					<td  align="left">'.$row[8].'</td>
 					<td  align="left"><strong>'.$row[7].'</strong></td>
+					<td  align="left">'.$row[10].'</td>
 					<td  align="left">'.$row[5].'</td>
 					<td  align="left">'.$row[6].'</td>
 					<td  align="left">'.$row[1].'</td>
@@ -1739,7 +1740,7 @@ case 'FillConfCitas' :
 						<div class="input-group">
 							<input name="hdn_admisionar'.$counter.$_GET['ventana'].'" type="hidden" id="hdn_admisionar'.$counter.$_GET['ventana'].'" value="1">
 							<input name="hdn_cita'.$counter.$_GET['ventana'].'" type="hidden" id="hdn_cita'.$counter.$_GET['ventana'].'" value="'.$row[9].'">
-					      <input id="txt_nota'.$counter.$_GET['ventana'].'" name="txt_nota'.$counter.$_GET['ventana'].'" type="text" class="form-control input-sm" placeholder="Nota..." title="Coloque aquí anotación para el profesional" '.$notica.'>
+					      <input id="txt_nota'.$counter.$_GET['ventana'].'" name="txt_nota'.$counter.$_GET['ventana'].'" type="text" class="form-control input-sm" placeholder="Nota..." title="Coloque aquí anotación para el profesional" '.$notica.' value="'.$row[10].'">
 					      <span class="input-group-btn">
 					        <button class="btn btn-success" type="button"  onclick="javascript:RepCita'.$_GET['ventana'].'(\''.$counter.'\');"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </button>
 					      </span>
@@ -1820,8 +1821,8 @@ case 'FillAgendaNo' :
 	$medico = $_GET['medico'];
 	$paciente = $_GET['paciente'];
 	$ventana = $_GET['ventana'];
-	$tabla='<tr id="trh'.$ventana.'"> <th id="thd2'.$ventana.'" width="11%" >Area</th> <th id="thd1'.$ventana.'" width="8%" >Consultorio</th> <th id="thd1'.$ventana.'" width="6%" >Fecha</th> <th id="thd1'.$ventana.'" width="18%" >Profesional</th> <th id="thd1'.$ventana.'" width="16%" >Especialidad</th> <th id="thd1'.$ventana.'" width="8%" >Tipo Atencion</th> <th id="thd0'.$ventana.'" width="18%" >Paciente</th> <th id="thd1'.$ventana.'" width="15%" >Acción</th> </tr> ';
-	$SQL="Select g.Codigo_CIT, c.Nombre_ARE, d.Nombre_CNS, b.Fecha_AGE, b.Hora_AGE, e.Nombre_TER, f.Nombre_ESP, h.Nombre_TER, h.ID_TER, h.Correo_TER, Nombre_TAH From gxagendacab a, gxagendadet b, gxareas c, gxconsultorios d, czterceros e, gxespecialidades f, gxcitasmedicas g, czterceros h, hctipoatencion i Where i.Codigo_TAH=g.Codigo_TAH and a.Codigo_AGE=b.Codigo_AGE and c.Codigo_ARE=a.Codigo_ARE and d.Codigo_CNS=a.Codigo_CNS and e.Codigo_TER=a.Codigo_TER and f.Codigo_ESP=a.Codigo_ESP and g.Codigo_AGE=a.Codigo_AGE and h.Codigo_TER=g.Codigo_TER and b.Fecha_AGE=g.Fecha_AGE and b.Hora_AGE=g.Hora_AGE and a.Estado_AGE='1' and b.Estado_AGE='1' and g.Estado_CIT='P'";	
+	$tabla='<tr id="trh'.$ventana.'"> <th id="thd2'.$ventana.'" width="11%" >Area</th> <th id="thd1'.$ventana.'" width="6%" >Consultorio</th> <th id="thd1'.$ventana.'" width="8%" >Fecha</th> <th id="thd1'.$ventana.'" width="18%" >Profesional</th> <th id="thd1'.$ventana.'" width="10%" >Especialidad</th> <th id="thd1'.$ventana.'" width="6%" >Tipo Atencion</th> <th id="thd0'.$ventana.'" width="18%" >Paciente</th> <th id="thd0'.$ventana.'" width="8%" >Nota</th> <th id="thd1'.$ventana.'" width="15%" >Acción</th> </tr> ';
+	$SQL="Select g.Codigo_CIT, c.Nombre_ARE, d.Nombre_CNS, b.Fecha_AGE, time_format(b.Hora_AGE, '%H:%i'), e.Nombre_TER, f.Nombre_ESP, h.Nombre_TER, h.ID_TER, h.Correo_TER, Nombre_TAH, g.Nota_CIT From gxagendacab a, gxagendadet b, gxareas c, gxconsultorios d, czterceros e, gxespecialidades f, gxcitasmedicas g, czterceros h, hctipoatencion i Where i.Codigo_TAH=g.Codigo_TAH and a.Codigo_AGE=b.Codigo_AGE and c.Codigo_ARE=a.Codigo_ARE and d.Codigo_CNS=a.Codigo_CNS and e.Codigo_TER=a.Codigo_TER and f.Codigo_ESP=a.Codigo_ESP and g.Codigo_AGE=a.Codigo_AGE and h.Codigo_TER=g.Codigo_TER and b.Fecha_AGE=g.Fecha_AGE and b.Hora_AGE=g.Hora_AGE and a.Estado_AGE='1' and b.Estado_AGE='1' and g.Estado_CIT='P'";	
 	if ($servicio!="*") {
 		$SQL=$SQL." and c.Codigo_ARE='".$servicio."'";
 	}
@@ -1850,6 +1851,7 @@ case 'FillAgendaNo' :
 					<td align="left" style="font-size: 10px;">'.$row[6].'</td>
 					<td align="left" style="font-size: 10px;">'.$row[10].'</td>
 					<td align="left" style="font-size: 10px;">'.$row[7].'</td>
+					<td align="left" style="font-size: 10px;">'.$row[11].'</td>
 					<td align="center">
 						<div class="btn-group btn-group-sm" role="group" aria-label="...">
 							<button class="btn btn-info" type="button" title="Imprimir Recordatorio" onclick="javascript:PrintCitas'.$ventana.'(\''.$row[8].'\',\''.$row[3].'\');"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>

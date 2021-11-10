@@ -461,7 +461,7 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 
 	if (isset($_GET["Ingreso"])) {	
 	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, w.Fecha_FAC, w.ValTotal_FAC from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA and u.PeriodoActual_XFC=concat(LPAD(month(w.Fecha_FAC),2,'0'),'.',year(w.Fecha_FAC))";
-	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, date(w.Fecha_FAC), w.ValTotal_FAC, month_fac, year_fac, Nota_FAC, time(w.Fecha_FAC) from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA and IdFE_FAC='0'";
+	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Copago_ADM, Cuota_ADM, c.Codigo_EPS, d.Codigo_PLA, k.Codigo_AFC, a.Codigo_PTT, Reingreso_PTT, Nombre_PTT, a.Codigo_DGN, w.Codigo_FAC, date(w.Fecha_FAC), w.ValTotal_FAC, month_fac, year_fac, Nota_FAC, time(w.Fecha_FAC) from itconfig_fc u, gxpacientestipos z, czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxrangoactual h, gxpacientes i, czsedes k, gxfacturas w, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where k.Codigo_SDE=a.Codigo_SDE and w.Codigo_ADM=a.Codigo_ADM and w.Estado_FAC='1' and a.Codigo_TER=b.Codigo_TER and z.Codigo_PTT=a.Codigo_PTT and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(w.Codigo_EPS) and d.Codigo_PLA=w.Codigo_PLA and i.Codigo_TER=a.Codigo_TER and  h.Codigo_ANY=year(w.Fecha_FAC) and h.Codigo_RNG=i.Codigo_RNG and LPAD(a.Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and Estado_ADM='F' and trim(g.Codigo_EPS)=trim(w.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA and LENGTH(IdFE_FAC)<8";
 	$result = mysqli_query($conexion, $SQL);
 	//$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -575,10 +575,6 @@ function HCDxOnBlur<?php echo $NumWindow; ?>() {
 	$("input[type=number]").addClass("form-control");
 
 
-
-
-
-
 function putSendFactura(ingreso){
     $.ajax({
             type: 'POST',
@@ -604,19 +600,12 @@ function putSendFactura(ingreso){
 
    }
 
-
-
-
-
-
 $(document).ready(function() {
            $( "#sendFactura" ).click(function() {
 			 putSendFactura($("#txt_Ingreso<?php echo $NumWindow; ?>").val()
                             );
             });
       });
-
-
 
 </script>
 

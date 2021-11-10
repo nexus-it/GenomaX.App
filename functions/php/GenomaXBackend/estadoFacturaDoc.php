@@ -6,8 +6,9 @@ $bearer = ValidarBearer(verficarEmpresaReg());
 
 $curl = curl_init();
 
-
-
+$sql = "update gxfacturas Set IdFE_FAC='".$_POST['cufe']."' where codigo_fac='".$_POST['factura']."';";
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+mysqli_query ($conexion, $sql);
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => $prefixUrl.'status/document/'.$_POST['cufe'],

@@ -20,6 +20,7 @@
     left: 0px;
     top: 0px;
     width: 100%;
+    color: #FFF;
 	transition: all 1.2s ease-in-out;
 	-webkit-transition: all 1.2s ease-in-out;
 	-moz-transition: all 1.2s ease-in-out;
@@ -32,7 +33,6 @@
 #kld_menu {
     left: 0px;
     background-color: #28273b;
-    position: absolute;
     top: 0px;
     height: 100%;
 	transition: all .3s ease-in-out;
@@ -122,18 +122,22 @@
 }
 #kld_ctrlmenu a {
     margin-top: 16px;
+    margin-bottom: 16px;
 }
 #kld_search a {
     margin-top: 16px;
+    margin-bottom: 16px;
 }
 #kld_nameuser:hover {
     background-color: rgba(38, 2, 85, 0.55);
 }
 
 .menukl0{
+    position: absolute;
     width: 0px;
 }
 .menukl1{
+    position: absolute;
     z-index: 1000;
     width: 90%;
 }
@@ -173,25 +177,28 @@
         opacity: 1;
     }
     #kld_nameagency {
-        width: calc(100% - 630px);
         padding: 9px;
         text-align: right;
+        transition: all .3s ease-in-out;
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
     }
     #kld_nameuser {
         width: 300px;
         padding: 9px;
     }
     #kld_menu {
-        position: relative;
         height: calc(100% -50px);
     }
     #kld_container {
         height: calc(100% -50px);
     }
     .menukl0 {
+        position: absolute;
         width: 50px;
     }
     .menukl1 {
+        position: relative;
         z-index: 1;
         width: 230px;
     }
@@ -219,6 +226,12 @@
     }
     .logo_lg1 {
         display: block;
+    }
+    .wagency0 {
+        width: calc(100% - 450px);
+    }
+    .wagency1 {
+        width: calc(100% - 630px);
     }
   }
 
