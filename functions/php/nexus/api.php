@@ -1,6 +1,6 @@
 <?php
 
-function llamarApi($url,$metodo,$datos,$autorizacion){
+function llamarApi($url,$metodo,$datos,$bearer){
 
 $curl = curl_init();
 
@@ -13,16 +13,23 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => $metodo,
-  CURLOPT_POSTFIELDS =>$datos,
+  CURLOPT_POSTFIELDS =>json_encode($datos),
+  CURLOPT_SSL_VERIFYPEER => false,
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     'Accept: application/json',
-    'Authorization: Bearer '.$autorizacion.''
+    'Authorization: Bearer '.$bearer.''
   ),
 ));
 
 $response = curl_exec($curl);
 //var_dump($response);exit();
+
+if($errno = curl_errno($curl)) {
+  $error_message = curl_strerror($errno);
+  echo "cURL error ({$errno}):\n {$error_message}";
+  var_dump($errno);
+}
 
 curl_close($curl);
 //echo $response;
