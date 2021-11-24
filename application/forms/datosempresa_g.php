@@ -1,5 +1,6 @@
 <?php 
 include '../../functions/php/nexus/api.php'; 
+include '../../functions/php/GenomaXBackend/params.php';
 
 
 if(isset($_POST['nit'])){
@@ -19,32 +20,37 @@ if(isset($_POST['nit'])){
 
 
 
-    $url = 'https://backend.estrateg.com/nexusIt/public/api/ubl2.1/config/'.$nit.'/'.$dv.'';
+    $url = 'https://backend.estrateg.com/API/public/api/ubl2.1/config/'.$nit.'/'.$dv.'';
     $metodo = 'POST'; 
-    $datos = '{
-        "type_document_identification_id": '.$tipodi.',
-        "type_organization_id": '.$tipoorg.',
-        "type_regime_id": '.$tipoorg.',
-        "type_liability_id": '.$tipores.',
-        "business_name": "'.$razon.'",
-        "merchant_registration": "'.$rm.'",
-        "municipality_id": '.$municipio.',
-        "address": "'.$dir.'",
-        "phone": '.$tel.',
-        "email": "'.$email.'"
-    }';
+    $datos = array(
+        'type_document_identification_id'=> $tipodi,
+        'type_organization_id'=> $tipoorg,
+        'type_regime_id'=> $tipoorg,
+        'type_liability_id'=> $tipores,
+        'business_name'=> $razon,
+        'merchant_registration'=> $rm,
+        'municipality_id'=> $municipio,
+        'address'=> $dir,
+        'phone'=> $tel,
+        'email'=> $email,
+        'mail_password'=> 'Tg@820715',
+        'mail_host'=> 'mail.hotmail.es',
+        'mail_port'=> '548',
+        'mail_username'=> 'LOIDASC9@HOTMAIL.COM',
+        'mail_encryption'=> 'md5'
+    );
 
-    $autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
+    //$autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
 
-    $result = llamarApi($url,$metodo,$datos,$autorizacion);
+    $result = llamarApi($url,$metodo,$datos,$bearer);
 
     //echo $result;
 
     $data =  json_decode($result,true);
 
     if( isset($data["success"])){
-        echo $data."<br>";
-        echo $data["token"];
+        echo $data["message"]."<br>";
+        //echo $data["token"];
     }else{
         echo $data;
         echo "Dato con errores favor verificar";
@@ -57,15 +63,15 @@ if(isset($_POST['id'])){
 
 
 
-    $url = 'https://backend.estrateg.com/nexusIt/public/api/ubl2.1/config/software';
+    $url = 'https://backend.estrateg.com/API/public/api/ubl2.1/config/software';
     $metodo = 'PUT'; 
-    $datos = '{
-        "id": "'.$id.'",
-        "pin": '.$pin.'
-    }';
-    $autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
+    $datos = array(
+        'id'=> $id,
+        'pin'=> $pin
+    );
+    //$autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
 
-    $result = llamarApi($url,$metodo,$datos,$autorizacion);
+    $result = llamarApi($url,$metodo,$datos,$bearer);
 
     //echo $result;
 
@@ -76,7 +82,7 @@ if(isset($_POST['id'])){
     }else{
         echo "Dato con errores favor verificar";
     }
-}
+} 
 
 /*
 PROCESO ANTERIOR -- HACE EL PROCESO PERO NO ENVIA EL CERTIFICADO

@@ -1,5 +1,5 @@
 <?php 
-
+ 
     session_start();
 	$NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -364,6 +364,33 @@
     <?php echo validarRegistroEmpRes(verficarEmpresaReg()); ?>
 </div>
 
+
+
+<p></p>
+
+
+<p></p>
+
+
+<div class="col-md-12">
+
+	<label class="label label-default">Pasar a produccion</label>
+	<div class="row well well-sm">
+        <div id="resultadoPasarProd"></div>
+        <div id="resultadoPasarProd_"></div>     
+    </div>
+</div>
+
+<div class="col-md-2">
+    <div class="form-group">
+        <input class="btn btn-success" type="button" name="enviar" value="Pasar a produccion / solicitar tecnical key" onclick="pasarProd()"  >
+        
+    </div>
+    
+</div>
+
+
+
 <script>
 function enviarDatosEmpresa(){
     //alert("entro en la funcion");
@@ -413,6 +440,39 @@ function registrarSoftware(){
     return false;
 }
 
+function pasarProd(){
+    //alert("entro en la funcion");
+    var id= document.getElementById('txt_Id<?php echo $NumWindow; ?>').value;
+    //var pin= document.getElementById('txt_Pin').value;
+    var nit= document.getElementById('txt_Nit<?php echo $NumWindow; ?>').value;
+    
+    var dataen = 'id='+id+'&nit='+nit;
+    //alert(dataen);
+    $.ajax({
+        type:'POST',
+        url:'functions/php/GenomaXBackend/putPasarProd.php',
+        data: dataen,
+        success:function(resp){
+            resp = JSON.parse(resp);
+            $("#resultadoPasarProd").html("TechnicalKey para reg de resolucion: "+resp['ResponseDian']['Envelope']['Body']['GetNumberingRangeResponse']['GetNumberingRangeResult']['ResponseList']['NumberRangeResponse']['TechnicalKey'])
+            cambiarProd(dataen);
+        }
+    });
+    return false;
+}
+
+function cambiarProd(dataen){
+    $.ajax({
+        type:'POST',
+        url:'functions/php/GenomaXBackend/putEnviroment.php',
+        data: dataen,
+        success:function(resp){
+            resp = JSON.parse(resp);
+            $("#resultadoPasarProd_").html(resp['message'])
+        }
+    });
+    return false;
+}
 
 function registrarCertificado(){
     //alert("entro en la funcion");
