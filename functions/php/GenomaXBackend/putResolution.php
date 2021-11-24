@@ -4,7 +4,7 @@ include('params.php');
 include '../nexus/database.php';
 
 $bearer = ValidarBearer(verficarEmpresaReg());
-
+ 
 if($_POST['TipoDoc'] == 1){
     $payload= array('type_document_id'=>$_POST['TipoDoc'],
                     'prefix'=>$_POST['Prefijo'],
