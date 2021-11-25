@@ -497,7 +497,7 @@ function registrarCertificado(){
 function putCertificate(certificado,password){
     $.ajax({
             type: 'POST',
-            url: '../../functions/php/GenomaXBackend/putCertificate.php',
+            url: 'functions/php/GenomaXBackend/putCertificate.php',
             data: {
               certificado: certificado,
               password:password
@@ -532,7 +532,7 @@ $(document).ready(function() {
 function putResolution(TipoDoc,Prefijo,Resolucion,FechaRes,LlaveTecnica,NumDesde,NumHasta,FechaNumdesde,FechaNumhasta){
     $.ajax({
             type: 'POST',
-            url: '../../functions/php/GenomaXBackend/putResolution.php',
+            url: 'functions/php/GenomaXBackend/putResolution.php',
             data: {
                 TipoDoc: TipoDoc,
                 Prefijo:Prefijo,
