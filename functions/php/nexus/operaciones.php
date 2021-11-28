@@ -9,7 +9,7 @@ define('NUM_ITEMS_BY_PAGE', 10);
 function listarFacturas($filtro,$ini,$fin){
    $html="";	
   
-  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC, ObtenNumeros(t1.Codigo_FAC)  FROM gxfacturas t1 
+  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC, ObtenNumeros(t1.Codigo_FAC), t1.valtotal_fac  FROM gxfacturas t1 
   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
   INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
@@ -19,7 +19,7 @@ function listarFacturas($filtro,$ini,$fin){
    $SQL .=  $filtro; 
   }
   $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
-
+  error_log($SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -30,6 +30,7 @@ function listarFacturas($filtro,$ini,$fin){
 				<th>Fecha</th>
 				<th>Paciente / Cliente</th>
 				<th>Entidad</th>
+            <th>Valor</th>
 				<th >Acciones</th>
 			</tr>
 			';
@@ -46,6 +47,7 @@ function listarFacturas($filtro,$ini,$fin){
             $html .= '<td> '.($row[1]).'</td>'; 
             $html .= '<td> '.($row[2]).'</td>';
             $html .= '<td> '.($row[3]).'</td>';
+            $html .= '<td align="right"> $ '.number_format($row[7],0,',','.').'</td>';
 
             $string = str_replace(' ','',str_replace('-',' ',$row[0]));
             $Consecutivo = preg_replace('/[^0-9]/', '', $string);
@@ -87,19 +89,26 @@ function listarFacturas($filtro,$ini,$fin){
 	} else {
 		echo '<span class="error">No se pudo acceder informacion de facturacion.</span>';
 	}
-	mysqli_free_result($result);	
+	mysqli_free_result($result);
 }
 
-function contarFacts($pag, $ShowReg) {
+function contarFacts($filtro, $pag, $ShowReg) {
    $TotalFact=0;
-   $filtro="";
    $btnatras="";
    $btnadelante="";
    $SQLx="SELECT count(*) FROM gxfacturas t1 ";
-   if($filtro <> ''){
-    $SQLx .=  " where T1.codigo_fac = '$filtro' "; 
-   }
-   $conexion=conexion();
+   $SQLx="SELECT count(*) FROM gxfacturas t1 
+  INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
+  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
+  INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
+   //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
+  
+  if($filtro <> ''){
+   $SQLx .=  $filtro; 
+  }
+  $SQLx .= " and estado_fac = 1 "; //  limit $ini,$fin
+
+  $conexion=conexion();
    $resultx = mysqli_query($conexion, $SQLx);
       if($rowx = mysqli_fetch_array($resultx)) {
          $TotalFact=$rowx[0];

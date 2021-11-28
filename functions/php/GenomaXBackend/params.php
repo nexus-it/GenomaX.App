@@ -14,7 +14,7 @@ function ValidarBearer ($nit){
   $cadena = explode("-",$nit);
   $sql = "SELECT api_token as bearer FROM `Billing`.`users` a, companies b where a.id = b.user_id and b.identification_number = ".  $cadena[0] ;
   //echo $sql;
-$result = mysqli_query($conexion1, $sql);
+  $result = mysqli_query($conexion1, $sql);
   $datosEmp = mysqli_fetch_array($result);
 return $datosEmp['bearer'];
 }

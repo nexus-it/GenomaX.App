@@ -20,7 +20,7 @@
     $numfact= $_GET["numfact"];
     $contrato = $_GET["contrato"];
     $paciente = $_GET["paciente"];
-    $filtro= " Where codigo_fac like '%".$numfact."%' and Nombre_TER like '%".$paciente."%' and Nombre_EPS like '%".$contrato."%' and fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
+    $filtro= " Where t1.codigo_fac like '%".$numfact."%' and Nombre_TER like '%".$paciente."%' and Nombre_EPS like '%".$contrato."%' and fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
   } else {
     $SQL="Select curdate(), date(DATE_ADD(NOW(),INTERVAL -60 DAY));";
     $result = mysqli_query($conexion, $SQL);
@@ -32,7 +32,7 @@
     $numfact= "";
     $contrato = "";
     $paciente = "";
-    $filtro= "";
+    $filtro= " Where fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
   }
 ?>
 <div class="container">
@@ -76,8 +76,14 @@
 	</div>
 		</div>
 
-		<div class="col-md-2">
-      <button class="btn btn-success" title="Crear nueva factura" onclick="CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>
+		<div class="col-md-2 btn-group">
+      <button class="btn btn-success dropdown-toggle" title="Crear nueva factura" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facturar Nueva Cuenta <i class="fa fa-file"></i>  <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="javascript: CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuenta Evento', 'invoice.png'); ">Contrato por Evento</a></li>
+        <li><a href="javascript: CargarForm('application/forms/facturasaludcapita.php', 'Facturacion de Cuenta Cápita', 'invoice.png'); ">Contrato Capitado</a></li>
+        <li><a href="javascript: CargarForm('application/forms/facturasaludgrupal.php', 'Facturacion de Cuentas Grupal', 'invoice.png'); ">Contrato Global</a></li>
+      </ul>
 		</div>
 </form>
 <?php
@@ -85,11 +91,12 @@ echo '<table class="table table-striped table-condensed tblDetalle table-bordere
 			$conteo = listarFacturas($filtro,$ini,$fin);
 echo '</table>';
 
-contarFacts($page, $showRows);
+contarFacts($filtro,$page, $showRows);
 ?>
 </div>
 </div>
 <script>
+
 function RefreshList<?php echo $NumWindow; ?>() {
   numfact=document.getElementById("txt_factura<?php echo $NumWindow; ?>").value;
   fechaini=document.getElementById("txt_fechaini<?php echo $NumWindow; ?>").value;
@@ -223,6 +230,7 @@ function putSendFactura(factura){
    }
 
    function estadoFacturaDoc(cufe,factura){
+    showProgress("1", factura)
       $.ajax({
         type: 'POST',
         url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',

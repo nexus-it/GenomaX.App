@@ -127,7 +127,8 @@ $PREFIJO = $cadena[0];
 
 }
 
-//error_log('pay: '.$payload);exit();
+
+//error_log('bearer: '.$bearer);exit();
 //var_dump($payload);exit();
 $payload = json_encode($payload);
 // print_r($payload);exit();
@@ -135,12 +136,14 @@ $payload = json_encode($payload);
 
 $curl = curl_init();
 
-$TestSetId_vision="";
+//$TestSetId_sadinca="/812626b9-8779-414f-a03c-22a75dc826ae";
+//$TestSetId_hid="/c91a2f28-e1a3-4586-be86-b06578eb86fc";
 //$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
 //$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
+$TestSetId_sadinca="";
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'invoice'.$TestSetId_vision,
+  CURLOPT_URL => $prefixUrl.'invoice'.$TestSetId_sadinca,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -160,8 +163,14 @@ curl_setopt_array($curl, array(
 //error_log('curl: '.$curl);
 $response = curl_exec($curl);
 //error_log('response: '.$response);
-curl_close($curl);
 
+if($errno = curl_errno($curl)){
+	$errno_message = curl_errno($errno);
+	echo "cURL error ({$errno}):\n {$errno_message}";
+	var_dump($errno);
+}
+
+curl_close($curl);
 
 echo $response;
 

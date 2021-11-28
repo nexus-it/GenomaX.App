@@ -26,8 +26,10 @@ $resultH = mysqli_query($conexion, $SQL);
 while ($rowH = mysqli_fetch_array($resultH)) {
 
 	$bearer = ValidarBearer(verficarEmpresaReg());
-
+	//var_dump($bearer);
 	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD))  , d.Codigo_SER , d.Nombre_SER, ncd.ValorDet_NCT AS valor FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d, cznotascontablesdet ncd WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH['Codigo_EPS']."' AND b.Codigo_PLA='".$rowH['Codigo_PLA']."' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH['Codigo_ADM']."',10,'0') and ncd.Codigo_NCT='".$_POST["notacredito"]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
+	$SQL_DET="SELECT f.Descripcion_SER, c.CUPS_PRC, e.Nombre_SER, a.ValorDet_NCT as valor FROM gxtiposervicios f, gxprocedimientos c, gxservicios e, cznotascontablesdet a, cznotascontablesenc b  WHERE a.Codigo_NCT=b.Codigo_NCT and f.Tipo_SER=e.Tipo_SER AND e.Tipo_SER=f.Tipo_SER AND e.Codigo_SER=a.Codigo_SER AND e.Codigo_SER=c.Codigo_SER AND e.Tipo_SER='1' AND b.NumeroDoc_NCT='".$rowH['Codigo_FAC']."' ";
+	
 	$result = mysqli_query($conexion, $SQL_DET);
 	//echo $SQL_DET;
 	while ($row = mysqli_fetch_array($result)) {
@@ -44,17 +46,22 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 							"percent": "19.00"
 						}
 					],*/
-					"description"=> $row['Nombre_CFC'],
-					"notes"=> $row['Nombre_CFC'],
-					"code"=> "SERVICIOS",
+					"description"=> $row['Nombre_SER'],
+					"notes"=> $row['Nombre_SER'],
+					"code"=> $row['Descripcion_SER'],
 					"type_item_identification_id"=> 4,
 					"price_amount"=> $row['valor'],
 					"base_quantity"=>  "1"
 				);
 	}
 
+	$string = $rowH['Codigo_FAC'];
+	//var_dump($_POST["factura"]);
+	$NUMERACION = preg_replace('/[^0-9]/', '', $string);
+	$cadena = explode($NUMERACION,$string);
+	$PREFIJO = $cadena[0];
 
-	$cadena = explode("-",ValidarCUfe($rowH['NIT_DCD'],$rowH['PREFIJO'],$rowH['NUMERACION']));
+	$cadena = explode("-",ValidarCUfe($rowH['NIT_DCD'],$PREFIJO,$NUMERACION));
     //var_dump($cufe);
 	$cufe = $cadena[0];
 	$establishment_municipality = $cadena[1];
@@ -77,8 +84,8 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 		"establishment_address"=>$rowH['Direccion_DCD'],
 		"establishment_phone"=>$rowH['Telefonos_DCD'],
 		"establishment_municipality"=> $establishment_municipality,
-		"sendmail"=> true,
-		"sendmailtome"=> true,
+		"sendmail"=> false,
+		"sendmailtome"=> false,
 		"seze"=> "2021-2017",
 		"head_note"=> $rowH['EncabezadoFact_DCD'],
 		"foot_note"=> $rowH['PiePaginaFact_DCD'],
@@ -107,7 +114,7 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 			"line_extension_amount"=> $rowH['ValEntidad_FAC'],
 			"tax_exclusive_amount"=> "0",
 			"tax_inclusive_amount"=> $rowH['ValEntidad_FAC'],
-			"payable_amount"=> $rowH['ValEntidad_FAC']+1
+			"payable_amount"=> $rowH['ValEntidad_FAC']
 		),
 		"credit_note_lines"=>$detalle 
 		);
@@ -123,10 +130,11 @@ $payload = json_encode($payload);
 $curl = curl_init();
 
 //$TestSetId_tecnowebs =   'cfa3b4f4-ea97-4a2e-b7d1-6506131ca8c8';
-$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
+//$TestSetId_vision = '442810ba-2837-4e22-ae53-0180e6731747';
+$TestSetId_vision = '';
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'credit-note/'.$TestSetId_vision,
+  CURLOPT_URL => $prefixUrl.'credit-note'.$TestSetId_vision,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -145,6 +153,12 @@ curl_setopt_array($curl, array(
 ));
 
 $response = curl_exec($curl);
+
+if($errno = curl_errno($curl)){
+	$errno_message = curl_errno($errno);
+	echo "cURL error ({$errno}):\n {$errno_message}";
+	var_dump($errno);
+}
 
 curl_close($curl);
 echo $response;

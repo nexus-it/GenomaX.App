@@ -76,23 +76,23 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 
 	$this->SetY(-88);
 	$this->SetFont('Arial','',10);
-	$this->Cell(118,5,'','TLR',0,'R',0);
-	$this->Cell(45,5,'SUBTOTAL','TLBR',0,'R',0);
+	$this->Cell(113,5,'','TLR',0,'R',0);
+	$this->Cell(50,5,'Sub-Total','TLBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($subtotal,2,'.',','),'TBR',0,'R',0); 
 /*	$this->Cell(0,5,number_format($subtotalfac,2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 	$this->SetFont('Arial','',10);
-	$this->Cell(118,5,'','LR',0,'R',0);
-	$this->Cell(45,5,'VALOR PACIENTE','LBR',0,'R',0);
+	$this->Cell(113,5,'','LR',0,'R',0);
+	$this->Cell(50,5,'Anticipo Pagos Usuarios','LBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($totpcte,2,'.',','),'BR',0,'R',0);
 	$this->Ln();
 	$this->SetFont('Arial','',10);
-	$this->Cell(118,5,'','BLR',0,'R',0);
-	$this->Cell(45,5,'VALOR NOTAS CREDITO','LBR',0,'R',0);
+	$this->Cell(113,5,'','BLR',0,'R',0);
+	$this->Cell(50,5,'Valor Descuentos','LBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($notcred,2,'.',','),'BR',0,'R',0);
@@ -117,13 +117,13 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	if ($rowH[42]=="PARTIC") {
 		$this->Cell(0,5,number_format($totpcte-$notcred,2,'.',','),'TBR',0,'R',0); 
 	} else {
-		$this->Cell(0,5,number_format($subtotal-$notcred,2,'.',','),'TBR',0,'R',0); 
+		$this->Cell(0,5,number_format($subtotal-$totpcte,2,'.',','),'TBR',0,'R',0); 
 	}
 
 /*	$this->Cell(0,5,number_format($subtotalfac-$rowH[15],2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 /*	$this->Cell(0,4,ValorLetras($rowH[14]-$rowH[15]),'LBR',0,'L',0); */
-	$this->Cell(0,4,ValorLetras($subtotalfac-$notcred),'LBR',0,'L',0);
+	$this->Cell(0,4,ValorLetras($subtotal-$totpcte),'LBR',0,'L',0);
 	$Cadena2=explode('\n',$lineas2);
 	$this->SetFont('Times','',7);
 	$conteo = count($Cadena2);
@@ -308,7 +308,6 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=str_replace("@CODIGO_INICIAL",($_GET["CODIGO_INICIAL"]),$SQL);
 	$SQL=str_replace("@CODIGO_FINAL",($_GET["CODIGO_FINAL"]),$SQL);
 }
-error_log($SQL);
 mysqli_free_result($resultH);
 error_log("Factura salud:". $SQL);
 $resultH = mysqli_query($conexion, $SQL);
@@ -444,5 +443,9 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 //mysqli_free_result($result);
 //mysqli_close();
 //Mostramos el informe
-$pdf->Output();
+if(isset($_GET["namedoc"])) {
+	$pdf->Output("F", $_GET["namedoc"].".pdf");
+} else {
+	$pdf->Output();
+}
 ?>

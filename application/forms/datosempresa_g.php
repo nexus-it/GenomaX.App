@@ -1,5 +1,6 @@
 <?php 
 include '../../functions/php/nexus/api.php'; 
+include '../../functions/php/nexus/database.php';
 include '../../functions/php/GenomaXBackend/params.php';
 
 
@@ -41,6 +42,7 @@ if(isset($_POST['nit'])){
     );
 
     //$autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
+    $bearer = ValidarBearer(verficarEmpresaReg());
 
     $result = llamarApi($url,$metodo,$datos,$bearer);
 
@@ -70,6 +72,7 @@ if(isset($_POST['id'])){
         'pin'=> $pin
     );
     //$autorizacion = '5de658704d41e7f34cdb752ed5d3379301b9fabcc7604b894904b3953b1bfeec';
+    $bearer = ValidarBearer(verficarEmpresaReg());
 
     $result = llamarApi($url,$metodo,$datos,$bearer);
 
@@ -82,7 +85,7 @@ if(isset($_POST['id'])){
     }else{
         echo "Dato con errores favor verificar";
     }
-} 
+}
 
 /*
 PROCESO ANTERIOR -- HACE EL PROCESO PERO NO ENVIA EL CERTIFICADO
