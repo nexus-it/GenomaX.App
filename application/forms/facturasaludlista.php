@@ -228,7 +228,28 @@ function putSendFactura(factura){
           }
         });
    }
-
+   function NoCuFE(factura, msg) {
+    showProgress("1", factura)
+      $.ajax({
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
+        data: {
+          cufe: "0",
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            MsgBox1('Error en envío de Factura',msg);
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
+        showProgress("0", factura)
+   }
    function estadoFacturaDoc(cufe,factura){
     showProgress("1", factura)
       $.ajax({
@@ -244,24 +265,30 @@ function putSendFactura(factura){
           },
           success: function (data) {
             obj = JSON.parse(data);
+            showProgress("0", factura)
             //$("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
             
             //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
-            if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 0){
+            if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 'false'){
               $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
-              MsgBox1('Error en envío de Factura',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+              NoCuFE(factura,obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']+'"<br> "'+obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
             }else{
-            $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
-              MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
-              document.getElementById("btnedit"+factura).disabled = true;
-              document.getElementById("btnsend"+factura).disabled = true;
+              if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']=="Documento con errores en campos mandatorios") {
+                NoCuFE(factura, obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string']);
+              } else {
+              $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+                MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
+                document.getElementById("btnedit"+factura).disabled = true;
+                document.getElementById("btnsend"+factura).disabled = true;
+              }
             }
           },
           error: function() { 
+            showProgress("0", factura)
             console.log(data);
           }
         });
-        showProgress("0", factura)
+        
    }   
 
    $(document).ready(function() {	

@@ -5,6 +5,35 @@ var Uploads="functions/php/nexus/uploads.php";
 var Transac="functions/php/nexus/transactions.php";
 var Transact="functions/php/transactions/";
 
+function getNumbersInString(string) {
+	var tmp = string.split("");
+	var map = tmp.map(function(current) {
+	  if (!isNaN(parseInt(current))) {
+		return current;
+	  }
+	});
+  
+	var numbers = map.filter(function(value) {
+	  return value != undefined;
+	});
+  
+	return numbers.join("");
+  }
+  function getCharsInString(string) {
+	var tmp = string.split("");
+	var map = tmp.map(function(current) {
+	  if (isNaN(parseInt(current))) {
+		return current;
+	  }
+	});
+  
+	var chars = map.filter(function(value) {
+	  return value != undefined;
+	});
+  
+	return chars.join("");
+  }
+
 function Guardar_facturasalud(Ventana)
 {
 	xError="";
@@ -27,21 +56,23 @@ function Guardar_facturasalud(Ventana)
 		  success: function(respuesta) { 
 		  		Tam=respuesta.length;
 		  		Correcto=respuesta.substr(Tam-8,Tam);
-				if (Correcto=="correcto") {
-					Pref=respuesta.substr(0,respuesta.indexOf('-'));
-					TamPref=Pref.length;
-					Consecutivo=respuesta.substr(respuesta.indexOf('-')+1,Tam-(TamPref+9));
-					Pref=Pref.trim();
-					respuesta="Se ha generado correctamente la factura "+Pref+Consecutivo;
-					$("#frm_form"+Ventana)[0].reset();
 				
+				if (respuesta.substr(0,39)=="Se ha generado correctamente la factura") {
+					theinvoice=respuesta.substr(40,Tam);
+					Pref=getCharsInString(theinvoice);
+					Consecutivo=getNumbersInString(theinvoice);
+					Pref=Pref.trim();
+					InsertarHTML(NomProgress, '');
+					document.getElementById(NomGuardar).style.display  = 'block';
+					$("#frm_form"+Ventana)[0].reset();
+  
 			  		$('#GnmX_WinModal').modal('show');
 					CargarWind("Factura "+Pref+Consecutivo, 'reports/facturasaluddet.php?PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'facturasalud.php',Ventana );
 				
 					var miDiv = document.getElementById("zero_detalle"+Ventana); 
 					miDiv.innerHTML ='<table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle'+Ventana+'" ><tbody id="tbDetalle'+Ventana+'"><tr id="trh'+Ventana+'"> <th id="th1'+Ventana+'">Codigo</th> <th id="th2'+Ventana+'">Servicio</th> <th id="th3'+Ventana+'">Cant.</th> <th id="th4'+Ventana+'">Paciente</th> <th id="th4'+Ventana+'">Entidad</th> <th id="th4'+Ventana+'">Total</th></tr></tbody></table>';
-					InsertarHTML(NomProgress, '');
-					document.getElementById(NomGuardar).style.display  = 'block';
+					
+					
 	
 				} else {
 					

@@ -4,7 +4,7 @@ include '00trnsctns.php';
 
 	$Consec=LoadConsecFact($conexion, $_POST['sede']);
 	if ($MSG=='Datos registrados correctamente. ') {
-		$MSG='Se ha generado correctamente la factura '.add_ceros($Consec,10);
+		$MSG='Se ha generado correctamente la factura '.($Consec);
 	}
 	$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Nota_FAC, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', '".(int)$_POST['Ingreso']."', '".$_POST["fechafac"]." ".$_POST["horafac"]."', '".$_POST['totalpte']."',  '".$_POST["totalent"]."', '".$_POST["totalent"]."', '".$_POST["contrato"]."', '".$_POST["plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["nota"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
 	EjecutarSQL($SQL, $conexion);

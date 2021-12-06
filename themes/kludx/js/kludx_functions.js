@@ -10,6 +10,18 @@ var varMenu=0;
         locateTop();
         setWMenu("0");
     }
+    function loadDatafetch(url, params) {
+        if (params!="") {
+            url=url+"?"+params;
+        }
+        fetch(url)
+        .then(function (response) {
+        return response.text();
+        })
+        .then(function (body) {
+        console.log(body);
+        });
+    }
     function createDivs(iddiv){
         var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
         return '<div id="'+iddiv+'">'+loading+'</div>';        
