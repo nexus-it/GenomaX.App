@@ -63,7 +63,7 @@ session_start();
 					<th id="thm<?php echo $NumWindow; ?>" colspan="5" halign="center"><span id="NombreMes<?php echo $NumWindow; ?>"> <?php echo $meses[$month]." - ".$year; ?> </span></th>
 					<th id="thsig<?php echo $NumWindow; ?>"> 
 						<?php
-						$SQL="Select max(a.Fecha_AGE)From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE and a.Estado_AGE='0' and b.Estado_AGE='1' and b.Codigo_ARE='".$theArea."';";
+						$SQL="Select max(a.Fecha_AGE)From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE and b.Estado_AGE='1' ;";
 						$result = mysqli_query($conexion, $SQL);
 						if($row = mysqli_fetch_array($result)) 
 							{
@@ -123,7 +123,7 @@ session_start();
 							}else{
 								$stylo=$stylo." color:#800000;";
 							}
-							$SQL="Select count(*) From gxagendacab a, gxagendadet b Where a.Codigo_AGE=b.Codigo_AGE and a.Estado_AGE='1' and b.Estado_AGE='0' and a.Codigo_ARE='".$theArea."' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."' and b.Fecha_AGE>=curdate()";
+							$SQL="Select count(*) From gxagendacab a, gxagendadet b Where a.Codigo_AGE=b.Codigo_AGE and a.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
 							$result = mysqli_query($conexion, $SQL);
 							if($row = mysqli_fetch_array($result)) 
 								{

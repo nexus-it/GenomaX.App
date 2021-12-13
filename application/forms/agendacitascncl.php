@@ -109,7 +109,13 @@ session_start();
 		</div>
 
 	</div>
-
+	<?php
+if (isset($_GET["genesis"])) {
+?>
+<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitascncl('<?php echo $NumWindow; ?>');">Guardar</button>
+<?php
+	}
+?>
 </form>
 
 <script >
