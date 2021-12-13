@@ -1760,6 +1760,163 @@ case 'CargarMedicosCx' :
 	} 
 	mysqli_free_result($result);
 break;
+// Mensaje a enviar por texto para recordarle la cita programada a los pacientes
+case 'txtrSchedule' :
+	$cita=$_GET['cita'];
+	$pcte="";
+	$ips="";
+	$esp="";
+	$med="";
+	$fecha="";
+	$hora="";
+	$area="";
+	$dir="";
+	$tel="";
+	$mensaje="";
+	$SQL="SELECT CONCAT(b.Nombre1_PAC,' ',b.Apellido1_PAC) AS nombre, c.Razonsocial_DCD, f.Nombre_ESP, e.Nombre_TER, DATE_FORMAT(a.Fecha_AGE,'%d/%m/%Y'), DATE_FORMAT(concat(a.Fecha_AGE,' ',a.Hora_AGE),'%h:%i %p'), g.Nombre_ARE, h.Direccion_SDE, h.Telefonos_SDE, J.Nombre_TAH, i.MensajeCita_XCX FROM gxcitasmedicas a, gxpacientes b, itconfig c, gxagendacab d, czterceros e, gxespecialidades f, gxareas g, czsedes h, itconfig_cx i, hctipoatencion j WHERE j.Codigo_TAH=a.Codigo_TAH AND a.Codigo_TER=b.Codigo_TER AND d.Codigo_AGE=a.Codigo_AGE AND e.Codigo_TER=d.Codigo_TER AND f.Codigo_ESP=d.Codigo_ESP AND g.Codigo_ARE=d.Codigo_ARE AND g.Codigo_SDE=h.Codigo_SDE and a.Codigo_CIT='".$cita."'";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		$pcte=$row[0];
+		$ips=$row[1];
+		$esp=$row[2];
+		$med=$row[3];
+		$fecha=$row[4];
+		$hora=$row[5];
+		$area=$row[6];
+		$dir=$row[7];
+		$tel=$row[8];
+		$mod=$row[9];
+		$mensaje=$row[10];
+	} 
+	mysqli_free_result($result);
+	$mensaje=str_replace("{PACIENTE}",strtoupper($pcte),$mensaje);
+	$mensaje=str_replace("{IPS}",strtoupper($ips),$mensaje);
+	$mensaje=str_replace("{ESPECIALIDAD}",strtoupper($esp),$mensaje);
+	$mensaje=str_replace("{MEDICO}",strtoupper($med),$mensaje);
+	$mensaje=str_replace("{FECHA}",strtoupper($fecha),$mensaje);
+	$mensaje=str_replace("{HORA}",strtoupper($hora),$mensaje);
+	$mensaje=str_replace("{AREA}",strtoupper($area),$mensaje);
+	$mensaje=str_replace("{DIRECCION}",strtoupper($dir),$mensaje);
+	$mensaje=str_replace("{TELEFONO}",strtoupper($tel),$mensaje);
+	$mensaje=str_replace("{MODALIDAD}",strtoupper($mod),$mensaje);
+	echo urlencode($mensaje);
+break;
+
+case 'loadSchedule' :
+	$fecha=$_GET['fecha'];
+	$areas=$_GET['areas'];
+	$wind=$_GET['wind'];
+	$tabla ='<table class="table table-condensed table-bordered table-hover tblDetalle" style="cursor:auto;"> <thead> <tr> <th width="64px" style="font-size: 12px; text-align: center;"> <span class="glyphicon glyphicon-time" aria-hidden="true"></span> </th>';
+	/* CONSULTA DE AGENDAS ABIERTAS PARA ESTE DIA */
+	$areas=" and a.Codigo_ARE in (".$areas.") ";
+
+	$SQL="SELECT DISTINCT b.Codigo_AGE, c.Codigo_TER, concat(c.Apellido1_MED, ' ', left(c.Apellido2_MED,1), ' ', c.Nombre1_MED, ' ', left(c.Nombre2_MED,1)) FROM gxagendacab a, gxagendadet b, gxmedicos c WHERE a.Codigo_AGE=b.Codigo_AGE AND c.Codigo_TER=a.Codigo_TER AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
+	error_log($SQL);
+	$result = mysqli_query($conexion, $SQL);
+	$i=0;
+	while($row = mysqli_fetch_row($result)) {
+		$i++;
+		$array_agendas[$i] = $row[0];
+		$tabla=$tabla.'<th  style="font-size: 10px; text-align: center; white-space: nowrap;"> '.$row[2].' </th>';
+	} 
+	mysqli_free_result($result);
+	$SQL="SELECT min(b.Hora_AGE), MAX(b.Hora_AGE), round(TIMESTAMPDIFF(minute,min(b.Hora_AGE), MAX(b.Hora_AGE))/5) FROM gxagendadet b, gxagendacab a WHERE a.Codigo_AGE=b.Codigo_AGE AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
+	error_log($SQL);
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		$horamin = $row[0];
+		$horamax = $row[1];
+		$totalfilas = $row[2];
+	} 
+	mysqli_free_result($result);
+	$tabla=$tabla.'</tr> </thead> <tbody>';
+	$SQL="SET @numero='".$horamin."'; Select @numero:= ADDTIME(@numero, '00:05:00') FROM gxagendadet WHERE @numero<='".$horamax."';";
+	$SQL1="SELECT time_format(t0.horaagenda, '%H:%i') ";
+	$SQL2=" FROM gxagendahoras t0";
+	$j=0;
+	while($j<=$i) {
+		$j++;
+		$SQL1=$SQL1.", t".$j.".Estado_AGE";
+		$SQL2=$SQL2." LEFT OUTER JOIN gxagendadet t".$j." ON t".$j.".Hora_AGE=t0.horaagenda AND t".$j.".Codigo_AGE='".$array_agendas[$j]."' AND t".$j.".Fecha_AGE='".$fecha."'";
+	}
+	$SQL=$SQL1.$SQL2. " Where t0.horaagenda between '".$horamin."' and '".$horamax."'";
+	error_log($SQL);
+	$result = mysqli_query($conexion, $SQL);
+	while($row = mysqli_fetch_row($result)) {
+		$tabla=$tabla.'<tr height="27px"><td style="font-size:11px;">'.$row[0].'</td>';
+		$j=0;
+		while($j<=$i) {
+			$j++;
+			if($row[$j]=="") {
+			$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
+			} else {
+				$SQL="Select Tiempo_AGE, Codigo_CNS, Codigo_ESP From gxagendacab Where Codigo_AGE='".$array_agendas[$j]."'";
+				$resultx = mysqli_query($conexion, $SQL);
+				if($rowx = mysqli_fetch_row($resultx)) {
+					$rowspan = ' rowspan="'.($rowx[0]/5).'" style="font-size:11px;"';
+					$html="";
+					if($row[$j]=="1") {
+						$SQL="SELECT '".$row[0]."', time_format(ADDTIME('".$row[0]."', '00:".$rowx[0].":00'), '%H:%i'), CONCAT(b.Nombre1_PAC,' ',LEFT(b.Nombre2_PAC,1),' ',b.Apellido1_PAC,' ',LEFT(b.Apellido2_PAC,1)), c.Nombre_EPS, a.Confirma_CIT, a.Atiende_CIT, e.ID_TER, a.Codigo_CIT, e.Telefono_TER FROM gxcitasmedicas a, gxpacientes b, gxeps c, gxagendacab d, czterceros e WHERE e.Codigo_TER=b.Codigo_TER and a.Codigo_TER=b.Codigo_TER AND d.Codigo_AGE=a.Codigo_AGE AND b.Codigo_EPS=c.Codigo_EPS AND a.Estado_CIT='P' AND a.Fecha_AGE='".$fecha."' AND a.Hora_AGE='".$row[0]."' AND a.Codigo_AGE='".$array_agendas[$j]."'";
+						error_log($SQL);
+						$resulty = mysqli_query($conexion, $SQL);
+						if($rowy = mysqli_fetch_row($resulty)) {
+							switch ($rowy[4]) {
+								case '1':
+									if ($rowy[5]=="1") {
+										$stilo=' class="bg-primary"';
+										$conf="";
+
+									} else {
+										$stilo=' class="bg-info"';
+										$conf='<li><a class="text-primary" onclick="javascript:confcita'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-repeat"></span> Desconfirmar</a></li>';
+									}
+
+								break;
+								case '0':
+									$stilo=' class="bg-success"';
+									$conf='<li><a class="text-success" onclick="javascript:confcita'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-ok-circle"></span> Confirmar Llegada</a></li>';
+								break;
+							}
+							$msgcita="";
+							if ($rowy[8]!="") {
+								$msgcita='<li role="separator" class="divider"></li>
+								<li><a class="text-primary" onclick="javascript:sendWhatsapp'.$wind.'(\''.$rowy[8].'\', \''.$rowy[7].'\');" > <span class="glyphicon glyphicon-earphone"></span> Enviar por Whatsapp</a></li>';
+							}
+							$button='<button class="btn dropdown-toggle" type="button" id="drpmn'.$j.'" style="background-color:transparent; border-color:transparent; text-align:left; padding:2px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+							$opciones='<ul class="dropdown-menu" aria-labelledby="drpmn'.$j.'">
+							'.$conf.'
+							<li><a class="text-primary" onclick="javascript:ReprogCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-calendar"></span> Reprogramar Cita</a></li>
+							<li><a class="text-danger" onclick="javascript:CancelCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-remove-circle"></span> Cancelar Cita</a></li>
+							'.$msgcita.'
+							<li role="separator" class="divider"></li>
+							<li><a onclick="javascript:PcteCitas'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-list-alt"></span> Ver Historico</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a class="text-warning" onclick="javascript:CancelCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-ban-circle"></span> No asiste</a></a></li>
+						  </ul>';
+							$html='<div class="dropdown">'.$button.'<small>['.$rowy[0].' - '.$rowy[1].']<br><b>'.$rowy[2].'</b><br><span class="glyphicon glyphicon-phone-alt"></span> '.$rowy[8].' <br>Contrato: '.$rowy[3].'</small></button>'.$opciones.'</div>';
+						} 
+						mysqli_free_result($resulty);
+					} else {
+						$stilo=' style="background-color: #efefef;"';
+						$button='<button class="btn dropdown-toggle" type="button" id="drpmn'.$j.'" style="background-color:transparent; border-color:transparent; text-align:left; padding:2px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
+						$opciones='<ul class="dropdown-menu" aria-labelledby="drpmn'.$j.'">
+						<li><a onclick="javascript:newcita'.$wind.'(\''.$array_agendas[$j].'\', \''.$fecha.'\', \''.$row[0].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal">Programar Nueva Cita</a></li>
+						</ul>';
+						$html='<div class="dropdown">'.$button.'...</button>'.$opciones.'</div>';
+					}
+					$tabla=$tabla.'<td '.$stilo.' '.$rowspan.'>'.$html.'</td>';
+				}
+				mysqli_free_result($resultx);
+			}
+		}
+		$tabla=$tabla.'</tr>';
+	} 
+	mysqli_free_result($result);
+	
+	$tabla=$tabla.'</tbody>	</table>';
+
+	echo $tabla;
+break;
 
 case 'FillAgenda' :
 	$array_dias['Sunday'] = "Domingo";
@@ -1773,18 +1930,21 @@ case 'FillAgenda' :
 	$fecha = $_GET['fecha'];
 
 	$tabla='<tr> <th id="thh'.$_GET['ventana'].'" colspan="3"><span id="NombreDia'.$_GET['ventana'].'"> '.$array_dias[date('l', strtotime($fecha))].'. '.$_GET['fecha'].' </span></th> </tr> <tr id="trh'.$_GET['ventana'].'"> <th  width="10%" id="thd2'.$_GET['ventana'].'">Hora</th> <th  width="12%" id="thd1'.$_GET['ventana'].'">Consultorio</th> <th  width="78%" id="thd0'.$_GET['ventana'].'">Paciente</th> </tr> ';
-	$SQL="Select a.Hora_AGE, c.Nombre_CNS, a.codigo_age From gxagendadet a, gxagendacab b, gxconsultorios c Where a.Codigo_AGE=b.Codigo_AGE and b.Codigo_CNS=c.Codigo_CNS and b.Estado_AGE='1' and a.Estado_AGE='0' and a.Fecha_AGE='".$_GET['fecha']."' and b.Codigo_TER='".$_GET['medico']."' and b.Codigo_ARE='".$_GET['area']."' order by 1,2;";
-	
+	$SQL="Select a.Hora_AGE, c.Nombre_CNS, a.codigo_age, '' as 'habil', '', '' From gxagendadet a, gxagendacab b, gxconsultorios c Where a.Codigo_AGE=b.Codigo_AGE and b.Codigo_CNS=c.Codigo_CNS and b.Estado_AGE='1' and a.Estado_AGE='0' and a.Fecha_AGE='".$_GET['fecha']."' and b.Codigo_TER='".$_GET['medico']."' and b.Codigo_ARE='".$_GET['area']."'
+	Union 
+	Select z.Hora_AGE, m.Nombre_CNS, z.codigo_age, 'disabled' as 'habil', x.ID_TER, x.Nombre_TER From czterceros x, gxcitasmedicas y, gxagendadet z, gxagendacab n, gxconsultorios m Where x.Codigo_TER=y.Codigo_TER and y.Codigo_AGE=z.Codigo_AGE and y.Fecha_AGE=z.fecha_age and y.hora_age=z.hora_age and z.Codigo_AGE=n.Codigo_AGE and n.Codigo_CNS=m.Codigo_CNS and n.Estado_AGE='1' and z.Estado_AGE='1' and z.Fecha_AGE='".$_GET['fecha']."' and n.Codigo_TER='".$_GET['medico']."' and n.Codigo_ARE='".$_GET['area']."'
+	Order by 1,2;";
+	error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$counter=0;
 	while($row = mysqli_fetch_row($result)) {
 		$counter++;
 		$tabla=$tabla.'<tr > <td align="center" valign="middle">
 		<input name="hdn_hora'.$counter.$_GET['ventana'].'" type="hidden" id="hdn_hora'.$counter.$_GET['ventana'].'" value="'.$row[0].'" /><label style="cursor: pointer;" for="txt_paciente'.$counter.$_GET['ventana'].'">'.$row[0].'</label></td> <td  valign="middle"><input name="hdn_fecha'.$counter.$_GET['ventana'].'" type="hidden" id="hdn_fecha'.$counter.$_GET['ventana'].'" value="'.$_GET['fecha'].'" />'.$row[1].'<input name="hdn_agenda'.$counter.$_GET['ventana'].'" type="hidden" id="hdn_agenda'.$counter.$_GET['ventana'].'" value="'.$row[2].'" /></td> <td  valign="middle"> <div class="row"> <div class="col-sm-4 col-md-4"><div class="input-group">
-		<span class="input-group-btn"> <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_WinModal" onclick="javascript:LoadPcte'.$_GET['ventana'].'(\''.$counter.'\');" title="Edición de Pacientes"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></button> </span>
-		<input required class="form-control input-sm" name="txt_paciente'.$counter.$_GET['ventana'].'"  type="text" id="txt_paciente'.$counter.$_GET['ventana'].'" onblur="javascript:NombreTer'.$_GET['ventana'].'(\''.$counter.'\', this.value, \'gxpacientes\');" onkeypress="BuscarPte'.$_GET['ventana'].'(event);" onkeydown="if(event.keyCode==115){CargarSearch(\'Paciente\', \'txt_paciente'.$counter.$_GET['ventana'].'\', \'NULL\')};" style="font-size:14px; font-weight: bold; "/> <span class="input-group-btn"> <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch(\'Paciente\', \'txt_paciente'.$counter.$_GET['ventana'].'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </div> </div>
+		<span class="input-group-btn"> <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_WinModal" onclick="javascript:LoadPcte'.$_GET['ventana'].'(\''.$counter.'\');" title="Edición de Pacientes"  '.$row[3].'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></button> </span>
+		<input required class="form-control input-sm" name="txt_paciente'.$counter.$_GET['ventana'].'"  type="text" id="txt_paciente'.$counter.$_GET['ventana'].'" onblur="javascript:NombreTer'.$_GET['ventana'].'(\''.$counter.'\', this.value, \'gxpacientes\');" onkeypress="BuscarPte'.$_GET['ventana'].'(event);" onkeydown="if(event.keyCode==115){CargarSearch(\'Paciente\', \'txt_paciente'.$counter.$_GET['ventana'].'\', \'NULL\')};" style="font-size:14px; font-weight: bold; " value="'.$row[4].'" '.$row[3].'/> <span class="input-group-btn"> <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch(\'Paciente\', \'txt_paciente'.$counter.$_GET['ventana'].'\', \'NULL\');" '.$row[3].'><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </div> </div>
 		<div class="col-sm-8 col-md-8"><div class="input-group">
-		<input class="form-control input-sm" style="font-size:12px; font-weight: bold; color:#0E5012; " name="txt_paciente2x'.$counter.$_GET['ventana'].'" id="txt_paciente2x'.$counter.$_GET['ventana'].'" type="text" disabled="disabled" class="lead" /><span class="input-group-btn" id="spn_pctex'.$counter.$_GET['ventana'].'" name="spn_pctex'.$counter.$_GET['ventana'].'"> <button class="btn btn-default" type="button" disabled><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></button></span> </div></div> </div>
+		<input class="form-control input-sm" style="font-size:12px; font-weight: bold; color:#0E5012; " name="txt_paciente2x'.$counter.$_GET['ventana'].'" id="txt_paciente2x'.$counter.$_GET['ventana'].'" type="text" disabled="disabled" class="lead" value="'.$row[5].'" /><span class="input-group-btn" id="spn_pctex'.$counter.$_GET['ventana'].'" name="spn_pctex'.$counter.$_GET['ventana'].'"> <button class="btn btn-default" type="button" disabled><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></button></span> </div></div> </div>
 		 </td> </tr>';
 	} 
 	mysqli_free_result($result);

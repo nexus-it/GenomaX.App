@@ -18,5 +18,5 @@ if (isset($_GET["nxsdb"])){
 <script type="text/javascript" src="themes/kludx/js/kludx_functions.js"></script>
 <?php 
 // LoadFoot($version);
-?>
+?> 
 </html>

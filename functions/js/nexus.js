@@ -1445,7 +1445,7 @@ function Guardar_agendacitas(Ventana)
 	//Se verifica la validez de los campos...
 	if (document.getElementById('hdn_controwcitas'+Ventana).value=="0") {
 		xError="Seleccione un dia para agendar.";}
-	
+	 
 	//Ejecucion de las intrucciones para guardar los registros
 	if (xError=="") {
 		$.ajax({  

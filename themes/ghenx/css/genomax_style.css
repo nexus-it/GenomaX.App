@@ -1439,6 +1439,10 @@
 	-webkit-border-radius: 4px;
 	border: 1px solid #255A86;
 	}
+	.trCal th{
+		background-color:orange;
+		color: #fff;
+	}
 	.about {
 	font-family: Verdana, Geneva, sans-serif;
 	border-right-width: 1px;

@@ -22,7 +22,7 @@ function AbrirReport(Pagina, Contenedor, Params)
 	Params=Params+"&"+Temporal.substring(1,Temporal.length);
 	Pagina=Pagina.substring(20,Pagina.indexOf('.'))
 	$("#"+Contenedor).load("application/reports/reports.php?reporte="+Pagina+"&target="+Contenedor+Params);
-}
+} 
 
 function inicioEnvio(Destino)
 {
