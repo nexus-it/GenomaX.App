@@ -30,7 +30,7 @@ function send($recipiente,$factura,$datosEnvioMail){
             $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Remitente
-            $mail->setFrom('fe@servieslat.com','Tu factura se encuentra lista');
+            $mail->setFrom('gerencia@nexus-it.co','Tu factura se encuentra lista');
            //Destinatario
             $mail->addAddress($recipiente);     //Add a recipient
 
@@ -50,10 +50,10 @@ function send($recipiente,$factura,$datosEnvioMail){
            
 
             $mail->send();
-            echo 'Message has been sent';
+            error_log( 'Message has been sent');
             actualizarEstadoEnvioFact($factura);
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            error_log( "Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
         }
 }        
 

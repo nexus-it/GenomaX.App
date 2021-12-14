@@ -29,7 +29,7 @@ var Funciones="functions/php/nexus/kfunctions.php";
         var menu = createDivs('kld_menu');
         var nxs = createDivs('kld_nexus');
         var dashboard = createDivs('kld_container');
-        document.getElementById('bdy_kludx').innerHTML = cover+nxs;
+        document.getElementById('bdy_kludx').innerHTML = cover + nxs;
         document.getElementById('kld_nexus').innerHTML = menu+dashboard;
         document.getElementById('kld_top').classList.add('cover_lazy'); 
         document.getElementById('kld_top').innerHTML = "";

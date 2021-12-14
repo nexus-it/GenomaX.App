@@ -280,6 +280,8 @@ function putSendFactura(factura){
                 MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
                 document.getElementById("btnedit"+factura).disabled = true;
                 document.getElementById("btnsend"+factura).disabled = true;
+                mailFE(cufe, factura)
+                //adjuntarArvhivos(factura);
               }
             }
           },
@@ -287,10 +289,43 @@ function putSendFactura(factura){
             showProgress("0", factura)
             console.log(data);
           }
-        });
-        
+        });        
    }   
+   function mailFE(cufe, fact) {
+    Consecutivo = fact.replace('/[^0-9]/', '' );
+    Consecutivo = parseInt(fact);
+    alert (Consecutivo);
+    cadena = explode(Consecutivo,fact);
+    Pref = $cadena[0];
+    
+    urlrpt="application/reports/facturasaluddet.php?PREFIJO="+Pref+"&CODIGO_INICIAL="+Consecutivo+"&CODIGO_FINAL="+Consecutivo+"&namedoc=1";
+    $.get(urlrpt,{'Func':'CodUsrBdg','value':Nombre},function(data){ 
+      document.getElementById('hdn_usuario'+Ventana).value=data;
+    });
+    adjuntarArvhivos(fact);
+    
+   }
+   function adjuntarArvhivos(factura){
+  $.ajax({
+            type: 'POST',
+            url: 'functions/php/GenomaXBackend/sendmails/adjuntarArchivos.php',
+            data: {
+              factura: factura
 
+            },
+            beforeSend: function()
+             {
+                
+             },
+              success: function (data) {
+                obj = JSON.parse(data);
+                alert("correo enviado");
+              },
+              error: function() { 
+                console.log(data);
+              }
+            });
+}
    $(document).ready(function() {	
     $( ".estadoFacturaDoc" ).click(function() {
       var cufe = $(this).attr('data-f');

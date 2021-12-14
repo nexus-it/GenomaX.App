@@ -26,6 +26,12 @@ include 'mail.php';
       $url = 'https://backend.estrateg.com/API/storage/app/public/'.$nit.'/FES-'.$factura.'.xml';//$_POST['url'];
       $newfname = $destination_folder . basename($url);
 
+      $Consecutivo = preg_replace('/[^0-9]/', '', $factura);
+      $cadena = explode($Consecutivo,$factura);
+      $Pref = $cadena[0];
+      
+      include "http://app.genomax.co/his/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=1";
+      
       $file = fopen ($url, "rb");
       if ($file) {
         $newf = fopen ($newfname, "wb");
@@ -50,8 +56,8 @@ include 'mail.php';
 
       $indice=$factura;
       if($para){
-        while($indice<='UTC3'){
+        // while($indice<='UTC677'){
             send($para,$indice,$datosEnvioMail);
             $indice++;
-          }
+          // }
       }
