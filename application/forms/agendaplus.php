@@ -63,7 +63,7 @@ session_start();
 					<th id="thm<?php echo $NumWindow; ?>" colspan="5" halign="center"><span id="NombreMes<?php echo $NumWindow; ?>"> <?php echo $meses[$month]." - ".$year; ?> </span></th>
 					<th id="thsig<?php echo $NumWindow; ?>"> 
 						<?php
-						$SQL="Select max(a.Fecha_AGE)From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE and b.Estado_AGE='1' ;";
+						$SQL="Select max(a.Fecha_AGE)From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE ;";
 						$result = mysqli_query($conexion, $SQL);
 						if($row = mysqli_fetch_array($result)) 
 							{
@@ -123,21 +123,28 @@ session_start();
 							}else{
 								$stylo=$stylo." color:#800000;";
 							}
-							$SQL="Select count(*) From gxagendacab a, gxagendadet b Where a.Codigo_AGE=b.Codigo_AGE and a.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
-							$result = mysqli_query($conexion, $SQL);
-							if($row = mysqli_fetch_array($result)) 
-								{
-									if ($Fest=="No") {
-									 	$ConsXDia=$row[0];
-									 }
-							 	}
-							mysqli_free_result($result);
 							$EnlaceJS="";
 							$Badge="";
-							if ($ConsXDia!=0) {
-								$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
-								$Badge='<span class="badge label label-success"><small>'.$ConsXDia.'</small></span>';
+							$SQL="Select count(*) From gxagendacab a, gxagendadet b Where b.Codigo_AGE=a.Codigo_AGE and a.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
+							$resultge = mysqli_query($conexion, $SQL);
+							if($rowge = mysqli_fetch_array($resultge)) {
+									if ($Fest=="No") {
+										$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012; background-color: darkseagreen;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
+										$ConsXDia=$rowge[0];
+									}
+									$SQL="Select count(*) From gxagendadet b Where b.Codigo_AGE='".$rowge[0]."' and b.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
+									$result = mysqli_query($conexion, $SQL);
+									if($row = mysqli_fetch_array($result)) {
+										if ($Fest=="No") {
+											$ConsXDia=$row[0];
+											$Badge='<span class="badge label label-success" style="padding:2px;"><small><small>'.$ConsXDia.'</small></small></span>';
+										}
+									}
+									mysqli_free_result($result);		 
 							}
+							mysqli_free_result($resultge);
+							$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012; background-color: darkseagreen;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
+
 							if($day==$diaActual)
 								echo "<td align='center' ".$EnlaceJS."><span style='font-weight: bold; ".$stylo."'>$day ".$Badge."</span></td>";
 							else
@@ -178,7 +185,6 @@ session_start();
             }
             mysqli_free_result($result);
             ?>
-            
             </div>
             <div class="col-md-12">
 	<div class="form-group">
@@ -254,7 +260,6 @@ function theAreas<?php echo $NumWindow; ?>() {
     mysqli_free_result($result);
     ?>
     document.getElementById('hdn_areas<?php echo $NumWindow; ?>').value=areas;
-   
 }
 
 function getCal<?php echo $NumWindow; ?>() {

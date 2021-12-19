@@ -317,7 +317,7 @@ mysqli_free_result($result);
 		}
 	}
 if (isset($_GET["CITA"])) {
-	$SQL="Select b.ID_TER, d.Nombre_ESP, f.Codigo_EPS, f.Nombre_EPS from gxcitasmedicas a, czterceros b, gxagendacab c, gxespecialidades d, gxpacientes e, gxeps f WHERE f.Codigo_EPS=e.Codigo_EPS and e.Codigo_TER=b.Codigo_TER and d.Codigo_ESP=c.Codigo_ESP and a.Codigo_AGE=c.Codigo_AGE and a.Codigo_TER=b.Codigo_TER and a.Codigo_CIT='".$_GET["CITA"]."'";
+	$SQL="Select b.ID_TER, d.Nombre_ESP, f.Codigo_EPS, f.Nombre_EPS, a.Nota_CIT from gxcitasmedicas a, czterceros b, gxagendacab c, gxespecialidades d, gxpacientes e, gxeps f WHERE f.Codigo_EPS=e.Codigo_EPS and e.Codigo_TER=b.Codigo_TER and d.Codigo_ESP=c.Codigo_ESP and a.Codigo_AGE=c.Codigo_AGE and a.Codigo_TER=b.Codigo_TER and a.Codigo_CIT='".$_GET["CITA"]."'";
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
 		echo "
@@ -326,6 +326,9 @@ if (isset($_GET["CITA"])) {
 		document.frm_form".$NumWindow.".txt_motivo".$NumWindow.".value='CONSULTA EXTERNA POR ".$row[1]."';
 		document.frm_form".$NumWindow.".txt_Contrato".$NumWindow.".value='".$row[2]."';
 		document.frm_form".$NumWindow.".txt_NombreEPS".$NumWindow.".value='".$row[3]."';
+		document.frm_form".$NumWindow.".txt_observacion".$NumWindow.".value='CONSULTA EXTERNA POR ".$row[1].". ".$row[4]."';
+		document.frm_form".$NumWindow.".txt_autorizacion".$NumWindow.".value='".$row[4]."';
+		
 		";
 ?>
 		EpsPcte('<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.txt_paciente<?php echo $NumWindow; ?>.value);

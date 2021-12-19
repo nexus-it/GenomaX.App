@@ -39,6 +39,7 @@ include '00trnsctns.php';
 	$Dx_HCT="0";
 	$AyudasDiag_HCT="0";
 	$QX_HCT="0";
+	$Cons_HCT="0";
 	$Med_HCT="0";
 	$Ordenes_HCT="0";
 	$Indicaciones_HCT="0";
@@ -55,7 +56,7 @@ include '00trnsctns.php';
 	$FraminghamHCT="0";
 	$ValHeridasHCT="0";
 	//Buscamos los parametros del formato para guardar la hc
-	$SQL="Select SV_HCT, Antecedentes_HCT, Dx_HCT, AyudasDiag_HCT, Qx_HCT, Med_HCT, Ordenes_HCT, Indicaciones_HCT, Medico2_HCT, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Insumos_HCT, ValHeridas_HCT from hctipos Where Codigo_HCT='".$_POST['formatohc']."'";
+	$SQL="Select SV_HCT, Antecedentes_HCT, Dx_HCT, AyudasDiag_HCT, Qx_HCT, Med_HCT, Ordenes_HCT, Indicaciones_HCT, Medico2_HCT, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Insumos_HCT, ValHeridas_HCT, Cons_HCT from hctipos Where Codigo_HCT='".$_POST['formatohc']."'";
 	error_log($SQL);
 	$resultHCT = mysqli_query($conexion, $SQL);
 	if($rowHCT = mysqli_fetch_row($resultHCT)) {
@@ -64,6 +65,7 @@ include '00trnsctns.php';
 		$Dx_HCT=$rowHCT[2];
 		$AyudasDiag_HCT=$rowHCT[3];
 		$QX_HCT=$rowHCT[4];
+		$Cons_HCT=$rowHCT["Cons_HCT"];
 		$Med_HCT=$rowHCT[5];
 		$Ordenes_HCT=$rowHCT[6];
 		$Indicaciones_HCT=$rowHCT[7];
@@ -415,6 +417,19 @@ include '00trnsctns.php';
 		$SQL="Insert Into hcdiagnosticos(Codigo_TER, Codigo_HCF, Codigo_DGN, CodigoR_DGN, CodigoR2_DGN, CodigoR3_DGN, Tipo_DGN, Manejo_DGN) Values('".$_POST["codigoter"]."', '".$ElFolio."', '".$_POST["dxppal"]."', '".$DGNR."', '".$DGNR2."', '".$DGNR3."', '".$_POST["tipodx"]."', '".$DGNM."')";
 		EjecutarSQL($SQL, $conexion);
 	} 
+	// CONSULTAS
+	if ($Cons_HCT!="0") {
+		$totalOrdCons=$_POST['controwordcons'];
+		if ($totalOrdCons>0) {
+			$ConsecOrdCons=LoadConsec("hcordenescons", "Codigo_HCS", '0', $conexion, "Codigo_HCS");
+			for ($i = 1; $i <= $totalOrdQx; $i++) {
+				if (isset($_POST['codordcons'.$i])) {
+					$SQL="Insert Into hcordenescons(Codigo_TER, Codigo_HCF, Codigo_HCS, Codigo_SER, Cantidad_HCS, Observaciones_HCS) values('".$_POST['codigoter']."', '".$ElFolio."', '".$ConsecOrdQx."', '".$_POST['codordqx'.$i]."', '".$_POST['cantordqx'.$i]."', '".$_POST['obsordqx'.$i]."')";
+					EjecutarSQL($SQL, $conexion);
+				}
+			}
+		}
+	}
 	// PROCEDIMIENTOS
 	if ($QX_HCT!="0") {
 		$totalOrdQx=$_POST['controwordqx'];

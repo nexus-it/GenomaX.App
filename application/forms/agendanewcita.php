@@ -2,6 +2,7 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
+	$NumWindow2=$_GET["genesis"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
@@ -77,7 +78,7 @@ session_start();
 
 	<div class="form-group">
 		<label for="cmb_primeravez<?php echo $NumWindow; ?>">Tipo Consulta</label>
-		<select name="cmb_primeravez<?php echo $NumWindow; ?>" id="cmb_primeravez<?php echo $NumWindow; ?>" onchange="javascript:FechaCerca<?php echo $NumWindow; ?>(document.frm_form<?php echo $NumWindow; ?>.txt_fecha<?php echo $NumWindow; ?>.value, document.frm_form<?php echo $NumWindow; ?>.cmb_areas<?php echo $NumWindow; ?>.value);">
+		<select name="cmb_primeravez<?php echo $NumWindow; ?>" id="cmb_primeravez<?php echo $NumWindow; ?>" >
 		  <option value="1" >Primera Vez</option>
 		  <option value="C" >Control</option>
 		</select>
@@ -137,11 +138,11 @@ session_start();
         <label for="txt_idhc<?php echo $NumWindow; ?>">Paciente</label>
         <div class="input-group">	
             <span class="input-group-btn">	
-                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_WinModal" onclick="javascript:LoadPcte<?php echo $NumWindow; ?>();" title="Editar datos de Paciente"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_WinModal2" onclick="javascript:LoadPcte<?php echo $NumWindow; ?>();" title="Editar datos de Paciente"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             </span>
-            <input style="font-size:15px;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required  onblur="NombreTercero('<?php echo $NumWindow; ?>', this.value, 'gxpacientes');" />
+            <input style="font-size:15px;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required  onblur="NombreTer<?php echo $NumWindow; ?>( this.value, 'gxpacientes');" />
             <span class="input-group-btn">	
-                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('Paciente', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </span>
         </div>
         <input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>" value="X" />
@@ -156,7 +157,7 @@ session_start();
     </div>
 
         </div>
-        <div class="col-md-12 col-sm-12 ">
+<!--         <div class="col-md-12 col-sm-12 ">
 	<div class="row well well-sm">
 		<input name="hdn_autorizacion<?php echo $NumWindow; ?>" type="hidden" id="hdn_autorizacion<?php echo $NumWindow; ?>" value="" />
 		<div class="col-md-5 col-sm-5">
@@ -219,11 +220,11 @@ session_start();
 	
 		</div>
 
-	</div>
+ -->	</div>
 <?php
 if (isset($_GET["genesis"])) {
 ?>
-<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitasnew('<?php echo $NumWindow; ?>');">Guardar</button>
+<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitasnew('<?php echo $NumWindow; ?>', '<?php echo $NumWindow2; ?>');">Guardar</button>
 <?php
 	}
 ?>
@@ -231,18 +232,17 @@ if (isset($_GET["genesis"])) {
 
 <script >
 
-function NombreTer<?php echo $NumWindow; ?>(fila, Codigo, tabla)
+function NombreTer<?php echo $NumWindow; ?>( Codigo, tabla)
 {
-	$.get(Funciones,{'Func':'NombreTercero','value':Codigo, 'tabla':tabla},function(data){ 
+	$.get(Funciones,{'Func':'NombreTercero','value':Codigo, 'tabla':'gxpacientes'},function(data){ 
 		if (data=="No se encuentra el tercero") {
 			swal('DOCUMENTO NO SE ENCUENTRA', data,'error');
-			document.getElementById('txt_paciente2x'+fila+'<?php echo $NumWindow; ?>').value="";
+			document.getElementById('txt_paciente<?php echo $NumWindow; ?>').value="";
 			Texto="";
 		} else {
-			document.getElementById('txt_paciente2x'+fila+'<?php echo $NumWindow; ?>').value=data;
+			document.getElementById('txt_paciente<?php echo $NumWindow; ?>').value=data;
 			Texto=data;
 		}
-		ShowHistoryx<?php echo $NumWindow; ?>(Texto, Codigo, fila);
 	}); 
 }
 
@@ -295,8 +295,8 @@ function HCResetea<?php echo $NumWindow; ?>() {
 }
 
 function LoadPcte<?php echo $NumWindow; ?>(fila) {
-	IdPte=document.getElementById('txt_paciente'+fila+'<?php echo $NumWindow; ?>').value;
-	CargarWind('Pacientes ', 'forms/pacientes.php?IdPte='+IdPte+'&mode=modal&wnd=agendacitas', '1.PatientMale.png', 'agendacitas.php','<?php echo $NumWindow; ?>' );
+	IdPte=document.getElementById('txt_idhc<?php echo $NumWindow; ?>').value;
+	CargarWind2('Pacientes ', 'forms/pacientes.php?IdPte='+IdPte+'&mode=modal&wnd=agendanewcita', '1.PatientMale.png', 'agendanewcita.php','<?php echo $NumWindow; ?>' );
 }
 
     $("input[type=text]").addClass("form-control");

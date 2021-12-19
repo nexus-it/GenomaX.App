@@ -805,12 +805,12 @@ mysqli_free_result($result1);
 //Datos del folio
 if (isset($_GET["FORMATO"])) {
 	if ($_GET["FORMATO"]=='*') {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	} else {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	}
 } else {
-	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 }
 error_log($SQL);
 $resultx = mysqli_query($conexion, $SQL);
@@ -1659,6 +1659,60 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		}
 
 	}
+	// ORDENES CONSULTAS
+	if ($rowx[34]!="0") {
+		$SQL="Select left(d.CUPS_PRC,1), d.CUPS_PRC, d.Nombre_PRC, b.Cantidad_HCS, b.Observaciones_HCS From gxservicios a, hcordenescons b, czterceros c, gxprocedimientos d Where a.Codigo_SER=b.Codigo_SER and b.Codigo_TER=c.Codigo_TER and d.Codigo_SER=b.Codigo_SER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' order by 2";
+		$resultx2 = mysqli_query($conexion, $SQL);
+		
+		$NumIndi=0;
+		while ($rowx2 = mysqli_fetch_row($resultx2)) {
+			if ($NumIndi==0) {
+				if ($UnFolio==1) {
+					$pdf->AddPage();
+					$pdf->encabezadoz('ORDENES CONSULTAS', $rowx[1]);
+					$pdf->SetFont('Arial','B',10);
+				} else {
+					$pdf->SetFont('Arial','B',8);
+				}
+				$pdf->NewItem("B", "Orden Consultas");
+				$pdf->Cell(0,5,'','B',0,'L',0);
+				$pdf->Ln();
+			}
+			$pdf->Cell(0,1,'','',0,'L',0);
+			$pdf->Ln();
+			$pdf->Ln();
+			$NumIndi=$NumIndi+1;
+			/*$pdf->Cell(2,4,' ','',0,'L',0);*/
+			$pdf->SetFont('Arial','',7);
+			$pdf->SetFillColor(180);	
+			$pdf->Cell(10,4,utf8_decode('Cód.'),'TLB',0,'C',1);
+			$pdf->SetFont('Courier','B',9);
+			$pdf->Cell(16,4,add_ceros($rowx2[1], 2),'TL',0,'C',1);
+			$pdf->SetFont('Arial','B',8);
+			$pdf->MultiCell(0,3,utf8_decode($rowx2[2]),'TLR','L',1);
+			$pdf->SetFillColor(255);
+			$pdf->SetFont('Courier','',7);
+			$pdf->Cell(2,4,' ','',0,'L',0);
+			$pdf->Cell(18,4,'CANTIDAD','TL',0,'C',0);
+			$pdf->Cell(0,4,'OBSERVACIONES','TLR',0,'C',0);
+			$pdf->Ln();
+			$pdf->SetFont('Arial','',7);
+			$pdf->Cell(2,4,' ','',0,'L',0);
+			$pdf->Cell(18,4,add_ceros($rowx2[3],2),'TLB',0,'C',0);
+			$pdf->SetFont('Arial','',6);
+			$pdf->Cell(0,4,utf8_decode($rowx2[4]),'TLRB',0,'L',0);
+			$pdf->Ln();
+		}
+		mysqli_free_result($resultx2);
+		$pdf->Ln();	
+
+	// FIRMA PROFESIONAL
+		if ($NumIndi!=0) {
+			$pdf->Ln();	
+			$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $pdf->GetY());
+		}
+
+	}
 	// ORDENES PROCEDIMIENTOS
 	if ($rowx[34]!="0") {
 		$SQL="Select left(d.CUPS_PRC,1), d.CUPS_PRC, d.Nombre_PRC, b.Cantidad_HCS, b.Observaciones_HCS From gxservicios a, hcordenesqx b, czterceros c, gxprocedimientos d Where a.Codigo_SER=b.Codigo_SER and b.Codigo_TER=c.Codigo_TER and d.Codigo_SER=b.Codigo_SER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' order by 2";
@@ -1702,8 +1756,6 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->SetFont('Arial','',6);
 			$pdf->Cell(0,4,utf8_decode($rowx2[4]),'TLRB',0,'L',0);
 			$pdf->Ln();
-			
-			
 		}
 		mysqli_free_result($resultx2);
 		$pdf->Ln();	

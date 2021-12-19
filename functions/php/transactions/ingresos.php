@@ -3,6 +3,7 @@
 include '00trnsctns.php';
 
 	$Consec=LoadConsec("gxadmision", "Codigo_ADM", $_POST['Ingreso'], $conexion, "LPAD(Codigo_ADM,10,'0')");
+	$ConsecIng=$Consec;
 	if ($MSG=='Datos registrados correctamente. ') {
 		$MSG='Se ha registrado correctamente el ingreso '.add_ceros($Consec,10);
 	}	
@@ -30,6 +31,26 @@ include '00trnsctns.php';
 			EjecutarSQL($SQL, $conexion);
 			it_aud('1', 'Admisiones', 'Ingreso No.'.$Consec);
 		}
+		// Si existe un registro en citas medicas, y tiene codigo de servicio, generamos al orden
+		$SQL="Select Codigo_SER from gxcitasmedicas Where Codigo_CIT='".$_POST['citax']."'";
+		$resultx = mysqli_query($conexion, $SQL);
+		if($rowx = mysqli_fetch_row($resultx)) {
+			if ($rowx[0]!="") {
+				// Generar ordenes de servicio para la capita
+				$Consec=LoadConsec("gxordenescab", "Codigo_ORD", "0", $conexion, "LPAD(Codigo_ORD,10,'0')");
+				$SQL="Insert into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".$ConsecIng."', now(), '', 'CARGO CITA MEDICA',  '".$_SESSION["it_CodigoUSR"]."', '1', '')";
+				$ConsecOrd=$Consec;
+				EjecutarSQL($SQL, $conexion);
+				
+				$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER, ValorServicio_ORD, ValorEntidad_ORD) Values('".$ConsecOrd."', '".$rowx[0]."', 1, '".TRIM($_POST['contrato'])."', '".trim($_POST['Plan'])."', '', 0, 0);";
+				EjecutarSQL($SQL, $conexion);
+				it_aud('1', 'Ordenes de Servicios', 'Servicio Cita Medica No.'.$Consec);
+
+
+			}
+
+		}
+		mysqli_free_result($resultx);
 		$SQL="Replace into gxadmcovid19(Codigo_ADM, Codigo_CVD, Codigo_CVG, Estado_CVD) Values ('".$Consec."', '".($_POST['covid19'])."', '".($_POST['covid19gr'])."', ".($_POST['escovid']).");";
 		
 		EjecutarSQL($SQL, $conexion);

@@ -294,7 +294,7 @@ function putSendFactura(factura){
    function mailFE(cufe, fact) {
     Consecutivo = fact.replace('/[^0-9]/', '' );
     Consecutivo = parseInt(fact);
-    alert (Consecutivo);
+    // alert (Consecutivo);
     cadena = explode(Consecutivo,fact);
     Pref = $cadena[0];
     

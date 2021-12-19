@@ -26,6 +26,7 @@
 	$MedHCT="0";
 	$OrdenesHCT="0";
 	$OrdQxHCT="0";
+	$OrdConsHCT="0";
 	$IndicacionesHCT="0";
 	$ImgHCT="0";
 	$Medico2HCT="0";
@@ -335,6 +336,9 @@ if ($FormatHCX=="1") {
 			  <?php if ($row["RiesgoCardV_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_labsrcv<?php echo $NumWindow; ?>" data-toggle="pill">Laboratorios RCV</a></li>
 			  <?php } ?>
+			  <?php if ($row["Cons_HCT"]=="1") { ?>
+			  <li role="presentation"><a href="#hc_ordcons<?php echo $NumWindow; ?>" data-toggle="pill">Ord Consultas</a></li>
+			  <?php } ?>
 			  <?php if ($row["AyudasDiag_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_paraclinicos<?php echo $NumWindow; ?>" data-toggle="pill">Ayudas Dx</a></li>
 			  <?php } ?>
@@ -367,6 +371,7 @@ if ($FormatHCX=="1") {
 	  				$MedHCT=$row["Med_HCT"];
 	  				$OrdenesHCT=$row["Ordenes_HCT"];
 	  				$OrdQxHCT=$row["Qx_HCT"];
+					$OrdConsHCT=$row["Cons_HCT"];
 	  				$IndicacionesHCT=$row["Indicaciones_HCT"];
 	  				$ImgHCT=$row["Img_HCT"];
 	  				$Medico2HCT=$row["Medico2_HCT"];
@@ -954,7 +959,78 @@ if ($FormatHCX=="1") {
 		  		  require 'hc.paraclinicos.php';
 		  		}
 
-		  	   // Procedimmientos
+		  	   // Consultas
+		  		if ($OrdConsHCT=="1") {
+					?>
+					<div role="tabpanel" class="tab-pane fade " id="hc_ordcons<?php echo $NumWindow; ?>">
+							<div class="row">
+						
+					<div id="divordcons<?php echo $NumWindow; ?>" class="col-md-12">
+						<label class="label label-success"> Consultas</label>
+						<div class="row well well-sm">
+							<div class="col-md-2">
+							  <div class="form-group">
+								  <label for="txt_codsercons<?php echo $NumWindow; ?>">Código</label>
+								  <div class="input-group">	
+									  <input name="txt_codsercons<?php echo $NumWindow; ?>" id="txt_codsercons<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodServCons<?php echo $NumWindow; ?>(event);" onblur="CodServConsOnBlur<?php echo $NumWindow; ?>()" />
+									  <span class="input-group-btn">	
+									  	  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codsercons<?php echo $NumWindow; ?>', '(Codigo_CFC=*01*)');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+									  </span>
+								  </div>
+							  </div>
+						  </div>
+  
+						  <div class="col-md-5">
+							  <div class="form-group">
+								  <label for="txt_serviciocons<?php echo $NumWindow; ?>">Servicio</label>
+								  <input  name="txt_serviciocons<?php echo $NumWindow; ?>" id="txt_serviciocons<?php echo $NumWindow; ?>" type="text" disabled="disabled" />
+							  </div>			
+						  </div>
+  
+						  <div class="col-md-1">
+							  <div class="form-group">
+								  <label for="txt_cantservcons<?php echo $NumWindow; ?>">Cantidad</label>
+								  <input  name="txt_cantservcons<?php echo $NumWindow; ?>" id="txt_cantservcons<?php echo $NumWindow; ?>" type="text" value="1"/>
+							  </div>			
+						  </div>
+						  
+						  <div class="col-md-4">
+							  <div class="form-group">
+								  <label for="txt_obssercons<?php echo $NumWindow; ?>">Observaciones</label>
+								  <div class="input-group">	
+									  <input name="txt_obssercons<?php echo $NumWindow; ?>" id="txt_obssercons<?php echo $NumWindow; ?>" type="text"  />
+									  <span class="input-group-btn">	
+										  <button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddOrdCons<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+									  </span>
+								  </div>
+							  </div>			
+						  </div>
+						  
+						  <div class="col-md-12">
+								<div id="zero_detalleordcons<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
+								  <table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalleordqx<?php echo $NumWindow; ?>" >
+								  <tbody id="tbordcons<?php echo $NumWindow; ?>">
+								  <tr id="trhordconsX'.$NumWindow.'"> 
+									  <th id="th1ordconsX'.$NumWindow.'">Codigo</th> 
+									  <th id="th2ordconsX'.$NumWindow.'">Servicio</th> 
+									  <th id="th3ordconsX'.$NumWindow.'">Cantidad</th> 
+									  <th id="th4ordconsX'.$NumWindow.'">Observaciones</th> 
+									  <th id="th5ordconsX'.$NumWindow.'">Eliminar</th> 
+								  </tr> 
+  
+								  </tbody>
+								  </table><input name="hdn_controwordcons<?php echo $NumWindow; ?>" type="hidden" id="hdn_controwordcons<?php echo $NumWindow; ?>" value="0" />
+							  </div>
+						  </div>
+						</div>
+					</div>
+  
+				</div>
+			</div>
+					<?php
+					}
+  
+			// Procedimmientos
 		  		if ($OrdQxHCT=="1") {
 		  		?>
 		  		<div role="tabpanel" class="tab-pane fade " id="hc_ordqx<?php echo $NumWindow; ?>">
@@ -969,7 +1045,8 @@ if ($FormatHCX=="1") {
 								<div class="input-group">	
 									<input name="txt_codserqx<?php echo $NumWindow; ?>" id="txt_codserqx<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodServQx<?php echo $NumWindow; ?>(event);" onblur="CodServQxOnBlur<?php echo $NumWindow; ?>()" />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserqx<?php echo $NumWindow; ?>', '(Codigo_CFC=*04*!or!Codigo_CFC=*03*!or!Codigo_CFC=*05*)');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+									<!-- (Codigo_CFC=*04*!or!Codigo_CFC=*03*!or!Codigo_CFC=*05*) -->
+										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserqx<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 									</span>
 								</div>
 							</div>
@@ -2335,6 +2412,68 @@ function AddInsumo<?php echo $NumWindow; ?>() {
 		document.getElementById('txt_codinsumo<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_nombreserv<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_codinsumo<?php echo $NumWindow; ?>').focus();
+	}
+}
+
+<?php 
+	}	
+	//Consultas
+	if ($OrdConsHCT=="1") {
+?>
+
+function CodServConsOnBlur<?php echo $NumWindow; ?>() {
+	if (document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').value!="") {
+		NombreServicioCons(document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');
+	} else {
+		document.getElementById('txt_serviciocons<?php echo $NumWindow; ?>').value = '';
+	}
+}
+
+function EliminarFilaOrdCons<?php echo $NumWindow; ?>(Numero) { 
+    var miTabla = document.getElementById("tblDetalleordcons<?php echo $NumWindow; ?>");     
+    $('#trordcons'+Numero+"<?php echo $NumWindow; ?>").remove();
+}  
+
+function AddOrdCons<?php echo $NumWindow; ?>() {
+	xError="";
+	if (document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').value=="") {
+		xError="Seleccione el servicio a ordenar";
+	}
+	if (document.getElementById('txt_serviciocons<?php echo $NumWindow; ?>').value=='<SPAN CLASS="ERROR">NO SE ENCUENTRA EL SERVICIO</SPAN>') {
+		xError="El codigo no es valido";
+	}
+
+	if (xError!="") {
+		MsgBox1('Orden de Procedimientos', xError);
+	} else {
+		TotalFilas=document.getElementById("hdn_controwordcons<?php echo $NumWindow; ?>").value;
+	    var miTabla = document.getElementById("tbordcons<?php echo $NumWindow; ?>"); 
+	    var fila = document.createElement("tr"); 
+	     var celda0 = document.createElement("td"); 
+	    var celda1 = document.createElement("td"); 
+	    var celda2 = document.createElement("td"); 
+	    var celda3 = document.createElement("td"); 
+	    var celda4 = document.createElement("td"); 
+	    TotalFilas++;
+		fila.id="trordcons"+TotalFilas+"<?php echo $NumWindow; ?>";
+		CodOrdQx=document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').value;
+		ServicioQx=document.getElementById('txt_serviciocons<?php echo $NumWindow; ?>').value;
+		CantOrdQx=document.getElementById('txt_cantservcons<?php echo $NumWindow; ?>').value;
+		ObsOrdQx=document.getElementById('txt_obssercons<?php echo $NumWindow; ?>').value;
+		celda0.innerHTML = '<input name="hdn_codordcons'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_codordcons'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CodOrdQx+''+'" /> '+CodOrdQx; 
+		celda1.innerHTML = ' '+ServicioQx; 
+		celda2.innerHTML = '<input name="hdn_cantordcons'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_cantordcons'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CantOrdQx+'" /> '+CantOrdQx; 
+		celda3.innerHTML = '<input name="hdn_obsordcons'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_obsordcons'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+ObsOrdQx+''+'" /> '+ObsOrdQx; 
+		celda4.innerHTML = '<button onclick="EliminarFilaOrdCons<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>'; 
+		fila.appendChild(celda0); 
+	    fila.appendChild(celda1); 
+	    fila.appendChild(celda2); 
+	    fila.appendChild(celda3); 
+	    fila.appendChild(celda4); 
+	    miTabla.appendChild(fila); 
+		document.getElementById("hdn_controwordcons<?php echo $NumWindow; ?>").value=TotalFilas;
+		document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').value="";
+		document.getElementById('txt_codsercons<?php echo $NumWindow; ?>').focus();
 	}
 }
 

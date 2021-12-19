@@ -540,7 +540,7 @@ var substringMatcher<?php echo $NumWindow; ?> = function(strs) {
     cb(matches);
   };
 };
-
+/* 
 <?php
 $nombres="";
 $SQL="SELECT trim(a.Nombre_SER) FROM gxservicios a WHERE a.Estado_SER='1' AND a.Codigo_CFC<>'04' ORDER BY 1";
@@ -564,7 +564,7 @@ $('#lbl_servicionom<?php echo $NumWindow; ?>').typeahead({
     var result = $('#lbl_servicionom<?php echo $NumWindow; ?>').val();
     $('#txt_codigopq<?php echo $NumWindow; ?>').val('');
     CodigoServicioPQ('<?php echo $NumWindow; ?>', result);
-});
+}); */
 
 
 	$("form").addClass("form-horizontal container");

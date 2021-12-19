@@ -1062,6 +1062,15 @@ function NombreServicioQx(Valor, Ventana)
 	}); 
 }
 
+function NombreServicioCons(Valor, Ventana)
+{
+	$.get(Funciones,{'Func':'NombreServicio','value':Valor},function(data){ 																	  
+		document.getElementById('txt_serviciocons'+Ventana).value=data;
+		document.getElementById('txt_cantservcons'+Ventana).value='1';
+		document.getElementById('txt_cantservcons'+Ventana).focus();
+	}); 
+}
+
 function NombreMedicamento(Valor, Ventana) {
 	$.get(Funciones,{'Func':'NombreServicio','value':Valor},function(data){ 
 		document.getElementById('txt_medicamento'+Ventana).value=data;
@@ -1475,6 +1484,37 @@ function Guardar_agendacitas(Ventana)
 	} else {
 		MsgBox1("Error", xError);
 		document.getElementById(NomGuardar).style.display  = 'block';
+	
+	}
+}
+
+function Guardar_agendacitasnew(Ventana, Ventana2)
+{
+	xError="";
+	
+	//Se verifica la validez de los campos...
+	if (document.getElementById('txt_idhc'+Ventana).value=="") {
+		xError="Ingrese el documento del paciente";}
+	 
+	//Ejecucion de las intrucciones para guardar los registros
+	if (xError=="") {
+		$.ajax({  
+		  type: "POST",  
+		  url: Transact +"agendanewcita.php",  
+		  data: "Func=agendanewcita&"+RecorrerForm($("#frm_form"+Ventana)),  
+		  success: function(respuesta) { 
+			MsgBox1("Programación de citas", respuesta); 
+			$('#GnmX_WinModal').modal('hide');
+			eval( 'getCal'+Ventana2 + '()' );
+			if (respuesta.indexOf("El cupo ya fue asignado")=-1) {
+				$("#frm_form"+Ventana)[0].reset();
+			} 
+			
+		  }  
+		});  
+		return false;  
+	} else {
+		MsgBox1("Error", xError);
 	
 	}
 }

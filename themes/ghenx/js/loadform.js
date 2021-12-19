@@ -413,6 +413,42 @@ function CargarWind(Tit, form, Icono, origen, ventana) {
 	}
 }	
 
+function CargarWind2(Tit, form, Icono, origen, ventana) {
+	var Parametros="";
+	var SwParam=0;
+	SwParam=form.indexOf('?');
+	if (SwParam>0) {
+		Parametros='&genesis='+ventana+'&'+form.substring(SwParam+1);
+		form=form.substring(0,SwParam);
+	}
+	ContaForms++;
+	typo="reports";
+	SwParam=form.indexOf('/');
+	if (SwParam>0) {
+		forma=form.substring(SwParam+1);
+		typo=form.substring(0,SwParam);
+	}
+	/* $(document.createElement('div')).attr('class','cargando').appendTo('#bodyWind');
+	$("#bodyWind").load('application/'+form); */
+
+	if (typo=="reports") {
+		ContaReports=ContaForms;
+		document.getElementById('bodyWind2').innerHTML='<span id="zRpt_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
+		if (Icono=="database_table.png") {
+			document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/database_table.png" align="left">'+Tit;
+			OpenRpt('application/'+form, "zRpt_" + ContaReports, Parametros)
+		} else {
+			document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/report.png" align="left">'+Tit;
+			AbrirReport('application/'+form, "zRpt_" + ContaReports, Parametros);
+		}
+	} else {
+		document.getElementById('bodyWind2').innerHTML='<span id="zWind_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
+		document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/'+Icono+'" align="left">'+Tit;
+		$("#zWind_" + ContaForms).load('application/'+form+"?target=zWind_" + ContaForms+Parametros);
+		console.log('application/'+form+"?target=zWind_" + ContaForms+Parametros);
+	}
+}	
+
 function CerrarVentanaSearch(Ventana) {
 	$('#'+Ventana).slideUp('slow', function() { $('#'+Ventana).remove(); });
 }
