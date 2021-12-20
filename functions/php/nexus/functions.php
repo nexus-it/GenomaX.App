@@ -1856,7 +1856,7 @@ case 'loadSchedule' :
 					$rowspan = ' rowspan="'.($rowx[0]/5).'" style="font-size:11px;"';
 					$html="";
 					if($row[$j]=="1") {
-						$SQL="SELECT '".$row[0]."', time_format(ADDTIME('".$row[0]."', '00:".$rowx[0].":00'), '%H:%i'), CONCAT(b.Nombre1_PAC,' ',LEFT(b.Nombre2_PAC,1),' ',b.Apellido1_PAC,' ',LEFT(b.Apellido2_PAC,1)), c.Nombre_EPS, a.Confirma_CIT, a.Atiende_CIT, e.ID_TER, a.Codigo_CIT, e.Telefono_TER FROM gxcitasmedicas a, gxpacientes b, gxeps c, gxagendacab d, czterceros e WHERE e.Codigo_TER=b.Codigo_TER and a.Codigo_TER=b.Codigo_TER AND d.Codigo_AGE=a.Codigo_AGE AND b.Codigo_EPS=c.Codigo_EPS AND a.Estado_CIT='P' AND a.Fecha_AGE='".$fecha."' AND a.Hora_AGE='".$row[0]."' AND a.Codigo_AGE='".$array_agendas[$j]."'";
+						$SQL="SELECT '".$row[0]."', time_format(ADDTIME('".$row[0]."', '00:".$rowx[0].":00'), '%H:%i'), CONCAT(b.Nombre1_PAC,' ',LEFT(b.Nombre2_PAC,1),' ',b.Apellido1_PAC,' ',LEFT(b.Apellido2_PAC,1)), c.Nombre_EPS, a.Confirma_CIT, a.Atiende_CIT, e.ID_TER, a.Codigo_CIT, e.Telefono_TER, concat(f.Sigla_TID, ' ', e.id_ter), g.Nombre_SER FROM gxpacientes b, gxeps c, gxagendacab d, czterceros e, cztipoid f, gxcitasmedicas a left join gxservicios g on a.Codigo_SER=g.Codigo_SER WHERE e.Codigo_TER=b.Codigo_TER and a.Codigo_TER=b.Codigo_TER AND d.Codigo_AGE=a.Codigo_AGE AND b.Codigo_EPS=c.Codigo_EPS AND a.Estado_CIT='P' AND a.Fecha_AGE='".$fecha."' AND a.Hora_AGE='".$row[0]."' AND a.Codigo_AGE='".$array_agendas[$j]."'";
 						error_log($SQL);
 						$resulty = mysqli_query($conexion, $SQL);
 						if($rowy = mysqli_fetch_row($resulty)) {
@@ -1878,9 +1878,13 @@ case 'loadSchedule' :
 								break;
 							}
 							$msgcita="";
+							$serv="";
 							if ($rowy[8]!="") {
 								$msgcita='<li role="separator" class="divider"></li>
 								<li><a class="text-primary" onclick="javascript:sendWhatsapp'.$wind.'(\''.$rowy[8].'\', \''.$rowy[7].'\');" > <span class="glyphicon glyphicon-earphone"></span> Enviar por Whatsapp</a></li>';
+							}
+							if ($rowy[10]!="") {
+								$serv='<br>'.$rowy[10];
 							}
 							$button='<button class="btn dropdown-toggle" type="button" id="drpmn'.$j.'" style="background-color:transparent; border-color:transparent; text-align:left; padding:2px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
 							$opciones='<ul class="dropdown-menu" aria-labelledby="drpmn'.$j.'">
@@ -1893,7 +1897,7 @@ case 'loadSchedule' :
 							<li role="separator" class="divider"></li>
 							<li><a class="text-warning" onclick="javascript:CancelCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-ban-circle"></span> No asiste</a></a></li>
 						  </ul>';
-							$html='<div class="dropdown">'.$button.'<small>['.$rowy[0].' - '.$rowy[1].']<br><b>'.$rowy[2].'</b><br><span class="glyphicon glyphicon-phone-alt"></span> '.$rowy[8].' <br>Contrato: '.$rowy[3].'</small></button>'.$opciones.'</div>';
+							$html='<div class="dropdown">'.$button.'<small>['.$rowy[0].' - '.$rowy[1].']<br>'.$rowy[9].' <b>'.$rowy[2].'</b><br><span class="glyphicon glyphicon-phone-alt"></span> '.$rowy[8].' <br>Contrato: '.$rowy[3].$serv.'</small></button>'.$opciones.'</div>';
 						} 
 						mysqli_free_result($resulty);
 					} else {

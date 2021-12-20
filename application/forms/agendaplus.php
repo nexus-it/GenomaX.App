@@ -317,7 +317,7 @@ function CancelCitas<?php echo $NumWindow; ?>(idpcte, wind) {
 
 function PcteCitas<?php echo $NumWindow; ?>(idpcte, wind) {
      CargarWind('Historico de Citas', 'forms/citashistory.php?IdPte='+idpcte, 'folder_user.png', 'agendaplus.php',wind );
-}
+} 
 
 function NombreTer<?php echo $NumWindow; ?>(fila, Codigo, tabla)
 {
