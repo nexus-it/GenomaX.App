@@ -1848,7 +1848,7 @@ case 'loadSchedule' :
 		while($j<=$i) {
 			$j++;
 			if($row[$j]=="") {
-			$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
+				$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
 			} else {
 				$SQL="Select Tiempo_AGE, Codigo_CNS, Codigo_ESP From gxagendacab Where Codigo_AGE='".$array_agendas[$j]."'";
 				$resultx = mysqli_query($conexion, $SQL);
@@ -1860,12 +1860,13 @@ case 'loadSchedule' :
 						error_log($SQL);
 						$resulty = mysqli_query($conexion, $SQL);
 						if($rowy = mysqli_fetch_row($resulty)) {
+							$hc="";
 							switch ($rowy[4]) {
 								case '1':
 									if ($rowy[5]=="1") {
 										$stilo=' class="bg-primary"';
 										$conf="";
-
+										$hc='<li><a class="text-primary" onclick="javascript:prevhc'.$wind.'(\''.$rowy[6].'\', \''.$fecha.'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-list-alt"></span> Visualizar Atención</a></li>';
 									} else {
 										$stilo=' class="bg-info"';
 										$conf='<li><a class="text-primary" onclick="javascript:confcita'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-repeat"></span> Desconfirmar</a></li>';
@@ -1893,7 +1894,7 @@ case 'loadSchedule' :
 							<li><a class="text-danger" onclick="javascript:CancelCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-remove-circle"></span> Cancelar Cita</a></li>
 							'.$msgcita.'
 							<li role="separator" class="divider"></li>
-							<li><a onclick="javascript:PcteCitas'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-list-alt"></span> Ver Historico</a></li>
+							'.$hc.'<li><a onclick="javascript:PcteCitas'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-time"></span> Ver Historico</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a class="text-warning" onclick="javascript:CancelCitas'.$wind.'(\''.$rowy[7].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-ban-circle"></span> No asiste</a></a></li>
 						  </ul>';
@@ -1920,6 +1921,19 @@ case 'loadSchedule' :
 	$tabla=$tabla.'</tbody>	</table>';
 
 	echo $tabla;
+break;
+
+case 'FolioFromDate':
+	$idpcte = $_GET['idpcte'];
+	$fecha = $_GET['fecha'];
+	$folio="1";
+	$SQL="Select Codigo_HCF from hcfolios where codigo_ter in (select codigo_ter from czterceros where id_ter='".$idpcte."') and Fecha_HCF='".$fecha."'";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		$folio = $row[0];
+	} 
+	mysqli_free_result($result);
+	echo $folio;
 break;
 
 case 'FillAgenda' :

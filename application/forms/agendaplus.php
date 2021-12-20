@@ -20,13 +20,18 @@ session_start();
         </div>
 
 		<?php 
-            $SQL="Select curdate();";
-			$result = mysqli_query($conexion, $SQL);
-			if($row = mysqli_fetch_array($result)) 
-				{
-			 	$FechaD=$row[0];
-			 	}
-			mysqli_free_result($result);
+			$FechaD="";
+			if (isset($_GET["fechadeseada"])) {
+				$FechaD=$_GET["fechadeseada"];
+			} else {
+				$SQL="Select curdate();";
+				$result = mysqli_query($conexion, $SQL);
+				if($row = mysqli_fetch_array($result)) 
+					{
+					$FechaD=$row[0];
+					}
+				mysqli_free_result($result);
+			}
 			$MesCal=$FechaD;
 			$month=date("n",strtotime($MesCal));
 			$year=date("Y", strtotime($MesCal));
@@ -47,7 +52,7 @@ session_start();
 				<table  width="85%" cellpadding="1" cellspacing="2" style="background-color:#efefef91; text-align:center;"  class="table table-condensed tblDetallecal table-bordered " style="font-size:10px" id="tblDetallelun<?php echo $NumWindow; ?>" >
 				<tbody id="tbDetallelun<?php echo $NumWindow; ?>" style="font-size: 11px;">
 				<tr id="trh<?php echo $NumWindow; ?>" class="trCal"> 
-					<th id="thant<?php echo $NumWindow; ?>"> 
+					<th id="thant<?php echo $NumWindow; ?>" style="text-align: left;"> 
 						<?php
 						$monthnow=date("n");
 						if ($monthnow!=$month) {
@@ -60,10 +65,10 @@ session_start();
 						}
 						?>
 					</th>
-					<th id="thm<?php echo $NumWindow; ?>" colspan="5" halign="center"><span id="NombreMes<?php echo $NumWindow; ?>"> <?php echo $meses[$month]." - ".$year; ?> </span></th>
-					<th id="thsig<?php echo $NumWindow; ?>"> 
+					<th id="thm<?php echo $NumWindow; ?>" colspan="5" halign="center" style="text-align: center;"><span id="NombreMes<?php echo $NumWindow; ?>"> <?php echo $meses[$month]." - ".$year; ?> </span></th>
+					<th id="thsig<?php echo $NumWindow; ?>" style="text-align: rigth;"> 
 						<?php
-						$SQL="Select max(a.Fecha_AGE)From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE ;";
+						$SQL="Select max(a.Fecha_AGE) From gxagendadet a, gxagendacab b Where a.Codigo_AGE=b.Codigo_AGE ;";
 						$result = mysqli_query($conexion, $SQL);
 						if($row = mysqli_fetch_array($result)) 
 							{
@@ -94,15 +99,12 @@ session_start();
 					$last_cell=$diaSemana+$ultimoDiaMes;
 					// hacemos un bucle hasta 42, que es el máximo de valores que puede
 					// haber... 6 columnas de 7 dias
-					for($i=1;$i<=44;$i++)
-					{
-						if($i==$diaSemana)
-						{
+					for($i=1;$i<=44;$i++) {
+						if($i==$diaSemana) {
 							// determinamos en que dia empieza
 							$day=1;
 						}
-						if($i<$diaSemana || $i>=$last_cell)
-						{
+						if($i<$diaSemana || $i>=$last_cell)	{
 							// celca vacia
 							echo "<td>&nbsp;</td>";
 						}else{
@@ -125,11 +127,11 @@ session_start();
 							}
 							$EnlaceJS="";
 							$Badge="";
-							$SQL="Select count(*) From gxagendacab a, gxagendadet b Where b.Codigo_AGE=a.Codigo_AGE and a.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
+							$SQL="Select a.Codigo_AGE From gxagendacab a, gxagendadet b Where b.Codigo_AGE=a.Codigo_AGE and a.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
 							$resultge = mysqli_query($conexion, $SQL);
 							if($rowge = mysqli_fetch_array($resultge)) {
 									if ($Fest=="No") {
-										$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012; background-color: darkseagreen;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
+										$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
 										$ConsXDia=$rowge[0];
 									}
 									$SQL="Select count(*) From gxagendadet b Where b.Codigo_AGE='".$rowge[0]."' and b.Estado_AGE='1' and b.Fecha_AGE='".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."'"; /* and b.Fecha_AGE>=curdate()"; */
@@ -143,7 +145,7 @@ session_start();
 									mysqli_free_result($result);		 
 							}
 							mysqli_free_result($resultge);
-							$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012; background-color: darkseagreen;' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
+							$EnlaceJS=" title='".$ConsXDia." Consultas disponibles para este día' class='bg-success' style='cursor: pointer; color:#0E5012; ' onclick=\"javascript:ShowAgendas".$NumWindow."('".$year."-".str_pad($month,2,'0', STR_PAD_LEFT)."-".str_pad($day,2,'0', STR_PAD_LEFT)."');\"";
 
 							if($day==$diaActual)
 								echo "<td align='center' ".$EnlaceJS."><span style='font-weight: bold; ".$stylo."'>$day ".$Badge."</span></td>";
@@ -300,19 +302,27 @@ function ShowAgendas<?php echo $NumWindow; ?>(TheFecha) {
 	
 }
 function newcita<?php echo $NumWindow; ?>(agenda, fecha, hora, wind) {
-     CargarWind('Nueva Cita', 'forms/agendanewcita.php?agenda='+agenda+'&fecha='+fecha+'&hora='+hora, '1.Calendar.png', 'agendaplus.php',wind );
+    CargarWind('Nueva Cita', 'forms/agendanewcita.php?agenda='+agenda+'&fecha='+fecha+'&hora='+hora, '1.Calendar.png', 'agendaplus.php',wind );
 }
 
 function confcita<?php echo $NumWindow; ?>(idpcte, wind) {
-     CargarWind('Confirmacion de Citas', 'forms/confirmacioncitas.php?paciente='+idpcte, 'data_field.png', 'agendaplus.php',wind );
+    CargarWind('Confirmacion de Citas', 'forms/confirmacioncitas.php?paciente='+idpcte, 'data_field.png', 'agendaplus.php',wind );
+}
+
+function prevhc<?php echo $NumWindow; ?>(idpcte, fecha, wind) {
+	folio="1";
+	$.get(Funciones,{'Func':'FolioFromDate','idpcte':idpcte,'fecha':fecha},function(data){ 
+        folio=data;
+    });	
+	CargarWind('HC '+idpcte, 'reports/hc.php?HISTORIA='+idpcte+'&FOLIO_INICIAL='+folio+'&FOLIO_FINAL='+folio, 'default.png', 'agendaplus.php','<?php echo $NumWindow; ?>' );
 }
 
 function ReprogCitas<?php echo $NumWindow; ?>(idpcte, wind) {
-     CargarWind('Reprogramar Cita', 'forms/agendacitasrpgr.php?CITA='+idpcte, '1.Task.png', 'agendaplus.php',wind );
+    CargarWind('Reprogramar Cita', 'forms/agendacitasrpgr.php?CITA='+idpcte, '1.Task.png', 'agendaplus.php',wind );
 }
 
 function CancelCitas<?php echo $NumWindow; ?>(idpcte, wind) {
-     CargarWind('Cancelar Cita', 'forms/agendacitascncl.php?CITA='+idpcte, '1.Delete.png', 'agendaplus.php',wind );
+    CargarWind('Cancelar Cita', 'forms/agendacitascncl.php?CITA='+idpcte, '1.Delete.png', 'agendaplus.php',wind );
 }
 
 function PcteCitas<?php echo $NumWindow; ?>(idpcte, wind) {
@@ -353,6 +363,8 @@ function FechaCerca<?php echo $NumWindow; ?>(FechaD, Especialidad) {
 
 function UpdtMonth<?php echo $NumWindow; ?>(fechaNueva) {
 	document.frm_form<?php echo $NumWindow; ?>.hdn_mescal<?php echo $NumWindow; ?>.value=fechaNueva;
+	variaBles="&fechadeseada="+fechaNueva;
+	AbrirForm('application/forms/agendaplus.php', '<?php echo $NumWindow; ?>', variaBles);
 	getCal<?php echo $NumWindow; ?>();
 }
 
