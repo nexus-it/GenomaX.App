@@ -1,10 +1,11 @@
 <?php
 
 include '00trnsctns.php';
-
+	// Definir Area en la cual se va a trabajar
+	
 	// Generar un ingreso para la capita
 	$Consec=LoadConsec("gxadmision", "Codigo_ADM", "0", $conexion, "LPAD(Codigo_ADM,10,'0')");
-	$SQL="Insert into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Codigo_CXT, Codigo_FNC, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, ValorRemitido_ADM, Remision_ADM, FechaRemision_ADM, IPS_ADM, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Autorizacion_ADM, FechaAutorizacion_ADM, Observaciones_ADM, Codigo_USR, UsuarioAnula_USR, Estado_ADM, Copago_ADM, Cuota_ADM, FechaFin_ADM, Codigo_PTT) Select '".$Consec."', Codigo_TER, now(), '".trim($_POST["Contrato"])."', '".$_POST['Plan']."', '13', '10', 'H3', now(), '', 'R066', '0', '', now(), '', 'CUENTA CAPITADA', '', '--', '--', Contrato_EPS, now(), 'CONTRATO CAPITADO', '".$_SESSION["it_CodigoUSR"]."', '', 'I', '0', '0', FechaFin_EPS, '1' From gxeps where Codigo_EPS='".trim($_POST["Contrato"])."'";
+	$SQL="Insert into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Codigo_CXT, Codigo_FNC, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, ValorRemitido_ADM, Remision_ADM, FechaRemision_ADM, IPS_ADM, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Autorizacion_ADM, FechaAutorizacion_ADM, Observaciones_ADM, Codigo_USR, UsuarioAnula_USR, Estado_ADM, Copago_ADM, Cuota_ADM, FechaFin_ADM, Codigo_PTT) Select '".$Consec."', '0', now(), '".trim($_POST["Contrato"])."', '".$_POST['Plan']."', '13', '10', 'H3', now(), '', 'R066', '0', '', now(), '', 'CUENTA CAPITADA', '', '--', '--', Contrato_EPS, now(), 'CONTRATO CAPITADO', '".$_SESSION["it_CodigoUSR"]."', '', 'F', '0', '0', FechaFin_EPS, '1' From gxeps where Codigo_EPS='".trim($_POST["Contrato"])."'";
 	error_log('Fact Capita: '.$SQL);
 	$ConsecIng=$Consec;
 	EjecutarSQL($SQL, $conexion);
@@ -25,19 +26,22 @@ include '00trnsctns.php';
 	$SQL="Replace into gxprocedimientos(Codigo_SER, Nombre_PRC, CUPS_PRC, ISS2001_PRC, ISS2000_PRC, SOAT_PRC, MAPIPOS_PRC, Procedimiento_PRC, UVR_PRC, GRUPOSOAT_PRC, PuntosSOAT_PRC, Tercerizar_PRC, UVRMin_PRC, UVRMax_PRC) VALUES ('".$ConsecSer."', '".$_POST["nombreserv"]."', '000000', '000000', '000000', '000000', '000000',0, 0, 0, 0, 0, 0, 0)";
 	EjecutarSQL($SQL, $conexion);
 	error_log('Fact Capita: '.$SQL);
-
+	$SQL="Insert Into gxtarifaexcepciones(Codigo_TAR, FechaINI_TAR, FechaFin_TAR, Tipo_TRX, Codigo_TRX, Tarifa_TRX, Valor_TRX) Select Codigo_TAR, '".$_POST["fechafin"]."', '".$_POST["fechafin"]." 23:59:59', 'X', '".$ConsecSer."', '', ".$_POST['valfactura']." From gxcontratos Where Codigo_EPS='".TRIM($_POST['contrato'])."' and Codigo_PLA='".$_POST['plan']."' ";
+	EjecutarSQL($SQL, $conexion);
+	$SQL="Insert Into gxmanualestarifarios(Codigo_TAR, FechaIni_TAR, FechaFin_TAR, Codigo_SER, Valor_TAR) Select Codigo_TAR, '".$_POST["fechafin"]."', '".$_POST["fechafin"]." 23:59:59', '".$ConsecSer."', '', ".$_POST['valfactura']." From gxcontratos Where Codigo_EPS='".TRIM($_POST['contrato'])."' and Codigo_PLA='".$_POST['plan']."' ";
+	EjecutarSQL($SQL, $conexion);
 	$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER, ValorServicio_ORD, ValorEntidad_ORD) Values('".$ConsecOrd."', '".$ConsecSer."', ".$_POST["cantidad"].", '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '', ".$_POST["valorservicio"].", ".$_POST["valorservicio"].");";
 	error_log('Fact Capita: '.$SQL);
 	EjecutarSQL($SQL, $conexion);
 	it_aud('1', 'Ordenes de Servicios', 'Servicio Capita No.'.$Consec);
-
+ 
 	// Registro factura
 	$Consec=LoadConsecFact($conexion, $_POST['sede']);
 	if ($MSG=='Datos registrados correctamente. ') {
 		$MSG='Se ha generado correctamente la factura '.add_ceros($Consec,10);
 	}
 	$ent=$_POST["valfactura"]+$_POST["valorpaciente"];
-	$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Fecha_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Tipo_FAC, ValEntidad_FAC, ValTotal_FAC, ValPaciente_FAC, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', curdate(), '".$_POST["Contrato"]."', '".$_POST["Plan"]."', '".$_SESSION["it_CodigoUSR"]."', 'C',  '".$_POST["valfactura"]."',  '".$_POST["valfactura"]."',  '".$_POST["valorpaciente"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
+	$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Fecha_FAC, Codigo_ADM, Codigo_EPS, Codigo_PLA, Codigo_USR, Tipo_FAC, ValEntidad_FAC, ValTotal_FAC, ValPaciente_FAC, Month_FAC, Year_FAC) Values ('".$_POST['sede']."','".$Consec."', curdate(), '".$ConsecIng."', '".$_POST["Contrato"]."', '".$_POST["Plan"]."', '".$_SESSION["it_CodigoUSR"]."', 'C',  '".$_POST["valfactura"]."',  '".$_POST["valfactura"]."',  '".$_POST["valorpaciente"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."')";
 	EjecutarSQL($SQL, $conexion);
 	error_log($SQL);
 	$SQL="Insert into gxfacturascapita(Codigo_FAC, FechaIni_FAC, FechaFin_FAC, ValPaciente_FAC, Servicio_FAC, ValServicio_FAC, Cantidad_FAC, ValTotal_FAC) 

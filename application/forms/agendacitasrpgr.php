@@ -7,6 +7,7 @@ session_start();
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
+	$Vent = (int) filter_var($NumWindow, FILTER_SANITIZE_NUMBER_INT); 
 ?>
 <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" class="form-horizontal" id="frm_form<?php echo $NumWindow; ?>" >
 	<span class="label label-default" id="spnlunes<?php echo $NumWindow; ?>">Detalle Cita a Reprogramar</span>
@@ -325,7 +326,7 @@ session_start();
 	<?php
 if (isset($_GET["genesis"])) {
 ?>
-<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitasrpgr('<?php echo $NumWindow; ?>');">Guardar</button>
+<button id="Guardar<?php echo $Vent; ?>" name="Guardar<?php echo $Vent; ?>" type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitasrpgr('<?php echo $Vent; ?>'); eval( 'getCal<?php echo $_GET["genesis"]; ?>()' );">Guardar</button>
 <?php
 	}
 ?>

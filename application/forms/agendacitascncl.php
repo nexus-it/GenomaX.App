@@ -7,6 +7,7 @@ session_start();
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
+	$Vent = (int) filter_var($NumWindow, FILTER_SANITIZE_NUMBER_INT);  
 ?>
 <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" class="form-horizontal" id="frm_form<?php echo $NumWindow; ?>" >
 	<h4><span class="label label-danger" id="spnlunes<?php echo $NumWindow; ?>"> <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Verifique los datos de la cita a cancelar.</span></h4>
@@ -112,7 +113,7 @@ session_start();
 	<?php
 if (isset($_GET["genesis"])) {
 ?>
-<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Guardar_agendacitascncl('<?php echo $NumWindow; ?>');">Guardar</button>
+<button type="button" class="btn btn-success btn-xs btn-block" onclick="javascript:Anular_agendacitascncl('<?php echo $Vent; ?>'); eval( 'getCal<?php echo $_GET["genesis"]; ?>()' );">Guardar</button>
 <?php
 	}
 ?>
