@@ -86,7 +86,7 @@ session_start();
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="cmb_motivo<?php echo $NumWindow; ?>">Motivo Anulacion</label>
-				<select name="cmb_motivo<?php echo $NumWindow; ?>" id="cmb_motivo<?php echo $NumWindow; ?>">
+				<select name="cmb_motivo<?php echo $NumWindow; ?>" id="cmb_motivo<?php echo $NumWindow; ?>" class="form-control">
 				<?php 
 			$SQL="Select Codigo_MTC, Nombre_MTC from gxmotcancela where Estado_MTC='1' order by 1";
 			$result = mysqli_query($conexion, $SQL);
@@ -104,7 +104,7 @@ session_start();
 		<div class="col-md-6">
 			<div class="form-group" id="grp_txt_hora<?php echo $NumWindow; ?>">
 				<label for="txt_nota<?php echo $NumWindow; ?>">Observacion</label>
-				<input name="txt_nota<?php echo $NumWindow; ?>" id="txt_nota<?php echo $NumWindow; ?>" type="text" required value=""/>
+				<input name="txt_nota<?php echo $NumWindow; ?>" id="txt_nota<?php echo $NumWindow; ?>" class="form-control" type="text" required value=""/>
 			</div>
 		</div>
 
