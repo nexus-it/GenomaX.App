@@ -238,6 +238,64 @@ function firmas($Firma, $Tercero, $NombreDoc, $RM, $PosYe){
 	$this->Cell(130,3,"",'',0,'C',0);
 	$this->Cell(0,3,'R.M. '.utf8_decode($RM),'',0,'C',0);
 }
+
+function diagnosticoz($historia, $folio) {
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$SQL="Select c.Codigo_DGN, c.Descripcion_DGN, a.Tipo_DGN, g.Nombre_TDG, d.Codigo_DGN, d.Descripcion_DGN, e.Codigo_DGN, e.Descripcion_DGN, f.Codigo_DGN, f.Descripcion_DGN, a.Manejo_DGN From gxtipodiag g, czterceros b, gxdiagnostico c, hcdiagnosticos a left join gxdiagnostico d on a.CodigoR_DGN=d.Codigo_DGN left join gxdiagnostico e on a.CodigoR2_DGN=e.Codigo_DGN left join gxdiagnostico f on a.CodigoR3_DGN=f.Codigo_DGN Where a.Codigo_TER=b.Codigo_TER and g.Codigo_TDG=a.Tipo_DGN and c.Codigo_DGN=a.Codigo_DGN and a.Codigo_HCF='".$folio."' and b.ID_TER='".$historia."'";
+	$resultx2 = mysqli_query($conexion, $SQL);
+	$this->NewItem("B", "Diagnóstico");
+	$this->Ln();
+	if ($rowx2 = mysqli_fetch_row($resultx2)) {
+		$this->Cell(2,4,'','T',0,'L',1);
+		$this->SetFont('Arial','B',8);
+		$this->Cell(15,4,"Principal",'T',0,'L',1);
+		$this->SetFont('Arial','',8);
+		$this->Cell(0,4,utf8_decode($rowx2[0].' - '.$rowx2[1]),'T',0,'L',1);
+		$this->Ln();
+		$this->Cell(2,4,'','',0,'L',1);
+		$this->SetFont('Arial','B',8);
+		$this->Cell(15,4,"Tipo Dx.",'',0,'L',1);
+		$this->SetFont('Arial','',8);
+		$this->Cell(0,4,utf8_decode($rowx2[2].' - '.$rowx2[3]),'',0,'L',1);
+		$this->Ln();
+		if ($rowx2[4]!="") {
+			$this->Cell(2,4,'','',0,'L',1);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(20,4,"Relacionado",'',0,'L',1);
+			$this->SetFont('Arial','',8);
+			$this->Cell(0,4,utf8_decode($rowx2[4].' - '.$rowx2[5]),'',0,'L',1);
+			$this->Ln();
+		}
+		if ($rowx2[6]!="") {
+			$this->Cell(2,4,'','',0,'L',1);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(20,4,"Relacionado 2",'',0,'L',1);
+			$this->SetFont('Arial','',8);
+			$this->Cell(0,4,utf8_decode($rowx2[6].' - '.$rowx2[7]),'',0,'L',1);
+			$this->Ln();
+		}
+		if ($rowx2[8]!="") {
+			$this->Cell(2,4,'','',0,'L',1);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(20,4,"Relacionado 3",'',0,'L',1);
+			$this->SetFont('Arial','',8);
+			$this->Cell(0,4,utf8_decode($rowx2[8].' - '.$rowx2[9]),'',0,'L',1);
+			$this->Ln();
+		}
+		if ($rowx2[10]!="") {
+			$this->Cell(2,4,'','',0,'L',1);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(32,4,utf8_decode("Diagnóstico de Manejo"),'',0,'L',1);
+			$this->SetFont('Arial','',8);
+			$this->MultiCell(0,4,utf8_decode($rowx2[10]),'','L',1);
+			$this->Ln();
+		}
+	}
+	mysqli_free_result($resultx2);
+	$this->Cell(0,3,"",'',0,'R',1);
+	$this->Ln();
+}
+
 function encabezadoz($titulo, $folioint){
 	$LineaOne=35;
 	if ($titulo!='') {
@@ -945,59 +1003,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	}
 	// DIAGNOSTICOS
 	if ($rowx[9]!="0") {
-		$SQL="Select c.Codigo_DGN, c.Descripcion_DGN, a.Tipo_DGN, g.Nombre_TDG, d.Codigo_DGN, d.Descripcion_DGN, e.Codigo_DGN, e.Descripcion_DGN, f.Codigo_DGN, f.Descripcion_DGN, a.Manejo_DGN From gxtipodiag g, czterceros b, gxdiagnostico c, hcdiagnosticos a left join gxdiagnostico d on a.CodigoR_DGN=d.Codigo_DGN left join gxdiagnostico e on a.CodigoR2_DGN=e.Codigo_DGN left join gxdiagnostico f on a.CodigoR3_DGN=f.Codigo_DGN Where a.Codigo_TER=b.Codigo_TER and g.Codigo_TDG=a.Tipo_DGN and c.Codigo_DGN=a.Codigo_DGN and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."'";
-		$resultx2 = mysqli_query($conexion, $SQL);
-		$pdf->NewItem("B", "Diagnóstico");
-		$pdf->Ln();
-		if ($rowx2 = mysqli_fetch_row($resultx2)) {
-			$pdf->Cell(2,4,'','T',0,'L',1);
-			$pdf->SetFont('Arial','B',8);
-			$pdf->Cell(15,4,"Principal",'T',0,'L',1);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(0,4,utf8_decode($rowx2[0].' - '.$rowx2[1]),'T',0,'L',1);
-			$pdf->Ln();
-			$pdf->Cell(2,4,'','',0,'L',1);
-			$pdf->SetFont('Arial','B',8);
-			$pdf->Cell(15,4,"Tipo Dx.",'',0,'L',1);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(0,4,utf8_decode($rowx2[2].' - '.$rowx2[3]),'',0,'L',1);
-			$pdf->Ln();
-			if ($rowx2[4]!="") {
-				$pdf->Cell(2,4,'','',0,'L',1);
-				$pdf->SetFont('Arial','B',8);
-				$pdf->Cell(20,4,"Relacionado",'',0,'L',1);
-				$pdf->SetFont('Arial','',8);
-				$pdf->Cell(0,4,utf8_decode($rowx2[4].' - '.$rowx2[5]),'',0,'L',1);
-				$pdf->Ln();
-			}
-			if ($rowx2[6]!="") {
-				$pdf->Cell(2,4,'','',0,'L',1);
-				$pdf->SetFont('Arial','B',8);
-				$pdf->Cell(20,4,"Relacionado 2",'',0,'L',1);
-				$pdf->SetFont('Arial','',8);
-				$pdf->Cell(0,4,utf8_decode($rowx2[6].' - '.$rowx2[7]),'',0,'L',1);
-				$pdf->Ln();
-			}
-			if ($rowx2[8]!="") {
-				$pdf->Cell(2,4,'','',0,'L',1);
-				$pdf->SetFont('Arial','B',8);
-				$pdf->Cell(20,4,"Relacionado 3",'',0,'L',1);
-				$pdf->SetFont('Arial','',8);
-				$pdf->Cell(0,4,utf8_decode($rowx2[8].' - '.$rowx2[9]),'',0,'L',1);
-				$pdf->Ln();
-			}
-			if ($rowx2[10]!="") {
-				$pdf->Cell(2,4,'','',0,'L',1);
-				$pdf->SetFont('Arial','B',8);
-				$pdf->Cell(32,4,utf8_decode("Diagnóstico de Manejo"),'',0,'L',1);
-				$pdf->SetFont('Arial','',8);
-				$pdf->MultiCell(0,4,utf8_decode($rowx2[10]),'','L',1);
-				$pdf->Ln();
-			}
-		}
-		mysqli_free_result($resultx2);
-		$pdf->Cell(0,3,"",'',0,'R',1);
-		$pdf->Ln();
+		$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
 	}
 	$Posx=10;
 	$Posy=$pdf->GetY();
@@ -1410,6 +1416,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDEN DE MEDICAMENTOS', $rowx[1]);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 					$pdf->SetFillColor(180);
 				} else {
 					$pdf->NewItem("B", "Orden Medicamentos");
@@ -1466,6 +1476,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDEN DE INSUMOS', $rowx[1]);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 					$pdf->SetFillColor(180);
 				} else {
 					$pdf->NewItem("B", "Orden Insumos");
@@ -1555,8 +1569,6 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		}
 		mysqli_free_result($resultx2);
 		$pdf->Ln();	
-
-	
 	}
 
 	// ORDENES MEDICAS Dx
@@ -1574,6 +1586,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDENES DIAGNOSTICAS', $rowx[1]);
 					$pdf->SetFont('Arial','B',10);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 					$pdf->SetFillColor(180);
 					$pdf->Cell(0,2,'','',0,'L',0);
 					$pdf->Ln();
@@ -1670,6 +1686,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDENES CONSULTAS', $rowx[1]);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 					$pdf->SetFont('Arial','B',10);
 				} else {
 					$pdf->SetFont('Arial','B',8);
@@ -1724,6 +1744,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDENES PROCEDIMIENTOS', $rowx[1]);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 					$pdf->SetFont('Arial','B',10);
 				} else {
 					$pdf->SetFont('Arial','B',8);
@@ -1777,6 +1801,10 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
 					$pdf->encabezadoz('ORDENES DE SERVICIO', $rowx[1]);
+					// DIAGNOSTICOS
+					if ($rowx[9]!="0") {
+						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+					}
 				} else {
 					$pdf->NewItem("B", "Ordenes de Servicio");
 					$pdf->Cell(0,5,'','B',0,'L',0);

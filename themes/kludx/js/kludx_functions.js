@@ -16,9 +16,31 @@ var Funciones="functions/php/nexus/kfunctions.php";
             url=url+"?"+params;
         }
         resp="";
+        fetch('https://randomuser.me/api/?results=10')
+        .then( response => {
+            if(response.status == 200) {
+            return response.text();
+            } else {
+            throw "Respuesta incorrecta del servidor" 
+            }
+        })
+        .then( responseText => {
+            let users = JSON.parse(responseText).results;
+            console.log('Este es el objeto de usuarios', users);
+        })
+        .catch( err => {
+            console.log(err);
+        });
+  /*
         fetch(url)
-        .then(response => {response.text()})
-        .then(data => {return data});
+        .then(function (response) {
+            return response.text();
+          })
+          .then(function (body) {
+            return body.toString();
+            console.log(body);
+          });
+    */
     }
     function createDivs(iddiv){
         var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
@@ -52,6 +74,7 @@ var Funciones="functions/php/nexus/kfunctions.php";
         document.getElementById('kld_search').innerHTML = '<a href="#" role="button" > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg> </a>';
     }
     function loadDataIni() {
+        alert(loadDatafetch(Funciones, 'Func=NombreEmpresa'));
         document.getElementById('kld_nameagency').innerHTML=loadDatafetch(Funciones, 'Func=NombreEmpresa');
     }
     function setWMenu(nxsW) {
