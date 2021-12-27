@@ -1148,6 +1148,28 @@ case  'authsecure':
 	mysqli_free_result($result);
 break;
 	
+case  'NombreUserx':
+	$SQL="Select Nombre_USR from itusuarios where Codigo_USR= '".$_SESSION["it_CodigoUSR"]."';";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		echo ($row[0]);
+	} else {
+		echo '<span class="error">No se encuentra el usuario</span>';
+	}
+	mysqli_free_result($result);
+break;
+
+case  'NombreRolex':
+	$SQL="Select Nombre_PRF from itperfiles a, itusuarios b where trim(a.Codigo_PRF)=trim(b.Codigo_PRF) and Codigo_USR= '".$_SESSION["it_CodigoUSR"]."';";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		echo ($row[0]);
+	} else {
+		echo '<span class="error">No se encuentra el perfil</span>';
+	}
+	mysqli_free_result($result);
+break;
+
 case  'NombreEmpresa':
 	$SQL="Select RazonSocial_DCD from itconfig;";	
 	$result = mysqli_query($conexion, $SQL);
