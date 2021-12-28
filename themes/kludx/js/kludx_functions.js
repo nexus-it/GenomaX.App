@@ -2,6 +2,7 @@ var varMenu=0;
 var varUsrOpts=0;
 var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
+var Menu="functions/php/nexus/menu.php";
 (function(){
     function init(){
         loadElements();
@@ -15,6 +16,7 @@ var Funciones="functions/php/nexus/functions.php";
         locateTop();
         setWMenu("0");
         showUsrOpts("0");
+        loadMenuOpts();
     }
     function loadDataFetch(obj, url, params) {
         url=url+'?'+params;
@@ -34,7 +36,7 @@ var Funciones="functions/php/nexus/functions.php";
         document.getElementById('bdy_kludx').innerHTML = cover+nxs;
         document.getElementById('kld_nexus').innerHTML = menu+dashboard;
         document.getElementById('kld_top').classList.add('cover_lazy'); 
-        document.getElementById('kld_top').innerHTML = "";
+        // document.getElementById('kld_top').innerHTML = "";
         document.getElementById('kld_menu').classList.add('menu_init');
         document.getElementById('kld_container').classList.add('dashboard_init');
     }
@@ -72,7 +74,8 @@ var Funciones="functions/php/nexus/functions.php";
         document.getElementById('usr_roleopts').classList.add('d-flex');
         document.getElementById('usr_roleopts').classList.add('justify-content-center');
         document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="files/logosadinca.jpg" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
-
+        document.getElementById('usr_passopts').innerHTML = '<button id="btn_passusr" name="btn_passusr" type="button" class="btn btn-light">Cambio Clave</button>';
+        document.getElementById('usr_sessionopts').innerHTML = '<button id="btn_sessionusr" name="btn_sessionusr" type="button" class="btn btn-light">Cerrar Sesión</button>';
     }
     function loadUserData() {
         loadDataFetch('usr_nameopts', Funciones, 'Func=NombreUserx');
@@ -113,6 +116,20 @@ var Funciones="functions/php/nexus/functions.php";
         
         varMenu =nxsW;
     }
+    function loadChngPass() {
+        $('#GnmX_ChngPass').modal();
+        var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
+        document.getElementById('bodyChngPass').innerHTML = loading;
+        AbrirChngPass('bodyChngPass');
+    }
+    function sessionClose() {
+        document.getElementById('kld_top').innerHTML = "";
+        document.getElementById('kld_top').classList.add('cien');
+        document.getElementById('kld_top').classList.remove('top_bar');
+        setTimeout(function(){
+            window.location.href="functions/php/nexus/nosession.php";
+        }, 800);
+    }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
         toogle_menu.onclick = function() {
@@ -130,10 +147,24 @@ var Funciones="functions/php/nexus/functions.php";
                 showUsrOpts("0");
             }
         }
+        var passusr = document.getElementById("btn_passusr");
+        passusr.onclick = function() {
+            loadChngPass();
+        }
+        var sessionusr = document.getElementById("btn_sessionusr");
+        sessionusr.onclick = function() {
+            sessionClose();
+        }
     }
     function locateTop() {
-        document.getElementById('kld_top').classList.remove('cover_lazy');
-        document.getElementById('kld_top').classList.add('top_bar'); 
+        setTimeout(function(){
+            document.getElementById('kld_top').classList.remove('cover_lazy');
+            document.getElementById('kld_top').classList.add('top_bar');
+        }, 600);
+         
+    }
+    function loadMenuOpts() {
+        loadDataFetch('kld_menu', Menu, 'Func=Menu');
     }
 
     init();
