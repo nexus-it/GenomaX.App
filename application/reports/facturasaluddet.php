@@ -441,7 +441,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	mysqli_free_result($result);
     $pdf->PieFactura($rowH[14], $rowH[13], $rowH[15], $rowH[4], $rowH[5], $rowH[10], $rowH[37], $subtotalfac, $conexion);
-	$pdf->Output("../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$rowH[10].".pdf","F");
+	//$pdf->Output("../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$rowH[10].".pdf","F");
 	error_log("Factura a enviar: ".$rowH[10]);
 	}
 	
