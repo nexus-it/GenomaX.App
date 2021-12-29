@@ -65,7 +65,7 @@ include '00trnsctns.php';
 		$Dx_HCT=$rowHCT[2];
 		$AyudasDiag_HCT=$rowHCT[3];
 		$QX_HCT=$rowHCT[4];
-		$Cons_HCT=$rowHCT["Cons_HCT"];
+		$Cons_HCT=$rowHCT[20];
 		$Med_HCT=$rowHCT[5];
 		$Ordenes_HCT=$rowHCT[6];
 		$Indicaciones_HCT=$rowHCT[7];
@@ -81,7 +81,7 @@ include '00trnsctns.php';
 		$FraminghamHCT=$rowHCT["Framingham_HCT"];
 		$Insumos_HCT=$rowHCT["Insumos_HCT"];
 		$ValHeridasHCT=$rowHCT["ValHeridas_HCT"];
-		error_log('xValHeridas: '.$rowHCT["ValHeridas_HCT"]);
+		error_log('Cons_HCT: '.$rowHCT[20]);
 	}
 	mysqli_free_result($resultHCT);
 	// SIGNOS VITALES
@@ -418,13 +418,14 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	} 
 	// CONSULTAS
+	error_log('Cons HC:'.$Cons_HCT);
 	if ($Cons_HCT!="0") {
 		$totalOrdCons=$_POST['controwordcons'];
 		if ($totalOrdCons>0) {
 			$ConsecOrdCons=LoadConsec("hcordenescons", "Codigo_HCS", '0', $conexion, "Codigo_HCS");
-			for ($i = 1; $i <= $totalOrdQx; $i++) {
+			for ($i = 1; $i <= $totalOrdCons; $i++) {
 				if (isset($_POST['codordcons'.$i])) {
-					$SQL="Insert Into hcordenescons(Codigo_TER, Codigo_HCF, Codigo_HCS, Codigo_SER, Cantidad_HCS, Observaciones_HCS) values('".$_POST['codigoter']."', '".$ElFolio."', '".$ConsecOrdQx."', '".$_POST['codordqx'.$i]."', '".$_POST['cantordqx'.$i]."', '".$_POST['obsordqx'.$i]."')";
+					$SQL="Insert Into hcordenescons(Codigo_TER, Codigo_HCF, Codigo_HCS, Codigo_SER, Cantidad_HCS, Observaciones_HCS) values('".$_POST['codigoter']."', '".$ElFolio."', '".$ConsecOrdQx."', '".$_POST['codordcons'.$i]."', '".$_POST['cantordcons'.$i]."', '".$_POST['obsordcons'.$i]."')";
 					EjecutarSQL($SQL, $conexion);
 				}
 			}

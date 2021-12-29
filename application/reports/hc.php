@@ -13,34 +13,27 @@ var $I;
 var $U;
 var $HREF;
 
-function WriteHTML($html)
-{
+function WriteHTML($html) {
     // Intérprete de HTML
     $html = str_replace("\n",' ',$html);
     $a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
-    foreach($a as $i=>$e)
-    {
-        if($i%2==0)
-        {
+    foreach($a as $i=>$e) {
+        if($i%2==0) {
             // Text
             if($this->HREF)
                 $this->PutLink($this->HREF,$e);
             else
                 $this->Write(5,$e);
-        }
-        else
-        {
+        } else {
             // Etiqueta
             if($e[0]=='/')
                 $this->CloseTag(strtoupper(substr($e,1)));
-            else
-            {
+            else {
                 // Extraer atributos
                 $a2 = explode(' ',$e);
                 $tag = strtoupper(array_shift($a2));
                 $attr = array();
-                foreach($a2 as $v)
-                {
+                foreach($a2 as $v) {
                     if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
                         $attr[strtoupper($a3[1])] = $a3[2];
                 }
@@ -50,8 +43,7 @@ function WriteHTML($html)
     }
 }
 
-function OpenTag($tag, $attr)
-{
+function OpenTag($tag, $attr) {
     // Etiqueta de apertura
     if($tag=='B' || $tag=='I' || $tag=='U')
         $this->SetStyle($tag,true);
@@ -61,8 +53,7 @@ function OpenTag($tag, $attr)
         $this->Ln(5);
 }
 
-function CloseTag($tag)
-{
+function CloseTag($tag) {
     // Etiqueta de cierre
     if($tag=='B' || $tag=='I' || $tag=='U')
         $this->SetStyle($tag,false);
@@ -70,8 +61,7 @@ function CloseTag($tag)
         $this->HREF = '';
 }
 
-function SetStyle($tag, $enable)
-{
+function SetStyle($tag, $enable) {
     // Modificar estilo y escoger la fuente correspondiente
     $this->$tag += ($enable ? 1 : -1);
     $style = '';
@@ -83,8 +73,7 @@ function SetStyle($tag, $enable)
     $this->SetFont('',$style);
 }
 
-function PutLink($URL, $txt)
-{
+function PutLink($URL, $txt) {
     // Escribir un hiper-enlace
     $this->SetTextColor(0,0,255);
     $this->SetStyle('U',true);
@@ -102,8 +91,7 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
     $this->U=0;
     $this->HREF='';
 }
-function Header()
-{
+function Header() {
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
@@ -822,6 +810,10 @@ function Antexedentes($AntTable, $Foliox, $Name) {
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
+$FormOrden="";
+if (isset($_GET["FormOrden"])) {
+	$FormOrden=$_GET["FormOrden"];
+}
 $SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='hc'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
@@ -875,537 +867,538 @@ $resultx = mysqli_query($conexion, $SQL);
 $kntfolix=0;
 while ($rowx = mysqli_fetch_row($resultx)) {
 	$kntfolix++;
-	if ($kntfolix==1) {
-		$pdf->SetY(19);
-		$pdf->encabezadoz('',$rowx[1]);
-	}
-	$pdf->Ln();
-	$pdf->Ln();
-	$pdf->SetFillColor(220);
-	$pdf->SetFont('Arial','BI',10);
-	if ($UnFolio==0) {
-		if ($rowx[0]=="REGISTRO DE ENFERMERIA") {
-			$SQL="Select dispositivo_HC, curacion_HC from hc_ENFERMERIA a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Codigo_HCF='".$rowx[1]."';";
-			$resultEnf = mysqli_query($conexion, $SQL);
-			if ($rowEnf = mysqli_fetch_row($resultEnf)) {
-				if ($rowEnf[0]!="") {
-					$pdf->Cell(150,5,'REGISTRO DE ENFERMERIA'/*'CAMBIO DE DISPOSITIVOS MEDICOS'*/,'TL',0,'L',1);
-				} else {
-					if ($rowEnf[1]!=0) {
-						$pdf->Cell(150,5,'CURACIONES','TL',0,'L',1);
+	if($FormOrden="") {
+		if ($kntfolix==1) {
+			$pdf->SetY(19);
+			$pdf->encabezadoz('',$rowx[1]);
+		}
+		$pdf->Ln();
+		$pdf->Ln();
+		$pdf->SetFillColor(220);
+		$pdf->SetFont('Arial','BI',10);
+		if ($UnFolio==0) {
+			if ($rowx[0]=="REGISTRO DE ENFERMERIA") {
+				$SQL="Select dispositivo_HC, curacion_HC from hc_ENFERMERIA a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Codigo_HCF='".$rowx[1]."';";
+				$resultEnf = mysqli_query($conexion, $SQL);
+				if ($rowEnf = mysqli_fetch_row($resultEnf)) {
+					if ($rowEnf[0]!="") {
+						$pdf->Cell(150,5,'REGISTRO DE ENFERMERIA'/*'CAMBIO DE DISPOSITIVOS MEDICOS'*/,'TL',0,'L',1);
 					} else {
-						$pdf->Cell(150,5,$rowH[5],'TL',0,'L',1);
-					}
-				}
-			}
-			mysqli_free_result($resultEnf);
-		} else {
-			$pdf->Cell(150,5,$rowx[0],'TL',0,'L',1);
-		}
-		
-	} else {
-		$pdf->Cell(150,5,"",'TL',0,'L',1);
-	}
-	$pdf->SetFont('Courier','B',10);
-	$pdf->Cell(0,5,"FOLIO: ".$rowx[23],'TR',0,'R',1);
-	$pdf->SetFillColor(255);
-	$pdf->Ln();
-	$pdf->SetFont('Arial','',8);
-	$InfoADM="";
-	$SQL="Select ShowFechaADM_XHC from itconfig_hc";
-	$resultADM = mysqli_query($conexion, $SQL);
-	if ($rowADM = mysqli_fetch_row($resultADM)) {
-		if ($rowADM[0]=="1") {
-		$InfoADM=" - Fecha Ingreso: ".$rowx[3];
-		}
-	}
-	mysqli_free_result($resultADM);
-	$pdf->Cell(0,5,utf8_decode("Admisión: ".$rowx[2].$InfoADM),'B',0,'R',1);
-	$pdf->Ln();
-	$pdf->SetFont('Courier','B',9);
-	$pdf->Cell(80,5,"Area: ".$rowx[6],'T',0,'L',1);
-	$pdf->Cell(70,5,"Fecha: ".$rowx[4],'T',0,'L',1);
-	$InfoTME="";
-	$SQL="Select ShowHoraHCF_XHC from itconfig_hc";
-	$resultADM = mysqli_query($conexion, $SQL);
-	if ($rowADM = mysqli_fetch_row($resultADM)) {
-		if ($rowADM[0]=="1") {
-		$InfoTME="Hora: ".$rowx[5];
-		}
-	}
-	mysqli_free_result($resultADM);
-	$pdf->Cell(0,5,$InfoTME,'T',0,'R',1);
-	$pdf->Cell(0,3,"",'',0,'R',1);
-	$pdf->Ln();
-	$pdf->Ln();
-	// ANTECEDENTES
-	$SQL="Select count(*) From hcantecedentes a, hctipoantecedentes b, czterceros c Where a.Codigo_HCA=b.Codigo_HCA and a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and c.ID_TER='".$_GET["HISTORIA"]."'";
-	$resultANT = mysqli_query($conexion, $SQL);
-	if ($rowANT = mysqli_fetch_row($resultANT)) {
-		if ($rowANT[0]!=0) {
-			$pdf->Ln();
-			$pdf->NewItem("B", "Antecedentes");
-			$pdf->Cell(0,5,"",'B',0,'L',1);
-			$pdf->Ln();
-			$SQL="Select b.Nombre_HCA, a.Descripcion_HCA From hcantecedentes a, hctipoantecedentes b, czterceros c Where a.Codigo_HCA=b.Codigo_HCA and a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and c.ID_TER='".$_GET["HISTORIA"]."'";
-			$resultANT1 = mysqli_query($conexion, $SQL);
-			while ($rowANT1 = mysqli_fetch_row($resultANT1)) {
-				$pdf->SetFont('Arial','B',8);
-				$pdf->Cell(0,5,utf8_decode($rowANT1[0]),'',0,'L',1);
-				$pdf->SetFont('Arial','',8);
-				$pdf->Ln();
-				$pdf->MultiCell(0,4,utf8_decode($rowANT1[1]),0,'J',1);
-			}
-			mysqli_free_result($resultANT1);
-			$pdf->Cell(0,2,"",'',0,'R',1);
-			$pdf->Ln();
-		}
-	}
-	mysqli_free_result($resultANT);
-	if($rowx[8]=="1") {
-		// NUEVOS ANTECEDENTES
-		$pdf->Ln();
-		$pdf->Antexedentes('hcant_personales', $rowx[1], 'Antecedentes Personales');
-		$pdf->Antexedentes('hcant_toxicologico', $rowx[1], 'Antecedentes Toxicológicos');
-		$pdf->Antexedentes('hcant_alergico', $rowx[1], 'Antecedentes Alérgicos');
-		$pdf->Antexedentes('hcant_familiar', $rowx[1], 'Antecedentes Familiares');
-		$pdf->Antexedentes('hcant_ginecobst', $rowx[1], 'Antecedentes Gineco-Obstétricos');
-	}
-	// SIGNOS VITALES	
-	if ($rowx[7]!="0") {
-		$SQL="Select c.Sigla_HSV, a.Valor_HSV, c.Codigo_HSV, c.Prefijo_HSV, c.Sufijo_HSV From hcsignosvitales a, czterceros b, hcsv2 c Where a.Codigo_TER=b.Codigo_TER and c.Codigo_HSV=a.Codigo_HSV and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 3";
-		$resultx2 = mysqli_query($conexion, $SQL);
-		$pdf->NewItem("B", "Signos Vitales");
-		$pdf->SetFillColor(225);
-		$kountSV=0;
-		$pdf->Ln();
-		$pdf->Cell(0,1,'','',0,'L',0);
-		$pdf->Ln();
-		while ($rowx2 = mysqli_fetch_row($resultx2)) {
-			$kountSV++;
-			if ($kountSV%6==0){
-				$pdf->Ln();
-				$pdf->Cell(0,1,'','',0,'L',0);
-				$pdf->Ln();
-			}
-			$pdf->Cell(2,4,'','',0,'L',0);
-			$pdf->SetFont('Arial','B',8);
-			$pdf->Cell(17,4,utf8_decode($rowx2[0]),'',0,'L',1);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(20,4,utf8_decode($rowx2[3].' '.$rowx2[1].' '.$rowx2[4]),'',0,'L',1);
-		}
-		mysqli_free_result($resultx2);
-		$pdf->SetFillColor(255);
-		$pdf->Cell(0,5,'','',0,'L',1);
-		$pdf->Ln();
-		$pdf->Cell(0,2,"",'',0,'R',1);
-		$pdf->Ln();	
-	}
-	// DIAGNOSTICOS
-	if ($rowx[9]!="0") {
-		$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
-	}
-	$Posx=10;
-	$Posy=$pdf->GetY();
-	$Posyfin=$Posy;
-	$TamW=196;
-	$pdf->SetX($Posx);
-	
-	// VALORACION DE HERIDA - Ubicación Anatómica
-	if ($rowx[37]!="0") {
-		$SQL="Select Codigo_SEX from gxpacientes a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."'";
-		$resultx2 = mysqli_query($conexion, $SQL);
-		if ($rowx2 = mysqli_fetch_row($resultx2)) {
-			$SexoPcte=lcfirst($rowx2[0]);
-		}
-		mysqli_free_result($resultx2);
-		$pdf->NewItem("B", "Ubicación Anatómica");
-		$pdf->Cell(0,5,'','B',0,'L',0);
-		$pdf->Ln();
-		$pdf->Image('http://cdn.genomax.co/media/image/valher/posanatombas'.$SexoPcte.'.jpg',41,$Posy+7,130);
-		$pdf->loadubicanatom($_GET["HISTORIA"], $rowx[1], $Posy+5);
-		$pdf->SetY($Posy+94);
-		$pdf->SetX(10);
-		$pdf->Ln();	
-		$pdf->Ln();	
-		
-	}
-
-	// campos del formato de la hc
-	$SQL="Select a.* From hc_". $rowx[20]." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
-	$resultx2 = mysqli_query($conexion, $SQL);
-	$DatosHC = mysqli_fetch_array($resultx2);
-	mysqli_free_result($resultx2);
-	$SQL="Select a.Codigo_HCC, a.Orden_HCC, a.Etiqueta_HCC, a.Tipo_HCC, a.Largo_HCC from hccampos a, hcfolios b, czterceros c where a.Codigo_HCT=b.Codigo_HCT and Grupo_HCC='0' and b.Codigo_TER=c.Codigo_TER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' Order By Orden_HCC;";
-	$resultx2 = mysqli_query($conexion, $SQL);
-	$Indice=2;
-	while ($rowx2 = mysqli_fetch_row($resultx2)) {
-		//if ($DatosHC[$Indice]!="") {
-			//CURACIONES
-			if ($rowx2[0]=="curacion") {
-				if ($DatosHC[$Indice]!="0") {
-					$SQL= "Select Nombre_HTC from hctipocuraciones Where Codigo_HTC='".$DatosHC[$Indice]."'";
-					$resultxC = mysqli_query($conexion, $SQL);
-					if ($rowxC = mysqli_fetch_row($resultxC)) {
-						$pdf->SetFont('Arial','B',9);
-						$pdf->SetFillColor(230);
-						$pdf->Cell(0,6,utf8_decode("Curación ".$rowxC[0]),'TB',0,'R',1);
-						$pdf->SetFillColor(255);
-						$pdf->SetFont('Arial','',8);
-						$pdf->Ln();
-					}
-					mysqli_free_result($resultxC);
-				}
-				$Indice=$Indice+1;
-			} else {
-				//SI NO SON CURACIONES
-				if ($rowx2[3]!="well") {
-
-					if ($rowx2[3]=="check") {
-						$Posx=$pdf->GetX();
-						if ($Posx>= ($TamW-5)) {
-							$pdf->Ln();
-							$pdf->Cell(0,1,'','',0,'L',0);
-							$pdf->Ln();
-						}
-						if ($Posx== 0) {
-							$pdf->Ln();
-						}
-						$pdf->SetFont('Arial','',8);
-						$pdf->SetFillColor(222);
-						$pdf->Cell(1,5,'','',0,'L',0);
-						$pdf->Cell(($TamW*$rowx2[4]/12)-6,5,utf8_decode($rowx2[2]),'LBT',0,'L',1);		
-						$pdf->SetFillColor(255);
-						//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
-						$pdf->SetFont('Courier','B',7);
-					} else {
-						if ($rowx2[3]=="select") {
-							$Posy=$pdf->GetY();
-							$pdf->NewItem('',$rowx2[2]);
-							$Posy2=$pdf->GetY();
-							$pdf->SetFont('Arial','',8);
-							
+						if ($rowEnf[1]!=0) {
+							$pdf->Cell(150,5,'CURACIONES','TL',0,'L',1);
 						} else {
-							if ($rowx2[3]=="label") {
-								$pdf->SetFont('Arial','I',8);
-								$pdf->MultiCell(0,4,utf8_decode($rowx2[2]),'','L',1);
-								$pdf->SetFillColor(255);
-								//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+							$pdf->Cell(150,5,$rowH[5],'TL',0,'L',1);
+						}
+					}
+				}
+				mysqli_free_result($resultEnf);
+			} else {
+				$pdf->Cell(150,5,$rowx[0],'TL',0,'L',1);
+			}
+			
+		} else {
+			$pdf->Cell(150,5,"",'TL',0,'L',1);
+		}
+		$pdf->SetFont('Courier','B',10);
+		$pdf->Cell(0,5,"FOLIO: ".$rowx[23],'TR',0,'R',1);
+		$pdf->SetFillColor(255);
+		$pdf->Ln();
+		$pdf->SetFont('Arial','',8);
+		$InfoADM="";
+		$SQL="Select ShowFechaADM_XHC from itconfig_hc";
+		$resultADM = mysqli_query($conexion, $SQL);
+		if ($rowADM = mysqli_fetch_row($resultADM)) {
+			if ($rowADM[0]=="1") {
+			$InfoADM=" - Fecha Ingreso: ".$rowx[3];
+			}
+		}
+		mysqli_free_result($resultADM);
+		$pdf->Cell(0,5,utf8_decode("Admisión: ".$rowx[2].$InfoADM),'B',0,'R',1);
+		$pdf->Ln();
+		$pdf->SetFont('Courier','B',9);
+		$pdf->Cell(80,5,"Area: ".$rowx[6],'T',0,'L',1);
+		$pdf->Cell(70,5,"Fecha: ".$rowx[4],'T',0,'L',1);
+		$InfoTME="";
+		$SQL="Select ShowHoraHCF_XHC from itconfig_hc";
+		$resultADM = mysqli_query($conexion, $SQL);
+		if ($rowADM = mysqli_fetch_row($resultADM)) {
+			if ($rowADM[0]=="1") {
+			$InfoTME="Hora: ".$rowx[5];
+			}
+		}
+		mysqli_free_result($resultADM);
+		$pdf->Cell(0,5,$InfoTME,'T',0,'R',1);
+		$pdf->Cell(0,3,"",'',0,'R',1);
+		$pdf->Ln();
+		$pdf->Ln();
+		// ANTECEDENTES
+		$SQL="Select count(*) From hcantecedentes a, hctipoantecedentes b, czterceros c Where a.Codigo_HCA=b.Codigo_HCA and a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and c.ID_TER='".$_GET["HISTORIA"]."'";
+		$resultANT = mysqli_query($conexion, $SQL);
+		if ($rowANT = mysqli_fetch_row($resultANT)) {
+			if ($rowANT[0]!=0) {
+				$pdf->Ln();
+				$pdf->NewItem("B", "Antecedentes");
+				$pdf->Cell(0,5,"",'B',0,'L',1);
+				$pdf->Ln();
+				$SQL="Select b.Nombre_HCA, a.Descripcion_HCA From hcantecedentes a, hctipoantecedentes b, czterceros c Where a.Codigo_HCA=b.Codigo_HCA and a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and c.ID_TER='".$_GET["HISTORIA"]."'";
+				$resultANT1 = mysqli_query($conexion, $SQL);
+				while ($rowANT1 = mysqli_fetch_row($resultANT1)) {
+					$pdf->SetFont('Arial','B',8);
+					$pdf->Cell(0,5,utf8_decode($rowANT1[0]),'',0,'L',1);
+					$pdf->SetFont('Arial','',8);
+					$pdf->Ln();
+					$pdf->MultiCell(0,4,utf8_decode($rowANT1[1]),0,'J',1);
+				}
+				mysqli_free_result($resultANT1);
+				$pdf->Cell(0,2,"",'',0,'R',1);
+				$pdf->Ln();
+			}
+		}
+		mysqli_free_result($resultANT);
+		if($rowx[8]=="1") {
+			// NUEVOS ANTECEDENTES
+			$pdf->Ln();
+			$pdf->Antexedentes('hcant_personales', $rowx[1], 'Antecedentes Personales');
+			$pdf->Antexedentes('hcant_toxicologico', $rowx[1], 'Antecedentes Toxicológicos');
+			$pdf->Antexedentes('hcant_alergico', $rowx[1], 'Antecedentes Alérgicos');
+			$pdf->Antexedentes('hcant_familiar', $rowx[1], 'Antecedentes Familiares');
+			$pdf->Antexedentes('hcant_ginecobst', $rowx[1], 'Antecedentes Gineco-Obstétricos');
+		}
+		// SIGNOS VITALES	
+		if ($rowx[7]!="0") {
+			$SQL="Select c.Sigla_HSV, a.Valor_HSV, c.Codigo_HSV, c.Prefijo_HSV, c.Sufijo_HSV From hcsignosvitales a, czterceros b, hcsv2 c Where a.Codigo_TER=b.Codigo_TER and c.Codigo_HSV=a.Codigo_HSV and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 3";
+			$resultx2 = mysqli_query($conexion, $SQL);
+			$pdf->NewItem("B", "Signos Vitales");
+			$pdf->SetFillColor(225);
+			$kountSV=0;
+			$pdf->Ln();
+			$pdf->Cell(0,1,'','',0,'L',0);
+			$pdf->Ln();
+			while ($rowx2 = mysqli_fetch_row($resultx2)) {
+				$kountSV++;
+				if ($kountSV%6==0){
+					$pdf->Ln();
+					$pdf->Cell(0,1,'','',0,'L',0);
+					$pdf->Ln();
+				}
+				$pdf->Cell(2,4,'','',0,'L',0);
+				$pdf->SetFont('Arial','B',8);
+				$pdf->Cell(17,4,utf8_decode($rowx2[0]),'',0,'L',1);
+				$pdf->SetFont('Arial','',8);
+				$pdf->Cell(20,4,utf8_decode($rowx2[3].' '.$rowx2[1].' '.$rowx2[4]),'',0,'L',1);
+			}
+			mysqli_free_result($resultx2);
+			$pdf->SetFillColor(255);
+			$pdf->Cell(0,5,'','',0,'L',1);
+			$pdf->Ln();
+			$pdf->Cell(0,2,"",'',0,'R',1);
+			$pdf->Ln();	
+		}
+		// DIAGNOSTICOS
+		if ($rowx[9]!="0") {
+			$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
+		}
+		$Posx=10;
+		$Posy=$pdf->GetY();
+		$Posyfin=$Posy;
+		$TamW=196;
+		$pdf->SetX($Posx);
+		
+		// VALORACION DE HERIDA - Ubicación Anatómica
+		if ($rowx[37]!="0") {
+			$SQL="Select Codigo_SEX from gxpacientes a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."'";
+			$resultx2 = mysqli_query($conexion, $SQL);
+			if ($rowx2 = mysqli_fetch_row($resultx2)) {
+				$SexoPcte=lcfirst($rowx2[0]);
+			}
+			mysqli_free_result($resultx2);
+			$pdf->NewItem("B", "Ubicación Anatómica");
+			$pdf->Cell(0,5,'','B',0,'L',0);
+			$pdf->Ln();
+			$pdf->Image('http://cdn.genomax.co/media/image/valher/posanatombas'.$SexoPcte.'.jpg',41,$Posy+7,130);
+			$pdf->loadubicanatom($_GET["HISTORIA"], $rowx[1], $Posy+5);
+			$pdf->SetY($Posy+94);
+			$pdf->SetX(10);
+			$pdf->Ln();	
+			$pdf->Ln();	
+			
+		}
+
+		// campos del formato de la hc
+		$SQL="Select a.* From hc_". $rowx[20]." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
+		$resultx2 = mysqli_query($conexion, $SQL);
+		$DatosHC = mysqli_fetch_array($resultx2);
+		mysqli_free_result($resultx2);
+		$SQL="Select a.Codigo_HCC, a.Orden_HCC, a.Etiqueta_HCC, a.Tipo_HCC, a.Largo_HCC from hccampos a, hcfolios b, czterceros c where a.Codigo_HCT=b.Codigo_HCT and Grupo_HCC='0' and b.Codigo_TER=c.Codigo_TER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' Order By Orden_HCC;";
+		$resultx2 = mysqli_query($conexion, $SQL);
+		$Indice=2;
+		while ($rowx2 = mysqli_fetch_row($resultx2)) {
+			//if ($DatosHC[$Indice]!="") {
+				//CURACIONES
+				if ($rowx2[0]=="curacion") {
+					if ($DatosHC[$Indice]!="0") {
+						$SQL= "Select Nombre_HTC from hctipocuraciones Where Codigo_HTC='".$DatosHC[$Indice]."'";
+						$resultxC = mysqli_query($conexion, $SQL);
+						if ($rowxC = mysqli_fetch_row($resultxC)) {
+							$pdf->SetFont('Arial','B',9);
+							$pdf->SetFillColor(230);
+							$pdf->Cell(0,6,utf8_decode("Curación ".$rowxC[0]),'TB',0,'R',1);
+							$pdf->SetFillColor(255);
+							$pdf->SetFont('Arial','',8);
+							$pdf->Ln();
+						}
+						mysqli_free_result($resultxC);
+					}
+					$Indice=$Indice+1;
+				} else {
+					//SI NO SON CURACIONES
+					if ($rowx2[3]!="well") {
+
+						if ($rowx2[3]=="check") {
+							$Posx=$pdf->GetX();
+							if ($Posx>= ($TamW-5)) {
+								$pdf->Ln();
+								$pdf->Cell(0,1,'','',0,'L',0);
+								$pdf->Ln();
+							}
+							if ($Posx== 0) {
+								$pdf->Ln();
+							}
+							$pdf->SetFont('Arial','',8);
+							$pdf->SetFillColor(222);
+							$pdf->Cell(1,5,'','',0,'L',0);
+							$pdf->Cell(($TamW*$rowx2[4]/12)-6,5,utf8_decode($rowx2[2]),'LBT',0,'L',1);		
+							$pdf->SetFillColor(255);
+							//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+							$pdf->SetFont('Courier','B',7);
+						} else {
+							if ($rowx2[3]=="select") {
+								$Posy=$pdf->GetY();
+								$pdf->NewItem('',$rowx2[2]);
+								$Posy2=$pdf->GetY();
 								$pdf->SetFont('Arial','',8);
 								
 							} else {
-								$pdf->NewItem("B", $rowx2[2]);
-								$pdf->SetFont('Arial','',8);
-								$pdf->Ln();
+								if ($rowx2[3]=="label") {
+									$pdf->SetFont('Arial','I',8);
+									$pdf->MultiCell(0,4,utf8_decode($rowx2[2]),'','L',1);
+									$pdf->SetFillColor(255);
+									//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+									$pdf->SetFont('Arial','',8);
+									
+								} else {
+									$pdf->NewItem("B", $rowx2[2]);
+									$pdf->SetFont('Arial','',8);
+									$pdf->Ln();
+								}
 							}
 						}
 					}
-				}
-				switch ($rowx2[3]) {
-					case 'label':
-				 		$pdf->Ln();
-				 		break;
-					case 'select':
-						if ($Posy<255) {
-					 		$pdf->SetY($Posy);
-					 	} else {
-					 		$pdf->SetY(33);
-					 	}
-				 		$pdf->SetX(120);
-						$pdf->SetFont('Arial','B',8);
-				 		$pdf->Cell(0,5,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
-				 		$pdf->SetFont('Arial','',8);
-				 		$pdf->Ln();
-				 		if ($Posy2<252) {
-					 		$pdf->SetY($Posy2);
-					 	}
-				 		$Indice=$Indice+1;
-				 		break;
-				 	case 'well':
-				 	case 'collapse':
-				 		$pdf->SetFont('Courier','B',7);
-				 		$pdf->Ln();
-				 		$pdf->SetFillColor(250);
-				 		$pdf->Cell(56,3,str_repeat ('-', 20),'',0,'R',1);
-						$pdf->Cell(84,3,utf8_decode($rowx2[2]),'RBLT',0,'C',1);
-						$pdf->Cell(56,3,str_repeat ('-', 20),'',0,'L',1);
-						$pdf->SetFont('Arial','',8);
-						$pdf->SetFillColor(255);
-						$pdf->Ln();
-						$SQL="Select a.Codigo_HCC, a.Orden_HCC, a.Etiqueta_HCC, a.Tipo_HCC, a.Largo_HCC, a.Codigo_HCT from hccampos a, hcfolios b, czterceros c where a.Codigo_HCT=b.Codigo_HCT and Grupo_HCC='".$rowx2[1]."' and b.Codigo_TER=c.Codigo_TER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' Order By Orden_HCC;";
-						$resultx3 = mysqli_query($conexion, $SQL);
-						while ($rowx3 = mysqli_fetch_row($resultx3)) {
-							if ($DatosHC[$Indice]!="") {
-								if ($rowx3[3]=="check") {
-									$Posx=$pdf->GetX();
-									if ($Posx>= ($TamW-5)) {
-										$pdf->Ln();
-										$pdf->Cell(0,1,'','',0,'L',0);
-										$pdf->Ln();
-									}
-									if ($Posx== 0) {
-										$pdf->Ln();
-									}
-									$pdf->SetFont('Arial','',8);
-									$pdf->SetFillColor(222);
-									$pdf->Cell(1,5,'','',0,'L',0);
-									$pdf->Cell(($TamW*$rowx3[4]/12)-6,5,utf8_decode($rowx3[2]),'LBT',0,'L',1);			
-									$pdf->SetFillColor(255);
-									//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
-									$pdf->SetFont('Courier','B',8);
-								} else {
-									if ($rowx3[3]=="select") {
-										$Posy=$pdf->GetY();
-										$pdf->NewItem('',$rowx3[2]);
-										$pdf->SetFont('Arial','',8);
-										$Posy2=$pdf->GetY();
-									} else {
-										if ($rowx3[3]=="label") {
-											$pdf->SetFont('Arial','I',8);
-											$html=utf8_decode($rowx3[2]);
-											$pdf->WriteHTML($html);
-											//$pdf->MultiCell(0,4,utf8_decode(),'','L',1);
-											$pdf->SetFillColor(255);				
-											$pdf->SetFont('Arial','',8);
-										} else {
-											$pdf->NewItem("B", $rowx3[2]);
-											$pdf->SetFont('Arial','',8);
+					switch ($rowx2[3]) {
+						case 'label':
+							$pdf->Ln();
+							break;
+						case 'select':
+							if ($Posy<255) {
+								$pdf->SetY($Posy);
+							} else {
+								$pdf->SetY(33);
+							}
+							$pdf->SetX(120);
+							$pdf->SetFont('Arial','B',8);
+							$pdf->Cell(0,5,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
+							$pdf->SetFont('Arial','',8);
+							$pdf->Ln();
+							if ($Posy2<252) {
+								$pdf->SetY($Posy2);
+							}
+							$Indice=$Indice+1;
+							break;
+						case 'well':
+						case 'collapse':
+							$pdf->SetFont('Courier','B',7);
+							$pdf->Ln();
+							$pdf->SetFillColor(250);
+							$pdf->Cell(56,3,str_repeat ('-', 20),'',0,'R',1);
+							$pdf->Cell(84,3,utf8_decode($rowx2[2]),'RBLT',0,'C',1);
+							$pdf->Cell(56,3,str_repeat ('-', 20),'',0,'L',1);
+							$pdf->SetFont('Arial','',8);
+							$pdf->SetFillColor(255);
+							$pdf->Ln();
+							$SQL="Select a.Codigo_HCC, a.Orden_HCC, a.Etiqueta_HCC, a.Tipo_HCC, a.Largo_HCC, a.Codigo_HCT from hccampos a, hcfolios b, czterceros c where a.Codigo_HCT=b.Codigo_HCT and Grupo_HCC='".$rowx2[1]."' and b.Codigo_TER=c.Codigo_TER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' Order By Orden_HCC;";
+							$resultx3 = mysqli_query($conexion, $SQL);
+							while ($rowx3 = mysqli_fetch_row($resultx3)) {
+								if ($DatosHC[$Indice]!="") {
+									if ($rowx3[3]=="check") {
+										$Posx=$pdf->GetX();
+										if ($Posx>= ($TamW-5)) {
+											$pdf->Ln();
+											$pdf->Cell(0,1,'','',0,'L',0);
 											$pdf->Ln();
 										}
+										if ($Posx== 0) {
+											$pdf->Ln();
+										}
+										$pdf->SetFont('Arial','',8);
+										$pdf->SetFillColor(222);
+										$pdf->Cell(1,5,'','',0,'L',0);
+										$pdf->Cell(($TamW*$rowx3[4]/12)-6,5,utf8_decode($rowx3[2]),'LBT',0,'L',1);			
+										$pdf->SetFillColor(255);
+										//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+										$pdf->SetFont('Courier','B',8);
+									} else {
+										if ($rowx3[3]=="select") {
+											$Posy=$pdf->GetY();
+											$pdf->NewItem('',$rowx3[2]);
+											$pdf->SetFont('Arial','',8);
+											$Posy2=$pdf->GetY();
+										} else {
+											if ($rowx3[3]=="label") {
+												$pdf->SetFont('Arial','I',8);
+												$html=utf8_decode($rowx3[2]);
+												$pdf->WriteHTML($html);
+												//$pdf->MultiCell(0,4,utf8_decode(),'','L',1);
+												$pdf->SetFillColor(255);				
+												$pdf->SetFont('Arial','',8);
+											} else {
+												$pdf->NewItem("B", $rowx3[2]);
+												$pdf->SetFont('Arial','',8);
+												$pdf->Ln();
+											}
+										}
+									}
+									switch ($rowx3[3]) {
+										case 'label':
+											$pdf->Ln();
+											break;
+										case 'textarea':
+											$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
+											break;
+										case 'select':
+											if ($Posy<255) {
+												$pdf->SetY($Posy);
+											} else {
+												$pdf->SetY(33);
+											}
+											$pdf->SetX(120);
+											$pdf->SetFont('Arial','B',8);
+											$pdf->Cell(0,5,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
+											$pdf->SetFont('Arial','',8);
+											$pdf->Ln();
+											if ($Posy2<252) {
+												$pdf->SetY($Posy2);
+											}
+											break;
+										case 'image':
+											$pdf->Cell($TamW*$rowx3[4]/12,40,' ','TBLR',0,'C',1);
+											/*
+											$Posy=$pdf->GetY();
+											$pdf->Image('../../files/_all/images/firmas/white.jpg',20,$Posy,$TamW*$rowx3[4]/12);
+											*/
+											$pdf->Ln();
+											break;
+										case 'check':
+											$chekea="";
+											if ($DatosHC[$Indice]=="1") {
+												$chekea="X";
+											}
+											$pdf->Cell(5,5,utf8_decode($chekea),'TRB',0,'C',1);
+											break;
+										default:
+											$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
+											break;
 									}
 								}
-								switch ($rowx3[3]) {
-								 	case 'label':
-								 		$pdf->Ln();
-								 		break;
-								 	case 'textarea':
-								 		$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
-								 		break;
-								 	case 'select':
-								 		if ($Posy<255) {
-									 		$pdf->SetY($Posy);
-									 	} else {
-									 		$pdf->SetY(33);
-									 	}
-								 		$pdf->SetX(120);
-								 		$pdf->SetFont('Arial','B',8);
-								 		$pdf->Cell(0,5,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
-								 		$pdf->SetFont('Arial','',8);
-								 		$pdf->Ln();
-								 		if ($Posy2<252) {
-									 		$pdf->SetY($Posy2);
-									 	}
-								 		break;
-								 	case 'image':
-								 		$pdf->Cell($TamW*$rowx3[4]/12,40,' ','TBLR',0,'C',1);
-								 		/*
-								 		$Posy=$pdf->GetY();
-								 		$pdf->Image('../../files/_all/images/firmas/white.jpg',20,$Posy,$TamW*$rowx3[4]/12);
-								 		*/
-								 		$pdf->Ln();
-								 		break;
-								 	case 'check':
-								 		$chekea="";
-								 		if ($DatosHC[$Indice]=="1") {
-								 			$chekea="X";
-								 		}
-								 		$pdf->Cell(5,5,utf8_decode($chekea),'TRB',0,'C',1);
-								 		break;
-								 	default:
-								 		$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
-								 		break;
+								if($rowx3[3]!="label") {
+									$Indice=$Indice+1;
 								}
 							}
-							if($rowx3[3]!="label") {
-								$Indice=$Indice+1;
+							//$pdf->SetY($Posyfin-5);
+							$pdf->Ln();
+							$pdf->SetFont('Courier','B',7);
+							$pdf->SetFillColor(250);
+							$pdf->Cell(0,2,str_repeat ('-', 86),'',0,'C',0);
+							$pdf->SetFillColor(255);
+							$pdf->Ln();
+							mysqli_free_result($resultx3);				
+							break;
+						case 'textarea':
+							$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
+							$Indice=$Indice+1;
+							break;
+						case 'check':
+							$chekea="";
+							if ($DatosHC[$Indice]=="1") {
+								$chekea="X";
 							}
-						}
-						//$pdf->SetY($Posyfin-5);
-						$pdf->Ln();
-						$pdf->SetFont('Courier','B',7);
-						$pdf->SetFillColor(250);
-						$pdf->Cell(0,2,str_repeat ('-', 86),'',0,'C',0);
-						$pdf->SetFillColor(255);
-						$pdf->Ln();
-						mysqli_free_result($resultx3);				
-						break;
-				 	case 'textarea':
-				 		$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
-				 		$Indice=$Indice+1;
-				 		break;
-				 	case 'check':
-				 		$chekea="";
-				 		if ($DatosHC[$Indice]=="1") {
-				 			$chekea="X";
-				 		}
-				 		$pdf->Cell(5,5,utf8_decode($chekea),'TRLB',0,'C',1);
-				 		$Indice=$Indice+1;
-				 		break;
-				 	default:
-				 		$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
-				 		//$pdf->Cell($TamW,4,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
-				 		$Indice=$Indice+1;
-				 		break;
+							$pdf->Cell(5,5,utf8_decode($chekea),'TRLB',0,'C',1);
+							$Indice=$Indice+1;
+							break;
+						default:
+							$pdf->MultiCell($TamW,4,utf8_decode($DatosHC[$Indice]),'T','L',1);
+							//$pdf->Cell($TamW,4,utf8_decode($DatosHC[$Indice]),'',0,'L',1);
+							$Indice=$Indice+1;
+							break;
+					}
+				}
+			/*}
+			else {
+				if ($rowx2[3]=='image') {
+					$pdf->SetFont('Arial','B',8);
+					$pdf->SetFillColor(180);
+					$pdf->Cell(2,5,"",'LTR',0,'L',1);			
+					$pdf->Cell(32,5,utf8_decode($rowx2[2]),'TR',0,'L',0);
+					$pdf->SetFillColor(255);
+					//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+					$pdf->SetFont('Arial','',8);
+					$pdf->Ln();
+				}
+			}*/
+			
+		}
+		mysqli_free_result($resultx2);
+		$pdf->Cell(0,3,"",'',0,'L',1);
+		$pdf->Ln();		
+		// PLUGINS
+		if ($rowx[25]!="0") {
+		// Identificación de Riesgos Especificos
+		$pdf->Antexedentes('hcidriesgoesp', $rowx[1], 'Identificación de Riesgos Especificos');
+		}
+		if ($rowx[31]!="0") {
+		// Factores de Riesgo Cardiovascular
+		$pdf->Antexedentes('hcriegocv', $rowx[1], 'Factores de Riesgo Cardiovascular');
+		// Clasificación TFG
+		$pdf->Antexedentes('hctfg', $rowx[1], 'Clasificación TFG');
+		}
+		if ($rowx[32]!="0") {
+		// Test Framingham
+		$pdf->Antexedentes('hcframingham', $rowx[1], 'Test Framingham');
+		}
+		if ($rowx[27]!="0") {
+		// Embarazo Actual
+		$pdf->Antexedentes('hcembactual', $rowx[1], 'Embarazo Actual');
+		}
+		if ($rowx[28]!="0") {
+		// Calificación del Riesgo Obstétrico
+		$pdf->Antexedentes('hcriegoobs', $rowx[1], 'Calificación del Riesgo Obstétrico');
+		}
+		if ($rowx[29]!="0") {
+		// Control Paraclinicos 
+		// $pdf->Antexedentes('hcctrlparaobs', $rowx[1], 'Control Paraclínicos ');
+		}
+		if ($rowx[30]!="0") {
+		// Control Pre Natal
+		$pdf->Antexedentes('hcctrlprentl', $rowx[1], 'Control Pre Natal');
+		}
+		// EXAMENES LABORATORIOS
+		if ($rowx[31]!="0") {
+			$SQL="SELECT distinct b.Codigo_SER, d.Nombre_SER, Codigo_PQT, Orden_PQT FROM hcpqservicios a, hclabsrcv b, gxservicios d, czterceros e WHERE a.Codigo_SER=b.Codigo_SER AND d.Codigo_SER=b.Codigo_SER AND b.Codigo_TER=e.Codigo_TER and e.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' and Codigo_PQT in ('Laboratorios RCV 1', 'Laboratorios RCV 2') ORDER BY 3,4 ";
+			$resultx2 = mysqli_query($conexion, $SQL);
+			$NumLab=0;
+			while ($rowx2 = mysqli_fetch_row($resultx2)) {
+				if ($NumLab==0) {
+					$pdf->NewItem("B", "Laboratorios");
+					$pdf->Ln();
+					$pdf->Ln();
+				}
+				$NumLab=$NumLab+1;
+				$SQL="SELECT b.Codigo_SER, date(b.Fecha_LAB), b.Valor_LAB FROM hclabsrcv b, czterceros e WHERE b.Codigo_TER=e.Codigo_TER and e.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_SER='".$rowx2[0]."' and b.Codigo_HCF='".$rowx[1]."' ORDER BY 1,2 ";
+
+				$pdf->SetFont('Arial','B',7);
+				$pdf->Cell(60,6,utf8_decode($rowx2[1]),'BRL',0,'L',1);
+				$resultxlb = mysqli_query($conexion, $SQL);
+				while ($rowxlb = mysqli_fetch_row($resultxlb)) {
+					$pdf->SetFont('Courier','',7);
+					$pdf->Cell(40,6,utf8_decode($rowxlb[1].' | '.$rowxlb[2]),'B',0,'L',1);
+				}
+				$pdf->Ln();
+				mysqli_free_result($resultxlb);
+			}
+			$pdf->Ln();
+			mysqli_free_result($resultx2);
+		}
+
+		// INDICACIONES Y TRATAMIENTO	
+		if ($rowx[12]!="0") {
+			$SQL="Select a.Indicacion_HTT, a.Codigo_HTT From hctratamiento a, czterceros b where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
+			$resultx2 = mysqli_query($conexion, $SQL);
+			$NumIndi=0;
+			while ($rowx2 = mysqli_fetch_row($resultx2)) {
+				if ($NumIndi==0) {
+					$pdf->NewItem("B", "Tratamiento");
+					$pdf->Ln();
+				}
+				$NumIndi=$NumIndi+1;
+				$pdf->SetFont('Arial','',8);
+				if ($NumIndi=="1") {
+					$pdf->Cell(2,4,'','T',0,'L',1);
+					$pdf->MultiCell(0,4,utf8_decode($NumIndi.'- '.$rowx2[0]),'T','L',1);
+				} else {
+					$pdf->Cell(2,4,'','',0,'L',1);
+					$pdf->MultiCell(0,4,utf8_decode($NumIndi.'- '.$rowx2[0]),'','L',1);
 				}
 			}
-		/*}
-		else {
-			if ($rowx2[3]=='image') {
-				$pdf->SetFont('Arial','B',8);
-				$pdf->SetFillColor(180);
-				$pdf->Cell(2,5,"",'LTR',0,'L',1);			
-				$pdf->Cell(32,5,utf8_decode($rowx2[2]),'TR',0,'L',0);
-				$pdf->SetFillColor(255);
-				//$pdf->Cell($TamW,4,utf8_decode($rowx2[2]),'B',0,'L',1);
+			mysqli_free_result($resultx2);
+
+			$SQL="Select a.Analisis_HCA From hcanalisis a, czterceros b where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' ";
+			$resultx2a = mysqli_query($conexion, $SQL);
+			if ($rowx2a = mysqli_fetch_row($resultx2a)) {
+				$pdf->SetFont('Arial','B',7);
+				$pdf->Cell(2,4,'','',0,'L',1);
+				$pdf->Cell(60,4,utf8_decode('Análisis e Indicaciones'),'B',0,'L',1);
+				$pdf->Ln();
 				$pdf->SetFont('Arial','',8);
+				$pdf->Cell(2,4,'','',0,'L',1);
+				$pdf->MultiCell(0,4,utf8_decode($rowx2a[0]),'','L',1);
+			}
+			mysqli_free_result($resultx2a);		
+			/*
+			$pdf->Cell(0,5,'','T',0,'L',1);
+			$pdf->Ln();
+			*/
+			$pdf->Cell(0,1,"",'',0,'R',1);
+			$pdf->Ln();	
+		}
+		// NOTAS ACLARATORIAS DEL FOLIO
+		$SQL="Select Fecha_HCN, Nota_HCN From hcnotas  Where Codigo_TER='".$rowx[22]."' and Codigo_HCF='".$rowx[1]."' Order By Fecha_HCN;";
+		$resultx2 = mysqli_query($conexion, $SQL);
+		while ($rowx2 = mysqli_fetch_row($resultx2)) {
+			$pdf->SetFillColor(180);
+			$pdf->SetFont('Courier','B',9);
+			$pdf->Cell(70,5,"* NOTA ACLARATORIA",'TBL',0,'L',1);
+			$pdf->Cell(0,5,"FECHA: ".$rowx2[0],'TBR',0,'R',1);
+			$pdf->Ln();
+			$pdf->SetFillColor(255);
+			$pdf->SetFont('Arial','',8);
+			$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'RLB','L',1);
+			$pdf->Ln();	
+		}
+		mysqli_free_result($resultx2);
+
+		// FIRMA PROFESIONAL
+		$pdf->Ln();	
+		$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $pdf->GetY());
+
+		// ODONTOGRAMA
+		if ($rowx[36]!="0") {
+			if ($UnFolio==1) {
+				$pdf->AddPage();
+				$pdf->encabezadoz('ODONTOGRAMA', $rowx[1]);
+				$pdf->SetFillColor(180);
+			} else {
+				$pdf->NewItem("B", "Odontograma");
+				$pdf->Cell(0,5,'','B',0,'L',0);
 				$pdf->Ln();
 			}
-		}*/
-		
-	}
-	mysqli_free_result($resultx2);
-	$pdf->Cell(0,3,"",'',0,'L',1);
-	$pdf->Ln();		
-	// PLUGINS
-	if ($rowx[25]!="0") {
-	// Identificación de Riesgos Especificos
-	$pdf->Antexedentes('hcidriesgoesp', $rowx[1], 'Identificación de Riesgos Especificos');
-	}
-	if ($rowx[31]!="0") {
-	// Factores de Riesgo Cardiovascular
-	$pdf->Antexedentes('hcriegocv', $rowx[1], 'Factores de Riesgo Cardiovascular');
-	// Clasificación TFG
-	$pdf->Antexedentes('hctfg', $rowx[1], 'Clasificación TFG');
-	}
-	if ($rowx[32]!="0") {
-	// Test Framingham
-	$pdf->Antexedentes('hcframingham', $rowx[1], 'Test Framingham');
-	}
-	if ($rowx[27]!="0") {
-	// Embarazo Actual
-	$pdf->Antexedentes('hcembactual', $rowx[1], 'Embarazo Actual');
- 	}
- 	if ($rowx[28]!="0") {
-	// Calificación del Riesgo Obstétrico
-	$pdf->Antexedentes('hcriegoobs', $rowx[1], 'Calificación del Riesgo Obstétrico');
-	}
-	if ($rowx[29]!="0") {
-	// Control Paraclinicos 
-	// $pdf->Antexedentes('hcctrlparaobs', $rowx[1], 'Control Paraclínicos ');
-	}
-	if ($rowx[30]!="0") {
-	// Control Pre Natal
-	$pdf->Antexedentes('hcctrlprentl', $rowx[1], 'Control Pre Natal');
+			$pdf->Image('http://cdn.genomax.co/media/image/odontog/0.png',10,75,200);
+			$pdf->Ln();	
+			$pdf->loadOdonto($_GET["HISTORIA"], $rowx[1], 'ghenx');
+		// FIRMA PROFESIONAL
+			$PosYFirma=230;
+			$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $PosYFirma);
+		}
 	}
 	
-	// EXAMENES LABORATORIOS
-	if ($rowx[31]!="0") {
-		$SQL="SELECT distinct b.Codigo_SER, d.Nombre_SER, Codigo_PQT, Orden_PQT FROM hcpqservicios a, hclabsrcv b, gxservicios d, czterceros e WHERE a.Codigo_SER=b.Codigo_SER AND d.Codigo_SER=b.Codigo_SER AND b.Codigo_TER=e.Codigo_TER and e.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' and Codigo_PQT in ('Laboratorios RCV 1', 'Laboratorios RCV 2') ORDER BY 3,4 ";
-		$resultx2 = mysqli_query($conexion, $SQL);
-		$NumLab=0;
-		while ($rowx2 = mysqli_fetch_row($resultx2)) {
-			if ($NumLab==0) {
-				$pdf->NewItem("B", "Laboratorios");
-				$pdf->Ln();
-				$pdf->Ln();
-			}
-			$NumLab=$NumLab+1;
-			$SQL="SELECT b.Codigo_SER, date(b.Fecha_LAB), b.Valor_LAB FROM hclabsrcv b, czterceros e WHERE b.Codigo_TER=e.Codigo_TER and e.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_SER='".$rowx2[0]."' and b.Codigo_HCF='".$rowx[1]."' ORDER BY 1,2 ";
-
-			$pdf->SetFont('Arial','B',7);
-			$pdf->Cell(60,6,utf8_decode($rowx2[1]),'BRL',0,'L',1);
-			$resultxlb = mysqli_query($conexion, $SQL);
-			while ($rowxlb = mysqli_fetch_row($resultxlb)) {
-				$pdf->SetFont('Courier','',7);
-				$pdf->Cell(40,6,utf8_decode($rowxlb[1].' | '.$rowxlb[2]),'B',0,'L',1);
-			}
-			$pdf->Ln();
-			mysqli_free_result($resultxlb);
-		}
-		$pdf->Ln();
-		mysqli_free_result($resultx2);
-	}
-
-	// INDICACIONES Y TRATAMIENTO	
-	if ($rowx[12]!="0") {
-		$SQL="Select a.Indicacion_HTT, a.Codigo_HTT From hctratamiento a, czterceros b where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
-		$resultx2 = mysqli_query($conexion, $SQL);
-		$NumIndi=0;
-		while ($rowx2 = mysqli_fetch_row($resultx2)) {
-			if ($NumIndi==0) {
-				$pdf->NewItem("B", "Tratamiento");
-				$pdf->Ln();
-			}
-			$NumIndi=$NumIndi+1;
-			$pdf->SetFont('Arial','',8);
-			if ($NumIndi=="1") {
-				$pdf->Cell(2,4,'','T',0,'L',1);
-				$pdf->MultiCell(0,4,utf8_decode($NumIndi.'- '.$rowx2[0]),'T','L',1);
-			} else {
-				$pdf->Cell(2,4,'','',0,'L',1);
-				$pdf->MultiCell(0,4,utf8_decode($NumIndi.'- '.$rowx2[0]),'','L',1);
-			}
-		}
-		mysqli_free_result($resultx2);
-
-		$SQL="Select a.Analisis_HCA From hcanalisis a, czterceros b where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' ";
-		$resultx2a = mysqli_query($conexion, $SQL);
-		if ($rowx2a = mysqli_fetch_row($resultx2a)) {
-			$pdf->SetFont('Arial','B',7);
-			$pdf->Cell(2,4,'','',0,'L',1);
-			$pdf->Cell(60,4,utf8_decode('Análisis e Indicaciones'),'B',0,'L',1);
-			$pdf->Ln();
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(2,4,'','',0,'L',1);
-			$pdf->MultiCell(0,4,utf8_decode($rowx2a[0]),'','L',1);
-		}
-		mysqli_free_result($resultx2a);		
-		/*
-		$pdf->Cell(0,5,'','T',0,'L',1);
-		$pdf->Ln();
-		*/
-		$pdf->Cell(0,1,"",'',0,'R',1);
-		$pdf->Ln();	
-	}
-	// NOTAS ACLARATORIAS DEL FOLIO
-	$SQL="Select Fecha_HCN, Nota_HCN From hcnotas  Where Codigo_TER='".$rowx[22]."' and Codigo_HCF='".$rowx[1]."' Order By Fecha_HCN;";
-	$resultx2 = mysqli_query($conexion, $SQL);
-	while ($rowx2 = mysqli_fetch_row($resultx2)) {
-		$pdf->SetFillColor(180);
-		$pdf->SetFont('Courier','B',9);
-		$pdf->Cell(70,5,"* NOTA ACLARATORIA",'TBL',0,'L',1);
-		$pdf->Cell(0,5,"FECHA: ".$rowx2[0],'TBR',0,'R',1);
-		$pdf->Ln();
-		$pdf->SetFillColor(255);
-		$pdf->SetFont('Arial','',8);
-		$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'RLB','L',1);
-		$pdf->Ln();	
-	}
-	mysqli_free_result($resultx2);
-
-	// FIRMA PROFESIONAL
-	$pdf->Ln();	
-	$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $pdf->GetY());
-
-	// ODONTOGRAMA
-	if ($rowx[36]!="0") {
-		if ($UnFolio==1) {
-			$pdf->AddPage();
-			$pdf->encabezadoz('ODONTOGRAMA', $rowx[1]);
-			$pdf->SetFillColor(180);
-		} else {
-			$pdf->NewItem("B", "Odontograma");
-			$pdf->Cell(0,5,'','B',0,'L',0);
-			$pdf->Ln();
-		}
-		$pdf->Image('http://cdn.genomax.co/media/image/odontog/0.png',10,75,200);
-		$pdf->Ln();	
-		$pdf->loadOdonto($_GET["HISTORIA"], $rowx[1], 'ghenx');
-	// FIRMA PROFESIONAL
-		$PosYFirma=230;
-		$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $PosYFirma);
-	}
-
 	// ORDENES DE MEDICAMENTOS
 	if ($rowx[11]!="0") {
 		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";

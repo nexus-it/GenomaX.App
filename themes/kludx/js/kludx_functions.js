@@ -3,6 +3,22 @@ var varUsrOpts=0;
 var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
 var Menu="functions/php/nexus/menu.php";
+/*
+var Modal_Msg = '<div class="modal fade" id="msgbox1">
+<div class="modal-dialog" id="NXS_ModMsgBox">
+  <div class="modal-content panel-success">
+    <div class="modal-header panel-heading bg-success" id="NXS_TitMsgBox">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <h4 class="modal-title"><span class="label label-warning"><span class="glyphicon glyphicon-alert"></span></span> <span id="titleMsgBox" class="label label-success">GenomaX</span></h4>
+    </div>
+    <div class="modal-body" id="bodyMsgBox">
+      <div class="cargando"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+    </div>
+  </div></div></div>';
+  */
 (function(){
     function init(){
         loadElements();
