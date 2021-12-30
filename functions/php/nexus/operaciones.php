@@ -56,19 +56,25 @@ function listarFacturas($filtro,$ini,$fin){
             $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
             $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
+            $btnxml='href="https://backend.estrateg.com/API/storage/app/public/900993679/FE-'.$row[0].'.xml" download="FE-'.$row[0].'.xml"';
             $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice(\''.$Pref.'\',\''.$Consecutivo.'\')"';
             if($row[5] != '0'){
                $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
-               $sendMail = ' ';
+               $sendEdit = ' disabled="disabled" title="Factura Enviada" ';
+               $sendMail = ' title="Enviar factura por correo" ';
+               $sendXML = ' title="Descargar XML" ';
             }else{
-               $sendInvoice = ' ';
-               $sendMail = ' disabled="disabled" title="Mail Enviado" ';
+               $sendInvoice = ' title="Enviar factura a la DIAN" ';
+               $sendEdit = ' title="Editar factura" ';
+               $sendMail = ' disabled="disabled" ';
+               $sendXML = ' disabled="disabled" ';
             }
             $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
-               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
-               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
-               <button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
-               <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-warning" '.$sendEdit.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'"  > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'"  > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
+               <a type="button" class="btn btn-primary" '.$btnxml.' role="button" '.$sendXML.' id="btnxml'.($row[0]).'" target="nxs_xml" download> <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> </a>
+               <button type="button" class="btn btn-default" '.$btnprint.' title="Representación gráfica PDF"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
             </div>
             <div class="progress" style="display: none; margin-top: 0px;" name="prgFE'.($row[0]).'" id="prgFE'.($row[0]).'"> <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 99%; height: 16px; margin-top: 0px;"> <span class="sr-only">Enviando Factura</span> </div></div>
             ';

@@ -2,8 +2,14 @@
 
 session_start();
 include 'rutafpdf.php';
-include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+include '../../functions/php/nexus/database.php';
+if(isset($_GET["DB_HOST"])) {
+	$conexion = mysqli_connect($_GET["DB_HOST"], $_GET["DB_USER"], $_GET["DB_PASSWORD"], $_GET["DB_NAME"]);
+	define(SUFFIXO, $_GET["DB_SUFFIX"]);
+} else {
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	define(SUFFIXO, $_SESSION["DB_SUFFIX"]);
+}
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 include '../../functions/php/GenomaXBackend/params.php';
@@ -29,7 +35,7 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-	$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',4,5,0);
+	$this->Image('../../files/logo'.SUFFIXO.'.jpg',4,5,0);
 }
 function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $valcred, $subtotalfac, $conexion)
 {
@@ -139,8 +145,8 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	$result = mysqli_query($conexion, $SQL);
 	
 	while ($row = mysqli_fetch_row($result)) {
-		if (!(file_exists('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg'))) {
-			$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg';
+		if (!(file_exists('../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg'))) {
+			$LeFirma='../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg';
 			file_put_contents($LeFirma, $row[3]);
 		}	
 		// $this->Image('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg',11,234,40);
@@ -442,7 +448,6 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	mysqli_free_result($result);
     $pdf->PieFactura($rowH[14], $rowH[13], $rowH[15], $rowH[4], $rowH[5], $rowH[10], $rowH[37], $subtotalfac, $conexion);
 	//$pdf->Output("../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$rowH[10].".pdf","F");
-	error_log("Factura a enviar: ".$rowH[10]);
 	}
 	
 	mysqli_free_result($resultH);
@@ -452,9 +457,8 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 //mysqli_free_result($result);
 //mysqli_close();
 //Mostramos el informe
-error_log();
 if(isset($_GET["namedoc"])) {
-	$pdf->Output( "../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$fac.".pdf", "F");
+	$pdf->Output( "../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$_GET["namedoc"].".pdf", "F");
 } else {
 	$pdf->Output();
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../../nexus/database.php';
 include 'mail.php';
 
@@ -30,7 +31,7 @@ include 'mail.php';
       $cadena = explode($Consecutivo,$factura);
       $Pref = $cadena[0];
       
-      include "http://app.genomax.co/his/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=1";
+      $payload = file_get_contents("http://app.genomax.co/his/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]);
       
       $file = fopen ($url, "rb");
       if ($file) {
@@ -49,10 +50,6 @@ include 'mail.php';
       if ($newf) {
         fclose($newf);
       }
-
-
-
-
 
       $indice=$factura;
       if($para){
