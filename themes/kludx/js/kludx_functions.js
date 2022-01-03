@@ -2,7 +2,7 @@ var varMenu=0;
 var varUsrOpts=0;
 var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
-var Menu="functions/php/nexus/menu.php";
+var Menu="themes/kludx/menu.php";
 /*
 var Modal_Msg = '<div class="modal fade" id="msgbox1">
 <div class="modal-dialog" id="NXS_ModMsgBox">
@@ -36,6 +36,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
     }
     function loadDataFetch(obj, url, params) {
         url=url+'?'+params;
+        console.log(url);
         fetch(url)
         .then(response => response.text())
         .then(commits => document.getElementById(obj).innerHTML=commits);
@@ -146,6 +147,9 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
             window.location.href="functions/php/nexus/nosession.php";
         }, 800);
     }
+    function loadMenuOpts() {
+        loadDataFetch('kld_menu', Menu, 'Func=menuInit');
+    }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
         toogle_menu.onclick = function() {
@@ -178,9 +182,6 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
             document.getElementById('kld_top').classList.add('top_bar');
         }, 600);
          
-    }
-    function loadMenuOpts() {
-        loadDataFetch('kld_menu', Menu, 'Func=Menu');
     }
 
     init();

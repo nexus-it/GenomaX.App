@@ -2199,6 +2199,10 @@ case 'HoraActual':
 	mysqli_free_result($result);
 break;
 
+case 'nxsLoadModulex':
+	echo nxsLoadModules($_SESSION["NEXUS_APP"], $_SESSION["it_CodigoPRF"]);
+break;
+
 case 'LoadFavs':
 	if ($_SESSION["it_CodigoPRF"]!='0') {
 		$SQL="Select distinct a.Codigo_ITM, Icono_ITM, Nombre_ITM, Enlace_ITM, Contador_FAV from itfavoritos a, nxs_gnx.ititems b, itpermisos c, itusuarios d Where a.Codigo_ITM=b.Codigo_ITM and a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and Activo_ITM='1' and c.Codigo_PRF=d.Codigo_PRF and a.Codigo_USR=d.Codigo_USR and a.Codigo_ITM=c.Codigo_ITM Order by Contador_FAV desc Limit 6;";

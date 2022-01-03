@@ -1,4 +1,14 @@
 <?php
+include '../../../config.php';
+error_reporting(E_ERROR | E_PARSE);
+
+session_start();
+include 'database.php';
+include 'auditoria.php';
+$conexion=Conexion();
+
+	nxsLoadModules($_SESSION["NEXUS_APP"], $_SESSION["it_CodigoPRF"]);
+
 
 function nxsLoadModules($Aplicacion, $Perfil) 
 {

@@ -1,4 +1,14 @@
 <?php
+if (isset($_GET["Func"])) {
+	include '../../functions/php/nexus/config.php';
+	error_reporting(E_ERROR | E_PARSE);
+
+	session_start();
+	include '../../functions/php/nexus/database.php';
+	include '../../functions/php/nexus/auditoria.php';
+	$conexion=Conexion();
+	nxsLoadModules($_SESSION["NEXUS_APP"], $_SESSION["it_CodigoPRF"]); 
+}
 
 function nxsLoadModules($Aplicacion, $Perfil) 
 {
