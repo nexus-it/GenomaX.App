@@ -23,6 +23,7 @@ session_start();
   <option value="0">Tarifa por Grupo CUPS</option>
   <option value="9">Tarifa por Tipo Producto</option>
   <option value="X">Valor por Servicio</option>
+  <option value="Z">Ampliar Rangos</option>
 </select>
 </div>
   </div>
@@ -199,6 +200,39 @@ session_start();
       </button>
     </div>
 </div>
+<div class="col-md-12" id="div_detZ<?php echo $NumWindow; ?>">
+  <div class="col-md-2">
+<div class="form-group">
+<label for="cmb_servz<?php echo $NumWindow; ?>">Servicios</label>
+<select name="cmb_servz<?php echo $NumWindow; ?>" id="cmb_servz<?php echo $NumWindow; ?>" >
+  <option value="S" selected="selected">Si</option>
+  <option value="N" >No</option>
+</select>
+</div>
+  </div>
+  <div class="col-md-2">
+<div class="form-group">
+<label for="cmb_prodz<?php echo $NumWindow; ?>">Productos</label>
+<select name="cmb_prodz<?php echo $NumWindow; ?>" id="cmb_prodz<?php echo $NumWindow; ?>" >
+  <option value="S" selected="selected">Si</option>
+  <option value="N" >No</option>
+</select>
+</div>
+  </div>
+  <div class="col-md-2">
+<div class="form-group">
+<label for="cmb_paqz<?php echo $NumWindow; ?>">Paquetes</label>
+<select name="cmb_paqz<?php echo $NumWindow; ?>" id="cmb_paqz<?php echo $NumWindow; ?>" >
+  <option value="S" selected="selected">Si</option>
+  <option value="N" >No</option>
+</select>
+</div>
+  </div>
+  <div class="col-md-2 ">
+      <button class="btn btn-warning btn-md btn-block" type="button" onclick="javascript:ExcTarifa<?php echo $NumWindow; ?>('Z');" style="height: 35px; margin-top: 25px;margin-left: 15px;"> <span class="glyphicon glyphicon-star" aria-hidden="true" ></span>  Agregar Excepción
+      </button>
+    </div>
+</div>
 
     <div class="table-responsive detalleord col-md-12" style="border-color: #dc6d00;">
       <table width="100%" border="0" align="center" cellpadding="2" cellspacing="1" class="table table-striped table-condensed tblDetalle table-bordered">
@@ -332,6 +366,7 @@ function addExcept<?php echo $NumWindow; ?>() {
     document.getElementById("div_det0<?php echo $NumWindow; ?>").style.display='none';
     document.getElementById("div_det9<?php echo $NumWindow; ?>").style.display='none';
     document.getElementById("div_detX<?php echo $NumWindow; ?>").style.display='none';
+    document.getElementById("div_detZ<?php echo $NumWindow; ?>").style.display='none';
     if (Tipo!="-") {
       document.getElementById("div_det"+Tipo+"<?php echo $NumWindow; ?>").style.display='block';
     }
@@ -367,6 +402,12 @@ function ExcTarifa<?php echo $NumWindow; ?>(Typo) {
     CodServ=document.getElementById("txt_codigo<?php echo $NumWindow; ?>").value;
     Tarifa="";
     Valor=document.getElementById("txt_valor<?php echo $NumWindow; ?>").value;
+    Guardar_tarifas(Typo, CodServ, Tarifa, Valor, '<?php echo $NumWindow; ?>'); 
+  }
+  if (Typo=="Z") {
+    CodServ='NXS';
+    Tarifa="";
+    Valor='0';
     Guardar_tarifas(Typo, CodServ, Tarifa, Valor, '<?php echo $NumWindow; ?>'); 
   }
 }
