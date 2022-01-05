@@ -290,7 +290,6 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
 ";
  	$result = mysqli_query($conexion, $SQL);
 	//$result = mysqli_query($conexion, $SQL);
-	//echo $SQL;
 	while($row = mysqli_fetch_array($result)) {
 		$contarow++;
 		$Pte=0;
@@ -346,7 +345,8 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 ";
  	$result = mysqli_query($conexion, $SQL);
 	//$result = mysqli_query($conexion, $SQL);
-	//echo $SQL;
+	//error_log('f4f4f44f: '. $SQL);
+	
 	while($row = mysqli_fetch_array($result)) {
 		$contarow++;
 		$Pte=0;
