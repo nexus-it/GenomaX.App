@@ -1,210 +1,162 @@
 <?php
-
-if(isset($_POST["filtro"])){
-	$filtro = $_POST["filtro"];
-	//echo $filtro;
-}
- 
 	session_start();
+  $NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
-  include '../../functions/php/GenomaXBackend/sendmails/adjuntarArchivos.php';
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
-
+  $showRows=50;
+  $page="1";
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  }
+  $ini=(($page-1)*$showRows)+1;
+  if ($ini=="1") { $ini="0"; }
+  $fin=$page*$showRows;
+  if(isset($_GET["fechaini"])){
+    $fechaini = $_GET["fechaini"];
+    $fechafin = $_GET["fechafin"];
+    $numfact= $_GET["numfact"];
+    $contrato = $_GET["contrato"];
+    $paciente = $_GET["paciente"];
+    $filtro= " Where t1.codigo_fac like '%".$numfact."%' and Nombre_TER like '%".$paciente."%' and Nombre_EPS like '%".$contrato."%' and fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
+  } else {
+    $SQL="Select curdate(), date(DATE_ADD(NOW(),INTERVAL -60 DAY));";
+    $result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+      $fechaini=$row[1];
+      $fechafin=$row[0];
+    }
+    mysqli_free_result($result);
+    $numfact= "";
+    $contrato = "";
+    $paciente = "";
+    $filtro= " Where fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
+  }
 ?>
+<div class="container">
+  <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>">
+	<label class="label label-default">Listado de facturas</label>
+  <div class="row well well-sm">
+   
+    <div class="col-md-2">
+	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+		<label for="txt_factura<?php echo $NumWindow; ?>">Factura</label>
+		<input  name="txt_factura<?php echo $NumWindow; ?>" id="txt_factura<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $numfact; ?>" />
+	</div>
+		</div>
+		<div class="col-md-2">
+	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+		<label for="txt_fechaini<?php echo $NumWindow; ?>">Fecha Inicial</label>
+		<input  name="txt_fechaini<?php echo $NumWindow; ?>" id="txt_fechaini<?php echo $NumWindow; ?>" type="date" required class="form-control"  value="<?php echo $fechaini; ?>" />
+	</div>
+		</div>
+		<div class="col-md-2">
+	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+		<label for="txt_fechafin<?php echo $NumWindow; ?>">Fecha Final</label>
+		<input  name="txt_fechafin<?php echo $NumWindow; ?>" id="txt_fechafin<?php echo $NumWindow; ?>" type="date" required class="form-control"  value="<?php echo $fechafin; ?>" />
+	</div>
+		</div>
+    <div class="col-md-2">
+	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+		<label for="txt_paciente<?php echo $NumWindow; ?>">Paciente</label>
+		<input  name="txt_paciente<?php echo $NumWindow; ?>" id="txt_paciente<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $paciente; ?>" />
+	</div>
+		</div>
+    <div class="col-md-2">
+	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+		<label for="txt_contrato<?php echo $NumWindow; ?>">Contrato</label>
+    <div class="input-group" id="grp_txt_idempleado<?php echo $NumWindow; ?>">
+      <input  name="txt_contrato<?php echo $NumWindow; ?>" id="txt_contrato<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $contrato; ?>" />
+      <span class="input-group-btn">	
+				<button class="btn btn-success" type="button" onclick="javascript:RefreshList<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+			</span>
+		</div>
+	</div>
+		</div>
 
-<!--
-<script type="text/javascript">
-$(document).ready(function() {	
-    $('.pagination li a').on('click', function(){
-        $('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
-
-        var page = $(this).attr('data');
-		//alert(page);		
-        var dataString = 'page='+page;
-		//alert(dataString);
-        $.ajax({
-            type: "GET",
-            url: "application/forms/facturasaludlista.php",
-            data: dataString,
-            success: function(data) {
-                $('.items').fadeIn(2000).html(data);
-                $('.pagination li').removeClass('active');
-                $('.pagination li a[data="'+page+'"]').parent().addClass('active');
-				//alert(data);
-				exit();
-				return false;
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("Algo salio mal");
-			}
-        });
-        return false;
-    });              
-});    
-</script>
--->
-<?php if($_GET['page'] == ""){ ?>
-<div class="col-md-12">
-
-	<?php if(isset($_POST["filtro"])==""){ ?><label class="label label-default">Listado de facturas</label><?php }?>
-	  <div class="row well well-sm">
-
-	        <div class="container">  
-<button class="btn btn-success" title="Crear nueva cuenta evento " onclick="CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuentas', 'resources.png'); ">Facturar Nueva Cuenta <i class="fa fa-file"></i></button>
-
-
-			</div>
-			<br>
-	<div class="col-md-12">
-
-<div class="form-group">
-<?php } ?>
-<?php
-
-/* $page = $_GET['page'];
-//echo "paginas= ".$page."<br>";
-$rowsPerPage = NUM_ITEMS_BY_PAGE;
-$offset = ($page - 1) * $rowsPerPage;
-sleep(1);
- */
-if($ini==''){
-//$filtro = '';
-$ini=0;
-$fin=20;
-}else{
-	$ini=$_GET['ini'];
-	$fin=$_GET['fin'];
-}
-
-if(isset($page)){
-$ini = ($page - 1) * $rowsPerPage;
-}//echo $ini;
-
-if($filtro == ""){
-?>
-<form method="POST" action="">
-	<input type="text" name="filtro" id="filtro">
-	<button type="button" name="filtrar" id="filtrar">Filtrar</button>
+		<div class="col-md-2 btn-group">
+      <button class="btn btn-success dropdown-toggle" title="Crear nueva factura" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facturar Nueva Cuenta <i class="fa fa-file"></i>  <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="javascript: CargarForm('application/forms/facturasalud.php', 'Facturacion de Cuenta Evento', 'invoice.png'); ">Contrato por Evento</a></li>
+        <li><a href="javascript: CargarForm('application/forms/facturasaludcapita.php', 'Facturacion de Cuenta Cápita', 'invoice.png'); ">Contrato Capitado</a></li>
+        <li><a href="javascript: CargarForm('application/forms/facturasaludgrupal.php', 'Facturacion de Cuentas Grupal', 'invoice.png'); ">Contrato Global</a></li>
+      </ul>
+		</div>
 </form>
-<div id="resultadofiltro"></div>
 <?php
-}
 echo '<table class="table table-striped table-condensed tblDetalle table-bordered">'; 
-		
 			$conteo = listarFacturas($filtro,$ini,$fin);
-		
 echo '</table>';
 
-/* if($filtro == ""){
-$num_total_rows = $conteo;
-
-$conteo = $conteo/10;
-for($i=0;$i<=$conteo;$i++){
-  // echo "<a href='#'>$i</a>"." - ";
-   
-} */
-
-/*
-//echo "<br>".$num_total_rows;
-$num_pages = ceil($num_total_rows / NUM_ITEMS_BY_PAGE);
-//echo "<br>".$num_pages;
-if ($num_pages > 1 and $page == "") {
-	echo '<div class="row">';
-	echo '<div class="col-lg-12">';
-	echo '<nav aria-label="Paginacion de facturas">';
-	echo '<ul class="pagination justify-content-end">';
-
-	for ($i=1;$i<=$num_pages;$i++) {
-		$class_active = '';
-		if ($i == 1) {
-			$class_active = 'active';
-		}
-		echo '<li class="page-item '.$class_active.'"><a class="page-link" href="#" data="'.$i.'">'.$i.'</a></li>';
-	}
-
-	echo '</ul>';
-	echo '</nav>';
-	echo '</div>';
-	echo '</div>';
-}
-
-}
-*/
+contarFacts($filtro,$page, $showRows);
 ?>
-
+</div>
+</div>
 <script>
+
+function RefreshList<?php echo $NumWindow; ?>() {
+  numfact=document.getElementById("txt_factura<?php echo $NumWindow; ?>").value;
+  fechaini=document.getElementById("txt_fechaini<?php echo $NumWindow; ?>").value;
+  fechafin=document.getElementById("txt_fechafin<?php echo $NumWindow; ?>").value;
+  paciente=document.getElementById("txt_paciente<?php echo $NumWindow; ?>").value;
+  contrato=document.getElementById("txt_contrato<?php echo $NumWindow; ?>").value;
+  AbrirForm('application/forms/facturasaludlista.php', '<?php echo $NumWindow; ?>', '&page=1&numfact='+numfact+'&fechaini='+fechaini+'&fechafin='+fechafin+'&paciente='+paciente+'&contrato='+contrato);
+}
 
 function filtrarFactura(filtro){
     $.ajax({
-            type: 'POST',
-            url: 'application/forms/facturasaludlista.php',
-            data: {
-                filtro: filtro
-
-            },
-            beforeSend: function()
-             {
-                
-             },
-
-              success: function (data) {
-                
-                $("#resultadofiltro").html(data)
-				
-              },
-              error: function() { 
-                console.log(data);
-              }
-            });
-
+        type: 'POST',
+        url: 'application/forms/facturasaludlista.php',
+        data: {
+            filtro: filtro
+        },
+        beforeSend: function()
+          {
+          },
+          success: function (data) {
+            $("#resultadofiltro").html(data)
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
    }
 
 $(document).ready(function() {
-           $( "#filtrar" ).click(function() {
-			  
-			$('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
-			 filtrarFactura($("#filtro<?php echo $NumWindow; ?>").val()
-                            );
-            });
-			
+      $( "#filtrar" ).click(function() {
+$('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
+  filtrarFactura($("#filtro<?php echo $NumWindow; ?>").val());
       });
+});
 
 function editarFactura(filtro){
     $.ajax({
-            type: 'GET',
-            url: 'application/forms/facturaedit.php',
-            data: {
-                filtro: filtro
-
-            },
-            beforeSend: function()
-             {
-                
-             },
-
-              success: function (data) {
-                
-                $("#resultadofiltro").html(data)
-				
-              },
-              error: function() { 
-                console.log(data);
-              }
-            });
-
+        type: 'GET',
+        url: 'application/forms/facturaedit.php',
+        data: {
+            filtro: filtro
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            $("#resultadofiltro").html(data)
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
    }
 
 $(document).ready(function() {
-           $( "#editar" ).click(function() {
-			  
-			editarFactura($("#factura<?php echo $NumWindow; ?>").val()
-                            );
-            });
-			
+      $( "#editar" ).click(function() {
+editarFactura($("#factura<?php echo $NumWindow; ?>").val());
       });
+});
 
 $(document).ready(function() {	
     $( ".enviarfactdian" ).click(function() {
@@ -215,123 +167,141 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {	
+    $( ".pagefact" ).click(function() {
+      var newpage = $(this).attr('data');
+		  AbrirForm('application/forms/facturasaludlista.php', '<?php echo $NumWindow; ?>', '&page='+newpage);
+    });
+});
+function showProgress(Sw, factura) {
+  if (Sw=="1") {
+   document.getElementById("prgFE"+factura).style.display="block";
+   document.getElementById("btngrp"+factura).style.display="none";
+  } else {
+   document.getElementById("prgFE"+factura).style.display="none";
+   document.getElementById("btngrp"+factura).style.display="inherit";
+  }
+  
+}
 function putSendFactura(factura){
+  showProgress("1", factura)
     $.ajax({
-            type: 'POST',
-            url: 'functions/php/GenomaXBackend/putSendFactura.php',
-            data: {
-              factura: factura
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/putSendFactura.php',
+        data: {
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            obj = JSON.parse(data);
 
-            },
-            beforeSend: function()
-             {
-                
-             },
+            $("#resultadoEnvioFactura").html(obj['cufe'])
 
-              success: function (data) {
-                //alert(data);
-                //$("#resultadoEnvioFactura").html(data)
-                
-                obj = JSON.parse(data);
-
-                //obj['ResponseDian']['Envelope']['Body']['SendTestSetAsyncResponse']['SendTestSetAsyncResult']['ZipKey']
-                $("#resultadoEnvioFactura").html(obj['cufe'])
-                
-               // estadoFactura(obj['ResponseDian']['Envelope']['Body']['SendTestSetAsyncResponse']['SendTestSetAsyncResult']['ZipKey']);
-                
-                //estadoFactura('4466cf19-40e3-440d-b6fd-3363769f4d07');
-                //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
-
-                estadoFacturaDoc(obj['cufe'],factura)
-
-              },
-              error: function() { 
-                console.log(data);
-              }
-            });
+            estadoFacturaDoc(obj['cufe'],factura)
+          },
+          error: function() { 
+            showProgress("0", factura)
+            console.log(data);
+          }
+        });
    }
 
    function estadoFactura(zipkey){
       $.ajax({
-            type: 'POST',
-            url: 'functions/php/GenomaXBackend/estadoFactura.php',
-            data: {
-              zipkey: zipkey
-
-            },
-            beforeSend: function()
-             {
-                
-             },
-
-              success: function (data) {
-                
-                $("#resultadoEnvioFactura1").html(data)
-                
-                //obj = JSON.parse(data);
-                //$("#resultadoEnvioFactura").html(obj['ResponseDian']['Envelope']['Body']['SendTestSetAsyncResponse']['SendTestSetAsyncResult']['ZipKey'])
-                //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
-
-              },
-              error: function() { 
-                console.log(data);
-              }
-            });
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/estadoFactura.php',
+        data: {
+          zipkey: zipkey
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            $("#resultadoEnvioFactura1").html(data)
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
    }
-
-   function estadoFacturaDoc(cufe,factura){
+   function NoCuFE(factura, msg) {
+    showProgress("1", factura)
       $.ajax({
-            type: 'POST',
-            url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
-            data: {
-              cufe: cufe,
-              factura: factura
-
-            },
-            beforeSend: function()
-             {
-                
-             },
-
-              success: function (data) {
-                
-                //$("#resultadoEnvioFactura").html(data)
-                
-                obj = JSON.parse(data);
-                //$("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
-                
-                //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
-                if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 0){
-                  $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
-                }else{
-                  $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
-                  //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
-                  adjuntarArvhivos(factura);
-                }
-
-                //$("#resultadoEnvioFactura").html("Factura Enviada con exito")
-
-              },
-              error: function() { 
-                console.log(data);
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
+        data: {
+          cufe: "0",
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            MsgBox1('Error en envío de Factura',msg);
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
+        showProgress("0", factura)
+   }
+   function estadoFacturaDoc(cufe,factura){
+    showProgress("1", factura)
+      $.ajax({
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
+        data: {
+          cufe: cufe,
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            obj = JSON.parse(data);
+            showProgress("0", factura)
+            //$("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+            
+            //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
+            if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 'false'){
+              $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
+              NoCuFE(factura,obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']+'"<br> "'+obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
+            }else{
+              if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']=="Documento con errores en campos mandatorios") {
+                NoCuFE(factura, obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string']);
+              } else {
+              $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+                MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
+                document.getElementById("btnedit"+factura).disabled = true;
+                document.getElementById("btnsend"+factura).disabled = true;
+                // mailFE(cufe, factura)
+                adjuntarArvhivos(factura);
               }
-            });
+            }
+          },
+          error: function() { 
+            showProgress("0", factura)
+            console.log(data);
+          }
+        });        
    }   
-
-   $(document).ready(function() {	
-    $( ".estadoFacturaDoc" ).click(function() {
-      var cufe = $(this).attr('data-f');
-      var factura = $(this).attr('data-c');
-      
-		  //alert(ingreso);
-      //$("#resultadoEnvioFactura").html("")
-      estadoFacturaDoc(factura,cufe)
+   function mailFE(cufe, fact) {
+     /*
+    urlrpt="application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=1";
+    $.get(urlrpt,{'Func':'CodUsrBdg','value':Nombre},function(data){ 
+      document.getElementById('hdn_usuario'+Ventana).value=data;
     });
-});
 
-
-
-function adjuntarArvhivos(factura){
+    adjuntarArvhivos(fact);
+    */
+   }
+   function adjuntarArvhivos(factura){
   $.ajax({
             type: 'POST',
             url: 'functions/php/GenomaXBackend/sendmails/adjuntarArchivos.php',
@@ -352,6 +322,12 @@ function adjuntarArvhivos(factura){
               }
             });
 }
+   $(document).ready(function() {	
+    $( ".estadoFacturaDoc" ).click(function() {
+      var cufe = $(this).attr('data-f');
+      var factura = $(this).attr('data-c');
 
-
+      estadoFacturaDoc(factura,cufe)
+    });
+});
 </script>

@@ -3,7 +3,8 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+//$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_GET["DB_HOST"], $_GET["DB_USER"], $_GET["DB_PASSWORD"], $_GET["DB_NAME"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 include '../../functions/php/GenomaXBackend/params.php';
@@ -29,7 +30,8 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-	$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',4,5,0);
+	//$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',4,5,0);
+    $this->Image('../../files/logo'.$_GET["DB_SUFFIX"].'.jpg',4,5,0);
 }
 function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $valcred, $subtotalfac, $conexion)
 {

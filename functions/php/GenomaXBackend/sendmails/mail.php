@@ -57,16 +57,16 @@ function send($recipiente,$factura,$datosEnvioMail){
         }
 }        
 
-
+/*
 //$indice=8572;
 //while($indice<=8700){
 
-/*
+
 $indice='SETP990000003';
 while($indice<='SETP990000003'){
   send('ing.leandro.castro@gmail.com',$indice);
   $indice++;
 }
-/*
+*/
 ?>
 

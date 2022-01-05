@@ -36,63 +36,68 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	/////ADICIONO EL QR  2021-11-03 LEANDRO CASTRO
 	if(is_null($_SESSION["SiigoToken"])) {
 
-		$SQL_INFO = "SELECT codigo_fac AS 'NumFac', date(fecha_fac) AS 'FecFac', TIME(fecha_fac) AS 'HorFac', b.ID_TER AS 'NitFac', c.ID_TER AS 'DocAdq', a.ValTotal_FAC AS 'ValFac', a.IdFE_FAC AS 'CUFE' FROM gxfacturas a, czterceros b, czterceros c, gxeps d WHERE b.Codigo_TER='X' AND a.Codigo_EPS=d.Codigo_EPS AND d.Codigo_TER=c.Codigo_TER AND a.Codigo_FAC= '$codfac'";
+		$SQL_INFO = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,'-',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
+		, SPLIT_STR(c.CODIGO_FAC, '-', 1) AS PREFIJO, SPLIT_STR(c.CODIGO_FAC, '-', 2) as NUMERACION, IdFE_FAC
+		From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, 
+		czterceros g, cztipoid h, gxplanes i WHERE c.Codigo_AFC = b.Codigo_AFC  and d.Codigo_EPS= c.Codigo_EPS  and e.Codigo_TER= d.Codigo_TER   and f.Codigo_ADM =c.Codigo_ADM   and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA 
+		AND c.CODIGO_FAC = '$codfac'	";
+		error_log($SQL_INFO);
 		$RESULTADO_INFO = mysqli_query($conexion, $SQL_INFO);
 		$row_INFO = mysqli_fetch_array($RESULTADO_INFO);
 		
-		if ($row_INFO['CUFE']!="0") {
+		if ($row_INFO['IdFE_FAC']!="0") {
 
-			/* $string = $codfac;
+			$string = $codfac;
 			//var_dump($_POST["factura"]);
 			$NUMERACION = preg_replace('/[^0-9]/', '', $string);
 			$cadena = explode($NUMERACION,$string);
-			$PREFIJO = $cadena[0]; */
+			$PREFIJO = $cadena[0];
 
-			$CUFE = $row_INFO['CUFE']; // ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION);
+			$CUFE = $row_INFO['IdFE_FAC']; // ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION);
 			/* $cad = explode("-",ValidarCUfe($row_INFO['NIT_DCD'],$PREFIJO,$NUMERACION));
 			$CUFE = $cad[0]; */
 
-			$cadena='NumFac: '.$row_INFO['NumFac'].PHP_EOL
-					.'FecFac: '.$row_INFO['FecFac'].PHP_EOL
-					.'HorFac: '.$row_INFO['HorFac'].PHP_EOL
-					.'NitFac: '.$row_INFO['NitFac'].PHP_EOL
-					.'DocAdq: '.$row_INFO['DocAdq'].PHP_EOL
-					.'ValFac: '.$row_INFO['ValFac'].PHP_EOL
-					.'ValIva: 0.00'.PHP_EOL
-					.'ValOtroIm: 0.00'.PHP_EOL
-					.'ValTotal: '.$row_INFO['ValFac'].PHP_EOL
-					.'CUFE: '.$CUFE.PHP_EOL
-					.'QRCode: https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
+			$cadena='NumFac:'.$row_INFO['Codigo_FAC'].PHP_EOL
+					.'FecFac:'.$row_INFO['Fecha_FAC'].PHP_EOL
+					.'NitFac:'.$row_INFO['NIT_DCD'].PHP_EOL
+					.'DocAdq:'.$row_INFO['ID_TER'].PHP_EOL
+					.'ValFac:'.$row_INFO['ValTotal_FAC'].PHP_EOL
+					.'ValIva:0.00'.PHP_EOL
+					.'ValOtroIm:0.00'.PHP_EOL
+					.'ValTotal:'.$row_INFO['ValTotal_FAC'].PHP_EOL
+					.'CUFE:'.$CUFE.PHP_EOL
+					.'https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
 					;
+
 			$currentDir = str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
-			$this->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");
+			$this->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");		
 			$this->SetY(-64);
 			$this->SetFont('Arial','B',8);
 			$this->Cell(0,5,'CUFE: '.$CUFE,'',0,'L',0);
 			
 		}
 	}
-	// FIN COD QR
+	// FIN COD LEANDRO
 
 	$this->SetY(-88);
 	$this->SetFont('Arial','',10);
-	$this->Cell(113,5,'','TLR',0,'R',0);
-	$this->Cell(50,5,'Sub-Total','TLBR',0,'R',0);
+	$this->Cell(118,5,'','TLR',0,'R',0);
+	$this->Cell(45,5,'SUBTOTAL','TLBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($subtotal,2,'.',','),'TBR',0,'R',0); 
 /*	$this->Cell(0,5,number_format($subtotalfac,2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 	$this->SetFont('Arial','',10);
-	$this->Cell(113,5,'','LR',0,'R',0);
-	$this->Cell(50,5,'Anticipo Pagos Usuarios','LBR',0,'R',0);
+	$this->Cell(118,5,'','LR',0,'R',0);
+	$this->Cell(45,5,'VALOR PACIENTE','LBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($totpcte,2,'.',','),'BR',0,'R',0);
 	$this->Ln();
 	$this->SetFont('Arial','',10);
-	$this->Cell(113,5,'','BLR',0,'R',0);
-	$this->Cell(50,5,'Valor Descuentos','LBR',0,'R',0);
+	$this->Cell(118,5,'','BLR',0,'R',0);
+	$this->Cell(45,5,'VALOR NOTAS CREDITO','LBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
 	$this->Cell(0,5,number_format($notcred,2,'.',','),'BR',0,'R',0);
@@ -117,13 +122,13 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	if ($rowH[42]=="PARTIC") {
 		$this->Cell(0,5,number_format($totpcte-$notcred,2,'.',','),'TBR',0,'R',0); 
 	} else {
-		$this->Cell(0,5,number_format($subtotal-$totpcte,2,'.',','),'TBR',0,'R',0); 
+		$this->Cell(0,5,number_format($subtotal-$notcred,2,'.',','),'TBR',0,'R',0); 
 	}
 
 /*	$this->Cell(0,5,number_format($subtotalfac-$rowH[15],2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 /*	$this->Cell(0,4,ValorLetras($rowH[14]-$rowH[15]),'LBR',0,'L',0); */
-	$this->Cell(0,4,ValorLetras($subtotal-$totpcte),'LBR',0,'L',0);
+	$this->Cell(0,4,ValorLetras($subtotalfac-$notcred),'LBR',0,'L',0);
 	$Cadena2=explode('\n',$lineas2);
 	$this->SetFont('Times','',7);
 	$conteo = count($Cadena2);
@@ -308,6 +313,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=str_replace("@CODIGO_INICIAL",($_GET["CODIGO_INICIAL"]),$SQL);
 	$SQL=str_replace("@CODIGO_FINAL",($_GET["CODIGO_FINAL"]),$SQL);
 }
+error_log($SQL);
 mysqli_free_result($resultH);
 error_log("Factura salud:". $SQL);
 $resultH = mysqli_query($conexion, $SQL);
@@ -433,11 +439,13 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	mysqli_free_result($result);
     $pdf->PieFactura($rowH[14], $rowH[13], $rowH[15], $rowH[4], $rowH[5], $rowH[10], $rowH[37], $subtotalfac, $conexion);
-	//$pdf->Output("../../../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$rowH[10].".pdf","F");
+	
+
 	$pdf->Output(dirname(__DIR__,2)."\\functions\php\GenomaXBackend\sendmails\archivos\FES-".$rowH[10].".pdf","F");
 
-	error_log("Factura a enviar: ".$rowH[10]);
 	}
+	
+	
 	
 	mysqli_free_result($resultH);
 	$pdf->Ln();
@@ -446,10 +454,5 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 //mysqli_free_result($result);
 //mysqli_close();
 //Mostramos el informe
-//error_log();
-if(isset($_GET["namedoc"])) {
-	$pdf->Output(dirname(__DIR__,2)."\\functions\php\GenomaXBackend\sendmails\archivos\FES-".$_GET["namedoc"].".pdf","F");
-} else {
-	$pdf->Output();
-}
+$pdf->Output();
 ?>
