@@ -50,12 +50,24 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var menu = createDivs('kld_menu');
         var nxs = createDivs('kld_nexus');
         var dashboard = createDivs('kld_container');
+        var usrpnl = createDivs('usrpnl');
+        var mnupnl = createDivs('mnupnl');
+        var usropt = createDivs('usropt');
+        var imgpnl = createDivs('imgpnl');
+        var infpnl = createDivs('infpnl');
         document.getElementById('bdy_kludx').innerHTML = cover+nxs;
         document.getElementById('kld_nexus').innerHTML = menu+dashboard;
         document.getElementById('kld_top').classList.add('cover_lazy'); 
         // document.getElementById('kld_top').innerHTML = "";
         document.getElementById('kld_menu').classList.add('menu_init');
         document.getElementById('kld_container').classList.add('dashboard_init');
+        document.getElementById('kld_menu').innerHTML = usrpnl+mnupnl+usropt;
+        document.getElementById('usrpnl').classList.add('user-panel');
+        document.getElementById('usrpnl').innerHTML = imgpnl+infpnl;
+        document.getElementById('imgpnl').classList.add('image');
+        document.getElementById('infpnl').classList.add('info');
+        document.getElementById('infpnl').innerHTML ='OPCIONES';
+
     }
     function percentCover(perc) {
         document.getElementById('kld_top').style.opacity=perc; 
@@ -148,7 +160,8 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         }, 800);
     }
     function loadMenuOpts() {
-        loadDataFetch('kld_menu', Menu, 'Func=menuInit');
+
+        loadDataFetch('mnupnl', Menu, 'Func=menuInit');
     }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");

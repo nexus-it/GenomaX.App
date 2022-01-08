@@ -1,4 +1,28 @@
 /* CSS Document */
+
+  /* barras de desplazamiento*/
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 139, 247, 0.50) #35629cab;
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #13364dab;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(139, 139, 247, 0.50);
+    border-radius: 20px;
+    border: 2px solid #024e5e;
+  }
+  /* fin barras de desplazamiento*/
+
 .cien {
     height: 100%;
 }
@@ -33,6 +57,7 @@
     bottom: 0px;
 }
 #kld_menu {
+    overflow-y: auto;
     left: 0px;
     background-color: #28273b;
     top: 0px;
@@ -43,8 +68,8 @@
 
 }
 #kld_container {
-    width: 100%;
-	transition: all .3s ease-in-out;
+    overflow-y: auto;
+    transition: all .3s ease-in-out;
 	-webkit-transition: all .3s ease-in-out;
 	-moz-transition: all .3s ease-in-out;
     
@@ -151,7 +176,103 @@
     z-index: 1000;
     width: 90%;
 }
-
+.titmnu {
+    padding: 10px 25px 10px 15px;
+    color: #347998;
+    background-color: #1a2226;
+    font-size: 12px;
+    border: none;
+    margin-bottom: 0px;
+}
+.menukl0 .titmnu {
+    display: none;
+}
+.menukl1 .titmnu {
+    display: block;
+}
+.deskkl0 {
+    width: 100%;
+}
+.deskkl1 {
+    width: 100%;
+}
+#mnupnl .accordion-button {
+    background-color: #1e282caf;
+    color: #f5e9e9a6;
+    padding-top: 12px;
+    padding-right: 5px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    font-size: 14px;
+}
+#mnupnl .accordion-item {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+#mnupnl .accordion-button:hover {
+    background-color: #1e282cc2;
+    color: rgba(255, 255, 255);
+}
+#mnupnl .accordion-button i {
+    padding-right: 17px;
+}
+#infpnl {
+    font-size: 14px;
+    color: #a6c6e09e;
+    text-align: center;
+}
+.menukl0 #infpnl {
+    display: none;
+}
+.menukl1 #infpnl {
+    display: block;
+}
+.menukl0 #mnupnl .accordion-button span {
+    display: none;
+} 
+.menukl0 .manito a span {
+    display: none;
+}
+.menukl1 #mnupnl .accordion-button span {
+    display: block;
+} 
+.menukl1 .manito a span {
+    display: block;
+}
+.manito li a span {
+    padding-right: 17px;
+}
+#mnupnl .accordion-button::after {
+    display:none;
+}
+.accordion-button:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+.accordion li {
+    list-style: none;
+}
+.accordion li a {
+    text-decoration: none;
+    color: #9cb4d3;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    display: block;
+    font-size: 14px;
+    position: relative;
+}
+.accordion li a:hover {
+    color: rgb(236, 238, 247);
+}
+.accordion li a li {
+    width: 20px;
+}
+.accordion-body {
+    padding: 0.4rem 1.25rem;
+}
 @media (min-width: 600px) {
     body {
       background: rgb(0, 45, 128);
@@ -309,7 +430,7 @@
         height: calc(100% -50px);
     }
     .menukl0 {
-        position: absolute;
+        position: relative;
         width: 50px;
     }
     .menukl1 {
@@ -359,28 +480,3 @@
 
 
 
-
-
-
-  /* barras de desplazamiento*/
-/* Works on Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(176, 176, 177) rgb(71, 71, 146);
-  }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: rgb(71, 71, 146);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: rgb(176, 176, 177);
-    border-radius: 20px;
-    border: 3px solid rgb(71, 71, 146);
-  }
-  /* fin barras de desplazamiento*/
