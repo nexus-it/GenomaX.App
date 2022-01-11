@@ -3,7 +3,7 @@
 include '00trnsctns.php';
 	// Definir Area en la cual se va a trabajar
 	
-	// Generar un ingreso para la capita
+	// Generar un ingreso para la capita 
 	$Consec=LoadConsec("gxadmision", "Codigo_ADM", "0", $conexion, "LPAD(Codigo_ADM,10,'0')");
 	$SQL="Insert into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Codigo_CXT, Codigo_FNC, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, ValorRemitido_ADM, Remision_ADM, FechaRemision_ADM, IPS_ADM, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Autorizacion_ADM, FechaAutorizacion_ADM, Observaciones_ADM, Codigo_USR, UsuarioAnula_USR, Estado_ADM, Copago_ADM, Cuota_ADM, FechaFin_ADM, Codigo_PTT) Select '".$Consec."', '0', now(), '".trim($_POST["Contrato"])."', '".$_POST['Plan']."', '13', '10', 'H3', now(), '', 'R066', '0', '', now(), '', 'CUENTA CAPITADA', '', '--', '--', Contrato_EPS, now(), 'CONTRATO CAPITADO', '".$_SESSION["it_CodigoUSR"]."', '', 'F', '0', '0', FechaFin_EPS, '1' From gxeps where Codigo_EPS='".trim($_POST["Contrato"])."'";
 	error_log('Fact Capita: '.$SQL);

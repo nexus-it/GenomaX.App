@@ -188,6 +188,8 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         sessionusr.onclick = function() {
             sessionClose();
         }
+       
+        
     }
     function locateTop() {
         setTimeout(function(){

@@ -380,9 +380,9 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->TableHD();
 	// Agrupacion por Orden de Servicio
 	if ($rowH[43]=="1") {
-		$SQL="Select a.Codigo_ORD, Descripcion_ORD, SUM(b.CantidadOLD_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD))  FROM gxordenescab a, gxordenesdet b, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' GROUP BY a.Codigo_ORD, Descripcion_ORD";
+		$SQL="Select a.Codigo_ORD, Descripcion_ORD, SUM(b.CantidadOLD_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)), a.Descripcion_ORD FROM gxordenescab a, gxordenesdet b, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' GROUP BY a.Codigo_ORD, Descripcion_ORD";
 	} else {
-		$SQL="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.CantidadOLD_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)) FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
+		$SQL="Select c.Codigo_CFC, c.Nombre_CFC, SUM(b.CantidadOLD_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)), a.Descripcion_ORD FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	}
 	// error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
@@ -400,15 +400,23 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$pdf->Cell(0,3,strtoupper($row[1]),'',0,'L',0);
 		$pdf->Ln();
 		// Agrupacion por Orden de Servicio
-		if ($rowH[43]=="1") { 
-			$SQL="SELECT left(Nombre_SER, 60), sum(b.CantidadOLD_ORD), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), sum(b.CantidadOLD_ORD)*(b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end, c.Codigo_CFC  FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d left join gxprocedimientos f on d.Codigo_SER=f.Codigo_SER left join gxmedicamentos g on d.Codigo_SER=g.Codigo_SER WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' AND b.Codigo_ORD='".$row[0]."' GROUP BY left(Nombre_SER, 60), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end  ";
+		$descorden="";
+		if ($row[3] =="CAPITA") {
+			$descorden="Nombre_SER";
 		} else {
-			$SQL="SELECT left(Nombre_SER, 60), sum(b.CantidadOLD_ORD), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), sum(b.CantidadOLD_ORD)*(b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end, c.Codigo_CFC  FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d left join gxprocedimientos f on d.Codigo_SER=f.Codigo_SER left join gxmedicamentos g on d.Codigo_SER=g.Codigo_SER WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' AND d.Codigo_CFC='".$row[0]."' GROUP BY left(Nombre_SER, 60), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end  ";
+			$descorden="left(Nombre_SER, 60)";
+		}
+		if ($rowH[43]=="1") { 
+			$SQL="Select ".$descorden.", sum(b.CantidadOLD_ORD), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), sum(b.CantidadOLD_ORD)*(b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end, c.Codigo_CFC FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d left join gxprocedimientos f on d.Codigo_SER=f.Codigo_SER left join gxmedicamentos g on d.Codigo_SER=g.Codigo_SER WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' AND b.Codigo_ORD='".$row[0]."' GROUP BY left(Nombre_SER, 60), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end  ";
+		} else {
+			$SQL="Select ".$descorden.", sum(b.CantidadOLD_ORD), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), sum(b.CantidadOLD_ORD)*(b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end, c.Codigo_CFC FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d left join gxprocedimientos f on d.Codigo_SER=f.Codigo_SER left join gxmedicamentos g on d.Codigo_SER=g.Codigo_SER WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' AND d.Codigo_CFC='".$row[0]."' GROUP BY left(Nombre_SER, 60), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end  ";
 		}
 		// error_log($SQL);
 		$resultX = mysqli_query($conexion, $SQL);
+		$TipoConcepto="";
 		while ($rowX = mysqli_fetch_row($resultX)) {
 			$TheY=$pdf->GetY();
+			$TipoConcepto=$rowX[7];
 			// Si llega a limite de la página, agregamos una nueva...
 			if ($TheY>=190) {
 				$pdf->PieFactura($rowH[14], $rowH[13], $rowH[15], $rowH[4], $rowH[5], $rowH[10], $rowH[37], $subtotalfac, $conexion);
@@ -419,7 +427,9 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 			}
 			$pdf->SetFont('Arial','',8);
 			if ($rowX[7]=="00") {
-				$pdf->MultiCell(140,4,utf8_decode($rowX[0]),0,'L',0); 
+				$ElY=$pdf->GetY();
+				$pdf->MultiCell(135,4,utf8_decode($rowX[0]),0,'L',0);
+				$ElY2=$pdf->GetY();
 			} else {
 				$pdf->Cell(15,3,$rowX[6],'',0,'L',1);
 				$pdf->Cell(95,3,utf8_decode($rowX[0]),'',0,'L',0);
@@ -427,19 +437,26 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 			}
 			$pdf->SetFont('Arial','',9);
 			if ($rowX[7]=="00") {
+				$pdf->SetY($ElY);
+				$pdf->SetX(152);
 				$pdf->Cell(5,3,$rowX[1],'',0,'C',1);
 			} else {
 				$pdf->Cell(10,3,$rowX[1],'',0,'C',1);
 			}
 			$pdf->Cell(23,3,$rowX[2],'',0,'R',1);
 			$pdf->Cell(0,3,$rowX[3],'',0,'R',1);
-			if ($rowH[43]=="0") {			
-				$pdf->Ln();
+			if ($rowH[43]=="0") {
+				if ($rowX[7]!="00") {
+					$pdf->Ln();
+				}
 			}
 		}
 		mysqli_free_result($resultX);
 		if ($rowH[43]=="0") {
-			$pdf->Cell(165,3,'','',0,'C',0);
+			$pdf->SetX(165);
+			if ($TipoConcepto=="00") {
+				$pdf->SetY($ElY2);
+			}
 			$pdf->SetFont('Arial','B',9);
 			$pdf->Cell(0,3,number_format($row[2],2,'.',','),'T',0,'R',1);
 		}

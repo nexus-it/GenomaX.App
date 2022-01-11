@@ -9,7 +9,7 @@
   
   /* Works on Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
   }
   
   *::-webkit-scrollbar-track {
@@ -18,8 +18,8 @@
   
   *::-webkit-scrollbar-thumb {
     background-color: rgba(139, 139, 247, 0.50);
-    border-radius: 20px;
-    border: 2px solid #024e5e;
+    border-radius: 1px;
+    border: 1px solid #024e5e;
   }
   /* fin barras de desplazamiento*/
 
@@ -235,10 +235,11 @@
     display: none;
 }
 .menukl1 #mnupnl .accordion-button span {
+    width: 90%;
     display: block;
 } 
 .menukl1 .manito a span {
-    display: block;
+    display: inline;
 }
 .manito li a span {
     padding-right: 17px;
@@ -272,6 +273,20 @@
 }
 .accordion-body {
     padding: 0.4rem 1.25rem;
+}
+.menukl1 #mnupnl .accordion-button span i {
+    color: rgb(255, 255, 255);
+    position: absolute;
+    right: 0px;
+    transition: all 1.1s ease-in-out;
+    -webkit-transition: all 1.1s ease-in-out;
+    -moz-transition: all 1.1s ease-in-out;
+}
+.menukl0 #mnupnl .accordion-button span i {
+    color: rgba(255, 255, 255, 0);
+}
+.manito a {
+    padding-right: 17px;
 }
 @media (min-width: 600px) {
     body {

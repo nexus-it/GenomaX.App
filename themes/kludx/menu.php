@@ -28,11 +28,11 @@ function nxsLoadModules($Aplicacion, $Perfil)
 		$html=$html.$htmlmenu;
 		}
 	mysqli_free_result($result1);
-	$html=$html.'<div class="alert alert-secondary titmnu" role="alert" id="nxs_moduleX">'.str_repeat('- ',25).'</div>
+	$html=$html.'<div class="alert alert-secondary titmnu" role="alert" id="nxs_moduleX">'.str_repeat('- ',24).'</div>
 	<li class="manito"><a onClick="nxs_meet1(\'normal\')" title="Video Conferencias Seguras" data-toggle="modal" data-target="#GnmX_NXSMeet"> <i class="fas fa-video text-black-50"></i> <span><b>NE<em>X</em>US.<em>Meet</em></b></span> </a></li>
         <li class="manito"><a onClick="CargarChngPass()"><i class="fa fa-key text-warning"></i> <span>Cambio de Clave</span></a></li>
         <li class="manito"><a onClick="AboutGNX();"><i class="fa fa-play-circle text-success"></i> <span>Acerca de...</span></a></li>
-        <li class="manito"><a onClick="SessionClose();"><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
+        <li class="manito"><a onClick="sessionClose();" ><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
     echo $html;
 }
 

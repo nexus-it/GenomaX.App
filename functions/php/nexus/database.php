@@ -584,9 +584,10 @@ function ValorLetras($numero) {
         $final.=$parte; 
     } 
 	if ($partes[1]=='00') {
-    	return ucfirst(trim($final)).' pesos con cero centavos'; 
+    	return ucfirst(trim($final)).' pesos'; 
 	} else {
-		return ucfirst(trim($final)).' pesos con '.numerotexto($partes[1]).' centavos'; 
+		// return ucfirst(trim($final)).' pesos con '.numerotexto($partes[1]).' centavos'; 
+      return ucfirst(trim($final)).' pesos'; 
 	}
 }
 
