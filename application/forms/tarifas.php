@@ -428,7 +428,7 @@ var substringMatcher = function(strs) {
 
 <?php
 $nombres="";
-$SQL="SELECT trim(a.Nombre_SER) FROM gxservicios a WHERE a.Estado_SER='1' AND (a.Codigo_CFC<>'04' or Tipo_ser='3' ) ORDER BY 1";
+$SQL="SELECT trim(a.Nombre_SER) FROM gxservicios a WHERE a.Estado_SER='1' and codigo_cfc<>'00' AND (a.Codigo_CFC<>'04' or Tipo_ser='3' ) ORDER BY 1";
 $resultx=mysqli_query($conexion,$SQL);
   while ($rowx=mysqli_fetch_array(($resultx))) {
     $nombres=$nombres."'".$rowx[0]."',";

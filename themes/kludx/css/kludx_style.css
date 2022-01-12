@@ -288,6 +288,23 @@
 .manito a {
     padding-right: 17px;
 }
+#imgpnl{
+    transition: all 0.7s linear;
+    -webkit-transition: all 0.7s linear;
+    -moz-transition: all 0.7s linear;
+}
+.menukl0 #imgpnl{
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+.menukl1 #imgpnl{
+    width: 40%;
+    margin-left: 30%;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
 @media (min-width: 600px) {
     body {
       background: rgb(0, 45, 128);

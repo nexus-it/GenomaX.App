@@ -55,6 +55,9 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var usropt = createDivs('usropt');
         var imgpnl = createDivs('imgpnl');
         var infpnl = createDivs('infpnl');
+        var usroptsep = createDivs('usroptsep');
+        var usroptli = '<li class="manito"><a id="mnuvideomeet" name="mnuvideomeet" title="Video Conferencias Seguras" data-toggle="modal" data-target="#GnmX_NXSMeet"> <i class="fas fa-video text-black-50"></i> <span><b>NE<em>X</em>US.<em>Meet</em></b></span> </a></li>        <li class="manito"><a id="mnuchangepass" name="mnuchangepass"><i class="fa fa-key text-warning"></i> <span>Cambio de Clave</span></a></li>        <li class="manito"><a id="mnuaboutapp" name="mnuaboutapp"><i class="fa fa-play-circle text-success"></i> <span>Acerca de...</span></a></li>        <li class="manito"><a id="mnulogout" name="mnulogout" ><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
+
         document.getElementById('bdy_kludx').innerHTML = cover+nxs;
         document.getElementById('kld_nexus').innerHTML = menu+dashboard;
         document.getElementById('kld_top').classList.add('cover_lazy'); 
@@ -63,11 +66,17 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('kld_container').classList.add('dashboard_init');
         document.getElementById('kld_menu').innerHTML = usrpnl+mnupnl+usropt;
         document.getElementById('usrpnl').classList.add('user-panel');
+        document.getElementById('usropt').innerHTML = usroptsep+usroptli;
         document.getElementById('usrpnl').innerHTML = imgpnl+infpnl;
         document.getElementById('imgpnl').classList.add('image');
         document.getElementById('infpnl').classList.add('info');
         document.getElementById('infpnl').innerHTML ='OPCIONES';
-
+        document.getElementById('usroptsep').classList.add('alert');
+        document.getElementById('usroptsep').classList.add('alert-secondary');
+        document.getElementById('usroptsep').classList.add('titmnu');
+        document.getElementById('usroptsep').innerHTML = '- '.repeat(24);
+        document.getElementById('imgpnl').classList.add('d-flex');
+        document.getElementById('imgpnl').classList.add('justify-content-center');
     }
     function percentCover(perc) {
         document.getElementById('kld_top').style.opacity=perc; 
@@ -160,8 +169,8 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         }, 800);
     }
     function loadMenuOpts() {
-
         loadDataFetch('mnupnl', Menu, 'Func=menuInit');
+        loadDataFetch('imgpnl', Funciones, 'Func=logoAxisKlud');
     }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
@@ -188,7 +197,10 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         sessionusr.onclick = function() {
             sessionClose();
         }
-       
+        var sessionusr2 = document.getElementById("mnulogout");
+        sessionusr2.onclick = function() {
+            sessionClose();
+        }
         
     }
     function locateTop() {
