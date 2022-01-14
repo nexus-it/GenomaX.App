@@ -5,15 +5,31 @@ var ContaReports=0;
 var ContaSearch=0;
 var ContaPass=0;
 
+async function fetchLoad(url) {
+    const response = await fetch(url);
+    return await response.text();
+}
+
+function newElement(nombre, tipo){
+	var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
+	return '<'+tipo+' id="'+nombre+'" name="'+nombre+'">'+loading+'</'+tipo+'>';        
+}
+
 function AbrirForm(Pagina, Contenedor, Params)
 {
-	$("#"+Contenedor).load(Pagina+"?target="+Contenedor+Params);
+	const contentDiv = document.getElementById(Contenedor);
+	contentDiv.innerHTML = await fetchLoad(Pagina+"?target="+Contenedor+Params);
+	
+	// $("#"+Contenedor).load(Pagina+"?target="+Contenedor+Params);
+
 	MngrToolBar(Pagina, Contenedor+".");
 }
 
 function ExecRpt(Pagina, Contenedor)
 {
-	$("#"+Contenedor).load(Pagina);
+	const contentDiv = document.getElementById(Contenedor);
+	contentDiv.innerHTML = await fetchLoad(Pagina);
+	// $("#"+Contenedor).load(Pagina);
 }
 
 function AbrirReport(Pagina, Contenedor, Params)
@@ -21,7 +37,9 @@ function AbrirReport(Pagina, Contenedor, Params)
 	Temporal=Pagina.substring(Pagina.indexOf('?'),Pagina.length);
 	Params=Params+"&"+Temporal.substring(1,Temporal.length);
 	Pagina=Pagina.substring(20,Pagina.indexOf('.'))
-	$("#"+Contenedor).load("application/reports/reports.php?reporte="+Pagina+"&target="+Contenedor+Params);
+	const contentDiv = document.getElementById(Contenedor);
+	contentDiv.innerHTML = await fetchLoad("application/reports/reports.php?reporte="+Pagina+"&target="+Contenedor+Params);
+	// $("#"+Contenedor).load("application/reports/reports.php?reporte="+Pagina+"&target="+Contenedor+Params);
 } 
 
 function inicioEnvio(Destino)
@@ -32,13 +50,17 @@ function inicioEnvio(Destino)
 
 function AbrirSearch(Contenedor, Destino, Titulo, Where)
 {
-	$("#"+Contenedor).load('application/forms/buscar.php?box='+Destino+'&target='+Contenedor+'&req='+Titulo+'&cond='+Where);
+	const contentDiv = document.getElementById(Contenedor);
+	contentDiv.innerHTML = await fetchLoad('application/forms/buscar.php?box='+Destino+'&target='+Contenedor+'&req='+Titulo+'&cond='+Where);
+	// $("#"+Contenedor).load('application/forms/buscar.php?box='+Destino+'&target='+Contenedor+'&req='+Titulo+'&cond='+Where);
 
 }
 
 function AbrirChngPass(Contenedor)
 {
-	$("#"+Contenedor).load('application/forms/clave.php');
+	const contentDiv = document.getElementById(Contenedor);
+	contentDiv.innerHTML = await fetchLoad('application/forms/clave.php');
+	// $("#"+Contenedor).load('application/forms/clave.php');
 	
 }
 
@@ -47,7 +69,7 @@ function MngrToolBar(NomWind,NumWind) {
 		NumeroPag=NumWind.substring(6,NumWind.indexOf('.'));
 		NxsToolBar(NomWind,NombrePag);
 }
-
+/*
 $(".GhenWindow").scroll(function () {
     if ($(this).scrollTop() >= 30) {
         alert($(this).scrollTop());
@@ -106,6 +128,7 @@ function MostrarOpcines(Grupo, Opcion, Titulo) {
 	$('.GrupoItems').fadeOut(40);
 	$('#'+Grupo).fadeIn(800);
 }
+*/
 function ShowDashboard() {
 	MostrarOpcines('GenomaX', '-','Mi Escritorio');
 	$('#gxtabs a:first').tab('show');
@@ -126,17 +149,23 @@ function CargarForm(Pag, Tit, Ico) {
 	} else {
 	ContaForms++;
 	//Primero el tab...
-	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
-	$(li0).attr('id','gxt' + ContaForms);
-	$(li0).attr('title', Tit);
+	var li0 = newElement('gxt'+ContaForms, 'li');
+	document.getElementById('gxtabs').innerHTML = li0;
+	li0.setAttribute("role", "presentation");
+	li0.setAttribute("title", Tit);
 	imagenlogo="<img src=\"themes/klud/img/icons/16x16/"+Ico+"\" align=\"left\"/> ";
-	var a0 = $(document.createElement('a')).attr('href','#Window_'+ContaForms).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaForms);
-	$(a0).attr('aria-controls','Ghen_'+ContaForms);
-	$(a0).attr('role','tab');
-	$(a0).attr('data-toggle', 'tab');
-	$(a0).attr('id','gxta' + ContaForms);
+	var a0 = newElement('gxta'+ContaForms, 'a');
+	document.getElementById('gxt' + ContaForms).innerHTML = a0;
+	a0.setAttribute("href", '#Window_'+ContaForms);
+	a0.setAttribute('aria-controls','Ghen_'+ContaForms);
+	a0.setAttribute('role','tab');
+	a0.setAttribute('data-toggle','tab');
+	a0.innerHTML = '<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></div>';
 	
 	//Luego el contenido del form...
+	var div = newElement('Window_'+ContaForms, 'div');
+	document.getElementById('gx-tabs' + ContaForms).innerHTML = div;
+	document.getElementById('Window_'+ContaForms).classList.add('tab-pane');
 	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#gx-tabs');
 	$(div).attr('id','Window_' + ContaForms);
 
