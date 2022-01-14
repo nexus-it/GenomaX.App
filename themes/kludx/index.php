@@ -7,7 +7,7 @@ if ($rowrt = mysqli_fetch_array($resultrt)) {
 	$_SESSION["VERSION_CONTROL"]= $version;
 }
 mysqli_free_result($resultrt);
-CargarHead($version);
+KargarHead($version);
 $NoSession="";
 if (isset($_GET["nxsdb"])){
 	$NoSession="?nxsdb=".$_GET["nxsdb"];

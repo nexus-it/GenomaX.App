@@ -417,8 +417,8 @@
 	        -webkit-background-size: cover;
 	        -o-background-size: cover;
 	overflow: hidden;
-	color: #729d3b;
-	background-color: #3e581d;
+	color: #3b559d;
+	background-color: #1d2658;
 	}
 	img {
 		border:none;
@@ -786,17 +786,18 @@
 		background-repeat: repeat-x;
 	}
 	#gxtabs > li > a{
+		text-decoration: none;
 		padding-top: 0px;
 		padding-bottom: 0px;
-		color: #88bd45;
-		transition: all 0.9s ease-in-out;
-		-webkit-transition: all 0.9s ease-in-out;
-    	-moz-transition: all 0.9s ease-in-out;
+		color: #45a7bdd1;
+		transition: all 0.3s ease-in-out;
+		-webkit-transition: all 0.3s ease-in-out;
+    	-moz-transition: all 0.3s ease-in-out;
 	}
 	#gxtabs > li > a:hover{
 		padding-top: 0px;
 		padding-bottom: 0px;
-		color: #b1ff4a;
+		color: #4bb7cff6;
 	}
 	#gxtabs > .active a{
 		color: #EFEFEF;

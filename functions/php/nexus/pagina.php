@@ -103,6 +103,37 @@ echo '
 ';
 }
 
+function KargarHead($ver)
+{
+	include 'functions/php/nexus/database.php';
+	define ('NAME_APP', $_SESSION["NOMBRE_APP"]);
+	include 'functions/php/nexus/permisos.php';
+	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/menu.php';
+	echo '<!DOCTYPE html">
+<html lang="es">
+<head>
+<meta charset="utf-8"> 
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="themes/'.$_SESSION["THEME_DEFAULT"].'/img/favicon.ico">
+';
+	listar_directorios_ruta("settings/css/", $ver);
+	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/css/", $ver);
+	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/js/", $ver);
+	echo '
+
+<script src="functions/js/browser.js?v='.$ver.'"></script>
+<script src="functions/js/nexus.js?v='.$ver.'"></script>
+<script src="functions/js/validar.js?v='.$ver.'"></script>
+<script src="functions/js/highcharts.src.js?v='.$ver.'"></script>
+';
+include 'themes/'.$_SESSION["THEME_DEFAULT"].'/header.php';
+echo '
+	<title>'.$_SESSION["NOMBRE_APP"].'</title>
+</head>
+';
+}
+
 function LoadHead($ver)
 {
 	include 'functions/php/nexus/database.php';

@@ -36,7 +36,7 @@ function LoadTopPlanes()
     title: {
         text: \'Planes Clientes Actuales \',
         style: {
-            color: \'#729d3b\',
+            color: \'#43589d\',
             fontWeight: \'bold\',
             fontSize: \'15px\'
         }

@@ -27,6 +27,120 @@ case 'logoAxisKlud':
 	$html='<img src="themes/kludx/logoAxis.jpg" class="img-fluid rounded-circle" alt="User Image" >';
 	echo $html;
 break;
+case 'klcotizador':
+	$html='
+    <div class="box-header ui-sortable-handle" style="cursor: move;">
+      <i class="fa fa-calculator"></i>
+
+      <h3 class="box-title">Cotizador</h3>
+
+    </div>
+    <div class="box-body">
+      <form id="frm_cotiza" name="frm_cotiza" class="row">
+
+      <div class="form-group col-md-6">
+        <label for="cmb_plan" class="form-label">Plan</label>
+        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_plan" name="cmb_plan" onchange="LoadModalidades(this.value);">
+        	<option value="0" selected="selected">-- Seleccione --</option>';
+		$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA FROM klplanes a WHERE a.Estado_PLA='1'";
+        $result = mysqli_query($conexion, $SQL);
+        while($row = mysqli_fetch_array($result)) {
+			$html=$html.'<option value="'.$row[0].'">'.$row[1].'</option>';
+        }
+        mysqli_free_result($result);
+		$html=$html.'</select>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="cmb_modalidad" class="form-label">Modalidad</label>
+        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_modalidad" name="cmb_modalidad"></select>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label class="form-label" for="dias">Días</label>
+        <input type="number" min="1" max="365" class="form-control pull-right" id="dias" value="1">
+      </div>
+
+      <div class="form-group d-grid col-md-9">
+        <a href="javascript:nxsCotiza();" type="button" role="button" class="btn btn-primary btn-sm" id="calccotiz">Calcular
+        <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+
+      <div class="form-group col-md-2 col-xs-8">
+        <h3 style="margin-top: 7;"> <span id="valorCotiza" name="valorCotiza" class="badge bg-primary"> U$ 0.00</span> </h3>
+      </div>
+
+      <div class="form-group col-md-1 col-xs-4">
+        <a href="javascript:nxsNewCotiza()" title="Continuar Cotización">
+        	<h4 style="margin-top: 9;"> <span id="exeCotizar" name="exeCotizar" class="badge bg-primary"></span> </h4>
+        </a>
+      </div>
+
+      </form>
+    </div>';
+	echo $html;
+break;
+case 'kldistplan':
+	$html='
+	<div class="box-header">
+	  <i class="fa fa-map"></i>
+	  <h3 class="box-title">Distribución de Planes</h3>
+	</div>
+	<div class="box-body no-padding">
+	  <div class="row">
+		<div class="col-md-12 col-sm-12">
+		  <div class="chart" id="pieChartPlanes" name="pieChartPlanes" style="height:330px">
+		  <div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+		  </div>
+		</div>
+	  </div>
+	</div>';
+	echo $html;
+break;
+case 'kldestclientes':
+	$html='<div class="box-header">
+    <i class="fa fa-map-marker"></i>
+    <h3 class="box-title">Destinos Clientes (Top 10)</h3>
+  </div>
+  <div class="box-body no-padding">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="chart" id="barChartTop10" name="barChartTop10" style="height:330px">
+		<div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+        </div>
+      </div>
+    </div>
+  </div>';
+  echo $html;
+break;
+case 'klrepventas':
+	$html='<div class="box-header">
+    <i class="fa fa-chart-line"></i>
+    <h3 class="box-title">Comportamiento Ventas</h3>
+  </div>
+  <div class="box-body no-padding">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="chart" id="lineChartVentas" name="lineChartVentas" style="height:330px">
+		<div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+        </div>
+      </div>
+    </div>
+  </div>';
+	echo $html;
+break;
+case 'kltrm':
+
+break;
+case 'klpolvig':
+
+break;
+case 'klcotact':
+
+break;
+case 'klpolanul':
+
+break;
 case 'nxs_mailing':
 	// ($desde, $para, $titulo, $mensaje)
 	$mensaje = '<html>

@@ -1,4 +1,5 @@
 var varMenu=0;
+var varSearch=0;
 var varUsrOpts=0;
 var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
@@ -27,12 +28,15 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         percentCover("0.7");
         loadUserOpts();
         loadUserData();
+        loadDashboard();
+        loadInfoDash();
         addFunctions();
         percentCover("1");
         locateTop();
         setWMenu("0");
         showUsrOpts("0");
         loadMenuOpts();
+        loadBoxes();
     }
     function loadDataFetch(obj, url, params) {
         url=url+'?'+params;
@@ -44,6 +48,10 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
     function createDivs(iddiv){
         var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
         return '<div id="'+iddiv+'">'+loading+'</div>';        
+    }
+    function createSection(idsection){
+        var loading = '<div class="spinner-grow" role="status"> <span class="visually-hidden">Cargando...</span> </div>';
+        return '<section id="'+idsection+'">'+loading+'</section>'; 
     }
     function loadElements(){
         var cover = createDivs('kld_top');
@@ -94,6 +102,138 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('kld_ctrlmenu').innerHTML = '<a href="#" role="button" id="toogle_menu" > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/> </svg> </a>';
         document.getElementById('kld_search').innerHTML = '<a href="#" role="button" > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg> </a>';
     }
+    function loadDashboard() {
+        var nxs_alert = createDivs('nxs_alert');
+        var nxs_tabcontent = createDivs('nxs_tabcontent');
+        var nxs_sidesearch = createDivs('nxs_sidesearch');
+        var nxs_sidetabs = createDivs('nxs_sidetabs');
+        var nxs_sectionsearch = createDivs('nxs_sectionsearch');
+        var Window_0 = createDivs('Window_0');
+        document.getElementById('kld_container').innerHTML = nxs_alert+nxs_tabcontent+nxs_sidesearch;
+        document.getElementById('nxs_sidesearch').innerHTML = nxs_sectionsearch+nxs_sidetabs;
+        document.getElementById('nxs_alert').classList.add('alert');
+        document.getElementById('nxs_alert').classList.add('alert-warning');
+        document.getElementById('nxs_alert').setAttribute("role", "alert");
+        document.getElementById('nxs_tabcontent').classList.add('tab-content');
+        document.getElementById('nxs_sidesearch').classList.add('sidesearch0'); 
+        document.getElementById('nxs_sectionsearch').innerHTML = '<input id="txt_search" name="txt_search" class="form-control form-control-sm" type="text" placeholder="Buscar..." aria-label=".form-control-sm example">';
+        document.getElementById('nxs_tabcontent').innerHTML = Window_0;
+        document.getElementById('Window_0').classList.add('tab-pane');
+        document.getElementById('Window_0').classList.add('fade');
+        document.getElementById('Window_0').classList.add('show');
+        document.getElementById('Window_0').classList.add('active');
+        document.getElementById('Window_0').setAttribute("role", "tabpanel");
+        document.getElementById('Window_0').setAttribute("aria-labelledby", "home-tab");
+        document.getElementById('nxs_sidetabs').innerHTML = '<ul id="gxtabs" class="row"> <li role="presentation" id="gxt0" class=""> <a href="#Window_0" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="false"><div class="col-md-12"> Dashboard </div></a> </li> </ul>';
+
+    }
+    function loadInfoDash() {
+        var titHeader = createSection('titHeader');
+        var contItems = createSection('contItems');
+        var row1kld = createDivs('row1kld');
+        var col11kld = createDivs('col11kld');
+        var col12kld = createDivs('col12kld');
+        var col13kld = createDivs('col13kld');
+        var col14kld = createDivs('col14kld');
+        var row2kld = createDivs('row2kld');
+        document.getElementById('Window_0').innerHTML = titHeader+contItems;
+        document.getElementById('titHeader').classList.add('content-header');
+        document.getElementById('contItems').classList.add('content');
+        document.getElementById('titHeader').innerHTML = '<h1> Dashboard <small>Panel de Control</small> </h1>';
+        document.getElementById('contItems').innerHTML = row1kld+row2kld;
+        document.getElementById('row1kld').classList.add('row');
+        document.getElementById('row2kld').classList.add('row');
+        document.getElementById('row1kld').innerHTML = col11kld+col12kld+col13kld+col14kld;
+        document.getElementById('col11kld').classList.add('col-lg-3');
+        document.getElementById('col11kld').classList.add('col-sm-6');
+        document.getElementById('col12kld').classList.add('col-lg-3');
+        document.getElementById('col12kld').classList.add('col-sm-6');
+        document.getElementById('col13kld').classList.add('col-lg-3');
+        document.getElementById('col13kld').classList.add('col-sm-6');
+        document.getElementById('col14kld').classList.add('col-lg-3');
+        document.getElementById('col14kld').classList.add('col-sm-6');
+        var card1kld = createDivs('card1kld');
+        var card2kld = createDivs('card2kld');
+        var card3kld = createDivs('card3kld');
+        var card4kld = createDivs('card4kld');
+        document.getElementById('col11kld').innerHTML = card1kld;
+        document.getElementById('col12kld').innerHTML = card2kld;
+        document.getElementById('col13kld').innerHTML = card3kld;
+        document.getElementById('col14kld').innerHTML = card4kld;
+        document.getElementById('card1kld').classList.add('card');
+        document.getElementById('card2kld').classList.add('card');
+        document.getElementById('card3kld').classList.add('card');
+        document.getElementById('card4kld').classList.add('card');
+        var cardbd1kld = createDivs('cardbd1kld');
+        var cardbd2kld = createDivs('cardbd2kld');
+        var cardbd3kld = createDivs('cardbd3kld');
+        var cardbd4kld = createDivs('cardbd4kld');
+        document.getElementById('card1kld').innerHTML = cardbd1kld;
+        document.getElementById('card2kld').innerHTML = cardbd2kld;
+        document.getElementById('card3kld').innerHTML = cardbd3kld;
+        document.getElementById('card4kld').innerHTML = cardbd4kld;
+        document.getElementById('cardbd1kld').classList.add('card-body');
+        document.getElementById('cardbd1kld').classList.add('small-box');
+        document.getElementById('cardbd1kld').classList.add('bg-info');
+        document.getElementById('cardbd1kld').classList.add('text-white');
+        document.getElementById('cardbd2kld').classList.add('card-body');
+        document.getElementById('cardbd2kld').classList.add('small-box');
+        document.getElementById('cardbd2kld').classList.add('bg-success');
+        document.getElementById('cardbd2kld').classList.add('text-white');
+        document.getElementById('cardbd3kld').classList.add('card-body');
+        document.getElementById('cardbd3kld').classList.add('small-box');
+        document.getElementById('cardbd3kld').classList.add('bg-warning');
+        document.getElementById('cardbd3kld').classList.add('text-white');
+        document.getElementById('cardbd4kld').classList.add('card-body');
+        document.getElementById('cardbd4kld').classList.add('small-box');
+        document.getElementById('cardbd4kld').classList.add('bg-danger');
+        document.getElementById('cardbd4kld').classList.add('text-white');
+        var cardinnerkld1 = createDivs('cardinnerkld1');
+        var cardinnerkld3 = createDivs('cardinnerkld3');
+        var cardinnerkld4 = createDivs('cardinnerkld4');
+        var cardinnerkld2 = createDivs('cardinnerkld2');
+        var cardiconkld1 = createDivs('cardiconkld1');
+        var cardiconkld2 = createDivs('cardiconkld2');
+        var cardiconkld3 = createDivs('cardiconkld3');
+        var cardiconkld4 = createDivs('cardiconkld4');
+        document.getElementById('cardbd1kld').innerHTML = cardinnerkld1+cardiconkld1;
+        document.getElementById('cardbd2kld').innerHTML = cardinnerkld2+cardiconkld2;
+        document.getElementById('cardbd3kld').innerHTML = cardinnerkld3+cardiconkld3;
+        document.getElementById('cardbd4kld').innerHTML = cardinnerkld4+cardiconkld4;
+        document.getElementById('cardinnerkld1').classList.add('inner');
+        document.getElementById('cardinnerkld2').classList.add('inner');
+        document.getElementById('cardinnerkld3').classList.add('inner');
+        document.getElementById('cardinnerkld4').classList.add('inner');
+        document.getElementById('cardiconkld1').classList.add('icon');
+        document.getElementById('cardiconkld2').classList.add('icon');
+        document.getElementById('cardiconkld3').classList.add('icon');
+        document.getElementById('cardiconkld4').classList.add('icon');
+        var cardwaiting = '<div class="spinner-grow text-light" role="status"> <span class="visually-hidden">Loading...</span> </div> <p class="card-text placeholder-glow"> <span class="placeholder col-12 bg-light"></span> </p>';
+        document.getElementById('cardinnerkld1').innerHTML = cardwaiting;
+        document.getElementById('cardinnerkld2').innerHTML = cardwaiting;
+        document.getElementById('cardinnerkld3').innerHTML = cardwaiting;
+        document.getElementById('cardinnerkld4').innerHTML = cardwaiting;
+        var secSeven = createSection('secSeven');
+        var secFive = createSection('secFive');
+        document.getElementById('row2kld').innerHTML = secSeven+secFive;
+        document.getElementById('secSeven').classList.add('col-lg-7');
+        document.getElementById('secFive').classList.add('col-lg-5');
+        var boxCotiz = createDivs('boxCotiz');
+        var boxDistPln = createDivs('boxDistPln');
+        var boxDestCli = createDivs('boxDestCli');
+        var boxVentas = createDivs('boxVentas');
+        document.getElementById('secSeven').innerHTML = boxCotiz+boxDistPln;
+        document.getElementById('secFive').innerHTML = boxDestCli+boxVentas;
+        document.getElementById('boxCotiz').classList.add('box');
+        document.getElementById('boxDistPln').classList.add('box');
+        document.getElementById('boxDestCli').classList.add('box');
+        document.getElementById('boxVentas').classList.add('box');
+        document.getElementById('cardiconkld1').innerHTML = '<i class="fa fa-calculator"></i>';
+        document.getElementById('cardiconkld2').innerHTML = '<i class="fa fa-plane"></i>';
+        document.getElementById('cardiconkld3').innerHTML = '<i class="fa fa-chart-pie"></i>';
+        document.getElementById('cardiconkld4').innerHTML = '<i class="fa fa-chart-area"></i>';
+
+    }
     function loadUserOpts() {
         var divData = createDivs('usr_dataopts');
         var divActions = createDivs('usr_actionopts');
@@ -132,6 +272,16 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('user_options').classList.remove('showUsrOpts'+nxsY);
         document.getElementById('user_options').classList.add('showUsrOpts'+nxsW);
         varUsrOpts =nxsW;
+    }
+    function setXSearch(nxsW) {
+        if ( nxsW=="0") {
+            nxsY="1";
+        } else {
+            nxsY="0";
+        }
+        document.getElementById('nxs_sidesearch').classList.remove('sidesearch'+nxsY);
+        document.getElementById('nxs_sidesearch').classList.add('sidesearch'+nxsW); 
+        varSearch =nxsW;
     }
     function setWMenu(nxsW) {
         if ( nxsW=="0") {
@@ -172,6 +322,16 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         loadDataFetch('mnupnl', Menu, 'Func=menuInit');
         loadDataFetch('imgpnl', Funciones, 'Func=logoAxisKlud');
     }
+    function loadBoxes() {
+        loadDataFetch('boxCotiz', Funciones, 'Func=klcotizador');
+        loadDataFetch('boxDistPln', Funciones, 'Func=kldistplan');
+        loadDataFetch('boxDestCli', Funciones, 'Func=kldestclientes');
+        loadDataFetch('boxVentas', Funciones, 'Func=klrepventas');
+        loadDataFetch('cardinnerkld1', Funciones, 'Func=kltrm');
+        loadDataFetch('cardinnerkld2', Funciones, 'Func=klpolvig');
+        loadDataFetch('cardinnerkld3', Funciones, 'Func=klcotact');
+        loadDataFetch('cardinnerkld4', Funciones, 'Func=klpolanul');
+    }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
         toogle_menu.onclick = function() {
@@ -187,6 +347,14 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
                 showUsrOpts("1");
             } else {
                 showUsrOpts("0");
+            }
+        }
+        var toogle_search = document.getElementById("kld_search");
+        toogle_search.onclick = function() {
+            if (varSearch=="0") {
+                setXSearch("1");
+            } else {
+                setXSearch("0");
             }
         }
         var passusr = document.getElementById("btn_passusr");
@@ -215,3 +383,41 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
 
     
 })();
+
+function LoadModalidades(val)
+{
+    url='plugins/klcotizador/klmodalidades.php?Plan='+val;
+    console.log(url);
+    fetch(url)
+        .then(response => response.text())
+        .then(commits => document.getElementById('cmb_modalidad').innerHTML=commits);
+}
+
+function nxsCotiza()
+{
+	document.getElementById('calccotiz').innerHTML='Calculando...';
+	document.getElementById('calccotiz').classList.add('disabled');
+	
+	dias=document.getElementById('dias').value;
+	val=document.getElementById('cmb_plan').value;
+	mod=document.getElementById('cmb_modalidad').value;     	
+	
+    url= 'plugins/klcotizador/klcalcular.php?nxsplan='+val+'&nxsdias='+dias+'&nxsmod='+mod;
+    console.log(url);
+    fetch(url)
+        .then(response => response.text())
+        .then(commits =>{
+        	document.getElementById('valorCotiza').innerHTML='U$ '+commits;
+        	document.getElementById('exeCotizar').innerHTML=' <i class="fa fa-paper-plane"></i> ';
+        	document.getElementById('calccotiz').innerHTML='Calcular <i class="fa fa-arrow-circle-right"></i>';
+    		document.getElementById('calccotiz').classList.remove('disabled');
+        });
+        
+    
+}
+
+function nxsNewCotiza()
+{
+	CargarForm('application/forms/klcotizaciones.php', 'Nueva Cotizacion', 'reseller_account_template.png')
+}
+
