@@ -4,6 +4,8 @@ var varUsrOpts=0;
 var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
 var Menu="themes/kludx/menu.php";
+
+var Modal_Msg = '<div class="modal fade" id="msgbox1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div class="modal-dialog" id="NXS_ModMsgBox"> <div class="modal-content"> <div class="modal-header" id="NXS_TitMsgBox"> <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body" id="bodyMsgBox"> <div class="spinner-grow" role="status"> <span class="visually-hidden">Cargando...</span> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button> </div> </div> </div> </div>';
 /*
 var Modal_Msg = '<div class="modal fade" id="msgbox1">
 <div class="modal-dialog" id="NXS_ModMsgBox">
@@ -109,7 +111,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var nxs_sidetabs = createDivs('nxs_sidetabs');
         var nxs_sectionsearch = createDivs('nxs_sectionsearch');
         var Window_0 = createDivs('Window_0');
-        document.getElementById('kld_container').innerHTML = nxs_alert+nxs_tabcontent+nxs_sidesearch;
+        document.getElementById('kld_container').innerHTML = nxs_alert+nxs_tabcontent+nxs_sidesearch+Modal_Msg;
         document.getElementById('nxs_sidesearch').innerHTML = nxs_sectionsearch+nxs_sidetabs;
         document.getElementById('nxs_alert').classList.add('alert');
         document.getElementById('nxs_alert').classList.add('alert-warning');
@@ -252,7 +254,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('usr_roleopts').classList.add('d-flex');
         document.getElementById('usr_roleopts').classList.add('justify-content-center');
         document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="files/logosadinca.jpg" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
-        document.getElementById('usr_passopts').innerHTML = '<button id="btn_passusr" name="btn_passusr" type="button" class="btn btn-light">Cambio Clave</button>';
+        document.getElementById('usr_passopts').innerHTML = '<button id="btn_passusr" name="btn_passusr" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#GnmX_ChngPass">Cambio Clave</button>';
         document.getElementById('usr_sessionopts').innerHTML = '<button id="btn_sessionusr" name="btn_sessionusr" type="button" class="btn btn-light">Cerrar Sesión</button>';
     }
     function loadUserData() {
@@ -305,7 +307,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         varMenu =nxsW;
     }
     function loadChngPass() {
-        $('#GnmX_ChngPass').modal();
+        // $('#GnmX_ChngPass').modal();
         var loading = '<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>';
         document.getElementById('bodyChngPass').innerHTML = loading;
         AbrirChngPass('bodyChngPass');

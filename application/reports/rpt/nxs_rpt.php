@@ -20,8 +20,10 @@ $SQL2="Select Campo_RPT From nxs_gnx.itreportsparam Where Codigo_RPT='".$_GET["n
 $result2 = mysqli_query($conexion, $SQL2);
 while($row2 = mysqli_fetch_row($result2)) {
     $rpt_subtitulo=str_replace("@".$row2[0],$_GET[$row2[0]],$rpt_subtitulo);
+    $rpt_cols=str_replace("@".$row2[0],$_GET[$row2[0]],$rpt_cols);
 }
 mysqli_free_result($result2);    
+error_log($rpt_cols);
 include('templates/header.php');
 ?>
 
@@ -40,6 +42,7 @@ include('templates/header.php');
                         <thead>
                             <tr>
                                <?php
+                               
                                 $resulttb1 = mysqli_query($conexion, $rpt_cols);
                                 $colstb = mysqli_fetch_fields($resulttb1);
                                 foreach($colstb as $namecol) {
