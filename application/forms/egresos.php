@@ -65,7 +65,7 @@ session_start();
   <option value="1">Primer Trimestre</option>
   <option value="2">Segundo Trimestre</option>
   <option value="3">Tercer Trimestre</option>
-</select><br />
+</select>
 </div>
 
 <div class="form-group">
@@ -78,7 +78,7 @@ session_start();
 <select name="txt_estadonac<?php echo $NumWindow; ?>" id="txt_estadonac<?php echo $NumWindow; ?>">
   <option value="V" selected="selected">Vivo</option>
   <option value="M">Muerto</option>
-</select><br />
+</select>
 </div>
 
 <div class="form-group">
@@ -93,14 +93,14 @@ session_start();
 
 
 </fieldset>
-<?php flush; ?>
+
 <fieldset>
   <legend>Datos de la Admision:</legend>
   <div id="datosing<?php echo $NumWindow; ?>" class="tblDetalle1">
   Digite el numero del ingreso o del egreso del paciente y presione [Enter]...
 </div>
 </fieldset>
-<?php flush; ?>
+
 </form>
 <script >
 FechaActual('txt_fechaegr<?php echo $NumWindow; ?>');
