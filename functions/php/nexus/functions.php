@@ -1958,7 +1958,7 @@ case 'loadSchedule' :
 	$areas=" and a.Codigo_ARE in (".$areas.") ";
 
 	$SQL="SELECT DISTINCT b.Codigo_AGE, c.Codigo_TER, concat(c.Apellido1_MED, ' ', left(c.Apellido2_MED,1), ' ', c.Nombre1_MED, ' ', left(c.Nombre2_MED,1)) FROM gxagendacab a, gxagendadet b, gxmedicos c WHERE a.Codigo_AGE=b.Codigo_AGE AND c.Codigo_TER=a.Codigo_TER AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
-	error_log($SQL);
+	 error_log('Agendas: '.$SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$i=0;
 	while($row = mysqli_fetch_row($result)) {
@@ -1968,7 +1968,7 @@ case 'loadSchedule' :
 	} 
 	mysqli_free_result($result);
 	$SQL="SELECT min(b.Hora_AGE), MAX(b.Hora_AGE), round(TIMESTAMPDIFF(minute,min(b.Hora_AGE), MAX(b.Hora_AGE))/5) FROM gxagendadet b, gxagendacab a WHERE a.Codigo_AGE=b.Codigo_AGE AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
-	error_log($SQL);
+	 error_log('Total Prof:'.$i);
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$horamin = $row[0];
@@ -1987,15 +1987,24 @@ case 'loadSchedule' :
 		$SQL2=$SQL2." LEFT OUTER JOIN gxagendadet t".$j." ON t".$j.".Hora_AGE=t0.horaagenda AND t".$j.".Codigo_AGE='".$array_agendas[$j]."' AND t".$j.".Fecha_AGE='".$fecha."'";
 	}
 	$SQL=$SQL1.$SQL2. " Where t0.horaagenda between '".$horamin."' and '".$horamax."'";
-	error_log($SQL);
+	error_log('Revisar: '.$SQL);
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_row($result)) {
 		$tabla=$tabla.'<tr height="27px"><td style="font-size:11px;">'.$row[0].'</td>';
-		$j=0;
+		$j=1;
 		while($j<=$i) {
-			$j++;
 			if($row[$j]=="") {
-				$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
+				$SQL="Select 'X' From gxagendacab a, gxagendadet b Where a.Codigo_AGE=b.Codigo_AGE AND b.Fecha_AGE='".$fecha."' And DATE_FORMAT(DATE_ADD(STR_TO_DATE('".$row[0]."', '%H:%i:%s'),INTERVAL 1 MINUTE), '%H:%i:%s') between b.Hora_AGE and DATE_FORMAT(DATE_ADD(STR_TO_DATE(b.Hora_AGE, '%H:%i:%s'),INTERVAL a.Tiempo_AGE MINUTE), '%H:%i:%s') And a.Codigo_AGE='".$array_agendas[$j]."'";
+				$resulth = mysqli_query($conexion, $SQL);
+				if($rowh = mysqli_fetch_row($resulth)) {
+					error_log('X: '.$SQL);
+					flush();
+				} else {
+					$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
+					error_log('No: '.$SQL);
+				}
+				mysqli_free_result($resulth);
+				
 			} else {
 				$SQL="Select Tiempo_AGE, Codigo_CNS, Codigo_ESP From gxagendacab Where Codigo_AGE='".$array_agendas[$j]."'";
 				$resultx = mysqli_query($conexion, $SQL);
@@ -2060,6 +2069,7 @@ case 'loadSchedule' :
 				}
 				mysqli_free_result($resultx);
 			}
+			$j++;
 		}
 		$tabla=$tabla.'</tr>';
 	} 

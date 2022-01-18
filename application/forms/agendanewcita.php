@@ -157,70 +157,7 @@ session_start();
     </div>
 
         </div>
-<!--         <div class="col-md-12 col-sm-12 ">
-	<div class="row well well-sm">
-		<input name="hdn_autorizacion<?php echo $NumWindow; ?>" type="hidden" id="hdn_autorizacion<?php echo $NumWindow; ?>" value="" />
-		<div class="col-md-5 col-sm-5">
-			<label>Contrato: </label> <span id="spn_contrato<?php echo $NumWindow; ?>">Sin datos</span>
-			<input name="hdn_contrato<?php echo $NumWindow; ?>" type="hidden" id="hdn_contrato<?php echo $NumWindow; ?>" value="" />
-		</div>
-		<div class="col-md-5 col-sm-5">
-			<label>Plan: </label> <span id="spn_plan<?php echo $NumWindow; ?>">Sin datos</span>
-			<input name="hdn_plan<?php echo $NumWindow; ?>" type="hidden" id="hdn_plan<?php echo $NumWindow; ?>" value="" />
-		</div>
-		<div class="col-md-2 col-sm-2">
-			<label>Rango: </label> <span id="spn_rango<?php echo $NumWindow; ?>">--</span>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<label>Fec Nacimiento: </label> <small><span id="spn_fechanac<?php echo $NumWindow; ?>">00/00/0000</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Edad: </label> <small><span id="spn_edad<?php echo $NumWindow; ?>">00 Años</span></small>
-		</div>
-		<div class="col-md-2 col-sm-2">
-			<label>Sexo: </label> <small><span id="spn_sexo<?php echo $NumWindow; ?>">-</span></small>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<label>Est. Civil: </label> <small><span id="spn_estcivil<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Dirección: </label> <small><span id="spn_direccion<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-2 col-sm-2">
-			<label>Teléfono: </label> <small><span id="spn_telefono<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<label>Correo: </label> <small><span id="spn_correoel<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<label>Ocupación: </label> <small><span id="spn_ocupacion<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-5 col-sm-5">
-			<label>Acompañante: </label> <small><span id="spn_acomp<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<label>Teléfono: </label> <small><span id="spn_telacomp<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Parentesco: </label> <small><span id="spn_parentesco<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Ingreso Por: </label> <small><span id="spn_ingpor<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Observaciones: </label> <small><span id="spn_obs<?php echo $NumWindow; ?>">Sin datos</span></small>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Fecha Ingreso: </label> <span id="spn_fechaing<?php echo $NumWindow; ?>" class="badge">00/00/0000</span>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<label>Tipo Paciente: </label> <span id="spn_tipopte<?php echo $NumWindow; ?>" >Sin datos</span>
-		</div>
 	</div>
-	
-		</div>
-
- -->	</div>
 <?php
 if (isset($_GET["genesis"])) {
 ?>
