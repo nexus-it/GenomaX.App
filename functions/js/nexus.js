@@ -2159,7 +2159,7 @@ function Guardar_facturasaludcapita(Ventana)
 				CargarReport("application/reports/facturasalud.php?PREFIJO="+Pref+"&CODIGO_INICIAL="+Consecutivo+"&CODIGO_FINAL="+Consecutivo, "facturasalud");
 				CargarReport("application/reports/anexofacturasalud.php?PREFIJO="+Pref+"&CODIGO_FACTURA="+Consecutivo, "anexofacturasalud");
 				} else {*/
-				CargarReport("application/reports/facturasaludcapita.php?PREFIJO="+Pref+"&CODIGO_INICIAL="+Consecutivo+"&CODIGO_FINAL="+Consecutivo, "facturasaludcapita");
+				CargarReport("application/reports/facturasaluddet.php?PREFIJO="+Pref+"&CODIGO_INICIAL="+Consecutivo+"&CODIGO_FINAL="+Consecutivo, "facturasaludcapita");
 				/*}
 				var miDiv = document.getElementById("zero_detalle"+Ventana); 
 				miDiv.innerHTML ='<table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle'+Ventana+'" ><tbody id="tbDetalle'+Ventana+'"><tr id="trh'+Ventana+'"> <th id="th1'+Ventana+'">Codigo</th> <th id="th2'+Ventana+'">Servicio</th> <th id="th3'+Ventana+'">Cant.</th> <th id="th4'+Ventana+'">Paciente</th> <th id="th4'+Ventana+'">Entidad</th> <th id="th4'+Ventana+'">Total</th></tr></tbody></table>';

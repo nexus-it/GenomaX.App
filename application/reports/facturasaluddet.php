@@ -354,13 +354,30 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->SetFont('Arial','',9);
 	$pdf->Cell(105,5,$rowH[34].' - '.$rowH[35],'BR',0,'L',0);	
 	$pdf->SetFont('Arial','B',9);
-	$pdf->Cell(17,5,'F. Ingreso:','LTB',0,'L',1);
+	error_log('- - - -'.$rowH[45]);
+	if ($rowH[45]=="C") {
+		$FecIni1="F. Inicio:";
+		$FecFin1="F. Fin";
+		$SQL="Select FechaIni_FAC, FechaFin_FAC from gxfacturascapita Where Codigo_FAC='".$rowH[10]."'";
+		$resultC = mysqli_query($conexion, $SQL);
+		if($rowC = mysqli_fetch_row($resultC)) {
+			$FecIni2=$rowC[0];
+			$FecFin2=$rowC[1];
+		}
+		mysqli_free_result($resultC);
+	} else {
+		$FecIni1="F. Ingreso:";
+		$FecIni2=$rowH[38];
+		$FecFin1="F. Salida";
+		$FecFin2=$rowH[39];
+	}
+	$pdf->Cell(17,5,$FecIni1,'LTB',0,'L',1);
 	$pdf->SetFont('Arial','',9);
-	$pdf->Cell(18,5,FormatoFecha($rowH[38]),'BTR',0,'L',1);	
+	$pdf->Cell(18,5,FormatoFecha($FecIni2),'BTR',0,'L',1);	
 	$pdf->SetFont('Arial','B',9);
-	$pdf->Cell(15,5,'F. Salida:','LTB',0,'L',1);
+	$pdf->Cell(15,5,$FecFin1,'LTB',0,'L',1);
 	$pdf->SetFont('Arial','',9);
-	$pdf->Cell(0,5,FormatoFecha($rowH[39]),'BTR',0,'L',1);	
+	$pdf->Cell(0,5,FormatoFecha($FecFin2),'BTR',0,'L',1);	
 	$pdf->Ln();
 
 	$pdf->SetY(35);
@@ -401,7 +418,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$pdf->Ln();
 		// Agrupacion por Orden de Servicio
 		$descorden="";
-		if ($row[3] =="CAPITA") {
+		if ($row[3] =="CUENTA CAPITADA") {
 			$descorden="Nombre_SER";
 		} else {
 			$descorden="left(Nombre_SER, 60)";
@@ -427,6 +444,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 			}
 			$pdf->SetFont('Arial','',8);
 			if ($rowX[7]=="00") {
+				
 				$ElY=$pdf->GetY();
 				$pdf->MultiCell(135,4,utf8_decode($rowX[0]),0,'L',0);
 				$ElY2=$pdf->GetY();
