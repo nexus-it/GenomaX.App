@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> <?php echo $_SESSION["VERSION_CONTROL"]; ?>
     </div>
-    <strong>  Powered By: <a href="https://nexus-it.co">Nexus-IT.co</a>.</strong> &copy;
+    <strong> Powered By: <a href="https://nexus-it.co">Nexus-IT.co</a>.</strong> &copy;
   </footer>
 
 <aside class="control-sidebar control-sidebar-dark">

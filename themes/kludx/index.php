@@ -17,6 +17,7 @@ if (isset($_GET["nxsdb"])){
 </body>
 <script type="text/javascript" src="themes/kludx/js/kludx_functions.js"></script>
 <?php 
-// LoadFoot($version);
+	KargarHead($version);
+	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/plugins.php';
 ?> 
 </html>

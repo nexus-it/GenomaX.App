@@ -119,7 +119,6 @@ function KargarHead($ver)
 ';
 	listar_directorios_ruta("settings/css/", $ver);
 	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/css/", $ver);
-	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/js/", $ver);
 	echo '
 
 <script src="functions/js/browser.js?v='.$ver.'"></script>
@@ -236,7 +235,12 @@ document.getElementByClass("highcharts-credits").style.display = "none";
 </html>
 ';
 }
-
+function KargarFoot($ver)
+{
+	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/js/", $ver);
+	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/footer.php';
+}
+	
 function CargarFoot($ver)
 {
 	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/footer.php';

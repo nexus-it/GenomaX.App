@@ -404,9 +404,16 @@ function nxsCotiza()
 	val=document.getElementById('cmb_plan').value;
 	mod=document.getElementById('cmb_modalidad').value;     	
 	
-    url= 'plugins/klcotizador/klcalcular.php?nxsplan='+val+'&nxsdias='+dias+'&nxsmod='+mod;
+    url= 'plugins/klcotizador/klcalcular.php';
+    data = {nxsplan:val,nxsdias:dias,nxsmod:mod};
     console.log(url);
-    fetch(url)
+    fetch(url, {
+        method: 'POST',
+        body: 'nxsplan='+val+'&nxsdias='+dias+'&nxsmod='+mod,
+        headers: 
+        {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }})
         .then(response => response.text())
         .then(commits =>{
         	document.getElementById('valorCotiza').innerHTML='U$ '+commits;
