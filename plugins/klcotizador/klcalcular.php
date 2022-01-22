@@ -9,6 +9,6 @@ session_start();
 	$resultx = mysqli_query($conexion, $SQL);
     while ($rowx = mysqli_fetch_array($resultx)) {
     	echo $rowx[0];
-    }
+    } 
     mysqli_free_result($resultx);
 ?>

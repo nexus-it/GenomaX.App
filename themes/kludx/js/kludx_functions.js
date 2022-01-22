@@ -5,23 +5,12 @@ var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
 var Menu="themes/kludx/menu.php";
 
-var Modal_Msg = '<div class="modal fade" id="msgbox1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div class="modal-dialog" id="NXS_ModMsgBox"> <div class="modal-content"> <div class="modal-header" id="NXS_TitMsgBox"> <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body" id="bodyMsgBox"> <div class="spinner-grow" role="status"> <span class="visually-hidden">Cargando...</span> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button> </div> </div> </div> </div>';
-/*
-var Modal_Msg = '<div class="modal fade" id="msgbox1">
-<div class="modal-dialog" id="NXS_ModMsgBox">
-  <div class="modal-content panel-success">
-    <div class="modal-header panel-heading bg-success" id="NXS_TitMsgBox">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-      <h4 class="modal-title"><span class="label label-warning"><span class="glyphicon glyphicon-alert"></span></span> <span id="titleMsgBox" class="label label-success">GenomaX</span></h4>
-    </div>
-    <div class="modal-body" id="bodyMsgBox">
-      <div class="cargando"></div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-    </div>
-  </div></div></div>';
-  */
+var Modals = '<div class="modal fade" id="GnmX_WinModal"><div class="modal-dialog modal-lg" id="GnmX_ModWind" style="width: 94%;">  <div class="modal-content panel-success row">    <div class="modal-header panel-heading" id="GnmX_TitWind">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>          </div>  </div></div></div><div class="modal fade" id="GnmX_WinModal2"><div class="modal-dialog modal-lg" id="GnmX_ModWind2" style="width: 90%;">  <div class="modal-content panel-success row">    <div class="modal-header panel-heading" id="GnmX_TitWind2">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal2"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind2">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button></div>  </div></div></div>';
+var modal_Pass = '<div class="modal fade" id="GnmX_ChngPass"><div class="modal-dialog" id="GnmX_ModChngPass"> <div class="modal-content panel-success" id="ChngPassX">    <div class="modal-header panel-heading" id="GnmX_TitChngPass">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span class="glyphicon glyphicon-user"></span> Cambio de Clave <span id="idChngPass">&hellip;</span></h4>    </div>    <div class="modal-body" id="bodyChngPass">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>      <button type="button" class="btn btn-primary" onclick="javascript:PassCoDe();" data-dismiss="modal">Actualizar</button>    </div>  </div></div></div>';
+var Modal_Search = '<div class="modal fade" id="GnmX_Search" style="z-index: 1100;"><div class="modal-dialog" id="GnmX_ModSearch">  <div class="modal-content panel-success">    <div class="modal-header panel-heading" id="GnmX_TitSearch">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> Buscar <span id="idSearch">&hellip;</span></h4>    </div>    <div class="modal-body" id="bodySearch">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>      <button type="button" class="btn btn-primary" onclick="javascript:AcceptOk(\'txt_selSearch\',document.getElementById(\'hdn_TargetNxs\').value);" data-dismiss="modal">Seleccionar</button>    </div>  </div></div></div>';
+var Modal_Msg = '<div class="modal fade" id="msgbox1" tabindex="-1" aria-labelledby="ModalMsg" aria-hidden="true"> <div class="modal-dialog" id="NXS_ModMsgBox"> <div class="modal-content"> <div class="modal-header" id="NXS_TitMsgBox"> <h5 class="modal-title" id="ModalMsg">Modal title</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body" id="bodyMsgBox"> <div class="spinner-grow" role="status"> <span class="visually-hidden">Cargando...</span> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button> </div> </div> </div> </div>';
+var Modal_Meet = '<div class="modal fade" id="GnmX_NXSMeet">  <div class="modal-dialog modal-lg" id="GnmX_ModMeet" style="width: 55%;">    <div class="modal-content panel-success row">      <div class="modal-header panel-heading" id="GnmX_TitMeet">        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        <h4 class="modal-title"><span id="idWindNXSMeet"> <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> <b>NEXUS.<em>Meet</em></b> <small>[Video Conferencias Seguras]</small></span></h4>      </div>      <div class="modal-body col-md-12" id="bodyMeet">       </div>      <div class="modal-footer">       <button type="button" class="btn btn-warning " data-bs-dismiss="modal">Salir <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> </button> </div></div></div></div>';
+
 (function(){
     function init(){
         loadElements();
@@ -39,6 +28,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         showUsrOpts("0");
         loadMenuOpts();
         loadBoxes();
+        updtdashboard();
     }
     function loadDataFetch(obj, url, params) {
         url=url+'?'+params;
@@ -66,9 +56,9 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var imgpnl = createDivs('imgpnl');
         var infpnl = createDivs('infpnl');
         var usroptsep = createDivs('usroptsep');
-        var usroptli = '<li class="manito"><a id="mnuvideomeet" name="mnuvideomeet" title="Video Conferencias Seguras" data-toggle="modal" data-target="#GnmX_NXSMeet"> <i class="fas fa-video text-black-50"></i> <span><b>NE<em>X</em>US.<em>Meet</em></b></span> </a></li>        <li class="manito"><a id="mnuchangepass" name="mnuchangepass"><i class="fa fa-key text-warning"></i> <span>Cambio de Clave</span></a></li>        <li class="manito"><a id="mnuaboutapp" name="mnuaboutapp"><i class="fa fa-play-circle text-success"></i> <span>Acerca de...</span></a></li>        <li class="manito"><a id="mnulogout" name="mnulogout" ><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
+        var usroptli = '<li class="manito"><a id="mnuvideomeet" name="mnuvideomeet" title="Video Conferencias Seguras" data-bs-toggle="modal" data-bs-target="#GnmX_NXSMeet"> <i class="fas fa-video text-black-50"></i> <span><b>NE<em>X</em>US.<em>Meet</em></b></span> </a></li>        <li class="manito"><a id="mnuchangepass" name="mnuchangepass" data-bs-toggle="modal" data-bs-target="#GnmX_ChngPass"><i class="fa fa-key text-warning"></i> <span>Cambio de Clave</span></a></li>        <li class="manito"><a id="mnuaboutapp" name="mnuaboutapp"><i class="fa fa-play-circle text-success"></i> <span>Acerca de...</span></a></li>        <li class="manito"><a id="mnulogout" name="mnulogout" ><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
 
-        document.getElementById('bdy_kludx').innerHTML = cover+nxs;
+        document.getElementById('bdy_kludx').innerHTML = cover+nxs+Modals+Modal_Search+Modal_Msg+modal_Pass+Modal_Meet;
         document.getElementById('kld_nexus').innerHTML = menu+dashboard;
         document.getElementById('kld_top').classList.add('cover_lazy'); 
         // document.getElementById('kld_top').innerHTML = "";
@@ -84,7 +74,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('usroptsep').classList.add('alert');
         document.getElementById('usroptsep').classList.add('alert-secondary');
         document.getElementById('usroptsep').classList.add('titmnu');
-        document.getElementById('usroptsep').innerHTML = '- '.repeat(24);
+        document.getElementById('usroptsep').innerHTML = '- '.repeat(21);
         document.getElementById('imgpnl').classList.add('d-flex');
         document.getElementById('imgpnl').classList.add('justify-content-center');
     }
@@ -111,7 +101,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var nxs_sidetabs = createDivs('nxs_sidetabs');
         var nxs_sectionsearch = createDivs('nxs_sectionsearch');
         var Window_0 = createDivs('Window_0');
-        document.getElementById('kld_container').innerHTML = nxs_alert+nxs_tabcontent+nxs_sidesearch+Modal_Msg;
+        document.getElementById('kld_container').innerHTML = nxs_alert+nxs_tabcontent+nxs_sidesearch;
         document.getElementById('nxs_sidesearch').innerHTML = nxs_sectionsearch+nxs_sidetabs;
         document.getElementById('nxs_alert').classList.add('alert');
         document.getElementById('nxs_alert').classList.add('alert-warning');
@@ -126,7 +116,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('Window_0').classList.add('active');
         document.getElementById('Window_0').setAttribute("role", "tabpanel");
         document.getElementById('Window_0').setAttribute("aria-labelledby", "home-tab");
-        document.getElementById('nxs_sidetabs').innerHTML = '<ul id="gxtabs" class="row"> <li role="presentation" id="gxt0" class=""> <a href="#Window_0" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="false"><div class="col-md-12"> Dashboard </div></a> </li> </ul>';
+        document.getElementById('nxs_sidetabs').innerHTML = '<ul id="gxtabs" class="row nav flex-column nav-tabs" role="tablist"> <li role="presentation" id="gxt0" class="nav-item"> <button type="button" aria-controls="Window_0" data-bs-target="#Window_0"  role="tab" data-bs-toggle="tab" aria-selected="true" id="gxta0"> Dashboard </button> </li> </ul>';
 
     }
     function loadInfoDash() {
@@ -147,13 +137,13 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('row2kld').classList.add('row');
         document.getElementById('row1kld').innerHTML = col11kld+col12kld+col13kld+col14kld;
         document.getElementById('col11kld').classList.add('col-lg-3');
-        document.getElementById('col11kld').classList.add('col-sm-6');
+        document.getElementById('col11kld').classList.add('col-6');
         document.getElementById('col12kld').classList.add('col-lg-3');
-        document.getElementById('col12kld').classList.add('col-sm-6');
+        document.getElementById('col12kld').classList.add('col-6');
         document.getElementById('col13kld').classList.add('col-lg-3');
-        document.getElementById('col13kld').classList.add('col-sm-6');
+        document.getElementById('col13kld').classList.add('col-6');
         document.getElementById('col14kld').classList.add('col-lg-3');
-        document.getElementById('col14kld').classList.add('col-sm-6');
+        document.getElementById('col14kld').classList.add('col-6');
         var card1kld = createDivs('card1kld');
         var card2kld = createDivs('card2kld');
         var card3kld = createDivs('card3kld');
@@ -176,20 +166,12 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('card4kld').innerHTML = cardbd4kld;
         document.getElementById('cardbd1kld').classList.add('card-body');
         document.getElementById('cardbd1kld').classList.add('small-box');
-        document.getElementById('cardbd1kld').classList.add('bg-info');
-        document.getElementById('cardbd1kld').classList.add('text-white');
         document.getElementById('cardbd2kld').classList.add('card-body');
         document.getElementById('cardbd2kld').classList.add('small-box');
-        document.getElementById('cardbd2kld').classList.add('bg-success');
-        document.getElementById('cardbd2kld').classList.add('text-white');
         document.getElementById('cardbd3kld').classList.add('card-body');
         document.getElementById('cardbd3kld').classList.add('small-box');
-        document.getElementById('cardbd3kld').classList.add('bg-warning');
-        document.getElementById('cardbd3kld').classList.add('text-white');
         document.getElementById('cardbd4kld').classList.add('card-body');
         document.getElementById('cardbd4kld').classList.add('small-box');
-        document.getElementById('cardbd4kld').classList.add('bg-danger');
-        document.getElementById('cardbd4kld').classList.add('text-white');
         var cardinnerkld1 = createDivs('cardinnerkld1');
         var cardinnerkld3 = createDivs('cardinnerkld3');
         var cardinnerkld4 = createDivs('cardinnerkld4');
@@ -198,10 +180,14 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         var cardiconkld2 = createDivs('cardiconkld2');
         var cardiconkld3 = createDivs('cardiconkld3');
         var cardiconkld4 = createDivs('cardiconkld4');
-        document.getElementById('cardbd1kld').innerHTML = cardinnerkld1+cardiconkld1;
-        document.getElementById('cardbd2kld').innerHTML = cardinnerkld2+cardiconkld2;
-        document.getElementById('cardbd3kld').innerHTML = cardinnerkld3+cardiconkld3;
-        document.getElementById('cardbd4kld').innerHTML = cardinnerkld4+cardiconkld4;
+        var cardbuttonkld1 = createDivs('cardbuttonkld1');
+        var cardbuttonkld2 = createDivs('cardbuttonkld2');
+        var cardbuttonkld3 = createDivs('cardbuttonkld3');
+        var cardbuttonkld4 = createDivs('cardbuttonkld4');
+        document.getElementById('cardbd1kld').innerHTML = cardinnerkld1+cardiconkld1+cardbuttonkld1;
+        document.getElementById('cardbd2kld').innerHTML = cardinnerkld2+cardiconkld2+cardbuttonkld2;
+        document.getElementById('cardbd3kld').innerHTML = cardinnerkld3+cardiconkld3+cardbuttonkld3;
+        document.getElementById('cardbd4kld').innerHTML = cardinnerkld4+cardiconkld4+cardbuttonkld4;
         document.getElementById('cardinnerkld1').classList.add('inner');
         document.getElementById('cardinnerkld2').classList.add('inner');
         document.getElementById('cardinnerkld3').classList.add('inner');
@@ -210,6 +196,10 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('cardiconkld2').classList.add('icon');
         document.getElementById('cardiconkld3').classList.add('icon');
         document.getElementById('cardiconkld4').classList.add('icon');
+        document.getElementById('cardbuttonkld1').classList.add('crdbutton');
+        document.getElementById('cardbuttonkld2').classList.add('crdbutton');
+        document.getElementById('cardbuttonkld3').classList.add('crdbutton');
+        document.getElementById('cardbuttonkld4').classList.add('crdbutton');
         var cardwaiting = '<div class="spinner-grow text-light" role="status"> <span class="visually-hidden">Loading...</span> </div> <p class="card-text placeholder-glow"> <span class="placeholder col-12 bg-light"></span> </p>';
         document.getElementById('cardinnerkld1').innerHTML = cardwaiting;
         document.getElementById('cardinnerkld2').innerHTML = cardwaiting;
@@ -230,11 +220,14 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('boxDistPln').classList.add('box');
         document.getElementById('boxDestCli').classList.add('box');
         document.getElementById('boxVentas').classList.add('box');
-        document.getElementById('cardiconkld1').innerHTML = '<i class="fa fa-calculator"></i>';
-        document.getElementById('cardiconkld2').innerHTML = '<i class="fa fa-plane"></i>';
-        document.getElementById('cardiconkld3').innerHTML = '<i class="fa fa-chart-pie"></i>';
-        document.getElementById('cardiconkld4').innerHTML = '<i class="fa fa-chart-area"></i>';
-
+        document.getElementById('cardiconkld1').innerHTML = '<i class="fas fa-search-dollar"></i>';
+        document.getElementById('cardiconkld2').innerHTML = '<i class="fas fa-hourglass-half"></i>';
+        document.getElementById('cardiconkld3').innerHTML = '<i class="fas fa-globe"></i>';
+        document.getElementById('cardiconkld4').innerHTML = '<i class="fab fa-algolia"></i>';
+        document.getElementById('cardbuttonkld1').innerHTML = '<button type="button" class="btn btn-light btn-sm">TRM del día</button>';
+        document.getElementById('cardbuttonkld2').innerHTML = '<button type="button" class="btn btn-light btn-sm">StandBy por vencer</button>';
+        document.getElementById('cardbuttonkld3').innerHTML = '<button type="button" class="btn btn-light btn-sm">Pólizas vigentes</button>';
+        document.getElementById('cardbuttonkld4').innerHTML = '<button type="button" class="btn btn-light btn-sm">Pólizas por vencer</button>';
     }
     function loadUserOpts() {
         var divData = createDivs('usr_dataopts');
@@ -253,7 +246,7 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         document.getElementById('usr_nameopts').classList.add('justify-content-center');
         document.getElementById('usr_roleopts').classList.add('d-flex');
         document.getElementById('usr_roleopts').classList.add('justify-content-center');
-        document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="files/logosadinca.jpg" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
+        document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="themes/kludx/logoAxis.jpg" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
         document.getElementById('usr_passopts').innerHTML = '<button id="btn_passusr" name="btn_passusr" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#GnmX_ChngPass">Cambio Clave</button>';
         document.getElementById('usr_sessionopts').innerHTML = '<button id="btn_sessionusr" name="btn_sessionusr" type="button" class="btn btn-light">Cerrar Sesión</button>';
     }
@@ -330,9 +323,9 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         loadDataFetch('boxDestCli', Funciones, 'Func=kldestclientes');
         loadDataFetch('boxVentas', Funciones, 'Func=klrepventas');
         loadDataFetch('cardinnerkld1', Funciones, 'Func=kltrm');
-        loadDataFetch('cardinnerkld2', Funciones, 'Func=klpolvig');
-        loadDataFetch('cardinnerkld3', Funciones, 'Func=klcotact');
-        loadDataFetch('cardinnerkld4', Funciones, 'Func=klpolanul');
+        loadDataFetch('cardinnerkld2', Funciones, 'Func=klstndbyfin');
+        loadDataFetch('cardinnerkld3', Funciones, 'Func=klpolizassi');
+        loadDataFetch('cardinnerkld4', Funciones, 'Func=klpolizasfin');
     }
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
@@ -363,6 +356,10 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         passusr.onclick = function() {
             loadChngPass();
         }
+        var passusrx = document.getElementById("mnuchangepass");
+        passusrx.onclick = function() {
+            loadChngPass();
+        }
         var sessionusr = document.getElementById("btn_sessionusr");
         sessionusr.onclick = function() {
             sessionClose();
@@ -371,14 +368,12 @@ var Modal_Msg = '<div class="modal fade" id="msgbox1">
         sessionusr2.onclick = function() {
             sessionClose();
         }
-        
     }
     function locateTop() {
         setTimeout(function(){
             document.getElementById('kld_top').classList.remove('cover_lazy');
             document.getElementById('kld_top').classList.add('top_bar');
         }, 600);
-         
     }
 
     init();
@@ -430,3 +425,70 @@ function nxsNewCotiza()
 	CargarForm('application/forms/klcotizaciones.php', 'Nueva Cotizacion', 'reseller_account_template.png')
 }
 
+function updtdashboard()
+{
+    setTimeout(function(){
+        LoadTopTenDestiny();
+    }, 1100);
+    setTimeout(function(){
+        LoadTopPlanes();
+    }, 1300);
+    setTimeout(function(){
+        LoadMesesVentas();
+    }, 1250);
+    /* setTimeout(function(){
+        //Loadnxswdgcotiza();
+        loadDataFetch('nxswdgcotiza', Funciones, 'Func=klwdgcotiza');
+        Loadnxswdgpoliza();
+        Loadnxswdgcotizano();
+        Loadnxswdgpolizano();
+    }, 1200); */
+}
+
+function Loadnxswdgcotiza()
+{
+    $.ajax({
+        type: "POST",
+        url: 'plugins/kldashboard/klwdgcotiza.php',
+        data: 'tipo=1',
+        success: function(resp){
+            $('#nxswdgcotiza').html(resp);
+        }
+    });
+}
+
+function Loadnxswdgpoliza()
+{
+    $.ajax({
+        type: "POST",
+        url: 'plugins/kldashboard/klwdgpoliza.php',
+        data: 'tipo=1',
+        success: function(resp){
+            $('#nxswdgpoliza').html(resp);
+        }
+    });
+}
+
+function Loadnxswdgcotizano()
+{
+    $.ajax({
+        type: "POST",
+        url: 'plugins/kldashboard/klwdgcotizano.php',
+        data: 'tipo=1',
+        success: function(resp){
+            $('#nxswdgcotizano').html(resp);
+        }
+    });
+}
+
+function Loadnxswdgpolizano()
+{
+    $.ajax({
+        type: "POST",
+        url: 'plugins/kldashboard/klwdgpolizano.php',
+        data: 'tipo=1',
+        success: function(resp){
+            $('#nxswdgpolizano').html(resp);
+        }
+    });
+}

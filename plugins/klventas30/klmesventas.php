@@ -26,7 +26,6 @@ session_start();
     mysqli_free_result($result0);
 echo '
 
-LoadMesesVentas();
 
 function LoadMesesVentas()
 {
@@ -39,7 +38,7 @@ function LoadMesesVentas()
     title: {
         text: \'Ventas últimos 6 meses \',
         style: {
-            color: \'#729d3b\',
+            color: \'#3f5b9c\',
             fontWeight: \'bold\',
             fontSize: \'15px\'
         }

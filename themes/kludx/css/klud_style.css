@@ -275,7 +275,7 @@
 	.foto_perfil {
 	height: 122px;
 	width: 97px;
-	border: 3px double #668e33;
+	border: 3px double #3f5b9c; 
 	clear: both;
 	background-color: #EFEFEF;
 	text-align: center;
@@ -289,7 +289,7 @@
 	float: left;
 	height: 90px;
 	width: 140px;
-	border: 3px double #668e33;
+	border: 3px double #3f5b9c;
 	clear: both;
 	background-color: #EFEFEF;
 	text-align: center;
@@ -300,7 +300,7 @@
 	background-image: url(../../settings/images/firma0.png);
 	}
 	.capturafirma canvas{
-	border: 2px ridge #668e33;		
+	border: 2px ridge #3f5b9c;		
 	}
 	.addfav {
 	font-family: "Courier New", Courier, monospace;
@@ -557,7 +557,7 @@
 	border-right-style: solid;
 	border-bottom-style: solid;
 	border-left-style: solid;
-	border-color: #7dc523;
+	border-color: #3f5b9c;
 	border-width: 1px;
 	height: 160px;
 	width: 100%;
@@ -607,7 +607,7 @@
 	}
 	.tblDetalle tr th{
 	text-align: center;
-	background-color: #7dc523;
+	background-color: #3f5b9c;
 	color: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -724,7 +724,7 @@
 		color: #E7EAFD;
 	}
 	#Show_menu:hover {
-		border-color: #0B890B;
+		border-color: #3f5b9c;
 		background-color: #525A67;
 		color: #E7EAFD;
 	}
@@ -961,7 +961,7 @@
 		position: absolute;
 		right: 25px;
 		top: 15px;
-		color: #619567;
+		color: #3f5b9c;
 		cursor: pointer;
 	}
 	.icoMenu {
@@ -1174,7 +1174,7 @@
 	}
 	input[type=text], input[type=number], input[type=email], input[type=url], input[type=range] {
 	font-size: 14px;
-	color: #729d3b;
+	color: #3f5b9c;
 	font-family: Arial, Helvetica, sans-serif;
 	text-transform: uppercase;
 	outline:none;
@@ -1195,8 +1195,8 @@
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border: 1px solid #729d3b;
-	color: #729d3b;
+	border: 1px solid #3f5b9c;
+	color: #3f5b9c;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	background-color: #fefefe;
@@ -1213,7 +1213,7 @@
     -moz-box-shadow: 0 0 10px #aaa;
 	}
 	input[type=password] {
-		color: #729d3b;
+		color: #3f5b9c;
 		font-family: Verdana, Geneva, sans-serif;
 		font-size: 14px;
 		transition: all 0.75s ease-in-out;
@@ -1224,8 +1224,8 @@
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border: 1px solid #729d3b;
-	color: #729d3b;
+	border: 1px solid #3f5b9c;
+	color: #3f5b9c;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 14px;
 	background-color: #fefefe;
@@ -1237,7 +1237,7 @@
 	margin-bottom: 3px;
 	}
 	input[type=radio] { 
-	color: #729d3b;
+	color: #3f5b9c;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	}
@@ -1305,14 +1305,14 @@
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	color: #C60;
-	border: 1px dotted #009A66;
+	border: 1px dotted #3f5b9c;
 	cursor: pointer;
 	background-color: #EFEFEF;
 	}
 	.czMenu{
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 11px;
-	color: #009A66;
+	color: #3f5b9c;
 	background-color: #FEFEFE;
 	background-repeat: repeat-x;
 	border: 2px double #9CC;
@@ -1357,7 +1357,7 @@
 	overflow: auto;
 	height: 150px;
 	width: 99%;
-	border: 1px dotted #009A66;
+	border: 1px dotted #3f5b9c;
 	margin-top: 9px;
 	background-attachment: fixed;
 	background-image: url(images/aquamark.png);
@@ -1404,7 +1404,7 @@
 	font-weight: bold;
 	}
 	.tabledetrow:hover{
-	color: #449d44;
+	color: #3f5b9c;
 	background-color: #EBEBEB;
 	font-style: italic;
 	cursor: pointer;
@@ -1606,7 +1606,7 @@
 
 .form-control {
 	font-size: 14px;
-	color: #729d3b;
+	color: #3b1b77;
 }
 
 .checkbox {
@@ -1720,8 +1720,8 @@
 
 .checkbox-success input[type="checkbox"]:checked + label::before,
 .checkbox-success input[type="radio"]:checked + label::before {
-  background-color: #5cb85c;
-  border-color: #5cb85c;
+  background-color: #3f5b9c;
+  border-color: #3f5b9c;
 }
 .checkbox-success input[type="checkbox"]:checked + label::after,
 .checkbox-success input[type="radio"]:checked + label::after {
@@ -1838,13 +1838,13 @@
 }
 
 .radio-success input[type="radio"] + label::after {
-  background-color: #5cb85c;
+  background-color: #3f5b9c;
 }
 .radio-success input[type="radio"]:checked + label::before {
-  border-color: #5cb85c;
+  border-color: #3f5b9c;
 }
 .radio-success input[type="radio"]:checked + label::after {
-  background-color: #5cb85c;
+  background-color: #3f5b9c;
 }
 
 input[type="checkbox"].styled:checked + label:after,

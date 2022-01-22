@@ -26,7 +26,7 @@ session_start();
     mysqli_free_result($result0);
 echo '
 
-LoadTopTenDestiny();
+
 
 function LoadTopTenDestiny()
 {
@@ -36,13 +36,13 @@ function LoadTopTenDestiny()
   },
   title: {
     style: {
-            color: \'#729d3b\',
+            color: \'#3f5b9c\',
             fontWeight: \'bold\',
             fontSize: \'15px\'
         },
     text: \'Distribución Destinos Actuales\'
   },
-  colors: [\'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\', \'#7dc423\'],
+  colors: [\'#6c3d9f\', \'#62449f\', \'#5a499e\', \'#584b9e\', \'#4b539d\', \'#3f5b9c\', \'#30659b\', \'#216f9a\', \'#16779a\', \'#0c7d99\'],
   xAxis: {
     categories: ['.$kategoriex.'],
     title: {

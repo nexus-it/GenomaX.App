@@ -809,12 +809,14 @@ function EliminarFilaPER<?php echo $NumWindow; ?>(Numero) {
 		autoclose: true
 	});
 
-    $("input[type=text]").addClass("form-control");
-    $("input[type=date]").addClass("form-control");
-    $("input[type=number]").addClass("form-control");
+ 	$("input[type=text]").addClass("form-control");
     $("input[type=password]").addClass("form-control");
 	$("textarea").addClass("form-control");
-	$("select").addClass("form-control");
+	$("select").addClass("form-select");
+	$("input[type=time]").addClass("form-control");
+	$("input[type=date]").addClass("form-control");
+	$("input[type=checkbox]").addClass("form-check-input");
+	$("input[type=radio]").addClass("form-check-input");
 
     $("input[type=text]").addClass("hc_<?php echo $NumWindow; ?>");
     $("input[type=password]").addClass("hc_<?php echo $NumWindow; ?>");

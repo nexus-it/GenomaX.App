@@ -27,6 +27,20 @@ case 'logoAxisKlud':
 	$html='<img src="themes/kludx/logoAxis.jpg" class="img-fluid rounded-circle" alt="User Image" >';
 	echo $html;
 break;
+case 'klwdgcotiza':
+	if ($_SESSION["it_CodigoPRF"]=="0") {
+		$SQL="SELECT COUNT(*) FROM klcotizaciones a WHERE NOW() <= a.FechaIni_CTZ AND a.Estado_CTZ='1' and a.Codigo_CTZ NOT IN ( SELECT b.Codigo_CTZ FROM klemisiones b WHERE b.Estado_EMI<>'A')";
+	} else {
+		$SQL="SELECT COUNT(*) FROM klcotizaciones a WHERE NOW() <= a.FechaIni_CTZ AND a.Estado_CTZ='1' AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND a.Codigo_CTZ NOT IN ( SELECT b.Codigo_CTZ FROM klemisiones b WHERE b.Estado_EMI<>'A')";
+	}
+    $result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+    	$html= $row[0];
+    }
+    mysqli_free_result($result);
+	echo $html;
+break;
+
 case 'klcotizador':
 	$html='
     <div class="box-header ui-sortable-handle" style="cursor: move;">
@@ -40,7 +54,7 @@ case 'klcotizador':
 
       <div class="form-group col-md-6">
         <label for="cmb_plan" class="form-label">Plan</label>
-        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_plan" name="cmb_plan" onchange="LoadModalidades(this.value);">
+        <select class="form-select select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_plan" name="cmb_plan" onchange="LoadModalidades(this.value);">
         	<option value="0" selected="selected">-- Seleccione --</option>';
 		$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA FROM klplanes a WHERE a.Estado_PLA='1'";
         $result = mysqli_query($conexion, $SQL);
@@ -51,12 +65,12 @@ case 'klcotizador':
 		$html=$html.'</select>
       </div>
 
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-3 col-6">
         <label for="cmb_modalidad" class="form-label">Modalidad</label>
-        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_modalidad" name="cmb_modalidad"></select>
+        <select class="form-select select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_modalidad" name="cmb_modalidad"></select>
       </div>
 
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-3 col-6">
         <label class="form-label" for="dias">Días</label>
         <input type="number" min="1" max="365" class="form-control pull-right" id="dias" value="1">
       </div>
@@ -66,11 +80,11 @@ case 'klcotizador':
         <i class="fa fa-arrow-circle-right"></i></a>
       </div>
 
-      <div class="form-group col-md-2 col-xs-8">
+      <div class="form-group col-md-2 col-8">
         <h3 style="margin-top: 7;"> <span id="valorCotiza" name="valorCotiza" class="badge bg-primary"> U$ 0.00</span> </h3>
       </div>
 
-      <div class="form-group col-md-1 col-xs-4">
+      <div class="form-group col-md-1 col-4">
         <a href="javascript:nxsNewCotiza()" title="Continuar Cotización">
         	<h4 style="margin-top: 9;"> <span id="exeCotizar" name="exeCotizar" class="badge bg-primary"></span> </h4>
         </a>
@@ -90,7 +104,7 @@ case 'kldistplan':
 	  <div class="row">
 		<div class="col-md-12 col-sm-12">
 		  <div class="chart" id="pieChartPlanes" name="pieChartPlanes" style="height:330px">
-		  <div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+		  <div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>
 		  </div>
 		</div>
 	  </div>
@@ -106,7 +120,7 @@ case 'kldestclientes':
     <div class="row">
       <div class="col-md-12 col-sm-12">
         <div class="chart" id="barChartTop10" name="barChartTop10" style="height:330px">
-		<div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+		<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>
         </div>
       </div>
     </div>
@@ -122,7 +136,7 @@ case 'klrepventas':
     <div class="row">
       <div class="col-md-12 col-sm-12">
         <div class="chart" id="lineChartVentas" name="lineChartVentas" style="height:330px">
-		<div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div>
+		<div class="loadingio-spinner-pulse-k1yr7g9iihb"><div class="ldio-cm9jib51jwb"><div></div><div></div><div></div></div></div>
         </div>
       </div>
     </div>
@@ -130,16 +144,47 @@ case 'klrepventas':
 	echo $html;
 break;
 case 'kltrm':
-
+	echo '3,980.80';
 break;
-case 'klpolvig':
-
+case 'klstndbyfin':
+	if ($_SESSION["it_CodigoPRF"]=="0") {
+		$SQL="SELECT COUNT(*) FROM klemisiones a WHERE NOW() <= a.FechaStandBy_EMI AND a.Estado_EMI='S'";
+	} else {
+		$SQL="SELECT COUNT(*) FROM klemisiones a WHERE NOW() <= a.FechaStandBy_EMI AND a.Estado_EMI='S' AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' ";
+	}
+    $result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+    	$html= $row[0];
+    }
+    mysqli_free_result($result);
+	echo $html;
 break;
-case 'klcotact':
-
+case 'klpolizassi':
+	if ($_SESSION["it_CodigoPRF"]=="0") {
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+	} else {
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+	}
+    $result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+    	$html= $row[0];
+    }
+    mysqli_free_result($result);
+	echo $html;
 break;
-case 'klpolanul':
-
+case 'klpolizasfin':
+	if ($_SESSION["it_CodigoPRF"]=="0") {
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+	} else {
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+	}
+    $result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+    	$html= $row[0];
+    }
+    mysqli_free_result($result);
+	$html="87";
+	echo $html;
 break;
 case 'nxs_mailing':
 	// ($desde, $para, $titulo, $mensaje)

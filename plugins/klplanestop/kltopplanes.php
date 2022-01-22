@@ -22,7 +22,6 @@ session_start();
     mysqli_free_result($result0);
 echo '
 
-LoadTopPlanes();
 
 function LoadTopPlanes()
 {
@@ -36,7 +35,7 @@ function LoadTopPlanes()
     title: {
         text: \'Planes Clientes Actuales \',
         style: {
-            color: \'#43589d\',
+            color: \'#3f5b9c\',
             fontWeight: \'bold\',
             fontSize: \'15px\'
         }

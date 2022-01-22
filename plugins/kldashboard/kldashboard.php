@@ -9,62 +9,10 @@ session_start();
 
 
 <script>
-updtdashboard();
 
-function updtdashboard()
-{
-	Loadnxswdgcotiza();
-	Loadnxswdgpoliza();
-	Loadnxswdgcotizano();
-	Loadnxswdgpolizano();
-}
+   
 
-function Loadnxswdgcotiza()
-{
-    $.ajax({
-        type: "POST",
-        url: 'plugins/kldashboard/klwdgcotiza.php',
-        data: 'tipo=1',
-        success: function(resp){
-            $('#nxswdgcotiza').html(resp);
-        }
-    });
-}
 
-function Loadnxswdgpoliza()
-{
-    $.ajax({
-        type: "POST",
-        url: 'plugins/kldashboard/klwdgpoliza.php',
-        data: 'tipo=1',
-        success: function(resp){
-            $('#nxswdgpoliza').html(resp);
-        }
-    });
-}
 
-function Loadnxswdgcotizano()
-{
-    $.ajax({
-        type: "POST",
-        url: 'plugins/kldashboard/klwdgcotizano.php',
-        data: 'tipo=1',
-        success: function(resp){
-            $('#nxswdgcotizano').html(resp);
-        }
-    });
-}
-
-function Loadnxswdgpolizano()
-{
-    $.ajax({
-        type: "POST",
-        url: 'plugins/kldashboard/klwdgpolizano.php',
-        data: 'tipo=1',
-        success: function(resp){
-            $('#nxswdgpolizano').html(resp);
-        }
-    });
-}
 
 </script>

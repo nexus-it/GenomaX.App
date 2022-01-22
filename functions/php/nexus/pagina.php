@@ -119,13 +119,6 @@ function KargarHead($ver)
 ';
 	listar_directorios_ruta("settings/css/", $ver);
 	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/css/", $ver);
-	echo '
-
-<script src="functions/js/browser.js?v='.$ver.'"></script>
-<script src="functions/js/nexus.js?v='.$ver.'"></script>
-<script src="functions/js/validar.js?v='.$ver.'"></script>
-<script src="functions/js/highcharts.src.js?v='.$ver.'"></script>
-';
 include 'themes/'.$_SESSION["THEME_DEFAULT"].'/header.php';
 echo '
 	<title>'.$_SESSION["NOMBRE_APP"].'</title>
@@ -238,7 +231,13 @@ document.getElementByClass("highcharts-credits").style.display = "none";
 function KargarFoot($ver)
 {
 	listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/js/", $ver);
-	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/footer.php';
+	echo '
+	<script src="functions/js/browser.js?v='.$ver.'"></script>
+	<script src="functions/js/nexus.js?v='.$ver.'"></script>
+	<script src="functions/js/validar.js?v='.$ver.'"></script>
+	<script src="functions/js/highcharts.src.js?v='.$ver.'"></script>
+	';
+	
 }
 	
 function CargarFoot($ver)
