@@ -53,7 +53,7 @@ session_start();
                             <div class="input-group">
                                 <input type="text" class="form-control"  name="" placeholder=""disabled>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default" type="button"><i class="fas fa-search"></i></button>
 								</span>
 								<input class="form-control" type="text" name="" id=" <?php echo $NumWindow; ?>"disabled>
                             </div>
@@ -99,7 +99,7 @@ session_start();
 						    <label  class=""for="txt_servicio<?php echo $NumWindow; ?>">Servicio</label>
 							<div class="input-group">
 							    <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default" type="button"><i class="fas fa-search"></i></button>
                                 </span>
 						        <select class="form-control" name="" id="servicio<?php echo $NumWindow; ?>">
 								    <option value=""></option>

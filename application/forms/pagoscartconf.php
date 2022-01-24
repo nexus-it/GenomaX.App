@@ -21,7 +21,7 @@ session_start();
 			<div class="input-group" id="grp_txt_pago<?php echo $NumWindow; ?>">	
 				<input name="txt_pago<?php echo $NumWindow; ?>" id="txt_pago<?php echo $NumWindow; ?>" style="font-size:14px; text-align:center;font-weight: bold;" type="text" value="<?php echo $factura; ?>"  onblur="TraerFactura<?php echo $NumWindow; ?>();" onkeypress="BuscarFact<?php echo $NumWindow; ?>(event);" />
 				<span class="input-group-btn">	
-					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="CartFactura" onclick="javascript:CargarSearch('PagosCartera', 'txt_pago<?php echo $NumWindow; ?>', 'Estado_PGS=*1*');" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="CartFactura" onclick="javascript:CargarSearch('PagosCartera', 'txt_pago<?php echo $NumWindow; ?>', 'Estado_PGS=*1*');" ><i class="fas fa-search"></i></button>
 				</span>
 			</div>
 		</div>

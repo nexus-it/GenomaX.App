@@ -17,7 +17,7 @@ session_start();
 				<div class="input-group">	
 					<input style="font-size:15px;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required onkeypress="BuscarHCPte<?php echo $NumWindow; ?>(event);" onblur="HCPteOnBlur<?php echo $NumWindow; ?>()" />
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 					</span>
 				</div>
 				<input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>" value="0" />
@@ -244,7 +244,7 @@ session_start();
 					<div class="input-group">	
 						<input name="txt_dispositivo'.$NumWindow.'" id="txt_dispositivo'.$NumWindow.'" type="text" onkeypress="NombreDispositivo'.$NumWindow.'(event);" onblur="NombreDispOnBlur'.$NumWindow.'()" />
 						<span class="input-group-btn">	
-							<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Dispositivos" onclick="javascript:CargarSearch(\'Dispositivos\', \'txt_dispositivo'.$NumWindow.'\', \'Codigo_TAR=*\'+document.frm_form'.$NumWindow.'.hdn_tarifa'.$NumWindow.'.value+\'*\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+							<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Dispositivos" onclick="javascript:CargarSearch(\'Dispositivos\', \'txt_dispositivo'.$NumWindow.'\', \'Codigo_TAR=*\'+document.frm_form'.$NumWindow.'.hdn_tarifa'.$NumWindow.'.value+\'*\');"><i class="fas fa-search"></i></button>
 						</span>
 					</div>
 				</div>

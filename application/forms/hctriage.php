@@ -19,7 +19,7 @@
 						<div class="input-group">	
 							<input style="font-size:15px;font-weight: bold;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required onkeypress="BuscarHCPte<?php echo $NumWindow; ?>(event);" onblur="HCPteOnBlur<?php echo $NumWindow; ?>()" />
 							<span class="input-group-btn">	
-								<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+								<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 							</span>
 						</div>
 						<input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>" value="X" />
@@ -94,7 +94,7 @@
 					  	<div class="input-group">	
 					  		<input name="txt_Contrato<?php echo $NumWindow; ?>" type="text" id="txt_Contrato<?php echo $NumWindow; ?>"  onkeypress="BuscarContrato<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*')};" required />
 					  		<span class="input-group-btn">	
-					  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><i class="fas fa-search"></i></button>
 					  		</span>
 					  	</div>
 					</div>
@@ -322,7 +322,7 @@
 									<div class="input-group">	
 										<input name="txt_dxppal'.$NumWindow.'" id="txt_dxppal'.$NumWindow.'" type="text" required onblur="HCDxOnBlur'.$NumWindow.'();"/>
 										<span class="input-group-btn">	
-											<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxppal'.$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+											<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxppal'.$NumWindow.'\', \'NULL\');"><i class="fas fa-search"></i></button>
 										</span>
 									</div>
 								</div>
@@ -357,7 +357,7 @@
 											<div class="input-group">	
 												<input name="txt_dxrel1'.$NumWindow.'" id="txt_dxrel1'.$NumWindow.'" type="text" onblur="HCDxR1OnBlur'.$NumWindow.'();" />
 												<span class="input-group-btn">	
-													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel1'.$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel1'.$NumWindow.'\', \'NULL\');"><i class="fas fa-search"></i></button>
 												</span>
 											</div>
 										</div>
@@ -374,7 +374,7 @@
 											<div class="input-group">	
 												<input name="txt_dxrel2'.$NumWindow.'" id="txt_dxrel2'.$NumWindow.'" type="text" onblur="HCDxR2OnBlur'.$NumWindow.'();" />
 												<span class="input-group-btn">	
-													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel2'.$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel2'.$NumWindow.'\', \'NULL\');"><i class="fas fa-search"></i></button>
 												</span>
 											</div>
 										</div>
@@ -391,7 +391,7 @@
 											<div class="input-group">	
 												<input name="txt_dxrel3'.$NumWindow.'" id="txt_dxrel3'.$NumWindow.'" type="text" onblur="HCDxR3OnBlur'.$NumWindow.'();" />
 												<span class="input-group-btn">	
-													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel3'.$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+													<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch(\'Diagnostico\', \'txt_dxrel3'.$NumWindow.'\', \'NULL\');"><i class="fas fa-search"></i></button>
 												</span>
 											</div>
 										</div>

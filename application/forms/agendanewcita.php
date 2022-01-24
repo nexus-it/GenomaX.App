@@ -46,7 +46,7 @@ session_start();
         <div class="input-group">
         <input name="txt_codigo<?php echo $NumWindow; ?>" type="text" id="txt_codigo<?php echo $NumWindow; ?>" size="3"  onchange="NombreServicio(this.value, '<?php echo $NumWindow; ?>' );" onblur="NombreServicio(this.value, '<?php echo $NumWindow; ?>' );" />
             <span class="input-group-btn">	
-                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codigo<?php echo $NumWindow; ?>', 'Tipo_SER=*1*');" onblur="NombreServicio(document.getElementById('txt_codigo<?php echo $NumWindow; ?>')..value, '<?php echo $NumWindow; ?>' );"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codigo<?php echo $NumWindow; ?>', 'Tipo_SER=*1*');" onblur="NombreServicio(document.getElementById('txt_codigo<?php echo $NumWindow; ?>')..value, '<?php echo $NumWindow; ?>' );"><i class="fas fa-search"></i></button>
             </span>
         </div>
     </div>
@@ -142,7 +142,7 @@ session_start();
             </span>
             <input style="font-size:15px;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required  onblur="NombreTer<?php echo $NumWindow; ?>( this.value, 'gxpacientes');" />
             <span class="input-group-btn">	
-                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('Paciente', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('Paciente', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
             </span>
         </div>
         <input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>" value="X" />

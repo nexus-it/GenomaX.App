@@ -49,7 +49,7 @@ session_start();
 		<input type="hidden" name="DigitoVerif_TER<?php echo $NumWindow; ?>" id="DigitoVerif_TER<?php echo $NumWindow; ?>" />
 		<?php if($modex=='nomodal') { ?>
 		<span class="input-group-btn">
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'ID_TER<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'ID_TER<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 	<?php } ?>
 	</div>

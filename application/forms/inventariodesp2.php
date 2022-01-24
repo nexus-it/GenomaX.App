@@ -79,7 +79,7 @@ session_start();
 			<div class="input-group">	
 				<input name="txt_codmas<?php echo $NumWindow; ?>" id="txt_codmas<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodMas<?php echo $NumWindow; ?>(event);" onblur="CodMasOnBlur<?php echo $NumWindow; ?>()" />
 				<span class="input-group-btn">	
-					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmas<?php echo $NumWindow; ?>', 'Codigo_CFC=*09*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmas<?php echo $NumWindow; ?>', 'Codigo_CFC=*09*');"><i class="fas fa-search"></i></button>
 				</span>
 			</div>
 		</div>

@@ -22,7 +22,7 @@
   		</span>
   		<input required name="txt_paciente<?php echo $NumWindow; ?>" type="text" id="txt_paciente<?php echo $NumWindow; ?>" onblur="javascript:NombreTercero('<?php echo $NumWindow; ?>', this.value, 'gxpacientes');EpsPcte('<?php echo $NumWindow; ?>', this.value);" onkeypress="BuscarPte<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Paciente', 'txt_paciente<?php echo $NumWindow; ?>', 'NULL')};" style="font-size:15px; font-weight: bold; color:#0E5012; "/>
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'txt_paciente<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'txt_paciente<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div>
@@ -42,7 +42,7 @@
   	<div class="input-group">	
   		<input name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'ID_TER=*'+document.frm_form<?php echo $NumWindow; ?>.txt_paciente<?php echo $NumWindow; ?>.value+'*')};" required style="font-size:15px; font-weight: bold; color:#0E5012; "/>
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'ID_TER=*'+document.frm_form<?php echo $NumWindow; ?>.txt_paciente<?php echo $NumWindow; ?>.value+'*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'ID_TER=*'+document.frm_form<?php echo $NumWindow; ?>.txt_paciente<?php echo $NumWindow; ?>.value+'*');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div>
@@ -119,7 +119,7 @@
   	<div class="input-group">	
   		<input name="txt_Contrato<?php echo $NumWindow; ?>" type="text" id="txt_Contrato<?php echo $NumWindow; ?>"  onkeypress="BuscarContrato<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*')};" required />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div>
@@ -207,7 +207,7 @@ mysqli_free_result($result);
   <div class="input-group">	
  	 <input name="txt_diagnostico<?php echo $NumWindow; ?>" type="text" id="txt_diagnostico<?php echo $NumWindow; ?>"  onblur="HCDxOnBlur<?php echo $NumWindow; ?>();" required onkeydown="if(event.keyCode==115){CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL')};" />
   	  <span class="input-group-btn">	
-  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Diagnostico" onclick="javascript:CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Diagnostico" onclick="javascript:CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   	  </span>
   </div>
 </div>

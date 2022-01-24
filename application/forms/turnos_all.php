@@ -71,7 +71,7 @@ session_start();
 	<div class="input-group">		
 		<input name="txt_idpaciente<?php echo $NumWindow; ?>" id="txt_idpaciente<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarPte<?php echo $NumWindow; ?>(event);" style="font-size:16px; font-weight: bold; color:#0E5012; "  onblur="HCPteOnBlur<?php echo $NumWindow; ?>()"/>
 		<span class="input-group-btn">			
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="CargarSearch('Paciente', 'txt_idpaciente<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>			
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="CargarSearch('Paciente', 'txt_idpaciente<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>			
 		</span>
 	</div>
 </div>

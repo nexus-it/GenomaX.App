@@ -19,7 +19,7 @@ session_start();
   <div class="input-group">
   <input name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*I*')};" />
   	<span class="input-group-btn">
-  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*I*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*I*');"><i class="fas fa-search"></i></button>
   	</span>
   </div>		
 </div>
@@ -100,7 +100,7 @@ session_start();
   <div class="input-group">
   	<input name="txt_orden<?php echo $NumWindow; ?>" type="text" id="txt_orden<?php echo $NumWindow; ?>" size="10" maxlength="10" onkeypress="BuscarOrd<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){SearchOrd<?php echo $NumWindow; ?>(document.frm_form<?php echo $NumWindow; ?>.txt_Ingreso<?php echo $NumWindow; ?>.value)};" />
   		<span class="input-group-btn">
-  		    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:SearchOrd<?php echo $NumWindow; ?>(document.frm_form<?php echo $NumWindow; ?>.txt_Ingreso<?php echo $NumWindow; ?>.value);"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:SearchOrd<?php echo $NumWindow; ?>(document.frm_form<?php echo $NumWindow; ?>.txt_Ingreso<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
   		</span>
   </div>	
 </div>
@@ -188,7 +188,7 @@ mysqli_free_result($result);
 	<div class="input-group">
 	   <input name="txt_codigo<?php echo $NumWindow; ?>" type="text" id="txt_codigo<?php echo $NumWindow; ?>" size="3"  onkeypress="NombreServicio<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Servicios'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value, 'txt_codigo<?php echo $NumWindow; ?>', 'c.Codigo_TAR=*'+document.frm_form<?php echo $NumWindow; ?>.hdn_tarifa<?php echo $NumWindow; ?>.value+'*')};" />
 		 <span class="input-group-btn">
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Servicios" onclick="javascript:CargarSearch('Servicios'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value, 'txt_codigo<?php echo $NumWindow; ?>', 'c.Codigo_TAR=*'+document.frm_form<?php echo $NumWindow; ?>.hdn_tarifa<?php echo $NumWindow; ?>.value+'*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Servicios" onclick="javascript:CargarSearch('Servicios'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value, 'txt_codigo<?php echo $NumWindow; ?>', 'c.Codigo_TAR=*'+document.frm_form<?php echo $NumWindow; ?>.hdn_tarifa<?php echo $NumWindow; ?>.value+'*');"><i class="fas fa-search"></i></button>
 		 </span>
 	</div>
 </div>

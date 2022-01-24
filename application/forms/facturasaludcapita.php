@@ -18,7 +18,7 @@ session_start();
 	  	<div class="input-group">	
 	  		<input name="txt_Contrato<?php echo $NumWindow; ?>" type="text" id="txt_Contrato<?php echo $NumWindow; ?>" onkeypress="BuscarContrato<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*__and__TipoContrato_EPS=*CAPITA*')};" required="true"/>
 	  		<span class="input-group-btn">	
-	  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*__and__TipoContrato_EPS=*CAPITA*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_Contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*__and__TipoContrato_EPS=*CAPITA*');"><i class="fas fa-search"></i></button>
 	  		</span>
 	  	</div>
   	</div> 

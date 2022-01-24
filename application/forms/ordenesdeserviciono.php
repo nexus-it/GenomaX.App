@@ -18,7 +18,7 @@ session_start();
   <div class="input-group">
   	<input name="txt_Orden<?php echo $NumWindow; ?>" type="text" id="txt_Orden<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarOrd<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('ordenesdeservicio', 'txt_Orden<?php echo $NumWindow; ?>', 'Estado_ORD=*1*')};" />
   	  <span class="input-group-btn">	
-  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ordenesdeservicio" onclick="javascript:CargarSearch('ordenesdeservicio', 'txt_Orden<?php echo $NumWindow; ?>', 'Estado_ORD=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ordenesdeservicio" onclick="javascript:CargarSearch('ordenesdeservicio', 'txt_Orden<?php echo $NumWindow; ?>', 'Estado_ORD=*1*');"><i class="fas fa-search"></i></button>
       </span>
    </div>
 </div>

@@ -27,7 +27,7 @@ session_start();
 			<span class="input-group-addon" id="basic-addon1"><?php echo $_SESSION['Kl_Prefijo']; ?></span>
 			<input name="txt_poliza<?php echo $NumWindow; ?>" id="txt_poliza<?php echo $NumWindow; ?>" type="text" onkeypress="javascript:BuscarEMI<?php echo $NumWindow; ?>(event);" value="<?php echo $noctz; ?>"/>
 			 <span class="input-group-btn"> 		
-	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Poliza" onclick="javascript:CargarSearch('KlPoliza', 'txt_poliza<?php echo $NumWindow; ?>', 'Estado_EMI<>*A*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Poliza" onclick="javascript:CargarSearch('KlPoliza', 'txt_poliza<?php echo $NumWindow; ?>', 'Estado_EMI<>*A*');"><i class="fas fa-search"></i></button>
 			 </span>
 		</div>
 	</div>

@@ -40,7 +40,7 @@ mysqli_free_result($result);
 	<div class="input-group">	
 		<input name="txt_idagencia<?php echo $NumWindow; ?>" id="txt_idagencia<?php echo $NumWindow; ?>" type="text"  maxlength="15" onkeypress="BuscarAGE<?php echo $NumWindow; ?>(event);" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Klagencias" onclick="javascript:CargarSearch('Klagencias', 'txt_idagencia<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Klagencias" onclick="javascript:CargarSearch('Klagencias', 'txt_idagencia<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>
@@ -124,7 +124,7 @@ mysqli_free_result($resultz);
   	<div class="input-group">	
   		<input name="txt_Departamento<?php echo $NumWindow; ?>" type="text" id="txt_Departamento<?php echo $NumWindow; ?>" maxlength="2" onkeypress="BuscarDpto<?php echo $NumWindow; ?>(event);" />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   		</span>
   </div>
 </div>
@@ -145,7 +145,7 @@ mysqli_free_result($resultz);
   	<div class="input-group">	
   		<input name="txt_Municipio<?php echo $NumWindow; ?>" type="text" id="txt_Municipio<?php echo $NumWindow; ?>"  maxlength="3" onkeypress="BuscarMUN<?php echo $NumWindow; ?>(event);" />
    		<span class="input-group-btn">	
-   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
    		</span>
    </div>
 </div>
@@ -258,7 +258,7 @@ mysqli_free_result($resultz);
 	  			<div class="input-group">
 					<input name="txt_codigousr<?php echo $NumWindow; ?>" id="txt_codigousr<?php echo $NumWindow; ?>" type="text" onblur="javascript:NombreUser<?php echo $NumWindow; ?>();" />
 					 <span class="input-group-btn"> 		
-			 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('Usuarios2', 'txt_codigousr<?php echo $NumWindow; ?>', 'Activo_USR=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('Usuarios2', 'txt_codigousr<?php echo $NumWindow; ?>', 'Activo_USR=*1*');"><i class="fas fa-search"></i></button>
 					 </span>
 				</div>
 	  		</div>

@@ -25,7 +25,7 @@ if (isset($_GET["FromHC"])) {
 		<div class="input-group">	
 			<input name="Codigo_HCT<?php echo $NumWindow; ?>" id="Codigo_HCT<?php echo $NumWindow; ?>" type="text" maxlength="10" onkeypress="edithckey<?php echo $NumWindow; ?>(event);" onblur="edithc<?php echo $NumWindow; ?>()" style="text-transform: none;" />
 			<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('ModelosHC', 'Codigo_HCT<?php echo $NumWindow; ?>', 'Activo_HCT<>*X*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('ModelosHC', 'Codigo_HCT<?php echo $NumWindow; ?>', 'Activo_HCT<>*X*');"><i class="fas fa-search"></i></button>
 			</span>
 		</div>
 	</div>
@@ -177,7 +177,7 @@ if (isset($_GET["FromHC"])) {
 			  	<div class="input-group col-sm-4" style="float: left;">	
 				  <input name="Codigo_SER<?php echo $NumWindow; ?>" id="Codigo_SER<?php echo $NumWindow; ?>" type="text" maxlength="10" />
 				  <span class="input-group-btn">	
-				    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX1" onclick="javascript:CargarSearch('ServiciosX1', 'Codigo_SER<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX1" onclick="javascript:CargarSearch('ServiciosX1', 'Codigo_SER<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 				  </span>
 				</div>
 				<div class="col-sm-8" style="float: left; font-size: 8px;">

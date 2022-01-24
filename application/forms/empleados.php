@@ -50,7 +50,7 @@ session_start();
 						<div class="input-group-addon">Id.</div>
 						<input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" onblur="BuscarEmp2<?php echo $NumWindow; ?>();" />
 						<span class="input-group-btn">	
-							<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+							<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 						</span>
 					</div>
 				</div>
@@ -146,7 +146,7 @@ session_start();
 		  	<div class="input-group">	
 		  		<input name="txt_Departamento<?php echo $NumWindow; ?>" type="text" id="txt_Departamento<?php echo $NumWindow; ?>" size="2" maxlength="2" onkeypress="BuscarDpto<?php echo $NumWindow; ?>(event);" />
 		  		<span class="input-group-btn">	
-		  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		  		</span>
 		  </div>
 		</div>
@@ -163,7 +163,7 @@ session_start();
 		  	<div class="input-group">	
 		  		<input name="txt_Municipio<?php echo $NumWindow; ?>" type="text" id="txt_Municipio<?php echo $NumWindow; ?>" size="3" maxlength="3" onkeypress="BuscarMUN<?php echo $NumWindow; ?>(event);" />
 		   		<span class="input-group-btn">	
-		   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
 		   		</span>
 		   </div>
 		  
@@ -292,7 +292,7 @@ session_start();
 		  	<div class="input-group">	
 		  		<input name="txt_bonificacion<?php echo $NumWindow; ?>" type="text" id="txt_bonificacion<?php echo $NumWindow; ?>" value="0"  size="15" />
 				<span class="input-group-btn">	
-					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Salario" onclick="javascript:MostrarSalariosEmp<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Salario" onclick="javascript:MostrarSalariosEmp<?php echo $NumWindow; ?>();"><i class="fas fa-search"></i></button>
 				</span>
 			</div>
 		</div>

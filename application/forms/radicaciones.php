@@ -17,7 +17,7 @@ session_start();
  	<div class="input-group">
  		<input name="txt_radicacion<?php echo $NumWindow; ?>" type="text" id="txt_radicacion<?php echo $NumWindow; ?>"  value="0000000000"  maxlength="10" onkeypress="BuscarRad<?php echo $NumWindow; ?>(event);" style="font-size:15px; font-weight: bold; color:#0E5012; "/>
   		<span class="input-group-btn">
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="radicaciones" onclick="javascript:CargarSearch('radicaciones', 'txt_radicacion<?php echo $NumWindow; ?>', 'Estado_RAD=*1*');;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="radicaciones" onclick="javascript:CargarSearch('radicaciones', 'txt_radicacion<?php echo $NumWindow; ?>', 'Estado_RAD=*1*');;"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 	</div>	

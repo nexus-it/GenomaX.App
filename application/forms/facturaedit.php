@@ -32,7 +32,7 @@
 	<div class="input-group">
 		 <input value="" name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*')};" style="font-size:15px; font-weight: bold; color:#0E5012;" />
 		 <span class="input-group-btn"> 		
- 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="IngFacPeriodo" onclick="javascript:CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+ 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="IngFacPeriodo" onclick="javascript:CargarSearch('IngFacPeriodo', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*F*');"><i class="fas fa-search"></i></button>
 		 </span>
 	</div>
 </div>
@@ -157,7 +157,7 @@
   <div class="input-group">	
   		<input name="txt_contrato<?php echo $NumWindow; ?>" type="text" id="txt_contrato<?php echo $NumWindow; ?>"  onkeypress="BuscarContrato<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Contrato', 'txt_contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*')};" required />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_contrato<?php echo $NumWindow; ?>', 'estado_EPS=*1*');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div> 
@@ -203,7 +203,7 @@
   <div class="input-group">	
  	 <input name="txt_diagnostico<?php echo $NumWindow; ?>" type="text" id="txt_diagnostico<?php echo $NumWindow; ?>" onblur="HCDxOnBlur<?php echo $NumWindow; ?>();" required onkeydown="if(event.keyCode==115){CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL')};" />
   	  <span class="input-group-btn">	
-  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Diagnostico" onclick="javascript:CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Diagnostico" onclick="javascript:CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   	  </span>
   </div>
 </div>

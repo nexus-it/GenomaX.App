@@ -12,10 +12,10 @@
 <div class="row well well-sm">
 	<div class="col-md-2 col-sm-2">
 		<ul class="nav nav-pills nav-stacked">
-		  <li role="presentation"><a href="#ct_facturacion<?php echo $NumWindow; ?>" data-toggle="pill"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> FACTURACION</a></li>
-		  <li role="presentation"><a href="#ct_cartera<?php echo $NumWindow; ?>" data-toggle="pill"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> CARTERA</a></li>
-		  <li role="presentation"><a href="#ct_inventario<?php echo $NumWindow; ?>" data-toggle="pill"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> INVENTARIO</a></li>
-		  <li role="presentation"><a href="#ct_tesoreria<?php echo $NumWindow; ?>" data-toggle="pill"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> TESORERÍA</a></li>
+		  <li role="presentation"><a href="#ct_facturacion<?php echo $NumWindow; ?>" data-toggle="pill"><i class="fas fa-search"></i> FACTURACION</a></li>
+		  <li role="presentation"><a href="#ct_cartera<?php echo $NumWindow; ?>" data-toggle="pill"><i class="fas fa-search"></i> CARTERA</a></li>
+		  <li role="presentation"><a href="#ct_inventario<?php echo $NumWindow; ?>" data-toggle="pill"><i class="fas fa-search"></i> INVENTARIO</a></li>
+		  <li role="presentation"><a href="#ct_tesoreria<?php echo $NumWindow; ?>" data-toggle="pill"><i class="fas fa-search"></i> TESORERÍA</a></li>
 		
 			
 		</ul>

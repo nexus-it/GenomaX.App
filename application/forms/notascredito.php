@@ -38,7 +38,7 @@ session_start();
 		<div class="input-group">	
 			<input name="txt_factura<?php echo $NumWindow; ?>" id="txt_factura<?php echo $NumWindow; ?>" type="text" onkeypress="CargarFact<?php echo $NumWindow; ?>(event);" onblur="CargarFact2<?php echo $NumWindow; ?>();" style="font-size:16px; font-weight: bold; color:#0E5012; " required/>
 			<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('FacturasPre', 'txt_factura<?php echo $NumWindow; ?>', 'Estado_FAC<>*0*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('FacturasPre', 'txt_factura<?php echo $NumWindow; ?>', 'Estado_FAC<>*0*');"><i class="fas fa-search"></i></button>
 			</span>
 		</div>
 	</div>

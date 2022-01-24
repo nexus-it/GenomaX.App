@@ -29,7 +29,7 @@ session_start();
 	<div class="input-group">	
 		<input name="txt_codigo<?php echo $NumWindow; ?>" type="text" id="txt_codigo<?php echo $NumWindow; ?>" size="6" maxlength="6" onkeypress="BuscarServ<?php echo $NumWindow; ?>(event);" >
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX" onclick="javascript:CargarSearch('ServiciosX'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value, 'txt_codigo<?php echo $NumWindow; ?>', 'Tipo_SER=*'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value+'*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ServiciosX" onclick="javascript:CargarSearch('ServiciosX'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value, 'txt_codigo<?php echo $NumWindow; ?>', 'Tipo_SER=*'+document.frm_form<?php echo $NumWindow; ?>.txt_tiposervicio<?php echo $NumWindow; ?>.value+'*');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>

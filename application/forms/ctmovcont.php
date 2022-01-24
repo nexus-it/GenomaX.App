@@ -100,7 +100,7 @@ session_start();
   	<div class="input-group">	
   		<input name="txt_cuenta<?php echo $NumWindow; ?>" type="text" id="txt_cuenta<?php echo $NumWindow; ?>" required />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('PUC', '<?php echo 'txt_cuenta'.$NumWindow; ?>', 'Codigo_NVL=*5*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('PUC', '<?php echo 'txt_cuenta'.$NumWindow; ?>', 'Codigo_NVL=*5*');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div>
@@ -112,7 +112,7 @@ session_start();
   	<div class="input-group">	
   		<input name="txt_tercero<?php echo $NumWindow; ?>" type="text" id="txt_tercero<?php echo $NumWindow; ?>" required />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Tercero', '<?php echo 'txt_tercero'.$NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Tercero', '<?php echo 'txt_tercero'.$NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   		</span>
   	</div>
 </div>

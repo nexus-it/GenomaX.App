@@ -156,7 +156,7 @@ session_start();
 </div>
 </form>
 
-	<label  class="label label-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> RESOLUCIONES / AUTORIZACIONES</label>
+	<label  class="label label-success"><i class="fas fa-search"></i> RESOLUCIONES / AUTORIZACIONES</label>
 <div class="row  well well-sm">
 
 		<div class="col-md-12">

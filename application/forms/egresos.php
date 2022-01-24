@@ -17,7 +17,7 @@ session_start();
 	<div class="input-group">	
 		<input name="txt_Ingreso<?php echo $NumWindow; ?>" type="text" id="txt_Ingreso<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarIng<?php echo $NumWindow; ?>(event);" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*I*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Ingreso" onclick="javascript:CargarSearch('Ingreso', 'txt_Ingreso<?php echo $NumWindow; ?>', 'Estado_ADM=*I*');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>
@@ -38,7 +38,7 @@ session_start();
 	<div class="input-group">	
 		<input name="txt_Egreso<?php echo $NumWindow; ?>" type="text" id="txt_Egreso<?php echo $NumWindow; ?>" size="10" onkeypress="BuscarEgr<?php echo $NumWindow; ?>(event);" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Egreso" onclick="javascript:CargarSearch('Egreso', 'txt_Egreso<?php echo $NumWindow; ?>', 'Estado_EGR=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Egreso" onclick="javascript:CargarSearch('Egreso', 'txt_Egreso<?php echo $NumWindow; ?>', 'Estado_EGR=*1*');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>

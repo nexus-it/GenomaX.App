@@ -11,7 +11,7 @@
 								<div class="input-group">	
 									<input name="txt_codmquim<?php echo $NumWindow; ?>" id="txt_codmquim<?php echo $NumWindow; ?>" type="text"  onblur="CodmquimOnBlur<?php echo $NumWindow; ?>()" />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmquim<?php echo $NumWindow; ?>', '(Codigo_CFC=*12*!or!Codigo_CFC=*13*)!and!Estado_ser=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmquim<?php echo $NumWindow; ?>', '(Codigo_CFC=*12*!or!Codigo_CFC=*13*)!and!Estado_ser=*1*');"><i class="fas fa-search"></i></button>
 									</span>
 								</div>
 							</div>

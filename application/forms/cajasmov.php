@@ -56,7 +56,7 @@ session_start();
 				<div class="input-group">	
 					<input name="txt_idcaja<?php echo $NumWindow; ?>" id="txt_idcaja<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCaja<?php echo $NumWindow; ?>(event);" onblur="BuscarCaja2<?php echo $NumWindow; ?>();" />
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Caja', 'txt_idcaja<?php echo $NumWindow; ?>', 'Abierta_CJA=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Caja', 'txt_idcaja<?php echo $NumWindow; ?>', 'Abierta_CJA=*1*');"><i class="fas fa-search"></i></button>
 					</span>
 				</div>
 			</div>
@@ -97,7 +97,7 @@ session_start();
 				<div class="input-group">	
 					<input name="txt_ingreso<?php echo $NumWindow; ?>" id="txt_ingreso<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarIngreso<?php echo $NumWindow; ?>(event);" onblur="BuscarIngreso2<?php echo $NumWindow; ?>();" />
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Ingreso', 'txt_ingreso<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Ingreso', 'txt_ingreso<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 					</span>
 				</div>
 			</div>
@@ -114,7 +114,7 @@ session_start();
 				<div class="input-group">	
 					<input name="txt_paciente<?php echo $NumWindow; ?>" id="txt_paciente<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarPte<?php echo $NumWindow; ?>(event);" onblur="BuscarPte2<?php echo $NumWindow; ?>();" />
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Tercero', 'txt_paciente<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Tercero', 'txt_paciente<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 					</span>
 
 				</div>

@@ -33,7 +33,7 @@ mysqli_free_result($result);
 	<div class="input-group">	
 		<input name="txt_idproveedor<?php echo $NumWindow; ?>" id="txt_idproveedor<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Proveedor" onclick="javascript:CargarSearch('Proveedor', 'txt_idproveedor<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Proveedor" onclick="javascript:CargarSearch('Proveedor', 'txt_idproveedor<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>
@@ -108,7 +108,7 @@ mysqli_free_result($resultz);
   	<div class="input-group">	
   		<input name="txt_Departamento<?php echo $NumWindow; ?>" type="text" id="txt_Departamento<?php echo $NumWindow; ?>" size="2" maxlength="2" onkeypress="BuscarDpto<?php echo $NumWindow; ?>(event);" />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   		</span>
   </div>
   <input name="txt_NombreDepto<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreDepto<?php echo $NumWindow; ?>" size="12"/>
@@ -119,7 +119,7 @@ mysqli_free_result($resultz);
   	<div class="input-group">	
   		<input name="txt_Municipio<?php echo $NumWindow; ?>" type="text" id="txt_Municipio<?php echo $NumWindow; ?>" size="3" maxlength="3" onkeypress="BuscarMUN<?php echo $NumWindow; ?>(event);" />
    		<span class="input-group-btn">	
-   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
    		</span>
    </div>
   <input name="txt_NombreMnpio<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreMnpio<?php echo $NumWindow; ?>" size="12"/><br />

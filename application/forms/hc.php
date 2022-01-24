@@ -86,7 +86,7 @@
 	  		</span>
 			<input style="font-size:15px;" name="txt_idhc<?php echo $NumWindow; ?>" id="txt_idhc<?php echo $NumWindow; ?>" type="text" required onkeypress="BuscarHCPte<?php echo $NumWindow; ?>(event);" onblur="HCPteOnBlur<?php echo $NumWindow; ?>()" />
 			<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="ModelosHC" onclick="javascript:CargarSearch('PacientesHC', 'txt_idhc<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 			</span>
 		</div>
 		<input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>" value="X" />
@@ -974,7 +974,7 @@ if ($FormatHCX=="1") {
 								  <div class="input-group">	
 									  <input name="txt_codsercons<?php echo $NumWindow; ?>" id="txt_codsercons<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodServCons<?php echo $NumWindow; ?>(event);" onblur="CodServConsOnBlur<?php echo $NumWindow; ?>()" />
 									  <span class="input-group-btn">	
-									  	  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codsercons<?php echo $NumWindow; ?>', '(Codigo_CFC=*01*)');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+									  	  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codsercons<?php echo $NumWindow; ?>', '(Codigo_CFC=*01*)');"><i class="fas fa-search"></i></button>
 									  </span>
 								  </div>
 							  </div>
@@ -1046,7 +1046,7 @@ if ($FormatHCX=="1") {
 									<input name="txt_codserqx<?php echo $NumWindow; ?>" id="txt_codserqx<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodServQx<?php echo $NumWindow; ?>(event);" onblur="CodServQxOnBlur<?php echo $NumWindow; ?>()" />
 									<span class="input-group-btn">	
 									<!-- (Codigo_CFC=*04*!or!Codigo_CFC=*03*!or!Codigo_CFC=*05*) -->
-										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserqx<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserqx<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 									</span>
 								</div>
 							</div>

@@ -39,7 +39,7 @@ session_start();
 		<div class="input-group" id="grp_txt_idempleado<?php echo $NumWindow; ?>">	
 			<input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" onblur="BuscarEmp2<?php echo $NumWindow; ?>();" required/>
 			<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Medico" onclick="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Medico" onclick="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 			</span>
 		</div>
 	</div>
@@ -219,7 +219,7 @@ session_start();
   <div class="input-group">	
   	<input type="text" name="txt_usuario<?php echo $NumWindow; ?>" id="txt_usuario<?php echo $NumWindow; ?>" required/>
   	<span class="input-group-btn">	
-		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('UsuariosNoMed', 'txt_usuario<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('UsuariosNoMed', 'txt_usuario<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 	</span>
   </div>
 </div>

@@ -62,7 +62,7 @@
 								<div class="input-group">	
 									<input name="txt_codserdx<?php echo $NumWindow; ?>" id="txt_codserdx<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodServDx<?php echo $NumWindow; ?>(event);" onblur="CodServDxOnBlur<?php echo $NumWindow; ?>()" />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserdx<?php echo $NumWindow; ?>', 'Codigo_CFC=*02*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX1', 'txt_codserdx<?php echo $NumWindow; ?>', 'Codigo_CFC=*02*');"><i class="fas fa-search"></i></button>
 									</span>
 								</div>
 							</div>

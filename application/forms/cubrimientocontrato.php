@@ -17,7 +17,7 @@ session_start();
 <div class="input-group">
 <input name="txt_codigo<?php echo $NumWindow; ?>" type="text" id="txt_codigo<?php echo $NumWindow; ?>" size="10"  onkeypress="BuscarNombreEPS<?php echo $NumWindow; ?>(event)" />
 <span class="input-group-btn">
-  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_codigo<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Contrato" onclick="javascript:CargarSearch('Contrato', 'txt_codigo<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 </span>
 </div>
 	</div>
@@ -52,7 +52,7 @@ mysqli_free_result($result);
 	<div class="input-group">
 		<input name="txt_tarifa<?php echo $NumWindow; ?>" type="text" id="txt_tarifa<?php echo $NumWindow; ?>" size="3" onkeypress="BuscarNombreTarifa<?php echo $NumWindow; ?>(event);"/>
         <span class="input-group-btn">
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tarifa" onclick="javascript:CargarSearch('Tarifa', 'txt_tarifa<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tarifa" onclick="javascript:CargarSearch('Tarifa', 'txt_tarifa<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>

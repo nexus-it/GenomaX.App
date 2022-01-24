@@ -25,7 +25,7 @@ session_start();
 			<div class="input-group" id="grp_txt_factura<?php echo $NumWindow; ?>">	
 				<input name="txt_pago<?php echo $NumWindow; ?>" id="txt_pago<?php echo $NumWindow; ?>" style="font-size:14px; font-weight: bold;" type="text" value="<?php echo $NumPago; ?>" onblur="FacturasPagos<?php echo $NumWindow; ?>('<?php echo $NumWindow; ?>');" onkeypress="BuscarPago<?php echo $NumWindow; ?>(event);"  />
 				<span class="input-group-btn">	
-					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="CartFactura" onclick="javascript:CargarSearch('PagosCartera', 'txt_pago<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="CartFactura" onclick="javascript:CargarSearch('PagosCartera', 'txt_pago<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 				</span>
 			</div>
 		</div>
@@ -45,7 +45,7 @@ session_start();
 		  	<div class="input-group">	
 		  		<input name="txt_tercero<?php echo $NumWindow; ?>" type="text" id="txt_tercero<?php echo $NumWindow; ?>"  onblur="NombreTer<?php echo $NumWindow; ?>(this.value); FacturasPagos<?php echo $NumWindow; ?>('<?php echo $NumWindow; ?>');"  required />
 		  		<span class="input-group-btn">	
-		  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tercero" onclick="javascript:CargarSearch('Tercero', 'txt_tercero<?php echo $NumWindow; ?>', 'Codigo_TID=*9*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tercero" onclick="javascript:CargarSearch('Tercero', 'txt_tercero<?php echo $NumWindow; ?>', 'Codigo_TID=*9*');"><i class="fas fa-search"></i></button>
 		  		</span>
 		  	</div>
 		</div>

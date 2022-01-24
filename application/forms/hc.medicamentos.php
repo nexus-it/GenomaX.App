@@ -79,7 +79,7 @@
 								<div class="input-group">	
 									<input name="txt_codmed<?php echo $NumWindow; ?>" id="txt_codmed<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCodMed<?php echo $NumWindow; ?>(event);" onblur="CodMedOnBlur<?php echo $NumWindow; ?>()" />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmed<?php echo $NumWindow; ?>', 'Codigo_CFC<>*09*!and!estado_ser=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="MedicaHC" onclick="javascript:CargarSearch('ServiciosX2', 'txt_codmed<?php echo $NumWindow; ?>', 'Codigo_CFC<>*09*!and!estado_ser=*1*');"><i class="fas fa-search"></i></button>
 									</span>
 								</div>
 							</div>

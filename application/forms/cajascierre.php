@@ -45,7 +45,7 @@ if (isset($_GET["LaCaja"])) {
 				<div class="input-group">	
 					<input name="txt_idcaja<?php echo $NumWindow; ?>" id="txt_idcaja<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCaja<?php echo $NumWindow; ?>(event);" onblur="BuscarCaja2<?php echo $NumWindow; ?>();" value="<?php echo $LaCaja; ?>" />
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Caja', 'txt_idcaja<?php echo $NumWindow; ?>', 'Abierta_CJA=*1*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Caja" onclick="javascript:CargarSearch('Caja', 'txt_idcaja<?php echo $NumWindow; ?>', 'Abierta_CJA=*1*');"><i class="fas fa-search"></i></button>
 					</span>
 				</div>
 			</div>

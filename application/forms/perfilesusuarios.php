@@ -57,7 +57,7 @@ session_start();
   <div class="input-group col-xs-2">
   	<input name="txt_perfilx<?php echo $NumWindow; ?>" type="text" id="txt_perfilx<?php echo $NumWindow; ?>" onkeypress="BuscarPerfil2<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles2', 'txt_perfil<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*')};" class="form-control"/>
   	<span class="input-group-btn">
-      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfiles" onclick="javascript:CargarSearch('Perfiles2', 'txt_perfilx<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfiles" onclick="javascript:CargarSearch('Perfiles2', 'txt_perfilx<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*');"><i class="fas fa-search"></i></button>
     </span>
   </div>
 </div>

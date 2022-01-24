@@ -28,7 +28,7 @@ session_start();
 		<input name="txt_idpaciente<?php echo $NumWindow; ?>" id="txt_idpaciente<?php echo $NumWindow; ?>" type="text"  maxlength="15" onkeypress="BuscarPte<?php echo $NumWindow; ?>(event);" style="font-size:15px; font-weight: bold; color:#0E5012; "/>
 <?php if($modex=='nomodal') { ?>
 		<span class="input-group-btn">
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'txt_idpaciente<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'txt_idpaciente<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 <?php } ?>
 	</div>
