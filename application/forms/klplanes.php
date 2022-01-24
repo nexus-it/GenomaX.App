@@ -72,7 +72,7 @@ session_start();
 			  
 			<div class="col-md-12">
 
-			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
+			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive ">
 			<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
 			<tbody id="tbcob<?php echo $NumWindow; ?>">
 			<tr><th colspan="2">Español</th><th colspan="2">Inglés</th><th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th></tr>
@@ -149,28 +149,40 @@ function BuscarPLA<?php echo $NumWindow; ?>(e) {
 function Addcobertura<?php echo $NumWindow; ?>() {
 	Cobertura=document.getElementById('txt_cobertura<?php echo $NumWindow; ?>').value;
 	Descripcion=document.getElementById('txt_descripcionx<?php echo $NumWindow; ?>').value;
+	CoberturaEng=document.getElementById('txt_coberturaEng<?php echo $NumWindow; ?>').value;
+	DescripcionEng=document.getElementById('txt_descripcionxEng<?php echo $NumWindow; ?>').value;
 		
 	if (Cobertura!="") {
 		Cobertura=Cobertura.toUpperCase();
 		Descripcion=Descripcion.toUpperCase();
+		CoberturaEng=CoberturaEng.toUpperCase();
+		DescripcionEng=DescripcionEng.toUpperCase();
 		TotalFilas=document.getElementById("hdn_controw<?php echo $NumWindow; ?>").value;
 	    var miTabla = document.getElementById("tbcob<?php echo $NumWindow; ?>"); 
 	    var fila = document.createElement("tr"); 
 	    var celda1 = document.createElement("td"); 
 	    var celda2 = document.createElement("td"); 
+	    var celda4 = document.createElement("td"); 
+	    var celda5 = document.createElement("td"); 
 	    var celda3 = document.createElement("td"); 
 		TotalFilas++;
 		fila.id="tr"+TotalFilas+"<?php echo $NumWindow; ?>";
 	    celda1.innerHTML = '<input name="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Cobertura+''+'" /> '+Cobertura; 
 		celda2.innerHTML = '<input name="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Descripcion+''+'" /> '+Descripcion; 
+		celda4.innerHTML = '<input name="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CoberturaEng+''+'" /> '+CoberturaEng; 
+		celda5.innerHTML = '<input name="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+DescripcionEng+''+'" /> '+DescripcionEng; 
 		celda3.innerHTML = '<button onclick="EliminarFilaCOB<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>'; 
 	    fila.appendChild(celda1); 
 	    fila.appendChild(celda2); 
+	    fila.appendChild(celda4); 
+	    fila.appendChild(celda5); 
 	    fila.appendChild(celda3); 
 	    miTabla.appendChild(fila); 
 		document.getElementById("hdn_controw<?php echo $NumWindow; ?>").value=TotalFilas;
 		document.getElementById('txt_cobertura<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_descripcionx<?php echo $NumWindow; ?>').value="";
+		document.getElementById('txt_coberturaEng<?php echo $NumWindow; ?>').value="";
+		document.getElementById('txt_descripcionxEng<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_cobertura<?php echo $NumWindow; ?>').focus();
 	}
 }
