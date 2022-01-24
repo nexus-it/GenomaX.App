@@ -241,7 +241,7 @@ session_start();
 					<th id="th2<?php echo $NumWindow; ?>">Nombre Completo</th> 
 					<th id="th2<?php echo $NumWindow; ?>">Fec. Nacimiento</th> 
 					<th id="th2<?php echo $NumWindow; ?>">Pasaporte</th> 
-				    <th id="th2<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </th> 
+				    <th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th> 
 				</tr> 
 					 <?php 
 					 if (isset($_GET["PLA"])) {	

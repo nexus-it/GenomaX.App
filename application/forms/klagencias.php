@@ -276,7 +276,7 @@ mysqli_free_result($resultz);
 			<tr id="trh<?php echo $NumWindow; ?>"> 
 				<th id="th1<?php echo $NumWindow; ?>">Usuario</th> 
 				<th id="th2<?php echo $NumWindow; ?>">Nombre</th> 
-			    <th id="th2<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </th> 
+			    <th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th> 
 			</tr> 
 				 <?php 
 				 if (isset($_GET["IdAGE"])) {	

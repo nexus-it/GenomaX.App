@@ -287,7 +287,7 @@ function correctos10<?php echo $NumWindow; ?>(diez) {
 		document.getElementById('hdn_diezc<?php echo $NumWindow; ?>').value=0;
 		document.getElementById('nxs_sound_done').play();
 	} else {
-		document.getElementById('spn_diezc<?php echo $NumWindow; ?>').innerHTML='<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+		document.getElementById('spn_diezc<?php echo $NumWindow; ?>').innerHTML='<i class="fas fa-eraser"></i>';
 		document.getElementById('hdn_diezc<?php echo $NumWindow; ?>').value=conta;
 	}
 	

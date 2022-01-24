@@ -351,7 +351,7 @@ session_start();
 				 <p class="text-success"><em><small><strong>*</strong>  No administre un medicamento que usted o el sistema de preparación no hayan preparado.</small></em></p>
 						</div>
 						<div class="col-md-2">
-						<label class="label label-success">10 Correctos</label><span class="badge pull-right" id="spn_diezc<?php echo $NumWindow; ?>" title="Debe selecionar los 10 correctos"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span><input name="hdn_diezc<?php echo $NumWindow; ?>" type="hidden" id="hdn_diezc<?php echo $NumWindow; ?>" value="10" />
+						<label class="label label-success">10 Correctos</label><span class="badge pull-right" id="spn_diezc<?php echo $NumWindow; ?>" title="Debe selecionar los 10 correctos"><i class="fas fa-eraser"></i></span><input name="hdn_diezc<?php echo $NumWindow; ?>" type="hidden" id="hdn_diezc<?php echo $NumWindow; ?>" value="10" />
 
 						<div class="checkbox checkbox-success">
 							<input name="chk_correc1<?php echo $NumWindow; ?>" id="chk_correc1<?php echo $NumWindow; ?>" type="checkbox" value=""  onclick="javascript:correctos10<?php echo $NumWindow; ?>('1');" class="styled">
@@ -519,7 +519,7 @@ function correctos10<?php echo $NumWindow; ?>(diez) {
 		document.getElementById('hdn_diezc<?php echo $NumWindow; ?>').value=0;
 		document.getElementById('nxs_sound_done').play();
 	} else {
-		document.getElementById('spn_diezc<?php echo $NumWindow; ?>').innerHTML='<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+		document.getElementById('spn_diezc<?php echo $NumWindow; ?>').innerHTML='<i class="fas fa-eraser"></i>';
 		document.getElementById('hdn_diezc<?php echo $NumWindow; ?>').value=conta;
 	}
 	

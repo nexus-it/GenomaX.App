@@ -75,24 +75,27 @@ session_start();
 			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
 			<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
 			<tbody id="tbcob<?php echo $NumWindow; ?>">
+			<tr><th colspan="2">Español</th><th colspan="2">Inglés</th><th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th></tr>
 			<tr id="trh<?php echo $NumWindow; ?>"> 
-				<th id="th1<?php echo $NumWindow; ?>">Item</th> 
+				<th id="th1<?php echo $NumWindow; ?>">Nombre</th> 
 				<th id="th2<?php echo $NumWindow; ?>">Descripcion</th> 
-			    <th id="th2<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </th> 
+			    <th id="th1<?php echo $NumWindow; ?>">Name</th> 
+				<th id="th2<?php echo $NumWindow; ?>">Description</th> 
+			    <th id="th2<?php echo $NumWindow; ?>"> </th> 
 			</tr> 
 				 <?php 
 				 if (isset($_GET["PLA"])) {	
 				$SQL="Select nOMBRE_COB, DESCRIPCION_COB, nOMBREeng_COB, DESCRIPCIONeng_COB FROM klplanescobertura a, klplanes b WHERE a.Codigo_PLA=b.Codigo_PLA and  Nombre_PLA='".str_replace('_', ' ', $_GET["PLA"])."' Order by Orden_COB";
 				$resulthc = mysqli_query($conexion, $SQL);
 				$contarow=0;
-				echo '<tr><th colspan="2">Español</th><th colspan="2">Inglés</th></tr>';
+				echo '';
 				while($rowhc = mysqli_fetch_array($resulthc)) 
 					{
 						$contarow=$contarow+1;
 						echo '
 				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td>
 				  <td align="left"><input name="hdn_coberturaeng'.$contarow.$NumWindow.'" type="hidden" id="hdn_coberturaeng'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td><td align="right"><input name="hdn_descripcioneng'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcioneng'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td>
-				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>
+				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs btn-block"> <i class="fas fa-eraser"></i> </button>
 				  </td></tr>
 				  ';
 					}

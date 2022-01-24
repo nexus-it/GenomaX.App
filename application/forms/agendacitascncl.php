@@ -127,7 +127,7 @@ if (isset($_GET["genesis"])) {
 	document.getElementById('Imprimir'+NumWin).style.display  = 'none';
     document.getElementById('Guardar'+NumWin).style.display  = 'none';
 
-    document.getElementById('Anular'+NumWin).innerHTML='<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar Cita';
+    document.getElementById('Anular'+NumWin).innerHTML='<i class="fas fa-eraser"></i> Cancelar Cita';
     
     $("input[type=text]").addClass("form-control");
     $("input[type=password]").addClass("form-control");
