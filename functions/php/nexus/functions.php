@@ -76,7 +76,7 @@ case 'klcotizador':
       </div>
 
       <div class="form-group d-grid col-md-9">
-        <a href="javascript:nxsCotiza();" type="button" role="button" class="btn btn-primary btn-sm" id="calccotiz">Calcular
+        <a href="javascript:nxsCotiza();" type="button" role="button" class="btn btn-success btn-sm" id="calccotiz">Calcular
         <i class="fa fa-arrow-circle-right"></i></a>
       </div>
 

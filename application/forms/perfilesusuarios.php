@@ -31,35 +31,38 @@ session_start();
 //		return $Datos;	
 	}
 ?>
-<form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" class="form-inline container">
-<div class="panel panel-default row">
-<div class="panel-heading">Perfiles de Usuarios:</div>
-<div class="panel-body">
-<div class="form-group form-group-sm">
-<label for="txt_perfil<?php echo $NumWindow; ?>">Perfil</label>
-<div class="input-group col-xs-2">
-  <input name="txt_perfil<?php echo $NumWindow; ?>" type="text" id="txt_perfil<?php echo $NumWindow; ?>" class="form-control" placeholder="Perfil" onkeypress="BuscarPerfil<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL')};">
-  <span class="input-group-btn">
-    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfil" onclick="javascript:CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-  </span>
+<form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" class="form-inline container row">
+<div class="form-group col-1">
+	<label for="txt_perfil<?php echo $NumWindow; ?>" class="form-label">Perfil</label>
+	<div class="input-group">
+		<input name="txt_perfil<?php echo $NumWindow; ?>" type="text" id="txt_perfil<?php echo $NumWindow; ?>" class="form-control" placeholder="Perfil" onkeypress="BuscarPerfil<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL')};">
+		<span class="input-group-btn">
+			<button class="btn btn-outline-secondary btn-success" type="button" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfil" onclick="javascript:CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i> </button>
+		</span>
+	</div>
 </div>
-<input name="txt_nombreperfil<?php echo $NumWindow; ?>" type="text" id="txt_nombreperfil<?php echo $NumWindow; ?>" size="50" class="form-control"/>
+<div class="form-group col-9">
+	<label for="txt_nombreperfil<?php echo $NumWindow; ?>" class="form-label">Nombre</label>	
+	<input name="txt_nombreperfil<?php echo $NumWindow; ?>" type="text" id="txt_nombreperfil<?php echo $NumWindow; ?>" size="50" class="form-control"/>
 </div>
-<div class="form-group form-group-sm">
-  <label for="cmb_estado<?php echo $NumWindow; ?>">Estado</label>
-  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-control">
+<div class="form-group col-2">
+  <label for="cmb_estado<?php echo $NumWindow; ?>" class="form-label">Estado</label>
+  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-control form-select">
     <option value="1" selected="selected">Activo</option>
     <option value="0">Inactivo</option>
   </select>
 </div>
-<div class="form-group form-group-sm">
-  <label for="txt_perfilx<?php echo $NumWindow; ?>">Copiar permisos de </label>
+<div class="form-group col-2">
+  <label for="txt_perfilx<?php echo $NumWindow; ?>" class="form-label"><i class="fas fa-copy"></i> </label>
   <div class="input-group col-xs-2">
-  	<input name="txt_perfilx<?php echo $NumWindow; ?>" type="text" id="txt_perfilx<?php echo $NumWindow; ?>" size="6" onkeypress="BuscarPerfil2<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles2', 'txt_perfil<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*')};" class="form-control"/>
+  	<input name="txt_perfilx<?php echo $NumWindow; ?>" type="text" id="txt_perfilx<?php echo $NumWindow; ?>" onkeypress="BuscarPerfil2<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles2', 'txt_perfil<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*')};" class="form-control"/>
   	<span class="input-group-btn">
       <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfiles" onclick="javascript:CargarSearch('Perfiles2', 'txt_perfilx<?php echo $NumWindow; ?>', 'Codigo_PRF<>*'+document.frm_form<?php echo $NumWindow; ?>.txt_perfil<?php echo $NumWindow; ?>.value+'*');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
     </span>
   </div>
+</div>
+<div class="form-group col-6">
+  <label for="txt_nombreperfilx<?php echo $NumWindow; ?>" class="form-label">Copiar permisos de </label>
   <div class="input-group col-xs-6">
   	<input name="txt_nombreperfilx<?php echo $NumWindow; ?>" type="text" id="txt_nombreperfilx<?php echo $NumWindow; ?>" class="form-control" />
   	<span class="input-group-btn">
@@ -67,21 +70,19 @@ session_start();
     </span>
   </div>
 </div>
-</div>
-</div>
+
 <div class="panel panel-default row">
-<div class="panel-heading">Permisos</div>
-<div class="panel-body">
- <div id="zero_detalle<?php echo $NumWindow; ?>"  >
  <?php  ?>
 <?php 
 	//Aplicaciones
-	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From nxs_gnx.itaplicaciones Where Activo_APP='1' Order By Codigo_APP";
+	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From nxs_gnx.itaplicaciones Where Activo_APP='1' and Codigo_APP='".$_SESSION["NEXUS_APP"]."' Order By Codigo_APP";
 	$resultX = mysqli_query($conexion, $SQL);
 	//echo $SQL;
 	while($rowX = mysqli_fetch_array($resultX)) {
 		echo '<div class="panel-group" id="div_'.str_replace(" ","_",$rowX[1])."_".$rowX[0].'xAPP" role="tablist">
-    	<h3><span class="label label-success">'.($rowX[1]).'</span></h3>';
+    	<div class="panel-heading"><h3><span class="label label-success">Permisos '.($rowX[1]).'</span></h3></div>
+			<div class="panel-body">
+				<div id="zero_detalle'.$NumWindow.'" >';
 		//Modulos
 		$SQL="Select Codigo_MOD, Nombre_MOD from nxs_gnx.itmodulos where Activo_MOD='1' and Codigo_APP='".$rowX[0]."' order by Codigo_MOD";
 		$resultXX = mysqli_query($conexion, $SQL);

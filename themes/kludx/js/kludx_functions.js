@@ -56,6 +56,7 @@ var Modal_Meet = '<div class="modal fade" id="GnmX_NXSMeet">  <div class="modal-
         var imgpnl = createDivs('imgpnl');
         var infpnl = createDivs('infpnl');
         var usroptsep = createDivs('usroptsep');
+        var closeMenu = createDivs('closeMenu');
         var usroptli = '<li class="manito"><a id="mnuvideomeet" name="mnuvideomeet" title="Video Conferencias Seguras" data-bs-toggle="modal" data-bs-target="#GnmX_NXSMeet"> <i class="fas fa-video text-black-50"></i> <span><b>NE<em>X</em>US.<em>Meet</em></b></span> </a></li>        <li class="manito"><a id="mnuchangepass" name="mnuchangepass" data-bs-toggle="modal" data-bs-target="#GnmX_ChngPass"><i class="fa fa-key text-warning"></i> <span>Cambio de Clave</span></a></li>        <li class="manito"><a id="mnuaboutapp" name="mnuaboutapp"><i class="fa fa-play-circle text-success"></i> <span>Acerca de...</span></a></li>        <li class="manito"><a id="mnulogout" name="mnulogout" ><i class="fas fa-sign-out-alt text-danger"></i> <span>Cerrar Sesión</span></a></li>';
 
         document.getElementById('bdy_kludx').innerHTML = cover+nxs+Modals+Modal_Search+Modal_Msg+modal_Pass+Modal_Meet;
@@ -64,8 +65,9 @@ var Modal_Meet = '<div class="modal fade" id="GnmX_NXSMeet">  <div class="modal-
         // document.getElementById('kld_top').innerHTML = "";
         document.getElementById('kld_menu').classList.add('menu_init');
         document.getElementById('kld_container').classList.add('dashboard_init');
-        document.getElementById('kld_menu').innerHTML = usrpnl+mnupnl+usropt;
+        document.getElementById('kld_menu').innerHTML = closeMenu+usrpnl+mnupnl+usropt;
         document.getElementById('usrpnl').classList.add('user-panel');
+        document.getElementById('closeMenu').innerHTML = '<i class="fas fa-caret-square-left"></i>';
         document.getElementById('usropt').innerHTML = usroptsep+usroptli;
         document.getElementById('usrpnl').innerHTML = imgpnl+infpnl;
         document.getElementById('imgpnl').classList.add('image');
@@ -330,6 +332,14 @@ var Modal_Meet = '<div class="modal fade" id="GnmX_NXSMeet">  <div class="modal-
     function addFunctions() {
         var toogle_menu = document.getElementById("toogle_menu");
         toogle_menu.onclick = function() {
+            if (varMenu=="0") {
+                setWMenu("1");
+            } else {
+                setWMenu("0");
+            }
+        }
+        var closeMenu = document.getElementById("closeMenu");
+        closeMenu.onclick = function() {
             if (varMenu=="0") {
                 setWMenu("1");
             } else {
