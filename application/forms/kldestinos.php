@@ -21,7 +21,7 @@ session_start();
 		<div class="input-group">
 			<input name="txt_plan<?php echo $NumWindow; ?>" id="txt_plan<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarPLA<?php echo $NumWindow; ?>(event);" />
 			 <span class="input-group-btn"> 		
-	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Planes" onclick="javascript:CargarSearch('KlPlanes', 'txt_plan<?php echo $NumWindow; ?>', '*1*=*1*');"><i class="fas fa-search"></i></button>
+	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Planes" onclick="javascript:CargarSearch('KlPlanes', 'txt_plan<?php echo $NumWindow; ?>', '*1*=*1*');"><i class="fas fa-search"></i></button>
 			 </span>
 		</div>
 	</div>

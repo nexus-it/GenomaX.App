@@ -96,7 +96,7 @@ mysqli_query ($conexion, "SET NAMES 'utf8'");
 			<div class="input-group">	
 				<input name="txt_cantmas<?php echo $NumWindow; ?>" id="txt_cantmas<?php echo $NumWindow; ?>" type="text" value="1" onkeypress="AddMasX<?php echo $NumWindow; ?>(event);" />
 				<span class="input-group-btn">	
-					<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddMas<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+					<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddMas<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 				</span>
 			</div>
 		</div>			

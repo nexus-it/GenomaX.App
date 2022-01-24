@@ -147,7 +147,7 @@
 		</div>
 		<div class="btn-group col-md-3">
 			  <button type="button" class="btn btn-success btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Folio <span class="caret"></span>
+			   <i class="fas fa-plus"></i> Nuevo Folio <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" >
 			  	<?php
@@ -383,7 +383,7 @@
 							<div class="form-group">
 								<label for="txt_modelo'.$NumWindow.'">Más Dx</label>
 								<button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#div_diagnosticos'.$NumWindow.'" aria-expanded="false" aria-controls="collapseExample">
-		  							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		  							<i class="fas fa-plus"></i>
 								</button>
 							</div>
 						
@@ -748,7 +748,7 @@
 								<div class="input-group">	
 									<input name="txt_obsserdx<?php echo $NumWindow; ?>" id="txt_obsserdx<?php echo $NumWindow; ?>" type="text"  />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddHelpDx<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddHelpDx<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			
@@ -897,7 +897,7 @@
 								<div class="input-group">	
 									<input name="txt_obsmed<?php echo $NumWindow; ?>" id="txt_obsmed<?php echo $NumWindow; ?>" type="text"  />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddMedica<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddMedica<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			
@@ -1041,7 +1041,7 @@
 								<div class="input-group">	
 									<input name="txt_obster<?php echo $NumWindow; ?>" id="txt_obster<?php echo $NumWindow; ?>" type="text"  />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddServicioHC" onclick="javascript:AddServicio<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddServicioHC" onclick="javascript:AddServicio<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			

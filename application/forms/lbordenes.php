@@ -115,7 +115,7 @@ session_start();
 						</div>
 						<div class="col-md-1">
 						<div class="col-md-1 "><label for="">.</label></div>
-						    <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						    <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i></button>
 					    </div>
 					</div>
 			</div>

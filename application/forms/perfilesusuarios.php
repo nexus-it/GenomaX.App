@@ -35,7 +35,7 @@ session_start();
 <div class="form-group col-1">
 	<label for="txt_perfil<?php echo $NumWindow; ?>" class="form-label">Perfil</label>
 	<div class="input-group">
-		<input name="txt_perfil<?php echo $NumWindow; ?>" type="text" id="txt_perfil<?php echo $NumWindow; ?>" class="form-control" placeholder="Perfil" onkeypress="BuscarPerfil<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL')};">
+		<input name="txt_perfil<?php echo $NumWindow; ?>" type="text" id="txt_perfil<?php echo $NumWindow; ?>" class="form-control" placeholder="" onkeypress="BuscarPerfil<?php echo $NumWindow; ?>(event);" onkeydown="if(event.keyCode==115){CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL')};">
 		<span class="input-group-btn">
 			<button class="btn btn-outline-secondary btn-success" type="button" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Perfil" onclick="javascript:CargarSearch('Perfiles', 'txt_perfil<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i> </button>
 		</span>

@@ -82,7 +82,7 @@ session_start();
 	</div>
 
 	<label class="label label-success">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> BODEGAS 
+		<i class="fas fa-plus"></i> BODEGAS 
 	</label>
 	<div class="row well well-sm">
 		<div class="col-md-12">

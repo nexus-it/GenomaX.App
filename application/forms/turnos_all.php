@@ -179,7 +179,7 @@ session_start();
 	</div>
 
 		  </div>
-		  <?php echo '<a href="javascript:addPreTurno'.$NumWindow.'();" class="btn btn-success btn-sm btn-block" role="button" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> AGREGAR </a>'; ?>
+		  <?php echo '<a href="javascript:addPreTurno'.$NumWindow.'();" class="btn btn-success btn-sm btn-block" role="button" > <i class="fas fa-plus"></i> AGREGAR </a>'; ?>
 		</div>
 
 	</div>

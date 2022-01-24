@@ -21,7 +21,7 @@ session_start();
 		<div class="input-group">
 			<input name="txt_plan<?php echo $NumWindow; ?>" id="txt_plan<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarPLA<?php echo $NumWindow; ?>(event);" />
 			 <span class="input-group-btn"> 		
-	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Planes" onclick="javascript:CargarSearch('KlPlanes', 'txt_plan<?php echo $NumWindow; ?>', '*1*=*1*');"><i class="fas fa-search"></i></button>
+	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Planes" onclick="javascript:CargarSearch('KlPlanes', 'txt_plan<?php echo $NumWindow; ?>', '*1*=*1*');"><i class="fas fa-search"></i></button>
 			 </span>
 		</div>
 	</div>
@@ -51,18 +51,25 @@ session_start();
 
 <label class="label label-default">Cobertura</label>
 	<div class="row well well-sm">
-	  		<div class="col-md-6">
-	  			<input  name="txt_cobertura<?php echo $NumWindow; ?>" id="txt_cobertura<?php echo $NumWindow; ?>" type="text"  />
+	  		<div class="col-md-3 col-6">
+	  			<input  name="txt_cobertura<?php echo $NumWindow; ?>" id="txt_cobertura<?php echo $NumWindow; ?>" type="text" placeholder="Nombre Esp"  />
 	  		</div>
-	  		<div class="col-md-6">
+	  		<div class="col-6 col-md-3">
+				<input name="txt_descripcionx<?php echo $NumWindow; ?>" id="txt_descripcionx<?php echo $NumWindow; ?>" type="text" placeholder="Descripcion Esp" />
+	  		</div>
+
+	  		<div class="col-md-3 col-6">
+	  			<input  name="txt_coberturaEng<?php echo $NumWindow; ?>" id="txt_coberturaEng<?php echo $NumWindow; ?>" type="text" placeholder="Name Eng"  />
+	  		</div>
+	  		<div class="col-6 col-md-3">
 				<div class="input-group">
-					<input name="txt_descripcionx<?php echo $NumWindow; ?>" id="txt_descripcionx<?php echo $NumWindow; ?>" type="text" />
+					<input name="txt_descripcionxEng<?php echo $NumWindow; ?>" id="txt_descripcionxEng<?php echo $NumWindow; ?>" type="text" placeholder="Description Eng" />
 					 <span class="input-group-btn"> 		
-			 		  <button class="btn btn-success" type="button"  onclick="javascript:Addcobertura<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+			 		  <button class="btn btn-success" type="button"  onclick="javascript:Addcobertura<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 					 </span>
 				</div>
 	  		</div>
-
+			  
 			<div class="col-md-12">
 
 			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
@@ -75,15 +82,17 @@ session_start();
 			</tr> 
 				 <?php 
 				 if (isset($_GET["PLA"])) {	
-				$SQL="Select nOMBRE_COB, DESCRIPCION_COB FROM klplanescobertura a, klplanes b WHERE a.Codigo_PLA=b.Codigo_PLA and  Nombre_PLA='".str_replace('_', ' ', $_GET["PLA"])."' Order by Orden_COB";
+				$SQL="Select nOMBRE_COB, DESCRIPCION_COB, nOMBREeng_COB, DESCRIPCIONeng_COB FROM klplanescobertura a, klplanes b WHERE a.Codigo_PLA=b.Codigo_PLA and  Nombre_PLA='".str_replace('_', ' ', $_GET["PLA"])."' Order by Orden_COB";
 				$resulthc = mysqli_query($conexion, $SQL);
 				$contarow=0;
+				echo '<tr><th colspan="2">Español</th><th colspan="2">Inglés</th></tr>';
 				while($rowhc = mysqli_fetch_array($resulthc)) 
 					{
 						$contarow=$contarow+1;
 						echo '
-				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td><td>
-				  <button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>
+				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td>
+				  <td align="left"><input name="hdn_coberturaeng'.$contarow.$NumWindow.'" type="hidden" id="hdn_coberturaeng'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td><td align="right"><input name="hdn_descripcioneng'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcioneng'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td>
+				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>
 				  </td></tr>
 				  ';
 					}

@@ -195,7 +195,7 @@ session_start();
   <td style="padding-top: 3px; padding-bottom: 2px;" align="left"><?php echo $rowREC[4]; ?></td>
   <td style="padding-top: 3px; padding-bottom: 2px;" align="right"><b><?php echo '$ '.number_format($rowREC[5],2,'.',','); ?></b></td>
   <td align="center" >
-	<span class="label label-default" id="spn_viewdet<?php echo $contarow.$NumWindow; ?>" onclick="detShow<?php echo $NumWindow; ?>('<?php echo $contarow; ?>')" style="cursor: pointer;"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </span>
+	<span class="label label-default" id="spn_viewdet<?php echo $contarow.$NumWindow; ?>" onclick="detShow<?php echo $NumWindow; ?>('<?php echo $contarow; ?>')" style="cursor: pointer;"> <i class="fas fa-plus"></i> </span>
   </td>
 </tr>
 <tr id="tr_detmcont<?php echo $contarow.$NumWindow; ?>" style="display: none;">
@@ -294,7 +294,7 @@ function detShow<?php echo $NumWindow; ?>(detRow)
 		document.getElementById("spn_viewdet"+detRow+"<?php echo $NumWindow; ?>").innerHTML=' <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> ';
 	} else {
 		document.getElementById("tr_detmcont"+detRow+"<?php echo $NumWindow; ?>").style.display="none";
-		document.getElementById("spn_viewdet"+detRow+"<?php echo $NumWindow; ?>").innerHTML=' <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> ';
+		document.getElementById("spn_viewdet"+detRow+"<?php echo $NumWindow; ?>").innerHTML=' <i class="fas fa-plus"></i> ';
 	}
 }
 

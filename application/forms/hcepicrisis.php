@@ -291,7 +291,7 @@ session_start();
 							<div class="form-group">
 								<label for="txt_modelo<?php echo $NumWindow; ?>">Más Dx</label>
 								<button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#div_diagnosticos<?php echo $NumWindow; ?>" aria-expanded="false" aria-controls="collapseExample">
-		  							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		  							<i class="fas fa-plus"></i>
 								</button>
 							</div>
 						
@@ -427,7 +427,7 @@ session_start();
 							<div class="form-group">
 								<label for="txt_modelo<?php echo $NumWindow; ?>">Más Dx</label>
 								<button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#div_ediagnosticos<?php echo $NumWindow; ?>" aria-expanded="false" aria-controls="collapseExample">
-		  							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		  							<i class="fas fa-plus"></i>
 								</button>
 							</div>
 						

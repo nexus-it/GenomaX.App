@@ -120,7 +120,7 @@ session_start();
 	</div>
 
 		  </div>
-		  <?php echo '<a href="javascript:addPreTriage'.$NumWindow.'();" class="btn btn-success btn-sm btn-block" role="button" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar a la cola de triage </a>'; ?>
+		  <?php echo '<a href="javascript:addPreTriage'.$NumWindow.'();" class="btn btn-success btn-sm btn-block" role="button" > <i class="fas fa-plus"></i> Agregar a la cola de triage </a>'; ?>
 		</div>
 
 	</div>

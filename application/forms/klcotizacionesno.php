@@ -29,7 +29,7 @@ session_start();
 		<div class="input-group">
 			<input name="txt_cotizacion<?php echo $NumWindow; ?>" id="txt_cotizacion<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCTZ<?php echo $NumWindow; ?>(event);" value="<?php echo $noctz; ?>"/>
 			 <span class="input-group-btn"> 		
-	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Cotizacion" onclick="javascript:CargarSearch('KlCotizacion', 'txt_cotizacion<?php echo $NumWindow; ?>', 'Estado_CTZ=*1*');"><i class="fas fa-search"></i></button>
+	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Cotizacion" onclick="javascript:CargarSearch('KlCotizacion', 'txt_cotizacion<?php echo $NumWindow; ?>', 'Estado_CTZ=*1*');"><i class="fas fa-search"></i></button>
 			 </span>
 		</div>
 	</div>

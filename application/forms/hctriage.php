@@ -341,7 +341,7 @@
 								<div class="form-group">
 									<label for="txt_modelo'.$NumWindow.'">Más Dx</label>
 									<button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#div_diagnosticos'.$NumWindow.'" aria-expanded="false" aria-controls="collapseExample">
-			  							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			  							<i class="fas fa-plus"></i>
 									</button>
 								</div>
 							

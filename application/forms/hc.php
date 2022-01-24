@@ -1000,7 +1000,7 @@ if ($FormatHCX=="1") {
 								  <div class="input-group">	
 									  <input name="txt_obssercons<?php echo $NumWindow; ?>" id="txt_obssercons<?php echo $NumWindow; ?>" type="text"  />
 									  <span class="input-group-btn">	
-										  <button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddOrdCons<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										  <button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddOrdCons<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									  </span>
 								  </div>
 							  </div>			
@@ -1072,7 +1072,7 @@ if ($FormatHCX=="1") {
 								<div class="input-group">	
 									<input name="txt_obsserqx<?php echo $NumWindow; ?>" id="txt_obsserqx<?php echo $NumWindow; ?>" type="text"  />
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddOrdQx<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddOrdQx<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			

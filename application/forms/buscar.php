@@ -3,10 +3,10 @@
 	
 session_start();	
 ?>
-<form action="" method="post" name="frm_searchNxs" id="frm_searchNxs" class="form-inline container">
-<div class="col-md-12">
+<form action="" method="post" name="frm_searchNxs" id="frm_searchNxs" class="form-inline container row">
+<div class="col-md-4">
   
-  <select name="cmb_camposNxs" id="cmb_camposNxs"  onchange="javascript:document.frm_searchNxs.txt_buscarNxs.focus();" class="form-control">
+  <select name="cmb_camposNxs" id="cmb_camposNxs"  onchange="javascript:document.frm_searchNxs.txt_buscarNxs.focus();" class="form-control form-select">
     <?php 
 $SQL="Select ".$SQL." and 1=0";
 $SQLx="Select ".$SQLx." and 1=0";
@@ -29,8 +29,10 @@ mysqli_free_result($result);
 mysqli_free_result($resultx); 
  ?>
   </select>
-  
-    <select name="cmb_criterioNxs" id="cmb_criterioNxs"  onchange="javascript:document.frm_searchNxs.txt_buscarNxs.focus();" class="form-control">
+</div>
+<div class="col-md-4">
+
+    <select name="cmb_criterioNxs" id="cmb_criterioNxs"  onchange="javascript:document.frm_searchNxs.txt_buscarNxs.focus();" class="form-control form-select">
       <option value="igual">Igual a </option>
       <option value="contenga">Contenga </option>
       <option value="empiece" selected="selected">Empiece por </option>
@@ -38,9 +40,12 @@ mysqli_free_result($resultx);
       <option value="diferente">Diferente a </option>
       <option value="notenga">No Contenga</option>
     </select>
-  
+</div>
+<div class="col-md-4">
+
     <input type="text" name="txt_buscarNxs" id="txt_buscarNxs"  onkeypress="valSearch(event)" class="form-control">
-  
+</div>
+<div class="col-md-12">  
     <div id="loadsearchNxs" title="Buscando..." class="loadsearch" style="visibility:hidden" ></div>
 </div>
     <div id="resultadosNxs" class="zerosearch"></div>

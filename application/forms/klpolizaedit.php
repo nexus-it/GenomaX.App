@@ -385,7 +385,7 @@ session_start();
 						<div class="input-group">
 							<input  name="txt_pasaporte0<?php echo $NumWindow; ?>" id="txt_pasaporte0<?php echo $NumWindow; ?>" type="text" />
 							 <span class="input-group-btn"> 		
-					 		  <button class="btn btn-success" type="button"  onclick="javascript:Addpersona<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+					 		  <button class="btn btn-success" type="button"  onclick="javascript:Addpersona<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 							 </span>
 						</div>
 					</div>

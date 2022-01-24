@@ -221,7 +221,7 @@ session_start();
 </div> 
 	</div>
 	<div class="col-md-12">
-		<button class="btn btn-success btn-block btn-sm" type="button" onclick="javascript:AgregarFila2<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+		<button class="btn btn-success btn-block btn-sm" type="button" onclick="javascript:AgregarFila2<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i> Agregar</button>
 	</div>
 </div>
 <div class="row well well-sm">

@@ -30,7 +30,7 @@
 								<div class="input-group">	
 									<input  name="txt_cantinsumo<?php echo $NumWindow; ?>" id="txt_cantinsumo<?php echo $NumWindow; ?>" type="number" value="1" min="1" max="100"/>
 									<span class="input-group-btn">	
-										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddInsumo<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddInsumo<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			

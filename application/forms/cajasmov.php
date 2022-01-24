@@ -126,7 +126,7 @@ session_start();
 				<label for="txt_paciente2<?php echo $NumWindow; ?>">Nombre</label>
 				<div class="input-group">	
 					<span class="input-group-btn">	
-						<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseTercero" aria-expanded="false" aria-controls="collapseTercero" title="Crear Tercero" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseTercero" aria-expanded="false" aria-controls="collapseTercero" title="Crear Tercero" ><i class="fas fa-plus"></i></button>
 					</span>
 					<input  name="txt_paciente2<?php echo $NumWindow; ?>" id="txt_paciente2<?php echo $NumWindow; ?>" type="text"  class="form-control" disabled="disabled" />
 				</div>
