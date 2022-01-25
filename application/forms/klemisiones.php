@@ -27,7 +27,7 @@ session_start();
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_cotizacion<?php echo $NumWindow; ?>">Cotizacion</label>
 		<div class="input-group">
-			<input name="txt_cotizacion<?php echo $NumWindow; ?>" id="txt_cotizacion<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCTZ<?php echo $NumWindow; ?>(event);" value="<?php echo $noctz; ?>"/>
+			<input name="txt_cotizacion<?php echo $NumWindow; ?>" id="txt_cotizacion<?php echo $NumWindow; ?>" type="text" onkeypress="BuscarCTZ<?php echo $NumWindow; ?>(event);" class="form-control" value="<?php echo $noctz; ?>"/>
 			 <span class="input-group-btn"> 		
 	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Cotizacion" onclick="javascript:CargarSearch('KlCotizacion', 'txt_cotizacion<?php echo $NumWindow; ?>', 'Estado_CTZ=*1*');"><i class="fas fa-search"></i></button>
 			 </span>
@@ -35,19 +35,19 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-1 col-md-offset-4">
+		<div class="col-md-2 col-md-offset-4">
 	
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_fecha<?php echo $NumWindow; ?>">Fecha </label>
-		<input  name="txt_fecha<?php echo $NumWindow; ?>" id="txt_fecha<?php echo $NumWindow; ?>" type="text"  value="<?php FechaNow(); ?>" disabled="disabled"/>
+		<input  name="txt_fecha<?php echo $NumWindow; ?>" id="txt_fecha<?php echo $NumWindow; ?>" type="date"  value="<?php FechaNow(); ?>" class="form-control" disabled="disabled"/>
 	</div>
 
 		</div>
-		<div class="col-md-1 col-md-offset-4">
+		<div class="col-md-2 col-md-offset-4">
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_emision<?php echo $NumWindow; ?>">Emisión No</label>
-		<input  name="txt_emision<?php echo $NumWindow; ?>" id="txt_emision<?php echo $NumWindow; ?>" type="text" required  disabled="disabled" value="000000" style="font-size:15px; text-align:right;font-weight: bold;"/>
+		<input  name="txt_emision<?php echo $NumWindow; ?>" id="txt_emision<?php echo $NumWindow; ?>" type="text" required  disabled="disabled" class="form-control" value="000000" style="font-size:15px; text-align:right;font-weight: bold;"/>
 	</div>
 
 		</div>
@@ -70,7 +70,7 @@ while ($j <= 17) {
 		<ul class="list-group col-md-4">
 		  <li class="list-group-item">
 		    <span class="badge"><?php echo $row[$j]; ?></span>
-		    <?php echo mysql_field_name($result, $j); ?>
+		    <?php echo mysqli_fetch_field_direct($result, $j)->name; ?>
 		  </li>
 		</ul>
 <?php 

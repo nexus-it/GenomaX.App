@@ -144,13 +144,19 @@ case 'klrepventas':
 	echo $html;
 break;
 case 'kltrm':
-	echo '3,980.80';
+	$SQL="SELECT Valor_TRM FROM cztrm a WHERE date(NOW()) = Fecha_trm";
+	$result = mysqli_query($conexion, $SQL);
+    if($row = mysqli_fetch_array($result)) {
+    	$html= $row[0];
+    }
+    mysqli_free_result($result);
+	echo $html;
 break;
 case 'klstndbyfin':
 	if ($_SESSION["it_CodigoPRF"]=="0") {
-		$SQL="SELECT COUNT(*) FROM klemisiones a WHERE NOW() <= a.FechaStandBy_EMI AND a.Estado_EMI='S'";
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b, itconfig_kld c WHERE a.Estado_EMI='S' AND a.Codigo_CTZ=b.Codigo_CTZ and TIMESTAMPDIFF(DAY, date(NOW()), b.FechaFin_CTZ) BETWEEN 0 AND DiasVence_KLD";
 	} else {
-		$SQL="SELECT COUNT(*) FROM klemisiones a WHERE NOW() <= a.FechaStandBy_EMI AND a.Estado_EMI='S' AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' ";
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b, itconfig_kld c WHERE a.Estado_EMI='S' AND a.Codigo_CTZ=b.Codigo_CTZ AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND TIMESTAMPDIFF(DAY, date(NOW()), b.FechaFin_CTZ) BETWEEN 0 AND DiasVence_KLD";
 	}
     $result = mysqli_query($conexion, $SQL);
     if($row = mysqli_fetch_array($result)) {
@@ -174,16 +180,15 @@ case 'klpolizassi':
 break;
 case 'klpolizasfin':
 	if ($_SESSION["it_CodigoPRF"]=="0") {
-		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b, itconfig_kld c WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ and TIMESTAMPDIFF(DAY, date(NOW()), b.FechaFin_CTZ) BETWEEN 0 AND DiasVence_KLD";
 	} else {
-		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND date(NOW()) BETWEEN b.FechaIni_CTZ AND b.FechaFin_CTZ";
+		$SQL="SELECT count(*) FROM klemisiones a, klcotizaciones b, itconfig_kld c WHERE a.Estado_EMI='E' AND a.Codigo_CTZ=b.Codigo_CTZ AND a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' AND TIMESTAMPDIFF(DAY, date(NOW()), b.FechaFin_CTZ) BETWEEN 0 AND DiasVence_KLD";
 	}
     $result = mysqli_query($conexion, $SQL);
     if($row = mysqli_fetch_array($result)) {
     	$html= $row[0];
     }
     mysqli_free_result($result);
-	$html="87";
 	echo $html;
 break;
 case 'nxs_mailing':

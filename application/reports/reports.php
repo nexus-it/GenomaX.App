@@ -13,13 +13,13 @@ session_start();
 <div class="panel panel-success">
 	<div class="panel-heading" role="tab" id="headingOne<?php echo $NumWindow; ?>">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseOne<?php echo $NumWindow; ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $NumWindow; ?>">
+        <a role="button" data-bs-toggle="collapse" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseOne<?php echo $NumWindow; ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $NumWindow; ?>">
           <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Parámetros
         </a>
       </h4>
     </div>
 
-<div id="collapseOne<?php echo $NumWindow; ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne<?php echo $NumWindow; ?>">
+<div id="collapseOne<?php echo $NumWindow; ?>" class="panel-collapse collapse show in" role="tabpanel" aria-labelledby="headingOne<?php echo $NumWindow; ?>">
 
 <form id="frm_form<?php echo $NumWindow; ?>"><div class="panel-body contreport" id="div_cont<?php echo $NumWindow; ?>">
 <?php 
@@ -126,7 +126,7 @@ while($row = mysqli_fetch_array($result)) {
 	    echo '>';
 	    if ($row["Search_RPT"]!="") {
 			echo '<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="RptSearch" onclick="javascript:CargarSearch(\''.$row["Search_RPT"].'\', \'txt_'.$row["Campo_RPT"].$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="RptSearch" onclick="javascript:CargarSearch(\''.$row["Search_RPT"].'\', \'txt_'.$row["Campo_RPT"].$NumWindow.'\', \'NULL\');"> <i class="fas fa-search"></i> </button>
 			</span>
 		</div>';
 		}
@@ -154,7 +154,7 @@ mysqli_free_result($result);
 <div class="panel panel-success">
     <div class="panel-heading" role="tab" id="headingTwo<?php echo $NumWindow; ?>">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseTwo<?php echo $NumWindow; ?>" aria-expanded="false" aria-controls="collapseTwo<?php echo $NumWindow; ?>">
+        <a class="collapsed" role="button" data-bs-toggle="collapse" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseTwo<?php echo $NumWindow; ?>" aria-expanded="false" aria-controls="collapseTwo<?php echo $NumWindow; ?>">
           <span class="glyphicon glyphicon-share" aria-hidden="true"></span> Exportar...
         </a>
       </h4>

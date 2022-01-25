@@ -65,10 +65,8 @@ $this->Cell(6,5,'Dias','BR',0,'C',0);
 $this->Cell(16,5,'Origen','BR',0,'C',0);
 $this->Cell(18,5,'Destino','BR',0,'C',0);
 $this->Cell(10,5,'U$','BR',0,'C',0);
-$this->Cell(14,5,'Pesos','BR',0,'C',0);
-$this->Cell(10,5,'Dscto','BR',0,'C',0);
-$this->Cell(14,5,'Total','BR',0,'C',0);
-$this->Cell(0,5,'Asesor','B',0,'C',0);
+$this->Cell(18,5,'Asesor','B',0,'C',0);
+$this->Cell(0,5,'Total','BR',0,'C',0);
 $this->SetY(40);
 }
 function Footer()
@@ -135,10 +133,8 @@ $pdf->Cell(6,4,$row[12],'',0,'L',1); //ENTIDAD
 $pdf->Cell(16,4,utf8_decode($row[13]),'',0,'L',1); //ENTIDAD
 $pdf->Cell(18,4,utf8_decode($row[14]),'',0,'L',1); //ENTIDAD
 $pdf->Cell(10,4,$row[15],'',0,'R',1); //ENTIDAD
-$pdf->Cell(14,4,number_format($row[16],0,'.',','),'',0,'R',1); //ENTIDAD
-$pdf->Cell(10,4,number_format($row[17],0,'.',','),'',0,'R',1); //ENTIDAD
-$pdf->Cell(14,4,number_format($row[18],0,'.',','),'',0,'R',1); //ENTIDAD
-$pdf->Cell(0,4,utf8_decode($row[19]),'',0,'L',1); //ENTIDAD
+$pdf->Cell(18,4,utf8_decode($row[19]),'',0,'L',1); //ENTIDAD
+$pdf->Cell(0,4,number_format($row[18],0,'.',','),'',0,'R',1); //ENTIDAD
 $pdf->Ln();
 $totalent=$totalent+$row[18];
 $totalfacts++;

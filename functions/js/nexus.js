@@ -126,7 +126,7 @@ function NxsCanvasEdit(titulo, destino, retorno, ventana) {
 function VerificarF5()
 {
 var tecla=window.event.keyCode;
-if (tecla==116) {MsgBoxErr('Atención','Tecla F5 deshabilitada!');
+if (tecla==116) {MsgBox1('Atención','Tecla F5 deshabilitada!');
 event.keyCode=0;
 event.returnValue=false;}
 }

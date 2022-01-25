@@ -145,11 +145,30 @@
 	height: 50px;
     z-index: 999;
 }
-
+.detalleord {
+    height: 60%;
+}
 .title_bar {
     height: 50px;
 }
-
+.rpt-border {
+    border-image: linear-gradient(to right, #098099, #6d3c9f) 1;
+    border-style: solid;
+    padding: 2px;
+}
+.badge {
+    color: #3d5d9c;
+}
+.list-group-item {
+    color: #147899e0;
+}
+.panel-title a{
+    text-decoration: none;
+    color: #0c7d99;
+    border: 1px solid #3d5d9c;
+    padding: 5px;
+    background-color: floralwhite;
+}
 .logo-mini {
     display: none;
 }

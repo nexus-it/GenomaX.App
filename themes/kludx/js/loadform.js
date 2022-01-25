@@ -256,22 +256,23 @@ function CargarReport(Pag, Tit) {
 	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
 	$(li0).attr('id','gxt' + ContaReports);
 	$(li0).attr('title', Tit);
+	$(li0).attr('class','nav-item');
 	imagenlogo="<img src=\"http://cdn.genomax.co/media/image/icons/16x16/report.png\" align=\"left\"/> ";
-	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaReports);
-	/*
-	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html(Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button>').appendTo('#gxt' + ContaReports);
-	*/
-	$(a0).attr('aria-controls','Ghen_'+ContaReports);
+	var a0 = $(document.createElement('button')).attr('id','gxta' + ContaReports).html(imagenlogo+Tit+' <a id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></a>').appendTo('#gxt' + ContaReports);
+	$(a0).attr('aria-controls','Report_'+ContaReports);
 	$(a0).attr('role','tab');
-	$(a0).attr('data-toggle', 'tab');
-	$(a0).attr('id','gxta' + ContaReports);
+	$(a0).attr('data-bs-toggle', 'tab');
+	$(a0).attr('data-bs-target', '#Report_'+ContaReports);
+	$(a0).attr('type','button');
+	$(a0).attr('class','nav-link');
 	
 	//Luego el contenido del report...
-	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#nxs_tabcontent');
+	var div = $(document.createElement('div')).attr('class','tab-pane fade show').appendTo('#nxs_tabcontent');
 	$(div).attr('id','Report_' + ContaReports);
 	$(div).attr('role','tabpanel');
+	$(div).attr('aria-labelledby','gxta' + ContaForms);
 	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\"http://cdn.genomax.co/media/image/icons/32x32/report.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
-		
+
 	var div3 = $(document.createElement('div')).attr('class','gxFullScreen').html(' <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>').appendTo('#ztitle_' + ContaReports);
 	$(div3).attr('title','Maximizar');
 	$(div3).attr('onclick','gxFullScreen();');
@@ -281,7 +282,11 @@ function CargarReport(Pag, Tit) {
 	$(divgx).attr('id','zRpt_' + ContaReports);
 	pagX=Pag.substring(18,Pag.indexOf('.'));
 	
-	$('#gxtabs a:last').tab('show');
+	var Taby = document.querySelector('#gxta' + ContaReports)
+	var tab = new bootstrap.Tab(Taby)
+	
+	tab.show();
+	// $('#gxtabs a:last').tab('show');
 	AbrirReport(Pag, 'zRpt_' + ContaReports, Parametros);
 	//AbrirReport(Pag, 'zRpt_' + ContaReports, Parametros);
 	
@@ -313,32 +318,39 @@ function CargarDataReport(Pag, Tit) {
 	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
 	$(li0).attr('id','gxt' + ContaReports);
 	$(li0).attr('title', Tit);
+	$(li0).attr('class','nav-item');
 	imagenlogo="<img src=\"http://cdn.genomax.co/media/image/icons/16x16/database_table.png\" align=\"left\"/> ";
-	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaReports);
-	/*
-	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html(Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button>').appendTo('#gxt' + ContaReports);
-	*/
-	$(a0).attr('aria-controls','Ghen_'+ContaReports);
+	var a0 = $(document.createElement('button')).attr('id','gxta' + ContaReports).html(imagenlogo+Tit+' <a id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></a>').appendTo('#gxt' + ContaReports);
+	$(a0).attr('aria-controls','Report_'+ContaReports);
 	$(a0).attr('role','tab');
-	$(a0).attr('data-toggle', 'tab');
-	$(a0).attr('id','gxta' + ContaReports);
+	$(a0).attr('data-bs-toggle', 'tab');
+	$(a0).attr('data-bs-target', '#Report_'+ContaReports);
+	$(a0).attr('type','button');
+	$(a0).attr('class','nav-link');
+	
+	// $(a0).attr('aria-controls','Ghen_'+ContaReports);
 	
 	//Luego el contenido del report...
-	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#nxs_tabcontent');
+	var div = $(document.createElement('div')).attr('class','tab-pane fade show').appendTo('#nxs_tabcontent');
 	$(div).attr('id','Report_' + ContaReports);
 	$(div).attr('role','tabpanel');
+	$(div).attr('aria-labelledby','gxta' + ContaForms);
 	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\"http://cdn.genomax.co/media/image/icons/32x32/database_table.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
-		
+
 	var div3 = $(document.createElement('div')).attr('class','gxFullScreen').html(' <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>').appendTo('#ztitle_' + ContaReports);
 	$(div3).attr('title','Maximizar');
 	$(div3).attr('onclick','gxFullScreen();');
 	var div4 = $(document.createElement('div')).attr('class','panel-body').appendTo('#Report_' + ContaReports);
 	$(div4).attr('id','gxWind_' + ContaReports);
-	var divgx = $(document.createElement('div')).attr('class','container').html('<span id="RptzWind_'+ ContaReports+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>').appendTo('#gxWind_' + ContaReports);
+	var divgx = $(document.createElement('div')).attr('class','container').html('<div class="cargando"></div>').appendTo('#gxWind_' + ContaReports);
 	$(divgx).attr('id','zRpt_' + ContaReports);
 	pagX=Pag.substring(18,Pag.indexOf('.'));
 	
-	$('#gxtabs a:last').tab('show');
+	var Taby = document.querySelector('#gxta' + ContaReports)
+	var tab = new bootstrap.Tab(Taby)
+	
+	tab.show();
+	
 	OpenRpt(Pag, 'zRpt_' + ContaReports, Parametros);
 	//AbrirReport(Pag, 'zRpt_' + ContaReports, Parametros);
 	

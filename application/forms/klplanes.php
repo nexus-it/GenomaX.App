@@ -95,7 +95,7 @@ session_start();
 						echo '
 				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td>
 				  <td align="left"><input name="hdn_coberturaeng'.$contarow.$NumWindow.'" type="hidden" id="hdn_coberturaeng'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td><td align="right"><input name="hdn_descripcioneng'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcioneng'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td>
-				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs btn-block"> <i class="fas fa-eraser"></i> </button>
+				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs "> <i class="fas fa-eraser"></i> </button>
 				  </td></tr>
 				  ';
 					}
@@ -171,7 +171,7 @@ function Addcobertura<?php echo $NumWindow; ?>() {
 		celda2.innerHTML = '<input name="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Descripcion+''+'" /> '+Descripcion; 
 		celda4.innerHTML = '<input name="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CoberturaEng+''+'" /> '+CoberturaEng; 
 		celda5.innerHTML = '<input name="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+DescripcionEng+''+'" /> '+DescripcionEng; 
-		celda3.innerHTML = '<button onclick="EliminarFilaCOB<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>'; 
+		celda3.innerHTML = '<button onclick="EliminarFilaCOB<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs"> <i class="fas fa-eraser"></i> </button>';
 	    fila.appendChild(celda1); 
 	    fila.appendChild(celda2); 
 	    fila.appendChild(celda4); 

@@ -6,20 +6,20 @@ session_start();
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 ?>
-<div class="row">
+<div class="row" style="height:95%;">
 
 <div class="panel-group col-md-2" id="accordion<?php echo $NumWindow; ?>" role="tablist" aria-multiselectable="true">
 
 <div class="panel panel-success">
 	<div class="panel-heading" role="tab" id="headingOne<?php echo $NumWindow; ?>">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseOne<?php echo $NumWindow; ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $NumWindow; ?>">
+        <a role="button" data-bs-toggle="collapse" data-toggle="collapse" data-parent="#accordion<?php echo $NumWindow; ?>" href="#collapseOne<?php echo $NumWindow; ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $NumWindow; ?>">
           <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Parámetros
         </a>
       </h4>
     </div>
 
-<div id="collapseOne<?php echo $NumWindow; ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne<?php echo $NumWindow; ?>">
+<div id="collapseOne<?php echo $NumWindow; ?>" class="panel-collapse collapse show in" role="tabpanel" aria-labelledby="headingOne<?php echo $NumWindow; ?>">
 
 <form id="frm_form<?php echo $NumWindow; ?>"><div class="panel-body contreport" id="div_cont<?php echo $NumWindow; ?>">
 <?php 
@@ -144,7 +144,7 @@ while($row = mysqli_fetch_array($result)) {
 $AutoExecuteStr=$AutoExecuteStr."Cero=0";
 mysqli_free_result($result);
 ?>
-<button id="btn_exect<?php echo $NumWindow; ?>" class="btn btn-success btn-sm btn-block" type="button" onClick="javascript: rptpreview<?php echo $NumWindow; ?>('<?php echo $destino; ?>');"><span id="nxs_previw<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Vista Previa</span><span id="nxs_load<?php echo $NumWindow; ?>"><img src="http://cdn.genomax.co/media/image/loadingform.gif" align="center"></span></button>
+<button id="btn_exect<?php echo $NumWindow; ?>" class="btn btn-success btn-sm btn-block" type="button" onClick="javascript: rptpreview<?php echo $NumWindow; ?>('<?php echo $destino; ?>');"><span id="nxs_previw<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Vista Previa</span><span id="nxs_load<?php echo $NumWindow; ?>"><i class="far fa-hourglass"></i> </span></button>
 </form>
 
 </div>
@@ -155,7 +155,7 @@ mysqli_free_result($result);
 
 </div>
 <div class="col-md-10">	
-<div id="pdfrpt<?php echo $NumWindow; ?>" class="panel panel-success ">
+<div id="pdfrpt<?php echo $NumWindow; ?>" class="panel panel-success rpt-border">
 
   <iframe src='' frameborder='0' allowtransparency='true' style='margin:0; padding:0; width:100%; height: 90%; ' name='iframecont<?php echo $NumWindow; ?>' id="iframecont<?php echo $NumWindow; ?>" class="pdf1 panel-body" onload="frameLoaded<?php echo $NumWindow; ?>();">   
      </iframe> 

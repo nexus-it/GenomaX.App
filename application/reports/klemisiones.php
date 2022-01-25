@@ -76,6 +76,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=str_replace("@PREFIJO",($_GET["PREFIJO"]),$SQL);
 	$SQL=str_replace("@EMISION_INICIAL",($_GET["EMISION_INICIAL"]),$SQL);
 	$SQL=str_replace("@EMISION_FINAL",($_GET["EMISION_FINAL"]),$SQL);
+	$SQL=str_replace("@IDIOMA",($_GET["IDIOMA"]),$SQL);
 }
 //echo $SQL;
 mysqli_free_result($resultH);
@@ -258,7 +259,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->SetTextColor(0);
 	$pdf->SetFillColor(255);
 	$pdf->Ln();
-	$SQL="SELECT Nombre_COB, Descripcion_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob";
+	$SQL="SELECT Nombre".$_GET["IDIOMA"]."_COB, Descripcion".$_GET["IDIOMA"]."_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob";
 //	echo $SQL;
 	$result = mysqli_query($conexion, $SQL);
 	$tamLetra=9;
