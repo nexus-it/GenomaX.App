@@ -57,7 +57,7 @@ include '00trnsctns.php';
 	$ValHeridasHCT="0";
 	//Buscamos los parametros del formato para guardar la hc
 	$SQL="Select SV_HCT, Antecedentes_HCT, Dx_HCT, AyudasDiag_HCT, Qx_HCT, Med_HCT, Ordenes_HCT, Indicaciones_HCT, Medico2_HCT, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Insumos_HCT, ValHeridas_HCT, Cons_HCT from hctipos Where Codigo_HCT='".$_POST['formatohc']."'";
-	error_log($SQL);
+	// error_log($SQL);
 	$resultHCT = mysqli_query($conexion, $SQL);
 	if($rowHCT = mysqli_fetch_row($resultHCT)) {
 		$SV_HCT=$rowHCT[0];
@@ -81,7 +81,7 @@ include '00trnsctns.php';
 		$FraminghamHCT=$rowHCT["Framingham_HCT"];
 		$Insumos_HCT=$rowHCT["Insumos_HCT"];
 		$ValHeridasHCT=$rowHCT["ValHeridas_HCT"];
-		error_log('Cons_HCT: '.$rowHCT[20]);
+		// error_log('Cons_HCT: '.$rowHCT[20]);
 	}
 	mysqli_free_result($resultHCT);
 	// SIGNOS VITALES
@@ -227,11 +227,11 @@ include '00trnsctns.php';
 		while ($rowLBRCV = mysqli_fetch_row($resultLBRCV)) {
 			$Vallb=$_POST["lbrcv".$rowLBRCV[0]];
 			$Fechalb=$_POST["lbdrcv".$rowLBRCV[0]];
-			error_log($_POST["lbrcv".$rowLBRCV[0]]);
-			error_log($_POST["lbdrcv".$rowLBRCV[0]]);
+			// error_log($_POST["lbrcv".$rowLBRCV[0]]);
+			// error_log($_POST["lbdrcv".$rowLBRCV[0]]);
 			if($Vallb!="") {
 				$SQL="Insert Into hclabsrcv(Codigo_TER, Codigo_HCF, Codigo_SER, Valor_LAB, Fecha_LAB) Values('".$_POST['codigoter']."', '".$ElFolio."', '".$rowLBRCV[0]."', '".$Vallb."', '".$Fechalb."');";
-				error_log($SQL);
+				// error_log($SQL);
 				EjecutarSQL($SQL, $conexion);	
 			}
 		}
@@ -259,13 +259,13 @@ include '00trnsctns.php';
 		
 		EjecutarSQL($SQL, $conexion);
 	}
-	error_log('Val Heridas: '.$ValHeridasHCT);
+	// error_log('Val Heridas: '.$ValHeridasHCT);
 	if ($ValHeridasHCT!="0") {
 		for ($i = 1; $i <= 47; $i++) {
 			for ($j = 1; $j <= 66; $j++) {
 				if (isset($_POST['VH'.$j.'-'.$i])) {
 					$SQL="Insert Into hcubicanatom(Codigo_TER, Codigo_HCF, PosX_HUA, PosY_HUA) Values('".$_POST['codigoter']."', '".$ElFolio."', '".$j."', '".$i."');";
-					error_log($SQL);
+					// error_log($SQL);
 					EjecutarSQL($SQL, $conexion);
 				}
 			}
@@ -376,7 +376,7 @@ include '00trnsctns.php';
 		}
 		// ODONTOGRAMMA
 		if (isset($_POST["TotRowsOdont"])) {
-			error_log($_POST["TotRowsOdont"]);
+			// error_log($_POST["TotRowsOdont"]);
 			$TotTtoOdont=$_POST["TotRowsOdont"];
 			$TtosOdont="";
 			for ($i = 1; $i <= $TotTtoOdont; $i++) {
@@ -418,7 +418,7 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	} 
 	// CONSULTAS
-	error_log('Cons HC:'.$Cons_HCT);
+	// error_log('Cons HC:'.$Cons_HCT);
 	if ($Cons_HCT!="0") {
 		$totalOrdCons=$_POST['controwordcons'];
 		if ($totalOrdCons>0) {
@@ -513,15 +513,15 @@ include '00trnsctns.php';
 			}
 		}
 	}
-	error_log('Ordenes:'.$Ordenes_HCT);
+	// error_log('Ordenes:'.$Ordenes_HCT);
 	if ($Ordenes_HCT!="0") {
 	// ORDENES DE SERVICIOS
 		$totalmed=$_POST['controwTer'];
-		error_log('TotOrd:'.$totalmed);
+		// error_log('TotOrd:'.$totalmed);
 		for ($i = 1; $i <= $totalmed; $i++) {
 			if (isset($_POST['tipot'.$i])) {
 				$SQL="Insert Into hcordenesservicios(Codigo_TER, Codigo_HCF, Codigo_SER, TipoSer_HCS, Frecuencia_HCS, Duracion_HCS, Cantidad_HCS, Observaciones_HCS) values('".$_POST['codigoter']."', '".$ElFolio."', '------', '".$_POST['tipot'.$i]."', '".$_POST['frecuenciat'.$i]."', '".$_POST['duraciont'.$i]."', '".$_POST['cantt'.$i]."', '".$_POST['obster'.$i]."')";
-				error_log('SQL:'.$SQL);
+				// error_log('SQL:'.$SQL);
 				EjecutarSQL($SQL, $conexion);
 			}
 		}

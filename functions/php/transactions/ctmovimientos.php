@@ -11,7 +11,7 @@ include '00trnsctns.php';
 	}
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Insert Into czmovcontcab(Codigo_CNT, Codigo_FNC, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) values ('".$Consec."', '".$_POST['fuente']."', '".$_POST['fecha']."', '".$Consec2."', '".$_POST['referencia']."', '".$_POST['observaciones']."', '".$_POST['total']."');";
-	error_log($SQL);
+	// error_log($SQL);
 	
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Delete From czmovcontdet Where Codigo_CNT='".$Consec."';";
@@ -27,7 +27,7 @@ include '00trnsctns.php';
 		}
 		mysqli_free_result($result);
 		$SQL="Insert into czmovcontdet(Codigo_CNT, Codigo_TER, Codigo_CTA, Descripcion_CNT, Codigo_CCT, Debito_CNT, Credito_CNT) Values('".$Consec."', '".$tercer."', '".$_POST['cuenta'.$contador]."', '".$_POST['descripcion'.$contador]."', '".$_POST['ccosto'.$contador]."', '".$_POST['debito'.$contador]."', '".$_POST['credito'.$contador]."' )";
-		error_log($SQL);
+		// error_log($SQL);
 		EjecutarSQL($SQL, $conexion);
 	}
 

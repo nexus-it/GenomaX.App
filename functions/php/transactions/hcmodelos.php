@@ -24,7 +24,7 @@ include '00trnsctns.php';
 	}
 	mysqli_free_result($resultHCA);
 	$SQLx=$SQLx.$SQLy.");";
-	error_log($SQLx);
+	// error_log($SQLx);
 	EjecutarSQL($SQLx, $conexion);
 
 
@@ -45,7 +45,7 @@ include '00trnsctns.php';
 			}
 			mysqli_free_result($resultHCA);
 			$SQLx=$SQLx.$SQLy.");";
-			error_log($SQLx);
+			// error_log($SQLx);
 			EjecutarSQL($SQLx, $conexion);
 			// Fin hccampos
 		
@@ -55,14 +55,14 @@ include '00trnsctns.php';
 			if (trim($_POST['Tipo_HCC'.$Item])=="text") { $Type="VARCHAR"; $Long="(255)"; $Kamp="1"; }
 			if (trim($_POST['Tipo_HCC'.$Item])=="date") { $Type="DATE"; $Long=""; $Kamp="1"; }
 			if (trim($_POST['Tipo_HCC'.$Item])=="time") { $Type="TIME"; $Long=""; $Kamp="1"; }
-			error_log(trim($_POST['Tipo_HCC'.$Item]));
+			// error_log(trim($_POST['Tipo_HCC'.$Item]));
 			if ($Kamp=="1") {
 				$SQL=$SQL." `".trim($_POST['Codigo_HCC'.$Item])."_HC` ".$Type.$Long."  NULL COMMENT '".trim($_POST['Nombre_HCC'.$Item])." ', ";
 			}
 		}
 	}
 	$SQL=$SQL." PRIMARY KEY (`Codigo_TER`, `Codigo_HCF`), 	INDEX `Codigo_TER` (`Codigo_TER`), INDEX `Codigo_HCF` (`Codigo_HCF`) ) 	COMMENT='".$_POST['Nombre_HCT']."' 	COLLATE='utf8_general_ci' 	ENGINE=InnoDB;";
-	error_log($SQL);
+	// error_log($SQL);
 	EjecutarSQL($SQL, $conexion);
 
 	$Itemx=0; 
@@ -81,7 +81,7 @@ include '00trnsctns.php';
 			}
 			mysqli_free_result($resultHCA);
 			$SQLx=$SQLx.$SQLy.");";
-			error_log($SQLx);
+			// error_log($SQLx);
 			EjecutarSQL($SQLx, $conexion);
 			// Fin hccampos			
 		}

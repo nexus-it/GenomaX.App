@@ -5,7 +5,7 @@ function EjecutarSQL($Cons, $Conn) {
 	if(mysqli_query($Conn, $Cons)) {
 		$Flag=1;
 	  } else {
-        error_log("gnmx_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
+        // error_log("gnmx_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
     }
 }
 include '../../../config.php';
@@ -27,14 +27,14 @@ EjecutarSQL($SQL, $conexion);
  init */
 // Se crean los productos y servicios que no existan en Siigo
 $SQL="SELECT distinct e.CUM_MED, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxmedicamentos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1' UNION SELECT distinct e.CUPS_PRC, y.Nombre_SER, y.Tipo_SER, d.GrupoFE_SER, x.Codigo_SER FROM gxordenesdet x, gxservicios y, gxordenescab z, gxfacturas a, czautfacturacion b, gxserviciostipos d, gxprocedimientos e WHERE e.Codigo_SER=y.Codigo_SER and d.Tipo_SER=y.Tipo_SER and z.Codigo_ORD=x.Codigo_ORD and x.Codigo_SER=y.Codigo_SER and z.codigo_adm=a.codigo_adm and a.Codigo_AFC=b.Codigo_AFC AND b.IdFormSiigo_AFC<>'' AND a.Estado_FAC='1' and IdFE_FAC=0 and xPortSiigo_SER<>'1';";
-//error_log($SQL);
+//// error_log($SQL);
 $resultyy = mysqli_query($conexion, $SQL);
 $contador=0;
 while($rowyy = mysqli_fetch_row($resultyy)) {
     createProduct($rowyy[4], $rowyy[1], $rowyy[2], $rowyy[3], $rowyy[0]);
     $SQL="Update gxservicios Set xPortSiigo_SER='1' where codigo_ser='".$rowyy[4]."'";
     EjecutarSQL($SQL, $conexion);
-    //error_log($SQL);
+    //// error_log($SQL);
 }
 mysqli_free_result($resultyy);
 /* end */
@@ -59,7 +59,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
         } else {
             $SQL="SELECT a.IdFormSiigo_AFC AS 'DocCode', cast(right(b.Codigo_FAC, 10) AS UNSIGNED) AS 'Number', DATE_FORMAT(b.Fecha_FAC, '%Y%m%d') AS 'DocDate',  'COP' AS 'MoneyCode', -1 AS 'SelfWithholdingTaxID', b.ValPaciente_FAC AS 'AdvancePaymentValue', b.ValTotal_FAC AS 'TotalValue',  b.ValTotal_FAC AS 'TotalBase', UsuarioAPP_XFE AS 'SalesmanIdentification',Concat('Contrato ', g.Contrato_EPS, ' Plan: ', h.Nombre_PLA,' <br>',IFNULL(b.Nota_FAC,'')) AS 'Observations', Payments_XFE as 'Payments', DATE_FORMAT(DATE_ADD(b.Fecha_FAC, INTERVAL ".$rowxxx[5]." DAY), '%Y%m%d') as 'Vencim' FROM czautfacturacion a, gxfacturas b, itconfig_fe c, czterceros d, gxeps g, gxplanes h WHERE g.Codigo_EPS=b.Codigo_EPS and h.Codigo_PLA=b.Codigo_PLA and c.Estado_XFE='1' and  a.Codigo_AFC=b.Codigo_AFC AND b.Codigo_FAC='".$rowxxx[0]."' and b.Tipo_FAC='C';";
         }
-        // error_log($SQL);
+        // // error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
 		if($rowp = mysqli_fetch_row($result)) {
@@ -95,7 +95,7 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 		mysqli_free_result($result);
 		// Informacion de la cuenta y el contacto
 		$SQL="SELECT distinct c.Nombre_TER, c.ID_TER, c.Direccion_TER, c.Telefono_TER, PhoneContact_EPS, CellContact_EPS, lower(EmailContact_EPS), NameContact_EPS, LastnameContact_EPS, b.Codigo_EPS, CodMin_EPS  FROM gxeps a, gxfacturas b, czterceros c WHERE a.Codigo_EPS=b.Codigo_EPS AND a.Codigo_TER=c.Codigo_TER AND b.Codigo_FAC='".$rowxxx[0]."' and b.Codigo_ADM='".$rowxxx[3]."';";
-		// error_log($SQL);
+		// // error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		$contador=0;
         $entidad="";
@@ -179,21 +179,21 @@ while($rowxxx = mysqli_fetch_row($resultxxx)) {
 ],';	
 	
 	$BodyInvoice=$strHeaderFac. $strAccount. $strServices. $strPayments;
-    error_log('Empresa: '.$_SESSION["DB_NAME"].' ---'.$BodyInvoice);
+    // error_log('Empresa: '.$_SESSION["DB_NAME"].' ---'.$BodyInvoice);
 	$resultado=createInvoice($BodyInvoice);
-	error_log('Factura '.$_SESSION["DB_NAME"].': '.$resultado);
+	// error_log('Factura '.$_SESSION["DB_NAME"].': '.$resultado);
 	$ConsecFE=json_decode($resultado, true);
 	foreach ($ConsecFE as $NumFac) {
 		if($NumFac['Number']!="") {
 			$SQL="Insert Into gxfacturaselectronicas(Codigo_FAC, IdFE_FAC, NumFE_FAC) Values('".$rowxxx[0]."', '".$NumFac['Id']."', '".$NumFac['Number']."')";
-			//error_log($SQL);
+			//// error_log($SQL);
 			EjecutarSQL($SQL, $conexion);
             if ($rowxxx[6]=='E') {
                 $SQL="Update gxfacturas a, czautfacturacion b Set IdFE_FAC='".$NumFac['Id']."', Codigo_FAC=Concat(trim(Prefijo_AFC),b.Separador_AFC,trim(LPAD(".$NumFac['Number'].",10,b.Ceros_AFC)))  Where a.Codigo_AFC=b.Codigo_AFC and Codigo_FAC='".$rowxxx[0]."' and Codigo_ADM='".$rowxxx[3]."';";
             } else {
                 $SQL="Update gxfacturas a, czautfacturacion b Set IdFE_FAC='".$NumFac['Id']."', Codigo_FAC=Concat(trim(Prefijo_AFC),b.Separador_AFC,trim(LPAD(".$NumFac['Number'].",10,b.Ceros_AFC))) Where a.Codigo_AFC=b.Codigo_AFC and Codigo_FAC='".$rowxxx[0]."' and Tipo_FAC='C';";
             }
-			//error_log($SQL);
+			//// error_log($SQL);
 			EjecutarSQL($SQL, $conexion);
             $SQL="Update czautfacturacion Set ConsecNow_AFC='".$NumFac['Number']."' Where Codigo_AFC='".$rowxxx[4]."';";
             EjecutarSQL($SQL, $conexion);

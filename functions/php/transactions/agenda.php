@@ -136,9 +136,9 @@ include '00trnsctns.php';
 
 $FecIniX=date("d-m-Y",strtotime($_POST['fechasab']."+ 2 days"));
 $FecFinX=date("d-m-Y",strtotime($_POST['fechasab']."+ 8 days"));
-error_log($_POST['fechalun'].' => '.$_POST['fechasab']);
-error_log($FecIniX.' => '.$FecFinX);
-error_log($_POST["fext"]);
+// error_log($_POST['fechalun'].' => '.$_POST['fechasab']);
+// error_log($FecIniX.' => '.$FecFinX);
+// error_log($_POST["fext"]);
 while ($_POST['fechasab']<$_POST['fext']) {
 
 		$AgndAnt="0";

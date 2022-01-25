@@ -520,7 +520,7 @@ case 'GenRes1552':
 			*/
 		}
 	mysqli_free_result($resulthc); 
-	/*error_log($Kontador);
+	/*// error_log($Kontador);
 	for ($i=1; $i <=$Kontador; $i++) { 
 		if (file_exists($RutaR1552.$NomFile)) {
 			file_put_contents($RutaR1552.$NomFile, chr(13).chr(10), FILE_APPEND);
@@ -797,7 +797,7 @@ case 'UpdtTerceros':
 	$SQL="SELECT a.Nombre_TER, CONCAT(b.Sigla_TID,' ',a.ID_TER), a.Direccion_TER, a.Telefono_TER, a.Correo_TER, a.Web_TER, c.Nombre_RGN, a.Cliente_TER, a.Proveedor_TER, case a.PersonaNatural_TER when '1' then 'NATURAL' ELSE 'JURIDICA' END, a.Codigo_TER, a.ID_TER FROM czterceros a, cztipoid b, czregimenes c WHERE a.Codigo_TID=b.Codigo_TID AND a.Codigo_RGN=c.Codigo_RGN ".$varnombreter.$varidter.$varprov.$varcliente." Order BY 1, 2 asc limit ".$varcomienzo.",".$varcantidad;
 	$resulthc = mysqli_query($conexion, $SQL);
 	$Kontador=0;
-	error_log($SQL);
+	// error_log($SQL);
 	while($rowhc = mysqli_fetch_array($resulthc)) 
 		{
 			$Kontador++;
@@ -848,7 +848,7 @@ case 'FooTerc':
 	}
 
     $SQL="Select count(Codigo_TER) from czterceros Where ID_TER<>'' ".$varnombreter.$varidter;
-    error_log($SQL);
+    // error_log($SQL);
 	$resulthc = mysqli_query($conexion, $SQL);
 	while($rowhc = mysqli_fetch_array($resulthc)) {
 		$totregistros=$rowhc[0];
@@ -1782,7 +1782,7 @@ case 'refreshlistpuc' :
 	$texto= ltrim(rtrim($_GET['value']));
 	if($texto != '' ){
 		$SQL="SELECT concat(Codigo_CTA, ' ', Nombre_CTA) from czcuentascont where Codigo_NVL=5 and codigo_cta like '%".$texto."%' order by 1 limit 10 ;";	
-		error_log($SQL);
+		// error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		while($row = mysqli_fetch_row($result)) {
 			echo '<option value="'.$row[0].'">';
@@ -2008,7 +2008,7 @@ case 'loadSchedule' :
 	$areas=" and a.Codigo_ARE in (".$areas.") ";
 
 	$SQL="SELECT DISTINCT b.Codigo_AGE, c.Codigo_TER, concat(c.Apellido1_MED, ' ', left(c.Apellido2_MED,1), ' ', c.Nombre1_MED, ' ', left(c.Nombre2_MED,1)) FROM gxagendacab a, gxagendadet b, gxmedicos c WHERE a.Codigo_AGE=b.Codigo_AGE AND c.Codigo_TER=a.Codigo_TER AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
-	 error_log('Agendas: '.$SQL);
+//	 // error_log('Agendas: '.$SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$i=0;
 	while($row = mysqli_fetch_row($result)) {
@@ -2018,7 +2018,7 @@ case 'loadSchedule' :
 	} 
 	mysqli_free_result($result);
 	$SQL="SELECT min(b.Hora_AGE), MAX(b.Hora_AGE), round(TIMESTAMPDIFF(minute,min(b.Hora_AGE), MAX(b.Hora_AGE))/5) FROM gxagendadet b, gxagendacab a WHERE a.Codigo_AGE=b.Codigo_AGE AND a.Estado_AGE='1' ".$areas." AND b.Fecha_AGE='".$fecha."'";
-	 error_log('Total Prof:'.$i);
+	 // error_log('Total Prof:'.$i);
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$horamin = $row[0];
@@ -2037,7 +2037,7 @@ case 'loadSchedule' :
 		$SQL2=$SQL2." LEFT OUTER JOIN gxagendadet t".$j." ON t".$j.".Hora_AGE=t0.horaagenda AND t".$j.".Codigo_AGE='".$array_agendas[$j]."' AND t".$j.".Fecha_AGE='".$fecha."'";
 	}
 	$SQL=$SQL1.$SQL2. " Where t0.horaagenda between '".$horamin."' and '".$horamax."'";
-	error_log('Revisar: '.$SQL);
+	// error_log('Revisar: '.$SQL);
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_row($result)) {
 		$tabla=$tabla.'<tr height="27px"><td style="font-size:11px;">'.$row[0].'</td>';
@@ -2047,11 +2047,11 @@ case 'loadSchedule' :
 				$SQL="Select 'X' From gxagendacab a, gxagendadet b Where a.Codigo_AGE=b.Codigo_AGE AND b.Fecha_AGE='".$fecha."' And DATE_FORMAT(DATE_ADD(STR_TO_DATE('".$row[0]."', '%H:%i:%s'),INTERVAL 1 MINUTE), '%H:%i:%s') between b.Hora_AGE and DATE_FORMAT(DATE_ADD(STR_TO_DATE(b.Hora_AGE, '%H:%i:%s'),INTERVAL a.Tiempo_AGE MINUTE), '%H:%i:%s') And a.Codigo_AGE='".$array_agendas[$j]."'";
 				$resulth = mysqli_query($conexion, $SQL);
 				if($rowh = mysqli_fetch_row($resulth)) {
-					error_log('X: '.$SQL);
+					// error_log('X: '.$SQL);
 					flush();
 				} else {
 					$tabla=$tabla.'<td style="cursor: not-allowed;"></td>';
-					error_log('No: '.$SQL);
+					// error_log('No: '.$SQL);
 				}
 				mysqli_free_result($resulth);
 				
@@ -2063,7 +2063,7 @@ case 'loadSchedule' :
 					$html="";
 					if($row[$j]=="1") {
 						$SQL="SELECT '".$row[0]."', time_format(ADDTIME('".$row[0]."', '00:".$rowx[0].":00'), '%H:%i'), CONCAT(b.Nombre1_PAC,' ',LEFT(b.Nombre2_PAC,1),' ',b.Apellido1_PAC,' ',LEFT(b.Apellido2_PAC,1)), c.Nombre_EPS, a.Confirma_CIT, a.Atiende_CIT, e.ID_TER, a.Codigo_CIT, e.Telefono_TER, concat(f.Sigla_TID, ' ', e.id_ter), g.Nombre_SER FROM gxpacientes b, gxeps c, gxagendacab d, czterceros e, cztipoid f, gxcitasmedicas a left join gxservicios g on a.Codigo_SER=g.Codigo_SER WHERE e.Codigo_TER=b.Codigo_TER and a.Codigo_TER=b.Codigo_TER AND d.Codigo_AGE=a.Codigo_AGE AND b.Codigo_EPS=c.Codigo_EPS AND a.Estado_CIT='P' AND a.Fecha_AGE='".$fecha."' AND a.Hora_AGE='".$row[0]."' AND a.Codigo_AGE='".$array_agendas[$j]."'";
-						error_log($SQL);
+						// error_log($SQL);
 						$resulty = mysqli_query($conexion, $SQL);
 						if($rowy = mysqli_fetch_row($resulty)) {
 							$hc="";
@@ -2159,7 +2159,7 @@ case 'FillAgenda' :
 	Union 
 	Select z.Hora_AGE, m.Nombre_CNS, z.codigo_age, 'disabled' as 'habil', x.ID_TER, x.Nombre_TER From czterceros x, gxcitasmedicas y, gxagendadet z, gxagendacab n, gxconsultorios m Where x.Codigo_TER=y.Codigo_TER and y.Codigo_AGE=z.Codigo_AGE and y.Fecha_AGE=z.fecha_age and y.hora_age=z.hora_age and z.Codigo_AGE=n.Codigo_AGE and n.Codigo_CNS=m.Codigo_CNS and n.Estado_AGE='1' and z.Estado_AGE='1' and z.Fecha_AGE='".$_GET['fecha']."' and n.Codigo_TER='".$_GET['medico']."' and n.Codigo_ARE='".$_GET['area']."'
 	Order by 1,2;";
-	error_log($SQL);
+	// error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$counter=0;
 	while($row = mysqli_fetch_row($result)) {
@@ -2255,7 +2255,7 @@ break;
 case 'CargarFactLote':
 	$resultado=$resultado.'<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle'.$_GET['value'].'" ><tbody id="tbDetalle'.$_GET['value'].'"><tr id="trh'.$_GET['value'].'"> <th id="th1'.$_GET['value'].'">Ingreso</th> <th id="th2'.$_GET['value'].'">Id. Paciente</th> <th id="th2'.$_GET['value'].'">Nombre</th> <th id="th2'.$_GET['value'].'">Fecha Ing.</th> <th id="th2'.$_GET['value'].'">Diagnostico</th> <th id="th2'.$_GET['value'].'">Autorizacion</th> <th id="th2'.$_GET['value'].'">Finaliza</th> <th id="th2'.$_GET['value'].'">Pte.</th> <th id="th2'.$_GET['value'].'" >Entidad</th> <th id="th2'.$_GET['value'].'"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th> </tr> ';
 	$SQL="Select lpad(a.Codigo_ADM, 10, '0'), d.ID_TER, concat(j.Apellido1_PAC,' ',j.Apellido2_PAC,' ', j.Nombre1_PAC,' ',j.Nombre2_PAC), date(a.Fecha_ADM), e.Descripcion_DGN, a.Autorizacion_ADM, sum(h.Valor_TAR * c.Cantidad_ORD), FechaFin_ADM, Ingreso_ADM, a.Codigo_ADM  From gxadmision a, gxordenescab b, gxordenesdet c, czterceros d, gxdiagnostico e, czsedes g, gxmanualestarifarios h, gxcontratos i, gxpacientes j Where j.Codigo_TER=d.Codigo_TER and a.Codigo_ADM=b.Codigo_ADM and b.Codigo_ORD=c.Codigo_ORD and d.Codigo_TER=a.Codigo_TER and i.Codigo_TAR=h.Codigo_TAR and e.Codigo_DGN=a.Codigo_DGN and g.Codigo_SDE=a.Codigo_SDE and i.Codigo_EPS=a.Codigo_EPS and i.Codigo_PLA=a.Codigo_PLA and b.Fecha_ORD between h.FechaIni_TAR and h.FechaFin_TAR and h.Codigo_SER=c.Codigo_SER  and a.Estado_ADM='I' and b.Estado_ORD='1' and a.Codigo_EPS='". $_GET["codigoeps"]."' and a.Codigo_PLA='". $_GET["codigopla"]."' and a.Fecha_ADM between '". ($_GET["fechaini"])."' and '". ($_GET["fechafin"])." 23:59:59' and g.Codigo_AFC='". $_GET["codigoafc"]."' Group By a.Codigo_ADM, d.ID_TER, d.Nombre_TER, a.Fecha_ADM, e.Descripcion_DGN, a.Autorizacion_ADM Order by ".$_GET["orden"].";";
-	error_log($SQL);
+	// error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$contarow=0;
 	while($row = mysqli_fetch_row($result)) {
@@ -2445,7 +2445,7 @@ break;
 case 'DespMedSol2':
 	$resultado=$resultado.'<table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle" id="tblDetalle'.$NumWindow.'" ><tbody id="tbDetalle'.$NumWindow.'"><tr id="trh'.$NumWindow.'"><th id="th1'.$NumWindow.'">Solicitud</td><th id="th2'.$NumWindow.'">Fecha</td><th id="th2'.$NumWindow.'">Hora</td><th id="th2'.$NumWindow.'">Paciente</td><th id="th2'.$NumWindow.'">Cama</td><th id="th2'.$NumWindow.'">Servicio</td><th id="th2'.$NumWindow.'">Usuario</td></tr> ';
 	$SQL="Select distinct a.Codigo_ISF, a.Fecha_ISF, a.Hora_ISF, b.Nombre_TER, d.Nombre_CAM, f.Nombre_ARE, g.Nombre_USR From czinvsolfarmacia a, czterceros b, gxcamas d, gxadmision e, gxareas f, itusuarios g, itusuarios h, itusuariossedes i Where i.Codigo_USR=h.Codigo_USR and h.Codigo_USR=e.Codigo_USR and b.Codigo_TER=a.Codigo_TER and a.Ordena_ISF=g.Codigo_USR and f.Codigo_ARE=a.Codigo_ARE and e.Codigo_ADM=a.Codigo_ADM and d.Codigo_CAM=e.Codigo_CAM and a.Estado_ISF in ('S')  and a.Pendiente_ISF > 0";
-	error_log($SQL);
+	// error_log($SQL);
 	if ($_GET['filtroarea']!='X') {	
 		$SQL=$SQL." and c.Codigo_ARE='".$_GET['filtroarea']."'";
 	}

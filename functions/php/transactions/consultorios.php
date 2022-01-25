@@ -9,7 +9,7 @@ include '00trnsctns.php';
 	} else {
 		$SQL="Insert Into gxconsultorios(Codigo_CNS, Nombre_CNS, Descripcion_CNS, Codigo_ARE, Triage_CNS, Urgencias_CNS, Estado_CNS) Values('".$_POST["codigo"]."', '".$_POST["nombre"]."', '".$_POST["descripcion"]."', '".$_POST["area"]."', '".$_POST["triage"]."', '".$_POST["urgencia"]."', '".$_POST["estado"]."');";		
 	}
-	error_log($SQL);
+	// error_log($SQL);
 	mysqli_free_result($result);
 	EjecutarSQL($SQL, $conexion);
 	

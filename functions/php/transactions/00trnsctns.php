@@ -6,7 +6,7 @@ function EjecutarSQL($Cons, $Conn) {
 	if(mysqli_query($Conn, $Cons)) {
 		$Flag=1;
 	  } else {
-        error_log("gnmx_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
+        error_log("NXS_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
     }
 }
 function LoadConsec($Tabla, $Campo, $Valor, $Conn, $Campo2) {
@@ -52,7 +52,7 @@ function UpdtTarifasNow($CodigoTar, $Conn) {
 	$FecFin=date("Y")."-12-31 23:59:59";
 	$VariacionTAR="";
 	$SQL="Select Base_TAR from gxtarifas where Codigo_TAR='".$CodigoTar."'";
-	error_log($SQL);
+	// error_log($SQL);
 	$result = mysqli_query($Conn, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$VariacionTAR=$row[0];

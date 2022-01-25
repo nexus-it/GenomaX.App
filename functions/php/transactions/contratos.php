@@ -13,7 +13,7 @@ include '00trnsctns.php';
 	if ($konsec<$Consec) {
 		$Consec=LoadConsec("czterceros", "Codigo_TER", $_POST['nit'], $conexion, "ID_TER");
 		$SQL="Insert into czterceros(Codigo_TER, ID_TER, Nombre_TER, Codigo_TID, Direccion_TER, Telefono_TER, Correo_TER, Expedicion_TER) Values ('".$Consec."', '".$_POST['nit']."', '".$_POST['nombre']."', 9, '".$_POST['Direccion']."', '".$_POST['Telefonos']."','".$_POST['email']."', '----')";
-		error_log($SQL);
+		// error_log($SQL);
 		EjecutarSQL($SQL, $conexion);
 	} else {
 		$SQL="Update czterceros set Nombre_TER='".$_POST['nombre']."', Direccion_TER='".$_POST['Direccion']."', Telefono_TER='".$_POST['Telefonos']."', Correo_TER='".$_POST['email']."' Where Codigo_TER='".$Consec."'";
