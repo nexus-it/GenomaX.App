@@ -1,6 +1,5 @@
 <?php
 	
-
 session_start();
 	$NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -8,7 +7,7 @@ session_start();
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
-<form name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" method="post"  >
+<form name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" action="" method="post" class="form-horizontal  col-md-12" >
 
 <label class="label label-default"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Datos Empresa</label>
 <div class="row well well-sm">
@@ -17,7 +16,7 @@ session_start();
 	<input name="hdn_terceros<?php echo $NumWindow; ?>" type="hidden" id="hdn_terceros<?php echo $NumWindow; ?>" value="<?php echo session_id(); ?>" />
 <div class="form-group">
 <label for="cmb_tipoid<?php echo $NumWindow; ?>">Tipo Id</label>
-<select name="cmb_tipoid<?php echo $NumWindow; ?>" id="cmb_tipoid<?php echo $NumWindow; ?>" >
+<select name="cmb_tipoid<?php echo $NumWindow; ?>" id="cmb_tipoid<?php echo $NumWindow; ?>" class="form-select">
 <?php 
 $SQL="Select Codigo_TID, Nombre_TID, case Sigla_TID when 'NI' then 'NIT' else Sigla_TID end from cztipoid Where Codigo_TID Not in ('8','4', '5', '6', '7') order by Codigo_TID desc";
 $result = mysqli_query($conexion, $SQL);
@@ -38,9 +37,9 @@ mysqli_free_result($result);
 <div class="form-group">
 	<label for="txt_idagencia<?php echo $NumWindow; ?>">No.</label>
 	<div class="input-group">	
-		<input name="txt_idagencia<?php echo $NumWindow; ?>" id="txt_idagencia<?php echo $NumWindow; ?>" type="text"  maxlength="15" onkeypress="BuscarAGE<?php echo $NumWindow; ?>(event);" />
+		<input name="txt_idagencia<?php echo $NumWindow; ?>" id="txt_idagencia<?php echo $NumWindow; ?>" type="text"  maxlength="15" onkeypress="BuscarAGE<?php echo $NumWindow; ?>(event);" class="form-control" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Klagencias" onclick="javascript:CargarSearch('Klagencias', 'txt_idagencia<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
+			<button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Klagencias" onclick="javascript:CargarSearch('Klagencias', 'txt_idagencia<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
 		</span>
 	</div>
 </div>
@@ -50,7 +49,7 @@ mysqli_free_result($result);
 
 <div class="form-group" id="idjuridicaX<?php echo $NumWindow; ?>">
 <label for="txt_id<?php echo $NumWindow; ?>">DV</label>
-<input name="txt_id<?php echo $NumWindow; ?>" type="text"  maxlength="1" id="txt_id<?php echo $NumWindow; ?>"  />
+<input name="txt_id<?php echo $NumWindow; ?>" type="text"  maxlength="1" id="txt_id<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -58,7 +57,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
 <label for="txt_ncomercial<?php echo $NumWindow; ?>">Nombre Agencia</label>
-<input name="txt_ncomercial<?php echo $NumWindow; ?>" type="text"  id="txt_ncomercial<?php echo $NumWindow; ?>"  />
+<input name="txt_ncomercial<?php echo $NumWindow; ?>" type="text"  id="txt_ncomercial<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -66,7 +65,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
 <label for="cmb_estado<?php echo $NumWindow; ?>"> Estado</label>
-  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>">
+  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-select" >
     <option value="0" style="color:#C00" >Inactivo</option>
     <option value="1" style="color:#060" >Activo</option>
   </select>
@@ -77,7 +76,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
 <label for="txt_rsocial<?php echo $NumWindow; ?>">Razon Social</label>
-<input name="txt_rsocial<?php echo $NumWindow; ?>" type="text"  id="txt_rsocial<?php echo $NumWindow; ?>"  />
+<input name="txt_rsocial<?php echo $NumWindow; ?>" type="text"  id="txt_rsocial<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -85,7 +84,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
 <label for="txt_descripcion<?php echo $NumWindow; ?>">Descripcion</label>
-<input name="txt_descripcion<?php echo $NumWindow; ?>" type="text"  id="txt_descripcion<?php echo $NumWindow; ?>"  />
+<input name="txt_descripcion<?php echo $NumWindow; ?>" type="text"  id="txt_descripcion<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -93,7 +92,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
   <label for="txt_webpage<?php echo $NumWindow; ?>">Página Web</label>
-  <input name="txt_webpage<?php echo $NumWindow; ?>" type="text"  id="txt_webpage<?php echo $NumWindow; ?>"  />
+  <input name="txt_webpage<?php echo $NumWindow; ?>" type="text"  id="txt_webpage<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -101,7 +100,7 @@ mysqli_free_result($result);
 
 <div class="form-group">
   <label for="cmb_pais<?php echo $NumWindow; ?>">Pais</label>
-  <select name="cmb_pais<?php echo $NumWindow; ?>" id="cmb_pais<?php echo $NumWindow; ?>">
+  <select name="cmb_pais<?php echo $NumWindow; ?>" id="cmb_pais<?php echo $NumWindow; ?>" class="form-select">
     <?php 
 $SQL="Select Codigo_dst, Nombre_dst from kldestinos  where  Estado_dst='1' Order by 2";
 $resultz = mysqli_query($conexion, $SQL);
@@ -122,9 +121,9 @@ mysqli_free_result($resultz);
 <div class="form-group">
   <label for="txt_Departamento<?php echo $NumWindow; ?>">Cod Dep.</label>
   	<div class="input-group">	
-  		<input name="txt_Departamento<?php echo $NumWindow; ?>" type="text" id="txt_Departamento<?php echo $NumWindow; ?>" maxlength="2" onkeypress="BuscarDpto<?php echo $NumWindow; ?>(event);" />
+  		<input name="txt_Departamento<?php echo $NumWindow; ?>" type="text" id="txt_Departamento<?php echo $NumWindow; ?>" maxlength="2" onkeypress="BuscarDpto<?php echo $NumWindow; ?>(event);" class="form-control" />
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
+  			<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#GnmX_Search" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Departamentos" onclick="javascript:CargarSearch('Departamentos', 'txt_Departamento<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   		</span>
   </div>
 </div>
@@ -134,7 +133,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_NombreDepto<?php echo $NumWindow; ?>">Nom. Departamento</label>
-	<input name="txt_NombreDepto<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreDepto<?php echo $NumWindow; ?>" />
+	<input name="txt_NombreDepto<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreDepto<?php echo $NumWindow; ?>" class="form-control" />
 </div>
   
  	</div>
@@ -143,9 +142,9 @@ mysqli_free_result($resultz);
 <div class="form-group">
   <label for="txt_Municipio<?php echo $NumWindow; ?>">Municipio</label>
   	<div class="input-group">	
-  		<input name="txt_Municipio<?php echo $NumWindow; ?>" type="text" id="txt_Municipio<?php echo $NumWindow; ?>"  maxlength="3" onkeypress="BuscarMUN<?php echo $NumWindow; ?>(event);" />
+  		<input name="txt_Municipio<?php echo $NumWindow; ?>" type="text" id="txt_Municipio<?php echo $NumWindow; ?>"  maxlength="3" onkeypress="BuscarMUN<?php echo $NumWindow; ?>(event);" class="form-control" />
    		<span class="input-group-btn">	
-   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
+   			<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#GnmX_Search" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Municipio" onclick="javascript:CargarMUN(document.frm_form<?php echo $NumWindow; ?>.txt_Departamento<?php echo $NumWindow; ?>.value);"><i class="fas fa-search"></i></button>
    		</span>
    </div>
 </div>
@@ -156,7 +155,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_NombreMnpio<?php echo $NumWindow; ?>">Nom. Municipio</label>
-	<input name="txt_NombreMnpio<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreMnpio<?php echo $NumWindow; ?>" />
+	<input name="txt_NombreMnpio<?php echo $NumWindow; ?>" type="text"  disabled="disabled" id="txt_NombreMnpio<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -164,7 +163,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_Direccion<?php echo $NumWindow; ?>">Direccion</label>
-  <input type="text" name="txt_Direccion<?php echo $NumWindow; ?>" id="txt_Direccion<?php echo $NumWindow; ?>" />
+  <input type="text" name="txt_Direccion<?php echo $NumWindow; ?>" id="txt_Direccion<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -172,7 +171,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_Telefonos<?php echo $NumWindow; ?>">Telefono</label>
-  <input type="text" name="txt_Telefonos<?php echo $NumWindow; ?>" id="txt_Telefonos<?php echo $NumWindow; ?>" /> 
+  <input type="text" name="txt_Telefonos<?php echo $NumWindow; ?>" id="txt_Telefonos<?php echo $NumWindow; ?>" class="form-control" /> 
 </div>  
 
 	</div>
@@ -180,7 +179,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_email<?php echo $NumWindow; ?>">Correo</label>
-  <input type="text" name="txt_email<?php echo $NumWindow; ?>" id="txt_email<?php echo $NumWindow; ?>" />
+  <input type="text" name="txt_email<?php echo $NumWindow; ?>" id="txt_email<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
@@ -197,7 +196,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_contacto<?php echo $NumWindow; ?>">Contacto</label>
-  <input type="text" name="txt_contacto<?php echo $NumWindow; ?>" id="txt_contacto<?php echo $NumWindow; ?>" />  
+  <input type="text" name="txt_contacto<?php echo $NumWindow; ?>" id="txt_contacto<?php echo $NumWindow; ?>" class="form-control" />  
 </div>  
 
 	</div>
@@ -205,11 +204,10 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="txt_cargo<?php echo $NumWindow; ?>">Cargo</label>
-  <input type="text" name="txt_cargo<?php echo $NumWindow; ?>" id="txt_cargo<?php echo $NumWindow; ?>" />
+  <input type="text" name="txt_cargo<?php echo $NumWindow; ?>" id="txt_cargo<?php echo $NumWindow; ?>" class="form-control" />
 </div>
 
 	</div>
-
 
 </div>
 <label class="label label-default"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Configuración Impresión</label>
@@ -219,7 +217,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="cmb_rsocialprint<?php echo $NumWindow; ?>">Razon Social</label>
-  <select name="cmb_rsocialprint<?php echo $NumWindow; ?>" id="cmb_rsocialprint<?php echo $NumWindow; ?>">
+  <select name="cmb_rsocialprint<?php echo $NumWindow; ?>" id="cmb_rsocialprint<?php echo $NumWindow; ?>" class="form-select">
     <option value="0">AXISMEDICAL</option>
     <option value="1">PROPIA</option>
   </select>  
@@ -230,7 +228,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="cmb_nitprint<?php echo $NumWindow; ?>">N.I.T.</label>
-  <select name="cmb_nitprint<?php echo $NumWindow; ?>" id="cmb_nitprint<?php echo $NumWindow; ?>">
+  <select name="cmb_nitprint<?php echo $NumWindow; ?>" id="cmb_nitprint<?php echo $NumWindow; ?>" class="form-select">
     <option value="0">AXISMEDICAL</option>
     <option value="1">PROPIO</option>
   </select>  
@@ -241,7 +239,7 @@ mysqli_free_result($resultz);
 
 <div class="form-group">
   <label for="cmb_valorprint<?php echo $NumWindow; ?>">Valores de Venta</label>
-  <select name="cmb_valorprint<?php echo $NumWindow; ?>" id="cmb_valorprint<?php echo $NumWindow; ?>">
+  <select name="cmb_valorprint<?php echo $NumWindow; ?>" id="cmb_valorprint<?php echo $NumWindow; ?>" class="form-select">
     <option value="1">MOSTRAR</option>
     <option value="0">NO MOSTRAR</option>
   </select>  
@@ -249,24 +247,28 @@ mysqli_free_result($resultz);
 
 	</div>
 	
-
 </div>
 
-<label class="label label-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Promotores</label>
-	<div class="row well well-sm">
+<ul class="nav nav-tabs"  role="tablist">
+  <li role="presentation" class="nav-item"><button type="button" id="promotb<?php echo $NumWindow; ?>" aria-selected="true" class="nav-link active" aria-controls="promo<?php echo $NumWindow; ?>" role="tab" data-bs-toggle="tab" data-bs-target="#promo<?php echo $NumWindow; ?>"><i class="fas fa-users"></i> Promotores</button></li>
+  <li role="presentation" class="nav-item"><button type="button" id="planetb<?php echo $NumWindow; ?>" aria-selected="false" class="nav-link" aria-controls="plane<?php echo $NumWindow; ?>" role="tab" data-bs-toggle="tab" data-bs-target="#plane<?php echo $NumWindow; ?>"><i class="fas fa-atlas"></i> Planes Autorizados</button></li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane fade show active" id="promo<?php echo $NumWindow; ?>" aria-labelledby="promotb<?php echo $NumWindow; ?>">
 	  		<div class="col-md-2">
 	  			<div class="input-group">
-					<input name="txt_codigousr<?php echo $NumWindow; ?>" id="txt_codigousr<?php echo $NumWindow; ?>" type="text" onblur="javascript:NombreUser<?php echo $NumWindow; ?>();" />
+					<input name="txt_codigousr<?php echo $NumWindow; ?>" id="txt_codigousr<?php echo $NumWindow; ?>" type="text" onblur="javascript:NombreUser<?php echo $NumWindow; ?>();" class="form-control" />
 					 <span class="input-group-btn"> 		
-			 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('Usuarios2', 'txt_codigousr<?php echo $NumWindow; ?>', 'Activo_USR=*1*');"><i class="fas fa-search"></i></button>
+			 		  <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Usuario" onclick="javascript:CargarSearch('Usuarios2', 'txt_codigousr<?php echo $NumWindow; ?>', 'Activo_USR=*1*');"><i class="fas fa-search"></i></button>
 					 </span>
 				</div>
 	  		</div>
 	  		<div class="col-md-9">
-					<input name="txt_descripcionx<?php echo $NumWindow; ?>" id="txt_descripcionx<?php echo $NumWindow; ?>" type="text" disabled="disabled"/>
+					<input name="txt_descripcionx<?php echo $NumWindow; ?>" id="txt_descripcionx<?php echo $NumWindow; ?>" type="text" class="form-control" disabled="disabled"/>
 	  		</div>
 	  		<div class="col-md-1">
-					<button class="btn btn-success" type="button"  onclick="javascript:Addusuario<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
+					<button class="btn btn-success" type="button"  onclick="javascript:Addusuario<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></span></button>
 	  		</div>
 			<div class="col-md-12">
 
@@ -276,7 +278,7 @@ mysqli_free_result($resultz);
 			<tr id="trh<?php echo $NumWindow; ?>"> 
 				<th id="th1<?php echo $NumWindow; ?>">Usuario</th> 
 				<th id="th2<?php echo $NumWindow; ?>">Nombre</th> 
-			    <th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th> 
+			    <th id="th2<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </th> 
 			</tr> 
 				 <?php 
 				 if (isset($_GET["IdAGE"])) {	
@@ -300,6 +302,88 @@ mysqli_free_result($resultz);
 			 </div>
 
 	  		</div>
+	  	</div>
+
+	<div role="tabpanel" class="tab-pane fade row" id="plane<?php echo $NumWindow; ?>" aria-labelledby="planetb<?php echo $NumWindow; ?>">
+	  		<div class="col-md-12">
+
+			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
+			<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
+			<tbody id="tbcob<?php echo $NumWindow; ?>">
+			<tr id="trh<?php echo $NumWindow; ?>"> 
+				<th id="th2<?php echo $NumWindow; ?>">Plan</th> 
+			    <th id="th2<?php echo $NumWindow; ?>">Habilitar</th> 
+			</tr> 
+				 <?php 
+				 if (isset($_GET["IdAGE"])) {
+				$SQL="Select a.Codigo_AGE from czterceros b left join klagencias a on b.Codigo_TER=a.Codigo_TER where ID_TER='".$_GET["IdAGE"]."'";
+				$CodAGE='0';
+				$result = mysqli_query($conexion, $SQL);
+				if($row = mysqli_fetch_array($result)) {
+					$CodAGE=$row[0];
+				}
+				mysqli_free_result($result);
+				$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA, a.Estado_PLA, ifnull(b.Codigo_AGE,'X') FROM klplanes a LEFT outer join klplanagencia b ON a.Codigo_PLA=b.Codigo_PLA AND b.Codigo_AGE='".$CodAGE."'";
+				$resulthc = mysqli_query($conexion, $SQL);
+				$contarow=0;
+				while($rowhc = mysqli_fetch_array($resulthc)) 
+					{
+						$contarow=$contarow+1;
+						$disabcmb=" ";
+						$seleccmb="X";
+						if ($rowhc[2]=="0") {
+							$disabcmb=" disabled title='Plan Inactivo' ";
+						}
+						$seleccmb=$rowhc[3];
+						if ($seleccmb=="X") {
+							$seleccmb=" selected ";
+						}
+						echo '
+				  <tr id="tr'.$contarow.$rowhc[3].$NumWindow.'">
+				  <td align="left">'.$rowhc[1].'</td>
+				  <td align="left">
+				    <select id="cmb_codplan'.$contarow.$NumWindow.'" '.$disabcmb.' name="cmb_codplan'.$contarow.$NumWindow.'" class="form-select">
+				     <option value="'.$rowhc[0].'" >SI</option>
+				     <option value="X" '.$seleccmb.'>NO</option>
+				    </select>
+				  </td>
+				  </tr>
+				  ';
+					}
+				mysqli_free_result($resulthc); 
+				 } else {
+				 	$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA, a.Estado_PLA FROM klplanes a;";
+					$resulthc = mysqli_query($conexion, $SQL);
+					$contarow=0;
+					while($rowhc = mysqli_fetch_array($resulthc)) 
+						{
+							$contarow=$contarow+1;
+							$disabcmb=" ";
+							$seleccmb="X";
+							if ($rowhc[2]=="0") {
+								$disabcmb=" disabled title='Plan Inactivo' ";
+							}
+							echo '
+					  <tr id="tr'.$contarow.$NumWindow.'">
+					  <td align="left">'.$rowhc[1].'</td>
+					  <td align="left">
+					    <select id="cmb_codplan'.$contarow.$NumWindow.'" '.$disabcmb.' name="cmb_codplan'.$contarow.$NumWindow.'" class="form-select">
+					     <option value="'.$rowhc[0].'" select >SI</option>
+					     <option value="X" >NO</option>
+					    </select>
+					  </td>
+					  </tr>
+					  ';
+						}
+					mysqli_free_result($resulthc); 
+				 }
+				 ?>
+			</tbody>
+			</table><input name="hdn_contplan<?php echo $NumWindow; ?>" type="hidden" id="hdn_contplan<?php echo $NumWindow; ?>" value="<?php echo $contarow; ?>" />
+			 </div>
+
+	  		</div>
+</div> 
 
 	</div>
 
@@ -428,16 +512,9 @@ function EliminarFilaUSR<?php echo $NumWindow; ?>(Numero) {
     var miTabla = document.getElementById("tblDetalle<?php echo $NumWindow; ?>");     
     $('#tr'+Numero+"<?php echo $NumWindow; ?>").remove();
 }  
-
-
-	$("form").addClass(" container");
+	$("form").addClass("form-horizontal container");
 	$("input[type=text]").addClass("form-control");
-    $("input[type=password]").addClass("form-control");
 	$("textarea").addClass("form-control");
-	$("select").addClass("form-select");
-	$("input[type=time]").addClass("form-control");
-	$("input[type=date]").addClass("form-control");
-	$("input[type=checkbox]").addClass("form-check-input");
-	$("input[type=radio]").addClass("form-check-input");
+	$("select").addClass("form-control");
 
 </script>

@@ -172,7 +172,9 @@
 .logo-mini {
     display: none;
 }
-
+#valorCotiza {
+    color: whitesmoke;
+}
 #kld_logo a span {
     opacity: 1;
     margin-left: auto;

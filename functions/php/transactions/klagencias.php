@@ -25,6 +25,18 @@ include '00trnsctns.php';
 		}
 		$contador++;
 	}
+	$SQL="Delete from klplanagencia Where Codigo_AGE='".$Consec."'";
+	EjecutarSQL($SQL, $conexion);
+	$contador=1;
+	while($contador <= $_POST['contplan']) { 
+		if (isset($_POST['codplan'.$contador])) {
+			if ($_POST['codplan'.$contador]!="X") {
+				$SQL="Insert into klplanagencia(Codigo_AGE, Codigo_PLA) Values('".$Consec."', '".$_POST['codplan'.$contador]."');";
+				EjecutarSQL($SQL, $conexion);
+			}
+		}
+		$contador++;
+	}
 
 	it_aud('1', 'Agencias Klud', 'Agencia No. '.$Consec);
 
