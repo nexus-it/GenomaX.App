@@ -42,6 +42,15 @@
 	define('NEXUS_APP', $Appis);
 	*/
 	$_SESSION["NEXUS_APP"]=NEXUS_APP;
+	if($_SESSION["NEXUS_APP"]=="10") {
+		$SQL="Select PrefPoliza_KLD from klconfig";
+		$result = mysqli_query($conexion, $SQL);
+		if($row = mysqli_fetch_row($result)) {
+			$_SESSION['Kl_Prefijo']=$row[0];
+		}
+		mysqli_free_result($result);
+		
+	}
 	$SQL="Select Theme_APP, Nombre_APP from nxs_gnx.itaplicaciones where Codigo_APP='".NEXUS_APP."';";	
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {

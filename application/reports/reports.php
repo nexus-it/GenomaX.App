@@ -173,7 +173,7 @@ mysqli_free_result($result);
 
 </div>
 <div class="col-md-10">
-<div id="pdfrpt<?php echo $NumWindow; ?>" class="panel panel-success ">
+<div id="pdfrpt<?php echo $NumWindow; ?>" class="panel panel-success rpt-border">
 <iframe src='' frameborder='0' allowtransparency='true' style='margin:0; padding:0; width:100%; height: 90%; ' name='iframecont<?php echo $NumWindow; ?>' id="iframecont<?php echo $NumWindow; ?>" class="pdf1 panel-body">   
      </iframe>
 </div>

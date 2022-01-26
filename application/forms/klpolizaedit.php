@@ -17,7 +17,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_prefijo<?php echo $NumWindow; ?>">Prefijo</label>
-		<input  name="txt_prefijo<?php echo $NumWindow; ?>" id="txt_prefijo<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $_SESSION['Kl_Prefijo']; ?>" />
+		<input  name="txt_prefijo<?php echo $NumWindow; ?>" id="txt_prefijo<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $_SESSION['Kl_Prefijo']; ?>" class="form-control" />
 	</div>
 	<input name="hdn_tercero<?php echo $NumWindow; ?>" type="hidden" id="hdn_tercero<?php echo $NumWindow; ?>" value="" />
 		</div>
@@ -27,19 +27,24 @@ session_start();
 				$xPoliza=$_GET["Poliza"];
 			}
 		?>
-		<div class="col-md-1">
+		<div class="col-md-2">
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_poliza<?php echo $NumWindow; ?>">Poliza</label>
-		<input  name="txt_poliza<?php echo $NumWindow; ?>" id="txt_poliza<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $xPoliza; ?>" onchange="BuscarPoliza<?php echo $NumWindow; ?>();" />
+		<div class="input-group">
+			<input  name="txt_poliza<?php echo $NumWindow; ?>" id="txt_poliza<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $xPoliza; ?>" onchange="BuscarPoliza<?php echo $NumWindow; ?>();" class="form-control" />
+			<span class="input-group-btn"> 		
+	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Poliza" onclick="javascript:CargarSearch('KlPoliza', 'txt_poliza<?php echo $NumWindow; ?>', 'Estado_EMI<>*A*');"><i class="fas fa-search"></i></button>
+			</span>
+		</div>
 	</div>
 
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 	
 	<div class="form-group">
 		<label for="cmb_estado<?php echo $NumWindow; ?>">Estado</label>
-		  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>">
+		  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-select">
 		 	<option value="E" >Activa</option>
 		 	<option value="S" >StandBy</option>
 		 	<option value="A" >Anulada</option>
@@ -51,15 +56,15 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_femision<?php echo $NumWindow; ?>">Fecha Emision</label>
-		<input  name="txt_femision<?php echo $NumWindow; ?>" id="txt_femision<?php echo $NumWindow; ?>" type="date" required  />
+		<input  name="txt_femision<?php echo $NumWindow; ?>" id="txt_femision<?php echo $NumWindow; ?>" type="date" required class="form-control" />
 	</div>
 
 		</div>
-		<div class="col-md-1 col-md-offset-4">
+		<div class="col-md-2 col-md-offset-4">
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_cotizacion<?php echo $NumWindow; ?>">Cotizacion No</label>
-		<input  name="txt_cotizacion<?php echo $NumWindow; ?>" id="txt_cotizacion<?php echo $NumWindow; ?>" type="text" required  disabled="disabled" value="000000" style="font-size:15px; text-align:right;font-weight: bold;"/>
+		<input  name="txt_cotizacion<?php echo $NumWindow; ?>" id="txt_cotizacion<?php echo $NumWindow; ?>" type="text" required  disabled="disabled" value="000000" style="font-size:15px; text-align:right;font-weight: bold;" class="form-control" />
 	</div>
 
 		</div>
@@ -67,7 +72,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_voucher<?php echo $NumWindow; ?>">No Voucher</label>
-		<input  name="txt_voucher<?php echo $NumWindow; ?>" id="txt_voucher<?php echo $NumWindow; ?>" type="text" required disabled="disabled" value="XXXXX-XXXXX"/>
+		<input  name="txt_voucher<?php echo $NumWindow; ?>" id="txt_voucher<?php echo $NumWindow; ?>" type="text" required disabled="disabled" value="XXXXX-XXXXX" class="form-control" />
 	</div>
 
 		</div>
@@ -75,7 +80,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_nombres<?php echo $NumWindow; ?>">Nombres</label>
-		<input  name="txt_nombres<?php echo $NumWindow; ?>" id="txt_nombres<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_nombres<?php echo $NumWindow; ?>" id="txt_nombres<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
@@ -83,7 +88,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_apellidos<?php echo $NumWindow; ?>">Apellidos</label>
-		<input  name="txt_apellidos<?php echo $NumWindow; ?>" id="txt_apellidos<?php echo $NumWindow; ?>" type="text" required/>
+		<input  name="txt_apellidos<?php echo $NumWindow; ?>" id="txt_apellidos<?php echo $NumWindow; ?>" type="text" class="form-control" required/>
 	</div>
 
 		</div>
@@ -91,7 +96,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_pasaporte<?php echo $NumWindow; ?>">Pasaporte</label>
-		<input  name="txt_pasaporte<?php echo $NumWindow; ?>" id="txt_pasaporte<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_pasaporte<?php echo $NumWindow; ?>" id="txt_pasaporte<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
@@ -99,7 +104,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_nacionalidad<?php echo $NumWindow; ?>">Nacionalidad</label>
-		<input  name="txt_nacionalidad<?php echo $NumWindow; ?>" id="txt_nacionalidad<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_nacionalidad<?php echo $NumWindow; ?>" id="txt_nacionalidad<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
@@ -107,7 +112,7 @@ session_start();
 	
 	<div class="form-group">
 		<label for="cmb_procedencia<?php echo $NumWindow; ?>">Procedencia</label>
-		  <select name="cmb_procedencia<?php echo $NumWindow; ?>" id="cmb_procedencia<?php echo $NumWindow; ?>">
+		  <select name="cmb_procedencia<?php echo $NumWindow; ?>" id="cmb_procedencia<?php echo $NumWindow; ?>" class="form-select">
 		  <?php 
 	  		$SQL="Select Codigo_dst, Nombre_dst from kldestinos  where  Estado_dst='1' Order by 2";
 	  		$resultd = mysqli_query($conexion, $SQL);
@@ -125,7 +130,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_correo<?php echo $NumWindow; ?>">Correo</label>
-		<input  name="txt_correo<?php echo $NumWindow; ?>" id="txt_correo<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_correo<?php echo $NumWindow; ?>" id="txt_correo<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
@@ -133,7 +138,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_direccion<?php echo $NumWindow; ?>">Direccion</label>
-		<input  name="txt_direccion<?php echo $NumWindow; ?>" id="txt_direccion<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_direccion<?php echo $NumWindow; ?>" id="txt_direccion<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
@@ -141,24 +146,24 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_telefono<?php echo $NumWindow; ?>">Telefono</label>
-		<input  name="txt_telefono<?php echo $NumWindow; ?>" id="txt_telefono<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_telefono<?php echo $NumWindow; ?>" id="txt_telefono<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_contacto<?php echo $NumWindow; ?>">Contacto caso de emergencia</label>
-		<input  name="txt_contacto<?php echo $NumWindow; ?>" id="txt_contacto<?php echo $NumWindow; ?>" type="text" required />
+		<input  name="txt_contacto<?php echo $NumWindow; ?>" id="txt_contacto<?php echo $NumWindow; ?>" type="text" required class="form-control" />
 	</div>
 
 		</div>
 		
-		<div class="col-md-1">
+		<div class="col-md-2">
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_fnac<?php echo $NumWindow; ?>">F. Nac.</label>
-		<input  name="txt_fnac<?php echo $NumWindow; ?>" id="txt_fnac<?php echo $NumWindow; ?>" type="text" required  class="datepicker0<?php echo $NumWindow; ?> datepicker"/>
+		<input  name="txt_fnac<?php echo $NumWindow; ?>" id="txt_fnac<?php echo $NumWindow; ?>" type="date" required  class="form-control"/>
 	</div>
 
 		</div>
@@ -166,7 +171,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_edad<?php echo $NumWindow; ?>">Edad</label>
-			<input name="txt_edad<?php echo $NumWindow; ?>" id="txt_edad<?php echo $NumWindow; ?>" type="text" disabled />
+			<input name="txt_edad<?php echo $NumWindow; ?>" id="txt_edad<?php echo $NumWindow; ?>" type="text" disabled class="form-control" />
 	</div>
 
 		</div>
@@ -174,7 +179,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="cmb_agencia<?php echo $NumWindow; ?>">Agencia</label>
-		  <select name="cmb_agencia<?php echo $NumWindow; ?>" id="cmb_agencia<?php echo $NumWindow; ?>">
+		  <select name="cmb_agencia<?php echo $NumWindow; ?>" id="cmb_agencia<?php echo $NumWindow; ?>" class="form-select">
 		  <?php 
 	  		$SQL="Select Codigo_age, Nombre_age from klagencias where Estado_age='1' Order by 2";
 	  		$resultd = mysqli_query($conexion, $SQL);
@@ -188,11 +193,11 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
-		<label for="cmb_plan<?php echo $NumWindow; ?>">Plan1</label>
-		  <select name="cmb_plan<?php echo $NumWindow; ?>" id="cmb_plan<?php echo $NumWindow; ?>" onchange="selecplan<?php echo $NumWindow; ?>();">
+		<label for="cmb_plan<?php echo $NumWindow; ?>">Plan</label>
+		  <select name="cmb_plan<?php echo $NumWindow; ?>" id="cmb_plan<?php echo $NumWindow; ?>" onchange="selecplan<?php echo $NumWindow; ?>();" class="form-select">
 		    <option value="0" >-- Seleccione --</option>
 		  <?php
 		  $xPlan="";
@@ -218,11 +223,11 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 	
 	<div class="form-group" id="grp_txt_hora<?php echo $NumWindow; ?>">
 		<label for="cmb_modalidad<?php echo $NumWindow; ?>">Modalidad</label>
-		  <select name="cmb_modalidad<?php echo $NumWindow; ?>" id="cmb_modalidad<?php echo $NumWindow; ?>" onchange="selecmod<?php echo $NumWindow; ?>();">
+		  <select name="cmb_modalidad<?php echo $NumWindow; ?>" id="cmb_modalidad<?php echo $NumWindow; ?>" onchange="selecmod<?php echo $NumWindow; ?>();" class="form-select">
 		  <?php 
 		  	if ($xPlan!="") {
 		  		$SQL="Select Sum(Individual_PLA), Sum(Pareja_PLA), Sum(Hijos_PLA) from klplanesprecios where Codigo_PLA='".$xPlan."'";
@@ -255,11 +260,11 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 	
 	<div class="form-group">
 		<label for="cmb_destino<?php echo $NumWindow; ?>">Destino</label>
-		  <select name="cmb_destino<?php echo $NumWindow; ?>" id="cmb_destino<?php echo $NumWindow; ?>">
+		  <select name="cmb_destino<?php echo $NumWindow; ?>" id="cmb_destino<?php echo $NumWindow; ?>" class="form-select">
 		  <?php 
 		  	if ($xPlan!="") {
 		  		$SQL="Select a.Codigo_dst, Nombre_dst from klplanesdestinos a, kldestinos b where a.Codigo_DST=b.Codigo_dst and Codigo_PLA='".$xPlan."' and Estado_dst='1' Order by 2";
@@ -279,26 +284,26 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_fini<?php echo $NumWindow; ?>">Fec. Ini</label>
-		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="text" required class="datepicker1<?php echo $NumWindow; ?> datepicker" />
+		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="date" required class="form-control" />
 	</div>
 
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 
 	<div class="form-group" id="grp_txt_idhc2<?php echo $NumWindow; ?>">
 		<label for="txt_ffin<?php echo $NumWindow; ?>">Fec Fin</label>
-		<input  name="txt_ffin<?php echo $NumWindow; ?>" id="txt_ffin<?php echo $NumWindow; ?>" type="text" required class="datepicker2<?php echo $NumWindow; ?> datepicker" onkeyup="CalcularDias<?php echo $NumWindow; ?>();"/>
+		<input  name="txt_ffin<?php echo $NumWindow; ?>" id="txt_ffin<?php echo $NumWindow; ?>" type="date" required class="form-control" onkeyup="CalcularDias<?php echo $NumWindow; ?>();"/>
 	</div>
 
 		</div>
 		<div class="col-md-1">
 			<div class="form-group" id="grp_txt_idhc0<?php echo $NumWindow; ?>">
 				<label for="txt_dias<?php echo $NumWindow; ?>">Días</label>
-				<input style="font-size:15px;" name="txt_dias<?php echo $NumWindow; ?>" id="txt_dias<?php echo $NumWindow; ?>" type="text" disabled="disabled"/>
+				<input style="font-size:15px;" name="txt_dias<?php echo $NumWindow; ?>" id="txt_dias<?php echo $NumWindow; ?>" type="text" disabled="disabled" class="form-control" />
 			</div>
 		</div>
 		
@@ -314,7 +319,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_parentesco1<?php echo $NumWindow; ?>">Parentesco </label>
-						<input  name="txt_parentesco1<?php echo $NumWindow; ?>" id="txt_parentesco1<?php echo $NumWindow; ?>" type="text" />
+						<input  name="txt_parentesco1<?php echo $NumWindow; ?>" id="txt_parentesco1<?php echo $NumWindow; ?>" type="text" class="form-control" />
 					</div>
 
 		  		</div>
@@ -322,7 +327,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_nombre1<?php echo $NumWindow; ?>">Nombre Completo </label>
-						<input  name="txt_nombre1<?php echo $NumWindow; ?>" id="txt_nombre1<?php echo $NumWindow; ?>" type="text" />
+						<input  name="txt_nombre1<?php echo $NumWindow; ?>" id="txt_nombre1<?php echo $NumWindow; ?>" type="text" class="form-control" />
 					</div>
 
 		  		</div>
@@ -330,7 +335,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_fecnac1<?php echo $NumWindow; ?>">Fec. Nac.</label>
-						<input  name="txt_fecnac1<?php echo $NumWindow; ?>" id="txt_fecnac1<?php echo $NumWindow; ?>" type="text" class="datepickerX<?php echo $NumWindow; ?>" onchange="CalcEdad<?php echo $NumWindow; ?>('txt_fecnac1<?php echo $NumWindow; ?>', 'hdn_edad1<?php echo $NumWindow; ?>');"/>
+						<input  name="txt_fecnac1<?php echo $NumWindow; ?>" id="txt_fecnac1<?php echo $NumWindow; ?>" type="date" onchange="CalcEdad<?php echo $NumWindow; ?>('txt_fecnac1<?php echo $NumWindow; ?>', 'hdn_edad1<?php echo $NumWindow; ?>');" class="form-control" />
 						<input name="hdn_edad1<?php echo $NumWindow; ?>" type="hidden" id="hdn_edad1<?php echo $NumWindow; ?>" value="" />
 					</div>
 
@@ -339,7 +344,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_pasaporte1<?php echo $NumWindow; ?>">Pasaporte </label>
-						<input  name="txt_pasaporte1<?php echo $NumWindow; ?>" id="txt_pasaporte1<?php echo $NumWindow; ?>" type="text" />
+						<input  name="txt_pasaporte1<?php echo $NumWindow; ?>" id="txt_pasaporte1<?php echo $NumWindow; ?>" type="text" class="form-control" />
 					</div>
 
 		  		</div>
@@ -357,7 +362,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_parentesco<?php echo $NumWindow; ?>">Parentesco </label>
-						<input  name="txt_parentesco<?php echo $NumWindow; ?>" id="txt_parentesco<?php echo $NumWindow; ?>" type="text" />
+						<input  name="txt_parentesco<?php echo $NumWindow; ?>" id="txt_parentesco<?php echo $NumWindow; ?>" type="text" class="form-control" />
 					</div>
 
 		  		</div>
@@ -365,7 +370,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_nombre<?php echo $NumWindow; ?>">Nombre Completo </label>
-						<input  name="txt_nombre<?php echo $NumWindow; ?>" id="txt_nombre<?php echo $NumWindow; ?>" type="text" />
+						<input  name="txt_nombre<?php echo $NumWindow; ?>" id="txt_nombre<?php echo $NumWindow; ?>" type="text" class="form-control" />
 					</div>
 
 		  		</div>
@@ -374,7 +379,7 @@ session_start();
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_fecnac0<?php echo $NumWindow; ?>">Fec. Nac.</label>
 						<input  name="txt_fecnac0<?php echo $NumWindow; ?>" id="txt_fecnac0<?php echo $NumWindow; ?>" type="text" class="datepickerX<?php echo $NumWindow; ?>"  onchange="CalcEdad<?php echo $NumWindow; ?>('txt_fecnac0<?php echo $NumWindow; ?>', 'hdn_edad0<?php echo $NumWindow; ?>');"/>
-						<input name="hdn_edad0<?php echo $NumWindow; ?>" type="hidden" id="hdn_edad0<?php echo $NumWindow; ?>" value="" />
+						<input name="hdn_edad0<?php echo $NumWindow; ?>" type="hidden" id="hdn_edad0<?php echo $NumWindow; ?>" value="" class="form-control" />
 					</div>
 
 		  		</div>
@@ -383,7 +388,7 @@ session_start();
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_pasaporte0<?php echo $NumWindow; ?>">Pasaporte </label>
 						<div class="input-group">
-							<input  name="txt_pasaporte0<?php echo $NumWindow; ?>" id="txt_pasaporte0<?php echo $NumWindow; ?>" type="text" />
+							<input  name="txt_pasaporte0<?php echo $NumWindow; ?>" id="txt_pasaporte0<?php echo $NumWindow; ?>" type="text" class="form-control" />
 							 <span class="input-group-btn"> 		
 					 		  <button class="btn btn-success" type="button"  onclick="javascript:Addpersona<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 							 </span>
@@ -462,7 +467,7 @@ document.getElementById('div_pareja<?php echo $NumWindow; ?>').style.display = '
 
 <?php 
 if (isset($_GET["Poliza"])) {
-	$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."' and Prefijo_EMI='".$_SESSION['Kl_Prefijo']."'";
+	$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."' and Prefijo_EMI='".$_SESSION['Kl_Prefijo']."' and date(now()) <= FechaIni_CTZ ";
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
 	echo "
@@ -471,7 +476,7 @@ if (isset($_GET["Poliza"])) {
 		document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".value='".$row[2]."';
 		document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".value='".$row[3]."';
 		document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".value='".$row[4]."';
-		document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".formatofecha($row[5])."';
+		document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".($row[5])."';
 		document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".value='".$row[6]."';
 		document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".value='".$row[7]."';
 		CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
@@ -481,8 +486,8 @@ if (isset($_GET["Poliza"])) {
 		document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".value='".$row[12]."';
 		document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".value='".ucwords(strtolower($row[13]))."_PLA';
 		document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".value='".$row[14]."';
-		document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".formatofecha($row[15])."';
-		document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".formatofecha($row[16])."';
+		document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".($row[15])."';
+		document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".($row[16])."';
 		document.frm_form".$NumWindow.".txt_dias".$NumWindow.".value='".$row[17]."';
 		document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".value='".$row[18]."';
 		document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".value='".$row[19]."';

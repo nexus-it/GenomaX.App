@@ -22,7 +22,7 @@ session_start();
 		  <select name="cmb_plan<?php echo $NumWindow; ?>" id="cmb_plan<?php echo $NumWindow; ?>" onchange="selecplan<?php echo $NumWindow; ?>();" class="form-select">
 		    <option value="0" >-- Seleccione --</option>
 		  <?php
-		  $SQL="Select Codigo_PLA, Nombre_PLA From klplanes Where Estado_PLA='1' Order By Codigo_PLA";
+		  $SQL="SELECT a.Codigo_PLA, a.Nombre_PLA FROM klplanes a WHERE a.Estado_PLA='1' AND a.Codigo_PLA IN ( SELECT b.Codigo_PLA FROM klplanagencia b WHERE b.Codigo_AGE IN ( SELECT c.Codigo_AGE FROM klagenciasusuarios c WHERE c.Codigo_USR='".$_SESSION["it_CodigoUSR"]."'))";
 			$result = mysqli_query($conexion, $SQL);
 			while ($row = mysqli_fetch_array($result)) {
 			?>

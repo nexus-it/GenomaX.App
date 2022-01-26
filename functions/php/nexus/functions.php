@@ -56,7 +56,7 @@ case 'klcotizador':
         <label for="cmb_plan" class="form-label">Plan</label>
         <select class="form-select select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cmb_plan" name="cmb_plan" onchange="LoadModalidades(this.value);">
         	<option value="0" selected="selected">-- Seleccione --</option>';
-		$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA FROM klplanes a WHERE a.Estado_PLA='1'";
+			$SQL="SELECT a.Codigo_PLA, a.Nombre_PLA FROM klplanes a WHERE a.Estado_PLA='1' AND a.Codigo_PLA IN ( SELECT b.Codigo_PLA FROM klplanagencia b WHERE b.Codigo_AGE IN ( SELECT c.Codigo_AGE FROM klagenciasusuarios c WHERE c.Codigo_USR='".$_SESSION["it_CodigoUSR"]."'))";
         $result = mysqli_query($conexion, $SQL);
         while($row = mysqli_fetch_array($result)) {
 			$html=$html.'<option value="'.$row[0].'">'.$row[1].'</option>';
