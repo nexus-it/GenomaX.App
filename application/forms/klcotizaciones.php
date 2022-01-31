@@ -637,6 +637,7 @@ function Calcular<?php echo $NumWindow; ?>() {
 function CalcEdad<?php echo $NumWindow; ?>(ifecha, iedad) {
 	if (document.getElementById(ifecha).value=="") {
 		MsgBox1("Error de cáculo", "No ha introducido una fecha de nacimiento válida");
+		return false;
 	}
 	var fecha=new Date(document.getElementById(ifecha).value);
  	    var dia = fecha.getDate();

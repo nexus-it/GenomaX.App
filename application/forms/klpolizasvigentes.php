@@ -37,7 +37,12 @@ session_start();
 					<th id="thant<?php echo $NumWindow; ?>">RECORDAR</th> 
 				</tr> 
 <?php
-		$SQL="SELECT d.Codigo_EMI, a.Nombre_TER, b.Nombre_AGE, e.Nombre_USR, f.Nombre_PLA, c.FechaIni_CTZ, Prefijo_EMI, Correo_TER, c.FechaFin_CTZ FROM czterceros a, klagencias b, klcotizaciones c, klemisiones d, itusuarios e, klplanes f WHERE c.Codigo_CTZ=d.Codigo_CTZ AND c.Codigo_TER= a.Codigo_TER AND c.Codigo_AGE=b.Codigo_AGE AND e.Codigo_USR=d.Codigo_USR AND f.Codigo_PLA=c.Codigo_PLA AND d.Estado_EMI<> 'A' AND ".$tipo." BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL +".$dias." DAY) ORDER BY 6 ASC";
+		$SQL="SELECT d.Codigo_EMI, a.Nombre_TER, b.Nombre_AGE, e.Nombre_USR, f.Nombre_PLA, c.FechaIni_CTZ, Prefijo_EMI, Correo_TER, c.FechaFin_CTZ FROM czterceros a, klagencias b, klcotizaciones c, klemisiones d, itusuarios e, klplanes f WHERE c.Codigo_CTZ=d.Codigo_CTZ AND c.Codigo_TER= a.Codigo_TER AND c.Codigo_AGE=b.Codigo_AGE AND e.Codigo_USR=d.Codigo_USR AND f.Codigo_PLA=c.Codigo_PLA AND d.Estado_EMI<> 'A'  AND ".$tipo." BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL +".$dias." DAY) ORDER BY 6 ASC";
+		if ($_SESSION["it_CodigoPRF"]=="0") {
+			$SQL="SELECT d.Codigo_EMI, a.Nombre_TER, b.Nombre_AGE, e.Nombre_USR, f.Nombre_PLA, c.FechaIni_CTZ, Prefijo_EMI, Correo_TER, c.FechaFin_CTZ FROM czterceros a, klagencias b, klcotizaciones c, klemisiones d, itusuarios e, klplanes f WHERE c.Codigo_CTZ=d.Codigo_CTZ AND c.Codigo_TER= a.Codigo_TER AND c.Codigo_AGE=b.Codigo_AGE AND e.Codigo_USR=d.Codigo_USR AND f.Codigo_PLA=c.Codigo_PLA AND d.Estado_EMI<> 'A'  AND ".$tipo." BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL +".$dias." DAY) ORDER BY 6 ASC";
+		} else {
+			$SQL="SELECT d.Codigo_EMI, a.Nombre_TER, b.Nombre_AGE, e.Nombre_USR, f.Nombre_PLA, c.FechaIni_CTZ, Prefijo_EMI, Correo_TER, c.FechaFin_CTZ FROM czterceros a, klagencias b, klcotizaciones c, klemisiones d, itusuarios e, klplanes f WHERE AND d.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and c.Codigo_CTZ=d.Codigo_CTZ AND c.Codigo_TER= a.Codigo_TER AND c.Codigo_AGE=b.Codigo_AGE AND e.Codigo_USR=d.Codigo_USR AND f.Codigo_PLA=c.Codigo_PLA AND d.Estado_EMI<> 'A'  AND ".$tipo." BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL +".$dias." DAY) ORDER BY 6 ASC";
+		}
 		$result = mysqli_query($conexion, $SQL);
 		$contarow=0;
 		while ($row = mysqli_fetch_array($result)) {

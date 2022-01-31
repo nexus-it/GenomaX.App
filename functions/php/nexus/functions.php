@@ -144,13 +144,22 @@ case 'klrepventas':
 	echo $html;
 break;
 case 'kltrm':
-	$SQL="SELECT Valor_TRM FROM cztrm a WHERE date(NOW()) = Fecha_trm";
+	$fechahoy="";
+	$SQL="SELECT Valor_TRM, date(now()) FROM cztrm a WHERE date(NOW()) = Fecha_trm";
 	$result = mysqli_query($conexion, $SQL);
     if($row = mysqli_fetch_array($result)) {
     	$html= $row[0];
+		$fechahoy=$row[1];
     }
     mysqli_free_result($result);
-	echo $html;
+	
+	$url = 'https://www.datos.gov.co/resource/32sa-8pi3.json?vigenciadesde='.$fechahoy.'T00:00:00.000';
+$json = file_get_contents($url);
+$jo = json_decode($json);
+//var_dump($jo);
+$html= $jo["valor"];
+$html="3982.60";
+echo $html;
 break;
 case 'klstndbyfin':
 	if ($_SESSION["it_CodigoPRF"]=="0") {

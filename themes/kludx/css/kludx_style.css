@@ -437,6 +437,23 @@
     color: #6d3c9f;
     font-weight: 600;
 }
+.panel-heading .close {
+    float: right;
+    background-color: transparent;
+    border-color: transparent;
+    color: #6f33aa;
+    font-weight: 600;
+}
+.modal-title {
+    float: left;
+    width: 90%;
+}
+.modal-header {
+    border-image: linear-gradient(to right, #098099, #6d3c9f) 1;
+    border-bottom-style: solid;
+    padding-bottom: 8px;
+    display: inline-block;
+}
 .content-header {
     position: relative;
     padding: 15px 15px 0 15px;

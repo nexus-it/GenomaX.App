@@ -41,18 +41,6 @@ session_start();
 
 		</div>
 		<div class="col-md-2">
-	
-	<div class="form-group">
-		<label for="cmb_estado<?php echo $NumWindow; ?>">Estado</label>
-		  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-select">
-		 	<option value="E" >Activa</option>
-		 	<option value="S" >StandBy</option>
-		 	<option value="A" >Anulada</option>
-		  </select>
-	</div>
-
-		</div>
-		<div class="col-md-2">
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_femision<?php echo $NumWindow; ?>">Fecha Emision</label>
@@ -73,6 +61,18 @@ session_start();
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_voucher<?php echo $NumWindow; ?>">No Voucher</label>
 		<input  name="txt_voucher<?php echo $NumWindow; ?>" id="txt_voucher<?php echo $NumWindow; ?>" type="text" required disabled="disabled" value="XXXXX-XXXXX" class="form-control" />
+	</div>
+
+		</div>
+		<div class="col-md-2 offset-md-1">
+	
+	<div class="form-group">
+		<label for="cmb_estado<?php echo $NumWindow; ?>">Estado</label>
+		  <select name="cmb_estado<?php echo $NumWindow; ?>" id="cmb_estado<?php echo $NumWindow; ?>" class="form-select">
+		 	<option value="E" >Activa</option>
+		 	<option value="S" >StandBy</option>
+		 	<option value="A" >Anulada</option>
+		  </select>
 	</div>
 
 		</div>
@@ -288,7 +288,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_fini<?php echo $NumWindow; ?>">Fec. Ini</label>
-		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="date" required class="form-control" />
+		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="date" required class="form-control" onkeyup="CalcularDias<?php echo $NumWindow; ?>();"/>
 	</div>
 
 		</div>
@@ -308,7 +308,6 @@ session_start();
 		</div>
 		
 		</div>
-
 
 		<!-- PAREJA -->
 		<div id="div_pareja<?php echo $NumWindow; ?>" name="div_pareja<?php echo $NumWindow; ?>">
@@ -444,7 +443,6 @@ session_start();
 		</div>
  		</div>
 
-
 <div id="divemitir<?php echo $NumWindow; ?>">
   	<div class="row well well-sm">
 		<div class="col-md-12" id="dvbtnemi<?php echo $NumWindow; ?>">
@@ -452,7 +450,91 @@ session_start();
 		</div>
 	</div>
 </div>
+	<!-- STANDBY -->
+	<div id="div_standby<?php echo $NumWindow; ?>" name="div_standby<?php echo $NumWindow; ?>">
+					<label class="label label-warning"> Histórico StandBy </label>
+			<div class="col-md-12 alert alert-warning">
+			<div class="row">
+				<div class="col-md-2">
+		  			
+		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+						<label for="txt_fechasby<?php echo $NumWindow; ?>">Fecha StandBy</label>
+						<input  name="txt_fechasby<?php echo $NumWindow; ?>" id="txt_fechasby<?php echo $NumWindow; ?>" type="date" class="form-control" value="<?php echo date("Y-m-d"); ?>" />
+					</div>
 
+		  		</div>
+		  		<div class="col-md-6">
+		  			
+		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+						<label for="txt_obssby<?php echo $NumWindow; ?>">Observaciones</label>
+						<input  name="txt_obssby<?php echo $NumWindow; ?>" id="txt_obssby<?php echo $NumWindow; ?>" type="text" class="form-control" />
+					</div>
+
+		  		</div>
+		  		<div class="col-md-2">
+		  			
+		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+						<label for="txt_vencesby<?php echo $NumWindow; ?>">Fecha Vence</label>
+						<input  name="txt_vencesby<?php echo $NumWindow; ?>" id="txt_vencesby<?php echo $NumWindow; ?>" type="date" class="form-control"  />
+					</div>
+
+		  		</div>
+		  		<div class="col-md-2">
+		  			
+		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+						<label for="txt_valorsby<?php echo $NumWindow; ?>">Valor </label>
+						<div class="input-group">
+							<input  name="txt_valorsby<?php echo $NumWindow; ?>" id="txt_valorsby<?php echo $NumWindow; ?>" type="number" class="form-control" value="0" min="0" />
+							 <span class="input-group-btn"> 		
+					 		  <button class="btn btn-success" type="button"  onclick="javascript:AddStandBy<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
+							 </span>
+						</div>
+					</div>
+
+		  		</div>
+			  	<div class="col-md-12">
+
+				 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
+				<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
+				<tbody id="tbcob<?php echo $NumWindow; ?>">
+				<tr id="trh<?php echo $NumWindow; ?>"> 
+					<th id="th1<?php echo $NumWindow; ?>">Fecha StandBy</th> 
+					<th id="th2<?php echo $NumWindow; ?>">Observaciones</th> 
+					<th id="th2<?php echo $NumWindow; ?>">Fecha Vence</th> 
+					<th id="th2<?php echo $NumWindow; ?>">Cobro</th> 
+				</tr> 
+					 <?php 
+					 if (isset($_GET["Poliza"])) {	
+					$SQL="Select  FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
+					$resulthc = mysqli_query($conexion, $SQL);
+					$contarow=0;
+					while($rowhc = mysqli_fetch_array($resulthc)) 
+						{
+							$contarow=$contarow+1;
+							echo '
+					  <tr id="tr'.$contarow.$NumWindow.'">
+					  <td align="left"><input name="hdn_fechastby'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechastby'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td>
+					  <td align="right"><input name="hdn_descripcionstby'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcionstby'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td><td>
+					  <td align="left"><input name="hdn_fechavencestby'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechavencestby'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td> 
+					  <td align="left"><input name="hdn_cobrostby'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobrostby'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td> 
+					  </tr>
+					  ';
+						}
+					mysqli_free_result($resulthc); 
+					 }
+					 ?>
+				</tbody>
+				</table>
+				 </div>
+
+		  		</div>
+		  		<input name="hdn_controw<?php echo $NumWindow; ?>" type="hidden" id="hdn_controw<?php echo $NumWindow; ?>" value="0" />
+		  		<input name="hdn_controwx<?php echo $NumWindow; ?>" type="hidden" id="hdn_controwx<?php echo $NumWindow; ?>" value="0" />
+			</div>
+			</div>
+
+		</div>
+			<!-- FIN STANDBY -->
 </form>
 
 
@@ -467,38 +549,49 @@ document.getElementById('div_pareja<?php echo $NumWindow; ?>').style.display = '
 
 <?php 
 if (isset($_GET["Poliza"])) {
-	$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."' and Prefijo_EMI='".$_SESSION['Kl_Prefijo']."' and date(now()) <= FechaIni_CTZ ";
-	$result = mysqli_query($conexion, $SQL);
-	if($row = mysqli_fetch_array($result)) {
-	echo "
-		document.frm_form".$NumWindow.".txt_femision".$NumWindow.".value='".$row[0]."';
-		document.frm_form".$NumWindow.".txt_cotizacion".$NumWindow.".value='".$row[1]."';
-		document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".value='".$row[2]."';
-		document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".value='".$row[3]."';
-		document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".value='".$row[4]."';
-		document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".($row[5])."';
-		document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".value='".$row[6]."';
-		document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".value='".$row[7]."';
-		CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
-		document.frm_form".$NumWindow.".txt_correo".$NumWindow.".value='".$row[8]."';
-		document.frm_form".$NumWindow.".txt_direccion".$NumWindow.".value='".$row[9]."';
-		document.frm_form".$NumWindow.".txt_telefono".$NumWindow.".value='".$row[10]."';
-		document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".value='".$row[12]."';
-		document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".value='".ucwords(strtolower($row[13]))."_PLA';
-		document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".value='".$row[14]."';
-		document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".($row[15])."';
-		document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".($row[16])."';
-		document.frm_form".$NumWindow.".txt_dias".$NumWindow.".value='".$row[17]."';
-		document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".value='".$row[18]."';
-		document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".value='".$row[19]."';
-		document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".value='".$row[20]."';
-		document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".value='".$row[21]."';
-		
-		";
+	$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI='A' and Codigo_EMI='".$_GET["Poliza"]."'";
+	$resultp = mysqli_query($conexion, $SQL);
+	if($rowp = mysqli_fetch_array($resultp)) {
+		echo "MsgBox1('Edicion de Polizas','La poliza ".$_GET["Poliza"]." se encuentra anulada');";
 	} else {
-		echo "MsgBox1('Edicion de Polizas','No se encuentra activa la poliza ".$_GET["Poliza"]."');";
+		$SQL="Select FechaIni_CTZ, FechaFin_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI='E' and Codigo_EMI='".$_GET["Poliza"]."' and date(now()) > FechaIni_CTZ";
+		$resultv = mysqli_query($conexion, $SQL);
+		if($rowv = mysqli_fetch_array($resultv)) {
+			echo "MsgBox1('Edicion de Polizas','La poliza ".$_GET["Poliza"]." se encuentra en vigencia (".$rowv[0]." - ".$rowv[1]."). No es posible editarla.');";
+		} else {
+			$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."'";
+			$result = mysqli_query($conexion, $SQL);
+			if($row = mysqli_fetch_array($result)) {
+				echo "
+				document.frm_form".$NumWindow.".txt_femision".$NumWindow.".value='".$row[0]."';
+				document.frm_form".$NumWindow.".txt_cotizacion".$NumWindow.".value='".$row[1]."';
+				document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".value='".$row[2]."';
+				document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".value='".$row[3]."';
+				document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".value='".$row[4]."';
+				document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".($row[5])."';
+				document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".value='".$row[6]."';
+				document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".value='".$row[7]."';
+				document.frm_form".$NumWindow.".txt_correo".$NumWindow.".value='".$row[8]."';
+				document.frm_form".$NumWindow.".txt_direccion".$NumWindow.".value='".$row[9]."';
+				document.frm_form".$NumWindow.".txt_telefono".$NumWindow.".value='".$row[10]."';
+				document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".value='".$row[12]."';
+				document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".value='".ucwords(strtolower($row[13]))."_PLA';
+				document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".value='".$row[14]."';
+				document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".($row[15])."';
+				document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".($row[16])."';
+				document.frm_form".$NumWindow.".txt_dias".$NumWindow.".value='".$row[17]."';
+				document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".value='".$row[18]."';
+				document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".value='".$row[19]."';
+				document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".value='".$row[20]."';
+				document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".value='".$row[21]."';
+				CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
+				";
+			}
+			mysqli_free_result($result); 
+		}
+		mysqli_free_result($resultv); 
 	}
-	mysqli_free_result($result); 
+	mysqli_free_result($resultp); 
 
 }
 ?>
@@ -541,34 +634,24 @@ if(isset($_GET["Plan"])) {
 ?>
 
 function CalcularDias<?php echo $NumWindow; ?>() {
-	FecINI=document.getElementById('txt_fini<?php echo $NumWindow; ?>').value;
-	FecFIN=document.getElementById('txt_ffin<?php echo $NumWindow; ?>').value;
+	FecINI=new Date(document.getElementById('txt_fini<?php echo $NumWindow; ?>').value);
+	FecFIN=new Date(document.getElementById('txt_ffin<?php echo $NumWindow; ?>').value);
 	if(FecINI=="") {
-		MsgBoxErr("Error", "Fecha inicial no puede estar en blanco");
+		MsgBox1("Error", "Fecha inicial no puede estar en blanco");
 		return false;
 	}
 	if(FecFIN=="") {
-		MsgBoxErr("Error", "Fecha final no puede estar en blanco");
+		MsgBox1("Error", "Fecha final no puede estar en blanco");
 		return false;
 	}
-	var values1=FecINI.split("/");
-	FecINIx=values1[2].concat('-',values1[1],'-',values1[0]);
-	var values2=FecFIN.split("/");
-	FecFINx=values2[2].concat('-',values2[1],'-',values2[0]);
-	if (FecINIx>FecFINx) {
-		MsgBoxErr("Error", "Fechas de viaje no concuerdan");
-		return false;
-	}
-	var fechaInicio = new Date(FecINIx).getTime();
-	var fechaFin    = new Date(FecFINx).getTime();
-	var diff = fechaFin - fechaInicio;
-	diasx=(diff/(1000*60*60*24) )+1;
-	if (diasx<=0) {
-		MsgBoxErr("Error", "Fecha de inicio no puede ser mayor a fecha final");
-		return false;
-	} else {
-		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value=diasx;
+	if (FecFIN>FecINI) {
+		var diff = FecFIN.getTime() - FecINI.getTime();
+		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24));
 		return true;
+	}
+	else if (FecFIN != null && FecFIN < FecINI) {
+		MsgBox1("Error", "Fechas de viaje no concuerdan");
+		return false;
 	}
 }
 
@@ -579,19 +662,19 @@ function Calcular<?php echo $NumWindow; ?>() {
 
 	if (document.getElementById("cmb_modalidad<?php echo $NumWindow; ?>").value=="Pareja_PLA") {
 		if (document.getElementById('txt_parentesco1<?php echo $NumWindow; ?>').value=="") {
-			MsgBoxErr("Atención", "No ha digitado el parentesco");
+			MsgBox1("Atención", "No ha digitado el parentesco");
 			return false;
 		}
 		if (document.getElementById('txt_nombre1<?php echo $NumWindow; ?>').value=="") {
-			MsgBoxErr("Atención", "No ha digitado el nombre del acompañante");
+			MsgBox1("Atención", "No ha digitado el nombre del acompañante");
 			return false;
 		}
 		if (document.getElementById('txt_fecnac1<?php echo $NumWindow; ?>').value=="") {
-			MsgBoxErr("Atención", "No ha digitado la fecha de nacimiento del acompañante");
+			MsgBox1("Atención", "No ha digitado la fecha de nacimiento del acompañante");
 			return false;
 		}
 		if (document.getElementById('txt_pasaporte1<?php echo $NumWindow; ?>').value=="") {
-			MsgBoxErr("Atención", "No ha digitado el pasaporte del acompañante");
+			MsgBox1("Atención", "No ha digitado el pasaporte del acompañante");
 			return false;
 		}
 		document.getElementById('hdn_menos18<?php echo $NumWindow; ?>').value="0";
@@ -604,25 +687,25 @@ function Calcular<?php echo $NumWindow; ?>() {
 	if (document.getElementById("cmb_modalidad<?php echo $NumWindow; ?>").value=="Hijos_PLA") {
 		TotalTHC=document.getElementById('hdn_controw<?php echo $NumWindow; ?>').value;
 		if (TotalTHC==0) {
-			MsgBoxErr("Atención", "No ha ingresado acompañantes");
+			MsgBox1("Atención", "No ha ingresado acompañantes");
 			return false;
 		}
 		for (i = 1; i <= TotalTHC; i++) { 
 			if ( document.getElementById('hdn_parentesco'+i+'<?php echo $NumWindow; ?>')) {
 				if (document.getElementById('hdn_parentesco'+i+'<?php echo $NumWindow; ?>').value=="") {
-					MsgBoxErr("Atención", "No ha digitado el parentesco");
+					MsgBox1("Atención", "No ha digitado el parentesco");
 					return false;
 				}
 				if (document.getElementById('hdn_nombre'+i+'<?php echo $NumWindow; ?>').value=="") {
-					MsgBoxErr("Atención", "No ha digitado el nombre del acompañante");
+					MsgBox1("Atención", "No ha digitado el nombre del acompañante");
 					return false;
 				}
 				if (document.getElementById('hdn_fecnac'+i+'<?php echo $NumWindow; ?>').value=="") {
-					MsgBoxErr("Atención", "No ha digitado la fecha de nacimiento del acompañante");
+					MsgBox1("Atención", "No ha digitado la fecha de nacimiento del acompañante");
 					return false;
 				}
 				if (document.getElementById('hdn_pasaporte'+i+'<?php echo $NumWindow; ?>').value=="") {
-					MsgBoxErr("Atención", "No ha digitado el pasaporte del acompañante");
+					MsgBox1("Atención", "No ha digitado el pasaporte del acompañante");
 					return false;
 				}
 				CalcEdad<?php echo $NumWindow; ?>('hdn_fecnac'+i+'<?php echo $NumWindow; ?>', 'hdn_edad'+i+'<?php echo $NumWindow; ?>');
@@ -639,7 +722,7 @@ function Calcular<?php echo $NumWindow; ?>() {
 	}
 	//PRIMERO LA SELECCION DEL PLAN
 	if(document.getElementById('cmb_plan<?php echo $NumWindow; ?>').value=="0") {
-		MsgBoxErr("Atención", "No ha selecciondo el plan");
+		MsgBox1("Atención", "No ha selecciondo el plan");
 		return false;
 	}
 	//CALCULAMOS EDAD
@@ -649,7 +732,7 @@ function Calcular<?php echo $NumWindow; ?>() {
 	}
 	//CALCULAR DIAS DEL VIAJE
     if (CalcularDias<?php echo $NumWindow; ?>()==false) {
-    	MsgBoxErr("Error de fechas", "Por favor verifique las fechas seleccionadas");
+    	MsgBox1("Error de fechas", "Por favor verifique las fechas seleccionadas");
     	return false;
     }
     plan=document.getElementById('cmb_plan<?php echo $NumWindow; ?>').value;
@@ -662,16 +745,12 @@ function Calcular<?php echo $NumWindow; ?>() {
 
 function CalcEdad<?php echo $NumWindow; ?>(ifecha, iedad) {
 	if (document.getElementById(ifecha).value=="") {
-		MsgBoxErr("Error de cáculo", "No ha introducido una fecha de nacimiento válida");
+		MsgBox1("Error de cáculo", "No ha introducido una fecha de nacimiento válida");
 	}
-	var fecha=document.getElementById(ifecha).value;
- 	if(validate_fecha<?php echo $NumWindow; ?>(fecha)==true)
-    {
- 	    // Si la fecha es correcta, calculamos la edad
-        var values=fecha.split("/");
-        var dia = values[0];
-        var mes = values[1];
-        var ano = values[2];
+	var fecha=new Date(document.getElementById(ifecha).value);
+ 	    var dia = fecha.getDate();
+        var mes = fecha.getMonth();
+        var ano = fecha.getYear();
         // cogemos los valores actuales
         var fecha_hoy = new Date();
         var ahora_ano = fecha_hoy.getYear();
@@ -690,10 +769,7 @@ function CalcEdad<?php echo $NumWindow; ?>(ifecha, iedad) {
         }
  		document.getElementById(iedad).value=edad;
  		return true;
-    } else {
-    	MsgBoxErr("Error de cáculo", "La fecha de nacimiento introducida no es válida");
-    	return false;
-    }
+
 }
 
 function isValidDate<?php echo $NumWindow; ?>(day,month,year)
@@ -783,6 +859,43 @@ function Addpersona<?php echo $NumWindow; ?>() {
 		document.getElementById('hdn_edad0<?php echo $NumWindow; ?>').value="0";
 		document.getElementById('txt_pasaporte0<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_parentesco<?php echo $NumWindow; ?>').focus();
+	}
+}
+function AddStandBy<?php echo $NumWindow; ?>() {
+	fechastby=document.getElementById('txt_fechasby<?php echo $NumWindow; ?>').value;
+	obstsby=document.getElementById('txt_obssby<?php echo $NumWindow; ?>').value;
+	vencestby=document.getElementById('txt_vencesby<?php echo $NumWindow; ?>').value;
+	valorstby=document.getElementById('txt_valorsby<?php echo $NumWindow; ?>').value;
+		
+	if (obstsby!="") {
+		obstsby=obstsby.toUpperCase();
+		TotalFilas=document.getElementById("hdn_controwsby<?php echo $NumWindow; ?>").value;
+	    var miTabla = document.getElementById("tbcob<?php echo $NumWindow; ?>"); 
+	    var fila = document.createElement("tr"); 
+	    var celda1 = document.createElement("td"); 
+	    var celda2 = document.createElement("td"); 
+	    var celda3 = document.createElement("td"); 
+	    var celda4 = document.createElement("td"); 
+		TotalFilas++;
+		fila.id="tr"+TotalFilas+"<?php echo $NumWindow; ?>";
+	    celda1.innerHTML = '<input name="hdn_parentesco'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_parentesco'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Parentesco+''+'" /> '+Parentesco; 
+		celda2.innerHTML = '<input name="hdn_nombre'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_nombre'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+NombreCompletos+''+'" /> '+NombreCompletos; 
+		celda3.innerHTML = '<input name="hdn_fecnac'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_fecnac'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+FecNac+''+'" /> '+FecNac+'<input name="hdn_edad'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_edad'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+LaEdad+''+'" /> ';  
+	    celda4.innerHTML = '<input name="hdn_pasaporte'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_pasaporte'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Passaporte+''+'" /> '+Passaporte; 
+	    fila.appendChild(celda1); 
+	    fila.appendChild(celda2); 
+	    fila.appendChild(celda3); 
+	    fila.appendChild(celda4); 
+	    miTabla.appendChild(fila); 
+	    document.getElementById('hdn_controwsby<?php echo $NumWindow; ?>').value=TotalFilas;
+		document.getElementById('txt_fechasby<?php echo $NumWindow; ?>').value="<?php echo date("Y-m-d"); ?>";
+		document.getElementById('txt_obssby<?php echo $NumWindow; ?>').value="";
+		document.getElementById('txt_vencesby<?php echo $NumWindow; ?>').value="<?php echo date("Y-m-d"); ?>";
+		document.getElementById('txt_valorsby<?php echo $NumWindow; ?>').value="0";
+		document.getElementById('txt_fechasby<?php echo $NumWindow; ?>').focus();
+	} else {
+		msgbox1("Edicion de Pólizas","Falta la observacion del StandBy");
+		document.getElementById('txt_obssby<?php echo $NumWindow; ?>').focus();
 	}
 }
 
