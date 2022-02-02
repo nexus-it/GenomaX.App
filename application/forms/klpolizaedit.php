@@ -475,7 +475,7 @@ session_start();
 		  			
 		  			<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 						<label for="txt_vencesby<?php echo $NumWindow; ?>">Fecha Vence</label>
-						<input  name="txt_vencesby<?php echo $NumWindow; ?>" id="txt_vencesby<?php echo $NumWindow; ?>" type="date" class="form-control"  />
+						<input  name="txt_vencesby<?php echo $NumWindow; ?>" id="txt_vencesby<?php echo $NumWindow; ?>" type="date" class="form-control" value="<?php echo date("Y-m-d", strtotime ('+1 year' , strtotime(date("Y-m-d")))); ?>"  />
 					</div>
 
 		  		</div>
@@ -496,7 +496,7 @@ session_start();
 
 				 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
 				<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
-				<tbody id="tbcob<?php echo $NumWindow; ?>">
+				<tbody id="tbcobsby<?php echo $NumWindow; ?>">
 				<tr id="trh<?php echo $NumWindow; ?>"> 
 					<th id="th1<?php echo $NumWindow; ?>">Fecha StandBy</th> 
 					<th id="th2<?php echo $NumWindow; ?>">Observaciones</th> 
@@ -528,7 +528,7 @@ session_start();
 				 </div>
 
 		  		</div>
-		  		<input name="hdn_controw<?php echo $NumWindow; ?>" type="hidden" id="hdn_controw<?php echo $NumWindow; ?>" value="0" />
+		  		<input name="hdn_controwsby<?php echo $NumWindow; ?>" type="hidden" id="hdn_controwsby<?php echo $NumWindow; ?>" value="<?php echo $contarow; ?>" />
 		  		<input name="hdn_controwx<?php echo $NumWindow; ?>" type="hidden" id="hdn_controwx<?php echo $NumWindow; ?>" value="0" />
 			</div>
 			</div>
@@ -870,7 +870,7 @@ function AddStandBy<?php echo $NumWindow; ?>() {
 	if (obstsby!="") {
 		obstsby=obstsby.toUpperCase();
 		TotalFilas=document.getElementById("hdn_controwsby<?php echo $NumWindow; ?>").value;
-	    var miTabla = document.getElementById("tbcob<?php echo $NumWindow; ?>"); 
+	    var miTabla = document.getElementById("tbcobsby<?php echo $NumWindow; ?>"); 
 	    var fila = document.createElement("tr"); 
 	    var celda1 = document.createElement("td"); 
 	    var celda2 = document.createElement("td"); 
@@ -878,10 +878,10 @@ function AddStandBy<?php echo $NumWindow; ?>() {
 	    var celda4 = document.createElement("td"); 
 		TotalFilas++;
 		fila.id="tr"+TotalFilas+"<?php echo $NumWindow; ?>";
-	    celda1.innerHTML = '<input name="hdn_parentesco'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_parentesco'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Parentesco+''+'" /> '+Parentesco; 
-		celda2.innerHTML = '<input name="hdn_nombre'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_nombre'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+NombreCompletos+''+'" /> '+NombreCompletos; 
-		celda3.innerHTML = '<input name="hdn_fecnac'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_fecnac'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+FecNac+''+'" /> '+FecNac+'<input name="hdn_edad'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_edad'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+LaEdad+''+'" /> ';  
-	    celda4.innerHTML = '<input name="hdn_pasaporte'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_pasaporte'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Passaporte+''+'" /> '+Passaporte; 
+	    celda1.innerHTML = '<input name="hdn_fechastby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_fechastby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+fechastby+''+'" /> '+fechastby; 
+		celda2.innerHTML = '<input name="hdn_obstsby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_obstsby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+obstsby+''+'" /> '+obstsby; 
+		celda3.innerHTML = '<input name="hdn_vencestby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_vencestby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+vencestby+''+'" /> '+vencestby;  
+	    celda4.innerHTML = '<input name="hdn_valorstby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_valorstby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+valorstby+''+'" /> '+valorstby; 
 	    fila.appendChild(celda1); 
 	    fila.appendChild(celda2); 
 	    fila.appendChild(celda3); 
@@ -890,11 +890,11 @@ function AddStandBy<?php echo $NumWindow; ?>() {
 	    document.getElementById('hdn_controwsby<?php echo $NumWindow; ?>').value=TotalFilas;
 		document.getElementById('txt_fechasby<?php echo $NumWindow; ?>').value="<?php echo date("Y-m-d"); ?>";
 		document.getElementById('txt_obssby<?php echo $NumWindow; ?>').value="";
-		document.getElementById('txt_vencesby<?php echo $NumWindow; ?>').value="<?php echo date("Y-m-d"); ?>";
+		document.getElementById('txt_vencesby<?php echo $NumWindow; ?>').value="<?php echo date("Y-m-d", strtotime ('+1 year' , strtotime(date("Y-m-d")))); ?>";
 		document.getElementById('txt_valorsby<?php echo $NumWindow; ?>').value="0";
 		document.getElementById('txt_fechasby<?php echo $NumWindow; ?>').focus();
 	} else {
-		msgbox1("Edicion de Pólizas","Falta la observacion del StandBy");
+		MsgBox1("Edicion de Pólizas","Falta la observacion del StandBy");
 		document.getElementById('txt_obssby<?php echo $NumWindow; ?>').focus();
 	}
 }

@@ -230,7 +230,7 @@
 <?php 
 	if (isset($_GET["Ingreso"])) {
 	$SQL="Select Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Ingreso_ADM, sum(Valor_TAR*Cantidad_ORD), Tipo_EPS From gxadmision a, gxrangoactual b, gxpacientes c, gxordenescab d, gxordenesdet e, gxmanualestarifarios f, gxcontratos g, gxeps h Where b.Codigo_ANY=DATE_FORMAT(d.Fecha_ORD, '%Y') and b.Codigo_RNG=c.Codigo_RNG and a.Codigo_TER=c.Codigo_TER and LPAD(a.Codigo_ADM,10,'0')=LPAD(".$_GET["Ingreso"].",10,'0')  AND g.Codigo_EPS=h.Codigo_EPS and d.Codigo_ADM=a.Codigo_ADM and e.Codigo_SER=f.Codigo_SER and d.Codigo_ORD=e.Codigo_ORD and  FechaIni_TAR <=d.Fecha_ORD and FechaFin_TAR>=d.Fecha_ORD and Estado_ORD='1' and f.Codigo_TAR = g.Codigo_TAR and trim(g.Codigo_EPS) = trim(a.Codigo_EPS) and g.Codigo_PLA = a.Codigo_PLA and trim(e.Codigo_EPS) = trim(g.Codigo_EPS) and e.Codigo_PLA = g.Codigo_PLA Group By Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Ingreso_ADM";
-	error_log('Load Ingreso 1: '. $SQL);
+	//error_log('Load Ingreso 1: '. $SQL);
 	$resultX = mysqli_query($conexion, $SQL);
 	//$resultX = mysqli_query($conexion, $SQL);
 	if($rowX = mysqli_fetch_array($resultX)) {
@@ -256,14 +256,14 @@
 	}
 	mysqli_free_result($resultX);
 	
-	$SQL="Select LPAD(Codigo_ORD,10,'0'), date(Fecha_ORD), Nombre_ARE, Autorizacion_ORD  
+	$SQL="Select LPAD(Codigo_ORD,10,'0'), date(Fecha_ORD), Nombre_ARE, Autorizacion_ORD, Codigo_ORD  
 from gxordenescab a, gxareas b 
 Where a.Codigo_ARE=b.Codigo_ARE  
 AND a.Estado_ORD='1' 
 and LPAD(Codigo_ADM,10,'0')=LPAD(".$_GET["Ingreso"].",10,'0') Order By 1";
 	$resultZ = mysqli_query($conexion, $SQL);
 	//$resultX = mysqli_query($conexion, $SQL);
-	error_log('Load Ingreso 2: '. $SQL);
+	//error_log('Load Ingreso 2: '. $SQL);
 	
 	while ($rowZ = mysqli_fetch_array($resultZ)) {
 		echo '
@@ -290,7 +290,7 @@ Where d.Codigo_SER=b.Codigo_SER and c.Codigo_SER=b.Codigo_SER AND b.Codigo_ORD=d
 Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD 
 ";
  	$result = mysqli_query($conexion, $SQL);
-	 error_log('Load Ingreso 3: '. $SQL);
+	// error_log('Load Ingreso 3: '. $SQL);
 	
 	while($row = mysqli_fetch_array($result)) {
 		$contarow++;
@@ -345,10 +345,14 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
  a.Codigo_SER=b.Codigo_SER AND e.Codigo_EPS=b.Codigo_EPS and e.Codigo_PLA=b.Codigo_PLA and
  FechaIni_TAR <='".$rowZ[1]."' and FechaFin_TAR>='".$rowZ[1]." 23:59:59' AND  c.Procedimiento_PRC='0'  and LPAD(Codigo_ORD,10,'0')='".$rowZ[0]."' 
 ";
+	$SQL="Select a.Codigo_SER, case when a.Tipo_SER='2' then CUM_MED ELSE CUPS_PRC end , Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD 
+	FROM gxordenesdet b, gxmanualestarifarios d, gxcontratos e, 
+	gxservicios a LEFT JOIN gxprocedimientos c ON a.Codigo_SER=c.Codigo_SER LEFT JOIN gxmedicamentos f ON a.Codigo_SER=f.Codigo_SER 
+	Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and a.Codigo_SER=b.Codigo_SER AND e.Codigo_EPS=b.Codigo_EPS 
+	and e.Codigo_PLA=b.Codigo_PLA AND '".$rowZ[1]."' BETWEEN FechaIni_TAR AND FechaFin_TAR and Codigo_ORD='".$rowZ[4]."';";
  	$result = mysqli_query($conexion, $SQL);
 	//$result = mysqli_query($conexion, $SQL);
-	error_log('Load Ingreso 4: '. $SQL);
-	
+	//error_log('Load Ingreso 4: '. $SQL);
 	
 	while($row = mysqli_fetch_array($result)) {
 		$contarow++;
@@ -396,7 +400,7 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 ';
 	}
 	mysqli_free_result($result); 
-	//
+	 /* 
 	$SQL="Select a.Codigo_SER, CUM_MED, Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD  
 from gxservicios a, gxordenesdet b, gxmedicamentos c, gxmanualestarifarios d, gxcontratos e  
 Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b.Codigo_SER AND
@@ -451,7 +455,7 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 </tr> 
 ';
 	}
-	mysqli_free_result($result); 
+	mysqli_free_result($result);  */
 	//
 	}
 	mysqli_free_result($resultZ); 
