@@ -14,7 +14,16 @@ include '00trnsctns.php';
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Update klemisiones set Estado_EMI='".$_POST["estado"]."', Fecha_EMI='".$_POST["femision"]."' Where Codigo_EMI='".$_POST['poliza']."';";
 	EjecutarSQL($SQL, $conexion);
-
+	$ConsecPoliza=$Consec;
+	if ($_POST['controwsby']!='0') {
+		$totalstby=$_POST['hdn_controwsby'];
+		for ($i = 1; $i <= $totalstby; $i++) {
+			if (isset($_POST['obssby'.$i])) {
+				$SQL="Insert into klstandby(Codigo_CTZ, Fecha_SBY, Vence_SBY, Observaciones_SBY, Cobro_SBY) Values ('".$_POST['cotizacion'.$i]."', '".$_POST['fechasby'.$i]."', '".$_POST['vencesby'.$i]."', '".$_POST['obssby'.$i]."', '".$_POST['valorsby'.$i]."')";
+				EjecutarSQL($SQL, $conexion);
+			}
+		}
+	}
 	it_aud('1', 'Emision de Poliza', 'Póliza No. '.$Consec);
 
 include '99trnsctns.php';

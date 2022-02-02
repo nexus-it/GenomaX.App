@@ -505,7 +505,7 @@ session_start();
 				</tr> 
 					 <?php 
 					 if (isset($_GET["Poliza"])) {	
-					$SQL="Select  FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
+					$SQL="Select a.Codigo_CTZ, Fecha_SBY, Vence_SBY, Observaciones_SBY, Cobro_SBY FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
 					$resulthc = mysqli_query($conexion, $SQL);
 					$contarow=0;
 					while($rowhc = mysqli_fetch_array($resulthc)) 
@@ -646,7 +646,7 @@ function CalcularDias<?php echo $NumWindow; ?>() {
 	}
 	if (FecFIN>FecINI) {
 		var diff = FecFIN.getTime() - FecINI.getTime();
-		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24));
+		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24))+1;
 		return true;
 	}
 	else if (FecFIN != null && FecFIN < FecINI) {

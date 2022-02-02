@@ -537,7 +537,7 @@ function CalcularDias<?php echo $NumWindow; ?>() {
 	}
 	if (FecFIN>FecINI) {
 		var diff = FecFIN.getTime() - FecINI.getTime();
-		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24));
+		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24))+1;
 		return true;
 	}
 	else if (FecFIN != null && FecFIN < FecINI) {
