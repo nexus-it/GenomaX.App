@@ -444,6 +444,9 @@
     color: #6f33aa;
     font-weight: 600;
 }
+.panel-success {
+    border-color: #cfc6e9;
+}
 .modal-title {
     float: left;
     width: 90%;

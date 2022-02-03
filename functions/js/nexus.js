@@ -3717,6 +3717,46 @@ function Guardar_areascz(Ventana)
 	}
 }
 
+function Guardar_notasdebito(Ventana)
+{
+	xError="";
+	NomGuardar="Guardar"+Ventana;
+	document.getElementById(NomGuardar).style.display  = 'none';
+	
+	Ventana="zWind_"+Ventana;
+	//Se verifica la validez de los campos...
+	if (document.getElementById('txt_fecha'+Ventana).value=="") {
+		xError="Digite fecha de la nota.";}
+	if (document.getElementById('txt_factura'+Ventana).value=="") {
+		xError="Digite el numero de factura.";}
+	if (document.getElementById('txt_valornc'+Ventana).value=="0") {
+		xError="El valor de la nota credito no puede ser cero.";}
+
+	//Ejecucion de las intrucciones para guardar los registros
+	if (xError=="") {
+		$.ajax({  
+		  type: "POST",  
+		  url: Transact +"notasdebito.php",  
+		  data: "Func=notasdebito&"+RecorrerForm($("#frm_form"+Ventana)),  
+		  success: function(respuesta) { 
+		  MsgBox1("Notas Debito", respuesta); 
+		  if (respuesta.indexOf("message_ok")>10) {
+			Consecutivo=respuesta.substr(respuesta.length-10,10);
+			CargarReport("application/reports/notadebito.php?CODIGO_INICIAL="+Consecutivo+"CODIGO_FINAL="+Consecutivo, "Nota Debito");
+			$("#frm_form"+Ventana)[0].reset();
+			document.getElementById(NomGuardar).style.display  = 'block';
+	
+		  }  
+		  }
+		});  
+		return false;  
+	} else {
+		MsgBox1("Error", xError);
+		document.getElementById(NomGuardar).style.display  = 'block';
+	
+	}
+}
+
 function Guardar_notascredito(Ventana)
 {
 	xError="";

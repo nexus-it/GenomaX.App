@@ -32,7 +32,7 @@ session_start();
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_poliza<?php echo $NumWindow; ?>">Poliza</label>
 		<div class="input-group">
-			<input  name="txt_poliza<?php echo $NumWindow; ?>" id="txt_poliza<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $xPoliza; ?>" onchange="BuscarPoliza<?php echo $NumWindow; ?>();" class="form-control" />
+			<input  name="txt_poliza<?php echo $NumWindow; ?>" id="txt_poliza<?php echo $NumWindow; ?>" type="text" required  value="<?php echo $xPoliza; ?>" onchange="BuscarPoliza<?php echo $NumWindow; ?>();" onkeypress="BuscarPolizaX<?php echo $NumWindow; ?>(event);" class="form-control" />
 			<span class="input-group-btn"> 		
 	 		  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-bs-toggle="modal" data-bs-target="#GnmX_Search" data-whatever="Poliza" onclick="javascript:CargarSearch('KlPoliza', 'txt_poliza<?php echo $NumWindow; ?>', 'Estado_EMI<>*A*');"><i class="fas fa-search"></i></button>
 			</span>
@@ -505,7 +505,7 @@ session_start();
 				</tr> 
 					 <?php 
 					 if (isset($_GET["Poliza"])) {	
-					$SQL="Select a.Codigo_CTZ, Fecha_SBY, Vence_SBY, Observaciones_SBY, Cobro_SBY FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
+					$SQL="Select Fecha_SBY, Observaciones_SBY, Vence_SBY, Cobro_SBY FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
 					$resulthc = mysqli_query($conexion, $SQL);
 					$contarow=0;
 					while($rowhc = mysqli_fetch_array($resulthc)) 
@@ -514,7 +514,7 @@ session_start();
 							echo '
 					  <tr id="tr'.$contarow.$NumWindow.'">
 					  <td align="left"><input name="hdn_fechastby'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechastby'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td>
-					  <td align="right"><input name="hdn_descripcionstby'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcionstby'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td><td>
+					  <td align="right"><input name="hdn_descripcionstby'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcionstby'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td>
 					  <td align="left"><input name="hdn_fechavencestby'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechavencestby'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td> 
 					  <td align="left"><input name="hdn_cobrostby'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobrostby'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td> 
 					  </tr>
@@ -536,7 +536,6 @@ session_start();
 		</div>
 			<!-- FIN STANDBY -->
 </form>
-
 
 <script >
 /*
@@ -595,6 +594,13 @@ if (isset($_GET["Poliza"])) {
 
 }
 ?>
+
+function BuscarPolizaX<?php echo $NumWindow; ?>(e) {
+  tecla = (document.all) ? e.keyCode : e.which;
+  if (tecla==13){
+  	BuscarPoliza<?php echo $NumWindow; ?>();
+  }
+}
 
 function BuscarPoliza<?php echo $NumWindow; ?>() {
 	poliza=document.getElementById('txt_poliza<?php echo $NumWindow; ?>').value;
@@ -879,9 +885,9 @@ function AddStandBy<?php echo $NumWindow; ?>() {
 		TotalFilas++;
 		fila.id="tr"+TotalFilas+"<?php echo $NumWindow; ?>";
 	    celda1.innerHTML = '<input name="hdn_fechastby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_fechastby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+fechastby+''+'" /> '+fechastby; 
-		celda2.innerHTML = '<input name="hdn_obstsby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_obstsby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+obstsby+''+'" /> '+obstsby; 
-		celda3.innerHTML = '<input name="hdn_vencestby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_vencestby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+vencestby+''+'" /> '+vencestby;  
-	    celda4.innerHTML = '<input name="hdn_valorstby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_valorstby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+valorstby+''+'" /> '+valorstby; 
+		celda2.innerHTML = '<input name="hdn_descripcionstby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcionstby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+obstsby+''+'" /> '+obstsby; 
+		celda3.innerHTML = '<input name="hdn_fechavencestby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_fechavencestby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+vencestby+''+'" /> '+vencestby;  
+	    celda4.innerHTML = '<input name="hdn_cobrostby'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_cobrostby'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+valorstby+''+'" /> '+valorstby; 
 	    fila.appendChild(celda1); 
 	    fila.appendChild(celda2); 
 	    fila.appendChild(celda3); 

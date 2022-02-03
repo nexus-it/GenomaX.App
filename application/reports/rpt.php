@@ -6,7 +6,7 @@ session_start();
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 ?>
-<div class="row" style="height:95%;">
+<div class="row" style="height:98%;">
 
 <div class="panel-group col-md-2" id="accordion<?php echo $NumWindow; ?>" role="tablist" aria-multiselectable="true">
 

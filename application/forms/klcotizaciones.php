@@ -39,7 +39,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc<?php echo $NumWindow; ?>">
 		<label for="txt_fnac<?php echo $NumWindow; ?>" title="Fecha Nacimiento">F. Nac.</label>
-		<input  name="txt_fnac<?php echo $NumWindow; ?>" id="txt_fnac<?php echo $NumWindow; ?>" type="date" required  class="form-control datepicker0<?php echo $NumWindow; ?> datepicker"/>
+		<input  name="txt_fnac<?php echo $NumWindow; ?>" id="txt_fnac<?php echo $NumWindow; ?>" type="date" required  class="form-control datepicker0<?php echo $NumWindow; ?> datepicker" onchange="CalcEdad<?php echo $NumWindow; ?>('txt_fnac<?php echo $NumWindow; ?>', 'txt_edad<?php echo $NumWindow; ?>');"/>
 	</div>
 
 		</div>
@@ -116,7 +116,7 @@ session_start();
 
 	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
 		<label for="txt_fini<?php echo $NumWindow; ?>">Fecha Inicial</label>
-		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="date" required class="form-control datepicker1<?php echo $NumWindow; ?> datepicker" />
+		<input  name="txt_fini<?php echo $NumWindow; ?>" id="txt_fini<?php echo $NumWindow; ?>" type="date" required class="form-control datepicker1<?php echo $NumWindow; ?> datepicker" onkeyup="CalcularDias<?php echo $NumWindow; ?>();"/>
 	</div>
 
 		</div>
@@ -516,11 +516,13 @@ if(isset($_GET["Plan"])) {
 	document.getElementById("txt_ffin'.$NumWindow.'").value="'.$_GET["FecFin"].'";
 	if (document.getElementById("txt_ffin'.$NumWindow.'").value!="") {
 		CalcularDias'.$NumWindow.'();
+		CalcEdad'.$NumWindow.'("txt_fnac'.$NumWindow.'", "txt_edad'.$NumWindow.'");
 	}
 	';
 } else {
 	echo '
 	FechaActual("txt_fini'.$NumWindow.'");
+	FechaActual("txt_ffin'.$NumWindow.'");
 	';
 }
 ?>
@@ -535,7 +537,7 @@ function CalcularDias<?php echo $NumWindow; ?>() {
 		MsgBox1("Error", "Fecha final no puede estar en blanco");
 		return false;
 	}
-	if (FecFIN>FecINI) {
+	if (FecFIN>=FecINI) {
 		var diff = FecFIN.getTime() - FecINI.getTime();
 		document.getElementById('txt_dias<?php echo $NumWindow; ?>').value = Math.round(diff / (1000 * 60 * 60 * 24))+1;
 		return true;

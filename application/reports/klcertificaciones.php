@@ -1,12 +1,10 @@
 <?php
 
-
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
-
 
 class PDF extends FPDF
 {
@@ -174,6 +172,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=str_replace("@PREFIJO",($_GET["PREFIJO"]),$SQL);
 	$SQL=str_replace("@EMISION_INICIAL",($_GET["EMISION_INICIAL"]),$SQL);
 	$SQL=str_replace("@EMISION_FINAL",($_GET["EMISION_FINAL"]),$SQL);
+	$SQL=str_replace("@IDIOMA",($_GET["IDIOMA"]),$SQL);
 }
 //echo $SQL;
 mysqli_free_result($resultH);
@@ -212,7 +211,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 
 	$pdf->SetY(65);
 	$pdf->SetFont('Arial','B',12);
-	$pdf->Cell(0,8,$rsocial.' CERTIFICA','',0,'C',0); //Razon Social
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,8,$rsocial.' CERTIFIES','',0,'C',0); //Razon Social
+	} else {
+		$pdf->Cell(0,8,$rsocial.' CERTIFICA','',0,'C',0); //Razon Social
+	}
 
 	$pdf->SetY(15);
 	$pdf->SetFont('Arial','',8);
@@ -236,23 +239,38 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->SetFont('Arial','B',12);
 	$pdf->Cell(0,8,'REF: POLIZA '.$_GET["PREFIJO"]."-".str_pad($rowH[2], 10, "0", STR_PAD_LEFT),'',0,'R',0); //Razon Social
 	*/
+
 	$moneda="Dólares";
+	if ($_GET["IDIOMA"]=="ENG") {
+		$moneda="Dollars";	
+	}
 	$fin="";
 	if ("UNION EURO AXIS"==$rowH[10]) {
 		$moneda="Euros";
 		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
+		if ($_GET["IDIOMA"]=="ENG") {
+			$fin=" and all the countries belonging to the Schengen agreement";	
+		}		
 	}
 	if ("PROMO 2X1 EUROAXIS"==$rowH[10]) {
 		$moneda="Euros";
 		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
+		if ($_GET["IDIOMA"]=="ENG") {
+			$fin=" and all the countries belonging to the Schengen agreement";	
+		}		
 	}
 	if ("PROMO EUROAXIS"==$rowH[10]) {
 		$moneda="Euros";
 		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
+		if ($_GET["IDIOMA"]=="ENG") {
+			$fin=" and all the countries belonging to the Schengen agreement";	
+		}		
 	}
 
 	$html=utf8_decode("La expedición de la póliza No. ".$_GET["PREFIJO"]."-".str_pad($rowH[2], 10, "0", STR_PAD_LEFT)." a nombre de <b>".$rowH[6]."</b> con No. de pasaporte <b>".$rowH[5]."</b> quien adquirió una póliza de seguro médico con Plan ".$rowH[10].". Su viaje está programado con fecha de inicio para el día <b>".FormatoFecha($rowH[14])."</b> y con fecha de finalización el día <b>".FormatoFecha($rowH[15])."</b>. A continuación se detallan las coberturas en ".$moneda." hacia <b>".$rowH[13]."</b>".$fin.".");
-
+	if ($_GET["IDIOMA"]=="ENG") {
+		$html=utf8_decode("Through the present letter we are certifying that the policy No. ".$_GET["PREFIJO"]."-".str_pad($rowH[2], 10, "0", STR_PAD_LEFT)." in the name of <b>".$rowH[6]."</b> with Passport Number or CC Number <b>".$rowH[5]."</b>  who has an Insurance Policy Product ".$rowH[10]." and the travel programed from <b>".FormatoFecha($rowH[14])."</b> to <b>".FormatoFecha($rowH[15])."</b>. Below we detail the coverage in ".$moneda." to <b>".$rowH[13]."</b>".$fin.".");
+	}
 	$pdf->SetY(96);
 	$pdf->SetFont('Arial','',11);
 	$pdf->SetTextColor(0,0,0);
@@ -264,9 +282,13 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	
 	$pdf->SetFont('Arial','B',9);
-	$pdf->Cell(0,5,'COBERTURAS','',0,'C',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'COVERAGE','',0,'C',0);
+	} else {
+		$pdf->Cell(0,5,'COBERTURAS','',0,'C',0);
+	}
 	$pdf->Ln();
-	$SQL="SELECT Nombre_COB, Descripcion_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob LIMIT 6";
+	$SQL="SELECT Nombre".$_GET["IDIOMA"]."_COB, Descripcion".$_GET["IDIOMA"]."_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob LIMIT 6";
 //	echo $SQL;
 	$result = mysqli_query($conexion, $SQL);
 	while ($row = mysqli_fetch_row($result)) {
@@ -276,7 +298,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$pdf->Cell(0,5,strtoupper($row[1]),'',0,'R',0);
 	}
 	mysqli_free_result($result);
-	$html=utf8_decode("Cualquier información adicional que requiera, no dude en comunicarse con nosotros.");
+	if ($_GET["IDIOMA"]=="ENG") {
+		$html=utf8_decode("Any additional information you require, do not hesitate to contact us.");
+	} else {
+		$html=utf8_decode("Cualquier información adicional que requiera, no dude en comunicarse con nosotros.");
+	}
 
 	$pdf->SetY(166);
 	$pdf->SetFont('Arial','',11);
@@ -284,12 +310,24 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 
 	$pdf->SetY(186);
 	$pdf->SetFont('Arial','B',11);
-	$pdf->Cell(11,5,'Nota: ','',0,'L',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(11,5,'Note: ','',0,'L',0);
+	} else {
+		$pdf->Cell(11,5,'Nota: ','',0,'L',0);
+	}
 	$pdf->SetFont('Arial','',11);
-	$pdf->Cell(0,5,'Este producto no requiere deducible.','',0,'L',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'This product does not require a deductible.','',0,'L',0);
+	} else {
+		$pdf->Cell(0,5,'Este producto no requiere deducible.','',0,'L',0);
+	}
 
 	$pdf->SetY(216);
-	$pdf->Cell(0,5,'Cordialmente,','',0,'L',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'Cordially,','',0,'L',0);
+	} else {
+		$pdf->Cell(0,5,'Cordialmente,','',0,'L',0);
+	}
 
 	$pdf->SetY(230);
 	if ($rowH[27]!='1') {
@@ -297,7 +335,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	$pdf->SetY(238);
 	$pdf->SetFont('Arial','B',11);
-	$pdf->Cell(0,5,'Dpto. Operaciones','',0,'L',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'Operations Department','',0,'L',0);
+	} else {
+		$pdf->Cell(0,5,'Dpto. Operaciones','',0,'L',0);
+	}
 	$pdf->SetY(244);
 	$pdf->Cell(0,5,$rsocial,'',0,'L',0);
  }  

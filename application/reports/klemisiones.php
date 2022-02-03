@@ -120,13 +120,21 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	$pdf->SetFont('Arial','',10);
 	$pdf->SetY(26);
-	$pdf->Cell(0,6,'Agencia','',0,'C',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,6,'Agency','',0,'C',0);
+	} else {
+		$pdf->Cell(0,6,'Agencia','',0,'C',0);
+	}
 	$pdf->SetFont('Arial','B',10);
 	$pdf->SetY(30);
 	$pdf->Cell(0,6,utf8_decode($rowH[8]),'',0,'C',0);
 	$pdf->SetFont('Arial','',10);
 	$pdf->SetY(37);
-	$pdf->Cell(0,6,'Promotor','',0,'C',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,6,'Promoter','',0,'C',0);
+	} else {
+		$pdf->Cell(0,6,'Promotor','',0,'C',0);
+	}
 	$pdf->SetFont('Arial','B',10);
 	$pdf->SetY(41);
 	$pdf->Cell(0,6,utf8_decode($rowH[9]),'',0,'C',0);
@@ -151,7 +159,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->SetY(30);
 	$pdf->SetX(165);
 	$pdf->SetFont('Arial','',10);
-	$pdf->Cell(0,5,'Numero de Poliza','LBTR',0,'C',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'Policy Number','LBTR',0,'C',0);
+	} else {
+		$pdf->Cell(0,5,'Numero de Poliza','LBTR',0,'C',0);
+	}
 	$pdf->Ln();
 	$pdf->SetX(165);
 	$pdf->SetFont('Courier','B',12);
@@ -163,7 +175,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->Ln();
 	$pdf->SetX(165);
 	$pdf->SetFont('Arial','',8);
-	$pdf->Cell(0,6,'Fecha Emision: '.FormatoFecha($rowH[3]),'LBR',0,'C',0);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,6,'Broadcast date: '.FormatoFecha($rowH[3]),'LBR',0,'C',0);
+	} else {
+		$pdf->Cell(0,6,'Fecha Emision: '.FormatoFecha($rowH[3]),'LBR',0,'C',0);
+	}
 
 	$pdf->SetY(55);
 	$pdf->SetFont('Arial','',8);
@@ -215,7 +231,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->Ln();
 	$pdf->SetFont('Arial','B',10);
 	if ($rowH[11]=="HIJOS") {
-		$pdf->Cell(40,5,"FAMILIA",'LBR',0,'L',0);
+		if ($_GET["IDIOMA"]=="ENG") {
+			$pdf->Cell(40,5,"FAMILY",'LBR',0,'L',0);
+		} else {
+			$pdf->Cell(40,5,"FAMILIA",'LBR',0,'L',0);
+		}
 	} else {
 		$pdf->Cell(40,5,utf8_decode($rowH[11]),'LBR',0,'L',0);
 	}
@@ -255,7 +275,11 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->SetFillColor(170);
 	$pdf->SetTextColor(255);
 	$pdf->SetFont('Arial','B',9);
-	$pdf->Cell(0,5,'CERTIFICADO DE COBERTURA - '.utf8_decode($rowH[10]),'',0,'C',1);
+	if ($_GET["IDIOMA"]=="ENG") {
+		$pdf->Cell(0,5,'CERTIFICATE OF COVERAGE - '.utf8_decode($rowH[10]),'',0,'C',1);
+	} else {
+		$pdf->Cell(0,5,'CERTIFICADO DE COBERTURA - '.utf8_decode($rowH[10]),'',0,'C',1);
+	}
 	$pdf->SetTextColor(0);
 	$pdf->SetFillColor(255);
 	$pdf->Ln();
@@ -303,7 +327,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	mysqli_free_result($resultqr);
 	// Enunciado Pie de Poliza
-	$SQL="SELECT PageFooter_KLD from klconfig";
+	$SQL="SELECT PageFooter".$_GET["IDIOMA"]."_KLD from klconfig";
     $resultft = mysqli_query($conexion, $SQL);
 	if ($rowft = mysqli_fetch_row($resultft)) {
 		$pdf->SetTextColor(100,0,20);
