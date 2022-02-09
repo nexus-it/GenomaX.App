@@ -17,7 +17,23 @@ session_start();
 		<label class="label label-default">Datos Comprobante</label>
 	<div class="row well well-sm">
 
-		<div class="col-sm-2">
+	<div class="col-sm-2">
+
+<div class="form-group">
+	<label for="Codigo_CNT<?php echo $NumWindow; ?>">Comprobante No.</label>
+	<div class="input-group">
+		<span class="input-group-btn">
+			<button class="btn btn-success btn-sm" type="button" data-toggle="modal" id="btnCopy<?php echo $NumWindow; ?>" name="btnCopy<?php echo $NumWindow; ?>" data-target="#GnmX_Search" data-whatever="Codigo_CNT" onclick="javascript:CargarSearch('ctMovimiento', 'Codigo_CNT<?php echo $NumWindow; ?>', 'NULL'); CopyMov<?php echo $NumWindow; ?>();" title="Cargar Movimientos desde...">
+				<i class="fas fa-copy"></i> 
+			</button>
+		</span>
+		<input style="font-size:15px; font-weight: bold; text-align: right; color: #cc682e;" name="Codigo_CNT<?php echo $NumWindow; ?>" id="Codigo_CNT<?php echo $NumWindow; ?>" type="text" disabled="disabled" onblur="Duplicar<?php echo $NumWindow; ?>();"/>
+	</div>
+	<input name="HDN_CNT<?php echo $NumWindow; ?>" id="HDN_CNT<?php echo $NumWindow; ?>" type="hidden" value="X" />
+</div>
+
+	</div>
+	<div class="col-sm-2">
 
 	<div class="form-group">
 		<label for="Codigo_FNC<?php echo $NumWindow; ?>">Tipo Documento</label>
@@ -37,14 +53,6 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-sm-1">
-
-	<div class="form-group">
-		<label for="Consec_FNC<?php echo $NumWindow; ?>"># Documento</label>
-		<input name="Consec_FNC<?php echo $NumWindow; ?>" id="Consec_FNC<?php echo $NumWindow; ?>" type="text" />
-	</div>
-	
-		</div>
 		<div class="col-sm-5">
 
 	<div class="form-group">
@@ -53,19 +61,19 @@ session_start();
 	</div>
 	
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-1">
 
 	<div class="form-group">
-		<label for="Fecha_CNT<?php echo $NumWindow; ?>">Fecha</label>
-		<input name="Fecha_CNT<?php echo $NumWindow; ?>" id="Fecha_CNT<?php echo $NumWindow; ?>" type="date" />
+		<label for="Consec_FNC<?php echo $NumWindow; ?>"># Referencia</label>
+		<input name="Consec_FNC<?php echo $NumWindow; ?>" id="Consec_FNC<?php echo $NumWindow; ?>" type="text" />
 	</div>
 	
 		</div>
 		<div class="col-sm-2">
 
 	<div class="form-group">
-		<label for="Codigo_CNT<?php echo $NumWindow; ?>">Comprobante No.</label>
-		<input style="font-size:15px; font-weight: bold; text-align: right; color: #cc682e;" name="Codigo_CNT<?php echo $NumWindow; ?>" id="Codigo_CNT<?php echo $NumWindow; ?>" type="text"   disabled="disabled"/>
+		<label for="Fecha_CNT<?php echo $NumWindow; ?>">Fecha</label>
+		<input name="Fecha_CNT<?php echo $NumWindow; ?>" id="Fecha_CNT<?php echo $NumWindow; ?>" type="date" />
 	</div>
 	
 		</div>
@@ -141,7 +149,7 @@ session_start();
 </form>
 
 <script >
-
+var CopyCat="X";
 var Funciones="functions/php/nexus/functions.php";
 var Updates="functions/php/nexus/updates.php";
 var Uploads="functions/php/nexus/uploads.php";
@@ -180,7 +188,12 @@ document.frm_form".$NumWindow.".Total_CNT".$NumWindow.".value='".$row["Total_CNT
 document.frm_form".$NumWindow.".Total2_CNT".$NumWindow.".value='".$row["Total_CNT"]."';
 document.frm_form".$NumWindow.".Diff".$NumWindow.".value='0';
 document.frm_form".$NumWindow.".Observaciones_CNT".$NumWindow.".value='".preg_replace("/\r\n|\n|\r/", "<br/>",$row["Observaciones_CNT"])."';
-		";		
+		";
+		if (isset($_GET["Copy"])) {
+			echo "document.frm_form".$NumWindow.".Codigo_CNT".$NumWindow.".value='';
+			document.frm_form".$NumWindow.".Codigo_FNC".$NumWindow.".disabled=false;
+			";
+		}
 	}
 	mysqli_free_result($result);
 	$SQL="Select  Codigo_TER, Codigo_CTA, Descripcion_CNT, Codigo_CCT, Debito_CNT, Credito_CNT from czmovcontdet Where Codigo_CNT='".$CNT."' order by Codigo_CTA";
@@ -222,7 +235,6 @@ document.frm_form".$NumWindow.".Credito_CNT".$NumItem.$NumWindow.".value='".$row
 			echo "
 document.frm_form".$NumWindow.".ID_TER".$NumItem.$NumWindow.".value='".$rowter["ID_TER"]."';
 document.frm_form".$NumWindow.".Nombre_TER".$NumItem.$NumWindow.".value='".$rowter["Nombre_TER"]."';
-
 		";
 		}
 		mysqli_free_result($resultter);	
@@ -230,6 +242,23 @@ document.frm_form".$NumWindow.".Nombre_TER".$NumItem.$NumWindow.".value='".$rowt
 	mysqli_free_result($result);
 }
 ?>
+
+function CopyMov<?php echo $NumWindow; ?>() {
+	CopyCat="Y";
+	document.frm_form<?php echo $NumWindow; ?>.Codigo_CNT<?php echo $NumWindow; ?>.disabled=false;
+	// document.frm_form<?php echo $NumWindow; ?>.Codigo_CNT<?php echo $NumWindow; ?>.focus();
+}
+
+function Duplicar<?php echo $NumWindow; ?>() {
+	Valor=document.frm_form<?php echo $NumWindow; ?>.Codigo_CNT<?php echo $NumWindow; ?>.value;
+	document.frm_form<?php echo $NumWindow; ?>.Codigo_FNC<?php echo $NumWindow; ?>.focus();
+	if (Valor=="") {
+		CopyCat="X";
+		document.frm_form<?php echo $NumWindow; ?>.Codigo_CNT<?php echo $NumWindow; ?>.disabled=true;
+	} else {
+		AbrirForm('application/forms/ctmovimientos.php', '<?php echo $NumWindow; ?>', '&Copy=Copy&CNT='+Valor);
+	}
+}
 
 function calcDiff<?php echo $NumWindow; ?>() {
 	var totDiff=0;
@@ -317,7 +346,6 @@ function ctcuenta<?php echo $NumWindow; ?>(Fila)
 
 function saveMovCont<?php echo $NumWindow; ?>() {
 	Guardar_ctmovimientos('<?php echo $NumWindow; ?>') 
-	
 }
 
 function AddRow<?php echo $NumWindow; ?>() {

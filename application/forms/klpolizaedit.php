@@ -505,7 +505,7 @@ session_start();
 				</tr> 
 					 <?php 
 					 if (isset($_GET["Poliza"])) {	
-					$SQL="Select Fecha_SBY, Observaciones_SBY, Vence_SBY, Cobro_SBY FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ Order by Fecha_SBY";
+					$SQL="Select Fecha_SBY, Observaciones_SBY, Vence_SBY, Cobro_SBY FROM klstandby a, klemisiones b WHERE a.Codigo_CTZ=b.Codigo_CTZ and Codigo_EMI='".$_GET["Poliza"]."' Order by Fecha_SBY";
 					$resulthc = mysqli_query($conexion, $SQL);
 					$contarow=0;
 					while($rowhc = mysqli_fetch_array($resulthc)) 
@@ -584,6 +584,7 @@ if (isset($_GET["Poliza"])) {
 				document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".value='".$row[20]."';
 				document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".value='".$row[21]."';
 				CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
+				CalcularDias".$NumWindow."();
 				";
 			}
 			mysqli_free_result($result); 

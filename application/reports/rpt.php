@@ -126,7 +126,7 @@ while($row = mysqli_fetch_array($result)) {
 	    echo '>';
 	    if ($row["Search_RPT"]!="") {
 			echo '<span class="input-group-btn">	
-				<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="RptSearch" onclick="javascript:CargarSearch(\''.$row["Search_RPT"].'\', \'txt_'.$row["Campo_RPT"].$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				<button class="btn btn-success" type="button" data-toggle="modal" data-bs-toggle="modal" data-target="#GnmX_Search" data-bs-target="#GnmX_Search" data-whatever="RptSearch" onclick="javascript:CargarSearch(\''.$row["Search_RPT"].'\', \'txt_'.$row["Campo_RPT"].$NumWindow.'\', \'NULL\');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 			</span>
 		</div>';
 		}

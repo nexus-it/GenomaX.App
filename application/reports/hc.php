@@ -867,7 +867,7 @@ $resultx = mysqli_query($conexion, $SQL);
 $kntfolix=0;
 while ($rowx = mysqli_fetch_row($resultx)) {
 	$kntfolix++;
-	if($FormOrden="") {
+	if($FormOrden=="") {
 		if ($kntfolix==1) {
 			$pdf->SetY(19);
 			$pdf->encabezadoz('',$rowx[1]);
@@ -1401,7 +1401,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	
 	// ORDENES DE MEDICAMENTOS
 	if ($rowx[11]!="0") {
-		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";
+		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM, PpioActivo_MED From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NumIndi=0;
 		while ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -1437,12 +1437,20 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(43,4,'Medicamento: '.utf8_decode($rowx2[0]),'TL',0,'L',0);
 			$pdf->SetFont('Arial','B',8);
-			$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'TR','L',0);
+			if($rowx2[9]!="") {
+				$pdf->MultiCell(0,4,utf8_decode('Ppio. Activo: '.$rowx2[9]),'TR','L',0);
+			} else {
+				$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'TR','L',0);
+			}
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(150,4,utf8_decode('Dosis: '.$rowx2[2].' vía '.$rowx2[3].' cada '.$rowx2[4].' durante '.$rowx2[5]),'L',0,'L',0);
 			$pdf->SetFont('Courier','B',9);
 			$pdf->Cell(0,4,utf8_decode('Cantidad: '.$rowx2[8]),'R',0,'R',0);
 			$pdf->Ln();
+			$pdf->SetFont('Courier','B',8);
+			if($rowx2[9]!="") {
+				$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'LR','L',0);
+			}
 			$pdf->SetFont('Times','I',8);
 			$pdf->MultiCell(0,4,utf8_decode('Nota: '.$rowx2[7]),'LBR','L',0);
 			$pdf->Ln();

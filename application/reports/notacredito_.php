@@ -6,10 +6,6 @@ include '../../functions/php/nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-include '../../functions/php/GenomaXBackend/params.php';
-require_once("phpqrcode/qrlib.php");
-//create a QR Code and save it as a png image file named test.png
-QRcode::png("coded number here","test.png");
 
 class PDF extends FPDF
 {
@@ -53,7 +49,6 @@ if ($row = mysqli_fetch_row($result)) {
     $SQL=str_replace("@CODIGO_INICIAL",$_GET["CODIGO_INICIAL"],$SQL);
     $SQL=str_replace("@CODIGO_FINAL",$_GET["CODIGO_FINAL"],$SQL);
 }
-//echo $SQL;
 mysqli_free_result($result);
 
 if($_GET["TIPO_NOTA"] == "C"){
@@ -75,28 +70,6 @@ $pdf->SetAutoPageBreak(true, 10);
 $result = mysqli_query($conexion, $SQL);
 while($row = mysqli_fetch_row($result)) {
 $pdf->AddPage();
-
-
-
-    $CUFE = $row[17]; 
-    //echo "CUFE=".$CUFE;
-    $cadena='NumFac: '.$row[0].PHP_EOL
-					.'FecFac: '.$row[11].PHP_EOL
-					.'HorFac: 00:00:00'.PHP_EOL
-					.'NitND: '.$row[2].PHP_EOL
-					.'DocAdq: '.$row[5].PHP_EOL
-					.'ValFac: '.$row[8].PHP_EOL
-					.'ValIva: 0.00'.PHP_EOL
-					.'ValOtroIm: 0.00'.PHP_EOL
-					.'ValTotal: '.$row[8].PHP_EOL
-					.'CUFE: '.$CUFE.PHP_EOL
-					.'QRCode: https://catalogo-vpfe.dian.gov.co/document/ShowDocumentToPublic/'.$CUFE
-					;
-    $currentDir = str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
-    $pdf->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");
-    $pdf->SetY(6);
-    $pdf->SetFont('Arial','B',8);
-    $pdf->Cell(0,200,'CUFE: '.$CUFE,'',0,'L',0);
 //Encabezado de la tabla
 if (trim($row[15])=="A") {
     $pdf->Image('../../anulado.jpg',25,1,0);

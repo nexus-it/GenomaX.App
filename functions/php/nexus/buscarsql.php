@@ -82,8 +82,8 @@ case 'Servicios1':
 break;
 
 case 'Servicios2':
-	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Producto', Codigo_MED as 'Cod. Producto' from gxservicios a, gxmedicamentos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
-	$SQLx="a.Codigo_SER, Nombre_SER, Codigo_MED from gxservicios a, gxmedicamentos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
+	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Producto', PpioActivo_MED as 'Ppio Activo', Codigo_MED as 'Cod. Producto' from gxservicios a, gxmedicamentos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
+	$SQLx="a.Codigo_SER, Nombre_SER, PpioActivo_MED, Codigo_MED from gxservicios a, gxmedicamentos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
 break;
 
 case 'ServiciosX1':
@@ -92,8 +92,8 @@ case 'ServiciosX1':
 break;
 
 case 'ServiciosX2':
-	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Producto', Codigo_MED as 'Cod. Producto' from gxservicios a, gxmedicamentos b where a.codigo_ser=b.codigo_ser".$Where;
-	$SQLx="a.Codigo_SER, Nombre_SER, Codigo_MED from gxservicios a, gxmedicamentos b where a.codigo_ser=b.codigo_ser".$Where;
+	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Producto',PpioActivo_MED as 'Ppio Activo', Codigo_MED as 'Cod. Producto' from gxservicios a, gxmedicamentos b where a.codigo_ser=b.codigo_ser".$Where;
+	$SQLx="a.Codigo_SER, Nombre_SER, PpioActivo_MED, Codigo_MED from gxservicios a, gxmedicamentos b where a.codigo_ser=b.codigo_ser".$Where;
 break;
 
 case 'Dispositivos':
@@ -189,6 +189,11 @@ break;
 case 'PacientesHC':
 	$SQL="ID_TER as 'Historia', Nombre_TER as 'Paciente',Codigo_ADM as Ingreso,  DATE_FORMAT(Fecha_ADM, '%d/%m/%Y %H:%i:%s') as 'Fecha Ingreso' from gxadmision b, czterceros a where Estado_ADM='I' and a.codigo_ter=b.codigo_ter".$Where;
 	$SQLx="ID_TER, Nombre_TER,Codigo_ADM, DATE_FORMAT(Fecha_ADM, '%d/%m/%Y %H:%i:%s') from gxadmision b, czterceros a where Estado_ADM='I' and a.codigo_ter=b.codigo_ter".$Where;
+break;
+
+case 'ctMovimiento':
+	$SQL="a.Codigo_CNT as 'Asiento', Nombre_TER as 'Tercero', Nombre_FNC as 'Tipo Doc.', a.Consec_FNC as 'No Referencia', Fecha_CNT as 'Fecha', Referencia_CNT as 'Referencia', Observaciones_CNT as 'Observaciones', Total_CNT as 'Valor' From czmovcontcab a, czfuentescont b, czterceros c Where a.Codigo_FNC=b.Codigo_FNC and c.Codigo_TER=a.Codigo_TER".$Where;
+	$SQLx="a.Codigo_CNT, Nombre_TER, Nombre_FNC, a.Consec_FNC, Fecha_CNT, Referencia_CNT, Observaciones_CNT, Total_CNT From czmovcontcab a, czfuentescont b, czterceros c Where a.Codigo_FNC=b.Codigo_FNC and c.Codigo_TER=a.Codigo_TER".$Where;
 break;
 
 case 'KlCotizacion':

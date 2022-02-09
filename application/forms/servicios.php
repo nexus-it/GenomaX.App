@@ -302,6 +302,12 @@ mysqli_free_result($result);
 </select>
 </div>
 	</div>
+	<div class="col-md-6">
+<div class="form-group">
+<label for="txt_ppioactivo<?php echo $NumWindow; ?>">Principio Activo</label>
+<input name="txt_ppioactivo<?php echo $NumWindow; ?>" type="text" id="txt_ppioactivo<?php echo $NumWindow; ?>" >
+</div>
+	</div>
 
 	</div>
 </div>
@@ -402,7 +408,7 @@ ProcQx('<?php echo $NumWindow; ?>', '0');
 	mysqli_free_result($result); 
 	echo 'ShowHideServicios("'.$TipoServ.'", "'.$NumWindow.'");';
 	if ($TipoServ=="2") {
-		$SQL="Select Codigo_MED, CUPS_MED, CUM_MED, Dispositivo_MED, Concentracion_MED, Codigo_UNM, Codigo_VIA, Inventario_MED from gxmedicamentos where LPAD(Codigo_SER,6,'0')=LPAD('".$_GET["Servicio"]."',6,'0')";
+		$SQL="Select Codigo_MED, CUPS_MED, CUM_MED, Dispositivo_MED, Concentracion_MED, Codigo_UNM, Codigo_VIA, Inventario_MED, PpioActivo_MED from gxmedicamentos where LPAD(Codigo_SER,6,'0')=LPAD('".$_GET["Servicio"]."',6,'0')";
 		$result = mysqli_query($conexion, $SQL);
 		if($row = mysqli_fetch_array($result)) {
 		echo "
@@ -414,6 +420,7 @@ ProcQx('<?php echo $NumWindow; ?>', '0');
 			document.frm_form".$NumWindow.".txt_medida".$NumWindow.".value='".$row[5]."';
 			document.frm_form".$NumWindow.".txt_via".$NumWindow.".value='".$row[6]."';
 			document.frm_form".$NumWindow.".txt_invent".$NumWindow.".value='".$row[7]."';
+			document.frm_form".$NumWindow.".txt_ppioactivo".$NumWindow.".value='".$row[8]."';
 		";
 		}
 		mysqli_free_result($result); 

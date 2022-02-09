@@ -9,7 +9,7 @@ include '00trnsctns.php';
 	$SQL="Replace into gxservicios(Codigo_SER, Nombre_SER, Tipo_SER, Codigo_CFC, EdadMinima_SER, EdadMaxima_SER, SexoM_SER, SexoF_SER, Complejidad_SER, Estado_SER) Values ('".$Consec."', '".$_POST['nombre']."', '".$_POST['tiposervicio']."', '".$_POST['conceptofact']."', '".$_POST['edadminima']*$_POST['edadminmed']."',  '".$_POST['edadmaxima']*$_POST['edadmaxmed']."', '".$_POST['masculino']."', '".$_POST['femenino']."', '".$_POST['complejidad']."', '".$_POST['estado']."')";
 	EjecutarSQL($SQL, $conexion);
 	if ($_POST['tiposervicio']=="2") {
-		$SQL="Replace into gxmedicamentos(Codigo_SER, Nombre_MED, Codigo_MED, CUPS_MED, CUM_MED, Dispositivo_MED, Concentracion_MED, Codigo_UNM, Codigo_VIA, Inventario_MED) Values ('".$Consec."', '".$_POST['nombre']."', '".$_POST['codigoprod']."', '".$_POST['cups']."', '".$_POST['cum']."', '".$_POST['disp']."', '".$_POST['concentracion']."', '".$_POST['medida']."', '".$_POST['via']."', '".$_POST['invent']."')";
+		$SQL="Replace into gxmedicamentos(Codigo_SER, Nombre_MED, Codigo_MED, CUPS_MED, CUM_MED, Dispositivo_MED, Concentracion_MED, Codigo_UNM, Codigo_VIA, Inventario_MED, PpioActivo_MED) Values ('".$Consec."', '".$_POST['nombre']."', '".$_POST['codigoprod']."', '".$_POST['cups']."', '".$_POST['cum']."', '".$_POST['disp']."', '".$_POST['concentracion']."', '".$_POST['medida']."', '".$_POST['via']."', '".$_POST['invent']."', '".$_POST['ppioactivo']."')";
 		EjecutarSQL($SQL, $conexion);
 	}
 	if ($_POST['tiposervicio']=="1") {
