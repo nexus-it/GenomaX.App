@@ -66,8 +66,7 @@ if (isset($_GET["qr"])) {
 
 	  	$qrValido=0;
 	
-
-	  	$conexion = mysqli_connect('localhost', 'klud', 'Clave12345*', 'klud');
+	  	$conexion = mysqli_connect('localhost', 'klud', 'Clave12345*', 'kld_axis');
 
 		mysqli_query ($conexion, "SET NAMES 'utf8'");
 
@@ -76,6 +75,7 @@ if (isset($_GET["qr"])) {
 		mysqli_query($conexion, $MyZone);
 
 		$SQL="Select * from klemisiones Where SHA1(Codigo_EMI) ='".$_GET["qr"]."'";
+		error_log('Qr Code Klud: '.$SQL);
 
 		$resultqr = mysqli_query($conexion, $SQL);
 
@@ -137,6 +137,7 @@ if (isset($_GET["qr"])) {
 	  	<?php
 
 	  	$SQL="SELECT a.Prefijo_EMI, LPAD(a.Codigo_EMI,10,'0'), c.Nombres_KLI, c.Apellidos_KLI, d.ID_TER, e.Nombre_DST, b.FechaIni_CTZ, b.FechaFin_CTZ, f.Nombre_PLA, b.Modalidad_CTZ, a.Fecha_EMI, case a.Estado_EMI when 'A' then 'ANULADA' when 'E' then 'ACTIVA' ELSE 'STAND BY' end FROM klemisiones a INNER JOIN klcotizaciones b ON a.Codigo_CTZ=b.Codigo_CTZ INNER JOIN klclientes c ON b.Codigo_TER=c.Codigo_TER INNER JOIN czterceros d ON c.Codigo_TER=d.Codigo_TER INNER JOIN kldestinos e ON b.Codigo_DST=e.Codigo_DST INNER JOIN klplanes f ON b.Codigo_PLA=f.Codigo_PLA WHERE SHA1(Codigo_EMI) ='".$_GET["qr"]."'";
+		error_log('Qr Code Klud: '.$SQL);
 
 	  	$result = mysqli_query($conexion, $SQL);
 
