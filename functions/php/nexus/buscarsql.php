@@ -107,8 +107,8 @@ case 'ordenesdeservicio':
 break;
 
 case 'radicaciones':
-	$SQL="LPAD(Codigo_RAD,10,'0') as 'Radicacion', Nombre_TER as 'Contrato', d.Nombre_PLA as 'Plan', a.Fecha_RAD as 'Fecha' From czradicacionescab a, czterceros b, gxeps c, gxplanes d Where a.Codigo_EPS=c.Codigo_EPS and c.Codigo_TER=b.Codigo_TER and d.Codigo_PLA=a.Codigo_PLA ".$Where;
-	$SQLx="LPAD(Codigo_RAD,10,'0'), Nombre_TER, d.Nombre_PLA, a.Fecha_RAD From czradicacionescab a, czterceros b, gxeps c, gxplanes d Where a.Codigo_EPS=c.Codigo_EPS and c.Codigo_TER=b.Codigo_TER and d.Codigo_PLA=a.Codigo_PLA ".$Where;
+	$SQL="LPAD(Codigo_RAD,10,'0') as 'Radicacion', Nombre_TER as 'Contrato', case a.Codigo_PLA when '%' then 'Varios' else d.Nombre_PLA end as 'Plan', a.Fecha_RAD as 'Fecha' From czterceros b, gxeps c, czradicacionescab a left join gxplanes d on a.Codigo_PLA=d.Codigo_PLA Where a.Codigo_EPS=c.Codigo_EPS and c.Codigo_TER=b.Codigo_TER  ".$Where;
+	$SQLx="LPAD(Codigo_RAD,10,'0'), Nombre_TER, case a.Codigo_PLA when '%' then 'Varios' else d.Nombre_PLA end, a.Fecha_RAD From  czterceros b, gxeps c, czradicacionescab a left join gxplanes d on a.Codigo_PLA=d.Codigo_PLA Where a.Codigo_EPS=c.Codigo_EPS and c.Codigo_TER=b.Codigo_TER  ".$Where;
 break;
 
 case 'Usuarios':

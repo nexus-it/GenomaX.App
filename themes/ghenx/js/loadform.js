@@ -8,6 +8,7 @@ var ContaPass=0;
 function AbrirForm(Pagina, Contenedor, Params)
 {
 	// haySession();
+	console.log('Params: '+Params);
 	$("#"+Contenedor).load(Pagina+"?target="+Contenedor+Params);
 	MngrToolBar(Pagina, Contenedor+".");
 }

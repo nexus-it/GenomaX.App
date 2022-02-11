@@ -7,7 +7,7 @@ session_start();
         $nxsTabla=$_GET["table"];
 		$nxsWhere=' '.$_GET["where"].' ';
 		error_log($nxsWhere);
-		$nxsWhere= str_replace("°", "'", $nxsWhere); 
+		$nxsWhere= str_replace("#", "'", $nxsWhere); 
 		error_log($nxsWhere);
 		$nxsWhere=str_replace("|", " ", $nxsWhere);
 		error_log($nxsWhere);
@@ -251,7 +251,7 @@ session_start();
     </datalist>
 </form>
 <script >
-//console.log('$: <?php echo $nxsWhere; ?>');
+console.log('$: <?php echo $nxsWhere; ?>');
 function Edit<?php echo $NumWindow; ?>(Fila)
 {
 	document.getElementById("btnCancelar"+Fila+"<?php echo $NumWindow; ?>").style.display="block";
@@ -356,7 +356,7 @@ function ShowTable<?php echo $NumWindow; ?>()
 	i=0;
 	while (i<TheWhere.length) {
 		i++;
-		TheWhere=TheWhere.replace("'", "°");
+		TheWhere=TheWhere.replace("'", "#");
 		TheWhere=TheWhere.replace(" ", "|");
 	}
     //TheTable=TheTable.substring(0,TheTable.search(" ["));
