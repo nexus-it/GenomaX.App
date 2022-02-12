@@ -53,11 +53,10 @@ session_start();
 <script >
 <?php
 	if (isset($_GET["Radicacion"])) {
-	$SQL="Select LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, Case a.Estado_RAD When '1' Then '00/00/0000' When '2' Then DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y') End, Concat('[ ',c.Codigo_EPS,' ] ',d.Nombre_TER), Concat(d.ID_TER,'-',d.DigitoVerif_TER), e.Nombre_PLA, Count(b.Codigo_FAC), sum(f.ValEntidad_FAC)
-From czradicacionescab as a, czradicacionesdet as b, gxeps as c, czterceros as d, gxplanes as e, gxfacturas as f  
-Where a.Codigo_RAD=b.Codigo_RAD and d.Codigo_TER=c.Codigo_TER and c.Codigo_EPS=a.Codigo_EPS and e.Codigo_PLA=a.Codigo_PLA and f.Codigo_FAC=b.Codigo_FAC and LPAD(a.Codigo_RAD,10,'0')=LPAD('".$_GET["Radicacion"]."',10,'0')
-Group By LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, Case a.Estado_RAD When '1' Then '00/00/0000' When '2' Then DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y') End, Concat('[ ',c.Codigo_EPS,' ]',d.Nombre_TER), Concat(d.ID_TER,'-',d.DigitoVerif_TER), e.Nombre_PLA";
-
+	$SQL="Select LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, Case a.Estado_RAD When '1' Then '00/00/0000' When '2' Then DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y') End, Concat('[ ',c.Codigo_EPS,' ] ',d.Nombre_TER), Concat(d.ID_TER,'-',d.DigitoVerif_TER), case a.Codigo_PLA when '%' then 'Varios' else e.Nombre_PLA end, Count(b.Codigo_FAC), sum(f.ValEntidad_FAC)
+From czradicacionesdet as b, gxeps as c, czterceros as d, gxfacturas as f, czradicacionescab as a left join gxplanes as e on a.Codigo_PLA=e.Codigo_PLA 
+Where a.Codigo_RAD=b.Codigo_RAD and d.Codigo_TER=c.Codigo_TER and c.Codigo_EPS=a.Codigo_EPS and f.Codigo_FAC=b.Codigo_FAC and LPAD(a.Codigo_RAD,10,'0')=LPAD('".$_GET["Radicacion"]."',10,'0')
+Group By LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, Case a.Estado_RAD When '1' Then '00/00/0000' When '2' Then DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y') End, Concat('[ ',c.Codigo_EPS,' ]',d.Nombre_TER), Concat(d.ID_TER,'-',d.DigitoVerif_TER), case a.Codigo_PLA when '%' then 'Varios' else e.Nombre_PLA end";
 	$result = mysqli_query($conexion, $SQL);	
 	if($row = mysqli_fetch_array($result)) {
 	echo "
