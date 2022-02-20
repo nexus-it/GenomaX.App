@@ -1,5 +1,4 @@
 <?php
-	
 session_start();
 	$NumWindow=$_GET["target"];
 	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
@@ -7,176 +6,142 @@ session_start();
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
+<form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" class="form-horizontal" id="frm_form<?php echo $NumWindow; ?>" >
+  <div class="row">
+    
+    <div class="col-md-2 ">
 
-<form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>">
-  <fieldset>
-<legend>Areas:</legend>
-   
-<div class="form-group">
-    <label for="txt_codigo<?php echo $NumWindow; ?>">Codigo</label>
-    <input name="txt_codigo<?php echo $NumWindow; ?>" type="text" id="txt_codigo<?php echo $NumWindow; ?>" size="4" onkeypress="BuscarARE<?php echo $NumWindow; ?>(event);" />
-</div>   
-
-<div class="form-group">
-    <label for="txt_nombre<?php echo $NumWindow; ?>">Nombre</label>
-    <input name="txt_nombre<?php echo $NumWindow; ?>" type="text" id="txt_nombre<?php echo $NumWindow; ?>" size="35" />
-</div> 
-
-<div class="form-group">
- <label for="cmb_cc<?php echo $NumWindow; ?>">Centro de Costo</label>
- <select name="cmb_cc<?php echo $NumWindow; ?>" id="cmb_cc<?php echo $NumWindow; ?>">
-<?php 
-$SQL="Select Codigo_CCT, Nombre_CCT from czcentrocosto order by Codigo_CCT";
-$result = mysqli_query($conexion, $SQL);
-while($row = mysqli_fetch_array($result)) 
-	{
- ?>
-  <option value="<?php echo $row[0]; ?>"><?php echo ($row[1]); ?></option>
-<?php
-	}
-mysqli_free_result($result); 
- ?>  
- </select> <br />
-</div>
-
-<div class="form-group">
-	<label for="txt_idempleado<?php echo $NumWindow; ?>">Responsable </label>
-	<div class="input-group">	
-		<input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" />
-		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
-		</span>
-	</div>
-    <input name="txt_responsable<?php echo $NumWindow; ?>" type="text" id="txt_responsable<?php echo $NumWindow; ?>" size="60" readonly="readonly" /> <br />
-</div>
-
-<div class="form-group">
-<label for="txt_estado<?php echo $NumWindow; ?>">Estado</label>
-<select name="txt_estado<?php echo $NumWindow; ?>" id="txt_estado<?php echo $NumWindow; ?>">
-  <option value="1">Activo</option>
-  <option value="0">Inactivo</option>
-</select>
-</div>
-
-<hr align="center" width="95%" size="1" class="anulado">
-
-<div class="form-group">
-	<label for="txt_emple<?php echo $NumWindow; ?>">Agregar empleado</label>
-	<div class="input-group">	
-		<input name="txt_emple<?php echo $NumWindow; ?>" id="txt_emple<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp2<?php echo $NumWindow; ?>(event);" />
-		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_emple<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a> 
-		</span>
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Codigo_TER<?php echo $NumWindow; ?>">Proveedor</label>
+    <div class="input-group">
+        <input  name="Codigo_TER<?php echo $NumWindow; ?>" id="Codigo_TER<?php echo $NumWindow; ?>" type="text" required class="form-control" />
+        <span class="input-group-btn">	
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tercero" onclick="javascript:CargarSearch('Tercero', 'Codigo_TER<?php echo $NumWindow; ?>', 'Proveedor_TER=*1*');"><i class="fas fa-search"></i></button>
+        </span>
     </div>
-		<input name="txt_nomemple<?php echo $NumWindow; ?>" type="text" id="txt_nomemple<?php echo $NumWindow; ?>" size="60" readonly="readonly" /><a href="javascript:NuevaFilaempleado();"><i class="fas fa-search"></i></button>
 </div>
 
+    </div>
+    <div class="col-md-3">
 
-<div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord">
-<table width="97%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblRespuestas<?php echo $NumWindow; ?>">
-<tbody id="tbDetalle<?php echo $NumWindow; ?>">
-  <tr>
-    <th colspan="2" scope="col">Empleado</th>
-  </tr>
-<?php
-	$contafilas=0;
-	if (isset($_GET["CodigoARE"])) {
-  	$SQL="Select ID_EMP, Nombre_TER From czterceros a, czempleados b, czareasterceros c Where a.Codigo_TER=b.Codigo_TER and b.Codigo_TER=c.Codigo_TER and c.Codigo_ARE='".$_GET["CodigoARE"]."' Order By 2";
-	$resultz = mysqli_query($conexion, $SQL);
-	while($rowz = mysqli_fetch_array($resultz)) 
-		{
-			$contafilas++;
-?>
-<tr id="tr<?php echo $contafilas; ?><?php echo $NumWindow; ?>"><td><input name="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" type="hidden" id="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" value="<?php echo ($rowz[0]); ?>"><?php echo ($rowz[1]); ?></td><td><a href="javascript:EliminarFilaOrden('<?php echo $contafilas; ?>','<?php echo $NumWindow; ?>');"><img src="themes/'<?php echo $_SESSION["THEME_DEFAULT"]; ?>'/img/remove.png" alt="Eliminar" align="absmiddle" title="Eliminar empleado de esta area"></a></td></tr>
-<?php
-		}
-	mysqli_free_result($resultz);
+<div class="form-group" id="grp_txt_idhc2<?php echo $NumWindow; ?>">
+    <label for="Nombre_TER<?php echo $NumWindow; ?>">Nombre Tercero</label>
+    <input  name="Nombre_TER<?php echo $NumWindow; ?>" id="Nombre_TER<?php echo $NumWindow; ?>" type="text" required disabled="disabled" />
+</div>
+
+    </div>
+    <div class="col-md-1">
+
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Consec_FAC<?php echo $NumWindow; ?>" title="Numero de Factura o Referencia">Documento</label>
+    <input  name="Consec_FAC<?php echo $NumWindow; ?>" id="Consec_FAC<?php echo $NumWindow; ?>" type="text" required  />
+</div>
+
+    </div>
+    <div class="col-md-2">
+
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Fecha_FAC<?php echo $NumWindow; ?>" title="Fecha de Factura o Referencia">Fecha Doc.</label>
+    <input  name="Fecha_FAC<?php echo $NumWindow; ?>" id="Fecha_FAC<?php echo $NumWindow; ?>" type="date" required  />
+</div>
+
+    </div>
+    <div class="col-md-2">
+
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Vence_FAC<?php echo $NumWindow; ?>" >Vencimiento</label>
+    <input  name="Vence_FAC<?php echo $NumWindow; ?>" id="Vence_FAC<?php echo $NumWindow; ?>" type="date" required  />
+</div>
+
+    </div>
+    <div class="col-md-2">
+
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Codigo_CCT<?php echo $NumWindow; ?>" title="">Centro Costo</label>
+    <select name="Codigo_CCT<?php echo $NumWindow; ?>" id="Codigo_CCT<?php echo $NumWindow; ?>">
+    <?php 
+  $SQL="Select Codigo_CCT, Nombre_CCT from czcentrocosto a Order By 2";
+  $result = mysqli_query($conexion, $SQL);
+  while($row = mysqli_fetch_array($result)) 
+    {
+   ?>
+    <option value="<?php echo $row[0]; ?>"><?php echo ($row[1]); ?></option>
+  <?php
     }
- ?>
-</tbody>
-</table>
-<input name="hdn_contro<?php echo $NumWindow; ?>" type="hidden" id="hdn_contro<?php echo $NumWindow; ?>" value="<?php echo $contafilas; ?>">
+  mysqli_free_result($result); 
+   ?>  
+    </select>
 </div>
 
-  </fieldset>
-<?php flush; ?>
-  <fieldset>
-<legend>Listado de Areas:</legend>
-<div id="listaareas<?php echo $NumWindow; ?>" >
-Cargando...
+    </div>
+    <div class="col-md-12">
+    <label>Detalle</label>
+<div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive " style="height:50%">
+        <table  width="99%" cellpadding="1" cellspacing="2"  class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
+        <tbody id="tbDetalle<?php echo $NumWindow; ?>">
+        <tr id="trh<?php echo $NumWindow; ?>"> 
+            <th id="th1<?php echo $NumWindow; ?>">Servicio</th> 
+            <th id="th2<?php echo $NumWindow; ?>">Val Unit.</th> 
+            <th id="th2<?php echo $NumWindow; ?>">Cant. Factura</th> 
+            <th id="th2<?php echo $NumWindow; ?>">Val Total</th> 
+            <th id="th2<?php echo $NumWindow; ?>">Cant. NC</th> 
+            <th id="th2<?php echo $NumWindow; ?>">Val Crédito</th> 
+        </tr> 
+
+        </tbody>
+        </table><input name="hdn_controw<?php echo $NumWindow; ?>" type="hidden" id="hdn_controw<?php echo $NumWindow; ?>" value="0" />
 </div>
-</fieldset>
+
+    </div>
+    <div class="col-md-3">
+
+    <div class="row">
+        <div class="col-md-12">
+<div class="form-group">
+    <label for="txt_valfact<?php echo $NumWindow; ?>">Valor Factura</label>
+    <input style="font-size:14px; font-weight: bold; color:#828427; " name="txt_valfact<?php echo $NumWindow; ?>" id="txt_valfact<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="<?php echo $sumtotal; ?>"/>
+</div>
+        </div>
+        <div class="col-md-12">
+<div class="form-group">
+    <label for="txt_valornc<?php echo $NumWindow; ?>">Valor Nota Credito</label>
+    <input style="font-size:15px; font-weight: bold; color:#843232; " name="txt_valornc<?php echo $NumWindow; ?>" id="txt_valornc<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="0"/>
+</div>
+        </div>
+        <div class="col-md-12">
+<div class="form-group">
+    <label for="txt_valfactnew<?php echo $NumWindow; ?>">Nuevo Valor Factura</label>
+    <input style="font-size:14px; font-weight: bold; color:#0E5012; " name="txt_valfactnew<?php echo $NumWindow; ?>" id="txt_valfactnew<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="<?php echo $sumtotal; ?>"/>
+</div>
+        </div>
+        <div class="col-md-12">
+<div class="form-group">
+    <label for="txt_observacion<?php echo $NumWindow; ?>">Observaciones</label>
+    <textarea name="txt_observacion<?php echo $NumWindow; ?>" rows="2" id="txt_observacion<?php echo $NumWindow; ?>" required="required" ></textarea>
+</div>
+<input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>"  />
+        </div>
+    </div>
+
+    </div>
+
+<input name="hdn_numfact<?php echo $NumWindow; ?>" type="hidden" id="hdn_numfact<?php echo $NumWindow; ?>" value="" />
 </form>
 
 <script >
-<?php
-	if (isset($_GET["CodigoARE"])) {
-	$SQL="Select Codigo_ARE, Nombre_ARE, Estado_ARE, Codigo_CCT, ID_TER, Nombre_TER from czareas a, czterceros b Where a.Codigo_TER=b.Codigo_TER and Codigo_ARE='".$_GET["CodigoARE"]."'";
-	echo "document.frm_form".$NumWindow.".txt_codigo".$NumWindow.".value='".$_GET["CodigoARE"]."';";
-	$result = mysqli_query($conexion, $SQL);
-	if($row = mysqli_fetch_array($result)) {
-		echo "
-			document.frm_form".$NumWindow.".txt_nombre".$NumWindow.".value='".$row["Nombre_ARE"]."';
-			document.frm_form".$NumWindow.".txt_estado".$NumWindow.".value='".$row["Estado_ARE"]."';		
-			document.frm_form".$NumWindow.".cmb_cc".$NumWindow.".value='".$row["Codigo_CCT"]."';
-			document.frm_form".$NumWindow.".txt_idempleado".$NumWindow.".value='".$row["ID_TER"]."';
-			document.frm_form".$NumWindow.".txt_responsable".$NumWindow.".value='".$row["Nombre_TER"]."';
-		";
-		}
-	mysqli_free_result($result); 
-	echo "document.frm_form".$NumWindow.".txt_nombre".$NumWindow.".focus();";
-	} else {
-	echo '$(":input:text:visible:first", "#frm_form'.$NumWindow.'").focus();';
-	}
-?>
+    document.frm_form<?php echo $NumWindow; ?>.Codigo_TER<?php echo $NumWindow; ?>.focus();
 
-function BuscarARE<?php echo $NumWindow; ?>(e) {
-  tecla = (document.all) ? e.keyCode : e.which;
-  if (tecla==13){
-	if (document.getElementById('txt_codigo<?php echo $NumWindow; ?>').value=="") {
-		AbrirForm('application/forms/areascz.php', '<?php echo $NumWindow; ?>', '&CodigoARE=0');
-	} else {
-		AbrirForm('application/forms/areascz.php', '<?php echo $NumWindow; ?>', '&CodigoARE='+document.getElementById('txt_codigo<?php echo $NumWindow; ?>').value);
-	}  
-  }
-}
-
-function BuscarEmp<?php echo $NumWindow; ?>(e) {
-  tecla = (document.all) ? e.keyCode : e.which;
-  if (tecla==13){
-  	  NombreEmple('<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.txt_idempleado<?php echo $NumWindow; ?>.value);
-  }
-}
-
-function BuscarEmp2<?php echo $NumWindow; ?>(e) {
-  tecla = (document.all) ? e.keyCode : e.which;
-  if (tecla==13){
-	  NombreEmple2('<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.txt_emple<?php echo $NumWindow; ?>.value);
-  }
-}
-
-function NuevaFilaempleado() {
-	var cedula = document.getElementById("txt_emple<?php echo $NumWindow; ?>");
-	var emple = document.getElementById("txt_nomemple<?php echo $NumWindow; ?>");
-	var totfilas = document.getElementById("hdn_contro<?php echo $NumWindow; ?>");
-	AgregarFilaEmple(cedula.value, emple.value, '<?php echo $NumWindow; ?>', totfilas.value, '<?php echo $_SESSION["THEME_DEFAULT"]; ?>')
-}
-
-function ListadoAreas<?php echo $NumWindow; ?>(Destino) 
-{
-	$.get(Funciones,{'Func':'ListadoAreas', 'ventana':'<?php echo $NumWindow; ?>'},function(data){ 
-		document.getElementById(Destino).innerHTML=data;
-	}); 
-}
-
-ListadoAreas<?php echo $NumWindow; ?>('listaareas<?php echo $NumWindow; ?>');
-
-	$("form").addClass("form-inline container");
-	$("input[type=text]").addClass("form-control");
-	$("textarea").addClass("form-control");
-	$("select").addClass("form-control");
-	$("input[type=time]").addClass("form-control");
-	$("input[type=date]").addClass("form-control");
+$("input[type=text]").addClass("form-control");
+$("input[type=password]").addClass("form-control");
+$("textarea").addClass("form-control");
+$("select").addClass("form-control");
+$("input[type=date]").addClass("form-control");
+$("input[type=number]").addClass("form-control");
+$("input[type=time]").addClass("form-control");
 
 
+$("input[type=text]").addClass("hc_<?php echo $NumWindow; ?>");
+$("input[type=password]").addClass("hc_<?php echo $NumWindow; ?>");
+$("textarea").addClass("hc_<?php echo $NumWindow; ?>");
+$("select").addClass("hc_<?php echo $NumWindow; ?>");
 </script>

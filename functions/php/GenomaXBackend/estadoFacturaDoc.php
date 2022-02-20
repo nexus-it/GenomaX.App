@@ -1,8 +1,9 @@
 <?php
 include('params.php');
 include '../nexus/database.php';
-
-$sql = "update gxfacturas Set IdFE_FAC='".$_POST['cufe']."' where codigo_fac='".$_POST['factura']."';";
+$poscufe=$_POST['cufe'];
+if ($poscufe=="") { $poscufe="0";}
+$sql = "update gxfacturas Set IdFE_FAC='".$poscufe."' where codigo_fac='".$_POST['factura']."';";
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 mysqli_query ($conexion, $sql);
 if ($_POST['cufe']!="0") {

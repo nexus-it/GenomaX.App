@@ -138,6 +138,15 @@ session_start();
 		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="text") {
 			echo '<textarea name="'.$colName.'" rows="1" id="'.$colName.'"'.$Xtyle.' disabled >'.$colValue.'</textarea>';
 		}
+		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="date") {
+			echo '<input type="date" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
+		}
+		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="time") {
+			echo '<input type="time" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
+		}
+		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="datetime") {
+			echo '<input type="datetime" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
+		}
 		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="decimal") {
 			echo '<input type="text" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
 		}
@@ -314,7 +323,7 @@ function SaveEdit<?php echo $NumWindow; ?>(Fila)
 <?php
   $SQL="SELECT COLUMN_NAME, COLUMN_DEFAULT, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='".$_SESSION["DB_NAME"]."' AND TABLE_NAME='".$nxsTabla."' ORDER BY ORDINAL_POSITION;";
   $rstColumns = mysqli_query($conexion, $SQL);
-  $nxsData='"Func=MasterCont';
+  $nxsData='"Func=MasterDB';
   while ($rowCols = mysqli_fetch_row($rstColumns)) {
   	if ($rowCols[4]=="char(1)") {
   		echo '
@@ -333,7 +342,7 @@ function SaveEdit<?php echo $NumWindow; ?>(Fila)
 
 	$.ajax({  
 		type: "POST",  
-		url: Transact + "mastercont.php",  
+		url: Transact + "masterdb.php",  
 		data: <?php echo $nxsData; ?>,
 		success: function(respuesta) { 
 		  MsgBox1("Guardar Registro", respuesta); 

@@ -6,86 +6,23 @@
 	include '../../functions/php/nexus/operaciones.php';
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
-  $showRows=50;
-  $page="1";
-  if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-  }
-  $ini=(($page-1)*$showRows)+1;
-  if ($ini=="1") { $ini="0"; }
-  $fin=$page*$showRows;
-  if(isset($_GET["fechaini"])){
-    $fechaini = $_GET["fechaini"];
-    $fechafin = $_GET["fechafin"];
-    $numfact= $_GET["numfact"];
-    $contrato = $_GET["contrato"];
-    $paciente = $_GET["paciente"];
-    $filtro= " Where t1.codigo_fac like '%".$numfact."%' and Nombre_TER like '%".$paciente."%' and Nombre_EPS like '%".$contrato."%' and fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
-  } else {
-    $SQL="Select curdate(), date(DATE_ADD(NOW(),INTERVAL -60 DAY));";
-    $result = mysqli_query($conexion, $SQL);
-    if($row = mysqli_fetch_array($result)) {
-      $fechaini=$row[1];
-      $fechafin=$row[0];
-    }
-    mysqli_free_result($result);
-    $numfact= "";
-    $contrato = "";
-    $paciente = "";
-    $filtro= " Where fecha_fac between '".$fechaini."' and '".$fechafin." 23:59:59' ";
-  }
+  
 ?>
 <div class="container">
   <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>">
 	<label class="label label-default">Listado de facturas</label>
   <div class="row well well-sm">
-   
-    <!-- <div class="col-md-2">
-	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-		<label for="txt_factura<?php echo $NumWindow; ?>">Factura</label>
-		<input  name="txt_factura<?php echo $NumWindow; ?>" id="txt_factura<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $numfact; ?>" />
-	</div>
-		</div>
-		<div class="col-md-2">
-	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-		<label for="txt_fechaini<?php echo $NumWindow; ?>">Fecha Inicial</label>
-		<input  name="txt_fechaini<?php echo $NumWindow; ?>" id="txt_fechaini<?php echo $NumWindow; ?>" type="date" required class="form-control"  value="<?php echo $fechaini; ?>" />
-	</div>
-		</div>
-		<div class="col-md-2">
-	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-		<label for="txt_fechafin<?php echo $NumWindow; ?>">Fecha Final</label>
-		<input  name="txt_fechafin<?php echo $NumWindow; ?>" id="txt_fechafin<?php echo $NumWindow; ?>" type="date" required class="form-control"  value="<?php echo $fechafin; ?>" />
-	</div>
-		</div>
-    <div class="col-md-2">
-	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-		<label for="txt_paciente<?php echo $NumWindow; ?>">Paciente</label>
-		<input  name="txt_paciente<?php echo $NumWindow; ?>" id="txt_paciente<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $paciente; ?>" />
-	</div>
-		</div>
-    <div class="col-md-2">
-	<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-		<label for="txt_contrato<?php echo $NumWindow; ?>">Contrato</label>
-    <div class="input-group" id="grp_txt_idempleado<?php echo $NumWindow; ?>">
-      <input  name="txt_contrato<?php echo $NumWindow; ?>" id="txt_contrato<?php echo $NumWindow; ?>" type="text" required class="form-control"  value="<?php echo $contrato; ?>" />
-      <span class="input-group-btn">	
-				<button class="btn btn-success" type="button" onclick="javascript:RefreshList<?php echo $NumWindow; ?>();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-			</span>
-		</div>
-	</div>
-		</div> -->
 
 		<div class="col-md-2 ">
-      <button class="btn btn-success" title="Ingresar nueva factura"  onclick="loadNewBill<?php echo $NumWindow; ?>();">Nueva Factura de Compra <i class="fa fa-plus"></i> </button>
+      <button class="btn btn-success" title="Ingresar nueva factura"  onclick="javascript: CargarForm('application/forms/factcompra.php', 'Facturacion de Compra', 'invoice.png');" >Nueva Factura de Compra <i class="fa fa-plus"></i> </button>
 		</div>
 </form>
 <?php
 echo '<table class="table table-striped table-condensed tblDetalle table-bordered">'; 
-			$conteo = listarFacturasCompra($filtro,$ini,$fin);
+			// $conteo = listarFacturasCompra($filtro,$ini,$fin);
 echo '</table>';
 
-contarFacts($filtro,$page, $showRows);
+//contarFacts($filtro,$page, $showRows);
 ?>
 </div>
 </div>
@@ -103,7 +40,7 @@ function RefreshList<?php echo $NumWindow; ?>() {
 function filtrarFactura(filtro){
     $.ajax({
         type: 'POST',
-        url: 'application/forms/facturasaludlista.php',
+        url: 'application/forms/facturacompralista.php',
         data: {
             filtro: filtro
         },
@@ -325,7 +262,7 @@ function putSendFactura(factura){
       var cufe = $(this).attr('data-f');
       var factura = $(this).attr('data-c');
 
-      estadoFacturaDoc(factura,cufe)
+      estadoFacturaDoc(factura,cufe);
     });
 });
 </script>
