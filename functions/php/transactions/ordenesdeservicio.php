@@ -54,7 +54,7 @@ include '00trnsctns.php';
 					}
 				}
 			}
-			
+			 
 			$result = mysqli_query($conexion, $SQL);
 			if($row = mysqli_fetch_row($result)) {
 				$SQL="Insert into gxprocedimientosdet(Codigo_ORD, Codigo_SER, Evento_PRD, Codigo2_SER, Tipo_PRD, Cantidad_PRD, Porcentaje_PRD, Valor_SER) Values ('".$Consec."', '".$_POST['codigoproc1'.$contador]."', '".TRIM($_POST['evento'.$contador])."', '".$_POST['codigoproc2'.$contador]."', '".$_POST['tipoproc'.$contador]."', ".$_POST['cantproc'.$contador].", ".$_POST['porcproc'.$contador].", ".$row[0].")";
