@@ -93,6 +93,7 @@ function UpdtTarifasNow($CodigoTar, $Conn) {
 include '../../../config.php';
 include '../nexus/database.php';
 include '../nexus/auditoria.php';
+include '_ctinterface.php';
 if (!(is_null($_SESSION["SiigoToken"]))) {
 	include '../nexus/nxs_api_siigo.php';
 }

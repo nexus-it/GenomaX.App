@@ -122,10 +122,14 @@ session_start();
 			if ($Dexcribe['CHARACTER_MAXIMUM_LENGTH'.$kontaCol]!="1") {
 				echo '<input type="text" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
 			} else {
-				if ($colValue=="1") { 
-					$colCheck='checked';
+				if (($Dexcribe['COLUMN_DEFAULT'.$kontaCol]=="0")||($Dexcribe['COLUMN_DEFAULT'.$kontaCol]=="1")) {
+					if ($colValue=="1") { 
+						$colCheck='checked';
+					}
+					echo '<div class="checkbox checkbox-success" style="padding-top: 4px; height: 24px;"> <input name="chk_'.$colName.'" id="chk_'.$colName.'" type="checkbox" value="" onclick="javascript:nxs_chkchar'.$NumWindow.'(\''.$colName.'\');" class="styled" disabled '.$colCheck.'> <label for="chk_'.$colName.'"></label></div> <input name="'.$colName.'" type="hidden" id="'.$colName.'" value="'.$colValue.'" />';
+				} else {
+					echo '<input type="text" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
 				}
-				echo '<div class="checkbox checkbox-success" style="padding-top: 4px; height: 24px;"> <input name="chk_'.$colName.'" id="chk_'.$colName.'" type="checkbox" value="" onclick="javascript:nxs_chkchar'.$NumWindow.'(\''.$colName.'\');" class="styled" disabled '.$colCheck.'> <label for="chk_'.$colName.'"></label></div> <input name="'.$colName.'" type="hidden" id="'.$colName.'" value="'.$colValue.'" />';
 			}
 		}
 		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="int") {

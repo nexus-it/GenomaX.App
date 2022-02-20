@@ -116,6 +116,11 @@ case 'Usuarios':
 	$SQLx="Codigo_USR, ID_USR, Nombre_USR, Nombre_PRF, Case Activo_USR When '1' Then 'Activo' Else 'Inactivo' End From itusuarios a, itperfiles b Where a.Codigo_PRF=b.Codigo_PRF and Codigo_USR<>'0' ".$Where;
 break;
 
+case 'rteFte':
+	$SQL="a.Codigo_RTE AS 'Codigo', a.Nombre_RTE AS 'Concepto', ROUND((a.BaseMinUVT * b.UVT_ANY)/1000)*1000 AS 'Base Retención', a.Tasa_RTE AS '%', a.Codigo_CTA AS 'Cuenta' FROM czconceptosretencion a, czsalariomin b WHERE a.Estado_RTE='1' ".$Where;
+	$SQLx="a.Codigo_RTE, a.Nombre_RTE, (ROUND((a.BaseMinUVT * b.UVT_ANY)/1000)*1000), a.Tasa_RTE, a.Codigo_CTA FROM czconceptosretencion a, czsalariomin b WHERE a.Estado_RTE='1' ".$Where;
+break;
+
 case 'UsuariosNoMed':
 	$SQL="ID_USR as 'Usuario', Nombre_USR as 'Nombre', Nombre_PRF as 'Perfil', Activo_USR as 'Estado' From itusuarios a, itperfiles b Where a.Codigo_USR Not in (Select Codigo_USR From gxmedicos Where Estado_MED='1') and a.Codigo_PRF=b.Codigo_PRF and Codigo_USR<>'0' ".$Where;
 	$SQLx="ID_USR, Nombre_USR, Nombre_PRF, Case Activo_USR When '1' Then 'Activo' Else 'Inactivo' End From itusuarios a, itperfiles b Where a.Codigo_USR Not in (Select Codigo_USR From gxmedicos Where Estado_MED='1') and a.Codigo_PRF=b.Codigo_PRF and Codigo_USR<>'0' ".$Where;

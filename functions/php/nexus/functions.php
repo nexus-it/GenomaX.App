@@ -158,7 +158,7 @@ $json = file_get_contents($url);
 $jo = json_decode($json);
 //var_dump($jo);
 $html= $jo["valor"];
-$html="3917.75";
+$html="3927.25";
 echo $html;
 break;
 case 'klstndbyfin':
@@ -2998,17 +2998,17 @@ and g.Codigo_EPS=a.Codigo_EPS and g.Codigo_PLA=a.Codigo_PLA and h.Codigo_SER=g.C
 
 		//Archivo AT
 	$NoAT=0;
-	$SQL = "Select trim(a.Codigo_FAC),trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(f.Autorizacion_ORD), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(CUPS_PRC), trim(ucase(j.Nombre_SER)), ROUND(sum(g.Cantidad_ORD)), ROUND(avg(g.ValorEntidad_ORD)), ROUND(sum(g.Cantidad_ORD* g.ValorEntidad_ORD)) 
+	$SQL = "Select trim(a.Codigo_FAC),trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(f.Autorizacion_ORD), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(CUPS_PRC), trim(ucase(j.Nombre_SER)), ROUND(sum(g.Cantidad_ORD)), ROUND(g.ValorEntidad_ORD), ROUND(sum(g.Cantidad_ORD* g.ValorEntidad_ORD)) 
 From gxfacturas as a, gxprestadores as b, gxadmision as c, czterceros as d, cztipoid as e, gxordenescab as f, gxordenesdet as g,  czradicacionesdet as i, gxservicios as j, gxprocedimientos as pro, czsedes as m
 Where m.Codigo_PRS=b.Codigo_PRS AND c.Codigo_SDE=m.Codigo_SDE AND pro.Codigo_SER=j.Codigo_SER and a.Codigo_ADM=c.Codigo_ADM and d.Codigo_TER=c.Codigo_TER and e.Codigo_TID=d.Codigo_TID and f.Codigo_ADM=a.Codigo_ADM and g.Codigo_ORD=f.Codigo_ORD and j.Codigo_CFC in ('06','07','09','14')
 and g.Codigo_EPS=a.Codigo_EPS and g.Codigo_PLA=a.Codigo_PLA and j.Codigo_SER=g.Codigo_SER and (i.Codigo_FAC)=(a.Codigo_FAC) and f.Estado_ORD<>'0' and    LPAD(i.Codigo_RAD,10,'0')=LPAD('".$CodRAD."',10,'0') and a.Estado_FAC<>'0' 
-Group By trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(c.Autorizacion_ADM), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(CUPS_PRC), trim(ucase(j.Nombre_SER))
+Group By trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(c.Autorizacion_ADM), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(CUPS_PRC), trim(ucase(j.Nombre_SER)), ROUND(g.ValorEntidad_ORD)
 Union 
-		Select trim(a.Codigo_FAC),trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(f.Autorizacion_ORD), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(Codigo_MED), trim(ucase(j.Nombre_SER)), ROUND(sum(g.Cantidad_ORD)), ROUND(avg(g.ValorEntidad_ORD)), ROUND(sum(g.Cantidad_ORD* g.ValorEntidad_ORD)) 
+		Select trim(a.Codigo_FAC),trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(f.Autorizacion_ORD), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(Codigo_MED), trim(ucase(j.Nombre_SER)), ROUND(sum(g.Cantidad_ORD)), ROUND(g.ValorEntidad_ORD), ROUND(sum(g.Cantidad_ORD* g.ValorEntidad_ORD)) 
 From gxfacturas as a, gxprestadores as b, gxadmision as c, czterceros as d, cztipoid as e, gxordenescab as f, gxordenesdet as g,  czradicacionesdet as i, gxservicios as j, gxmedicamentos as med, czsedes as m 
 Where m.Codigo_PRS=b.Codigo_PRS AND c.Codigo_SDE=m.Codigo_SDE AND med.Codigo_SER=j.Codigo_SER and a.Codigo_ADM=c.Codigo_ADM and d.Codigo_TER=c.Codigo_TER and e.Codigo_TID=d.Codigo_TID and f.Codigo_ADM=a.Codigo_ADM and g.Codigo_ORD=f.Codigo_ORD and j.Codigo_CFC in ('06','07','09','14')
 and g.Codigo_EPS=a.Codigo_EPS and g.Codigo_PLA=a.Codigo_PLA and j.Codigo_SER=g.Codigo_SER and (i.Codigo_FAC)=(a.Codigo_FAC) and f.Estado_ORD<>'0' and    LPAD(i.Codigo_RAD,10,'0')=LPAD('".$CodRAD."',10,'0') and a.Estado_FAC<>'0' 
-Group By trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(c.Autorizacion_ADM), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(Codigo_MED), trim(ucase(j.Nombre_SER));";
+Group By trim(a.Codigo_FAC), trim(b.Prestador_FCN), trim(e.Sigla_TID), trim(d.ID_TER), trim(c.Autorizacion_ADM), case j.Codigo_CFC when '09' then '1' when '06' then '3' when '07' then '4' when '14' then '2' end, trim(Codigo_MED), trim(ucase(j.Nombre_SER)), ROUND(g.ValorEntidad_ORD);";
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_array($result)) 
 	{	

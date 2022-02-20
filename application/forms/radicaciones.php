@@ -65,7 +65,7 @@ session_start();
 	</div>
 
 </div>
-<div class="col-md-3">
+<div class="col-md-2">
 
 	 <div class="form-group">
 		<label for="txt_Sede<?php echo $NumWindow; ?>">Sede</label>

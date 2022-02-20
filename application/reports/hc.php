@@ -1449,7 +1449,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->Ln();
 			$pdf->SetFont('Courier','B',8);
 			if($rowx2[9]!="") {
-				$pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'LR','L',0);
+				// $pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'LR','L',0);
 			}
 			$pdf->SetFont('Times','I',8);
 			$pdf->MultiCell(0,4,utf8_decode('Nota: '.$rowx2[7]),'LBR','L',0);

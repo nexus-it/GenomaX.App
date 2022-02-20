@@ -865,6 +865,27 @@ function Guardar_usuarios(Ventana)
 	}
 }
 
+function Guardar_ctinterface(Ventana)
+{
+	xError="";
+	Ventana="zWind_"+Ventana;
+	//Se verifica la validez de los campos...
+	//Ejecucion de las intrucciones para guardar los registros
+	if (xError=="") {
+		$.ajax({  
+		  type: "POST",  
+		  url: Transact + "ctinterface.php",  
+		  data: "Func=ctinterface&"+RecorrerForm2($("#frm_form"+Ventana)),  
+		  success: function(respuesta) { 
+		  	MsgBox1("Interface Contable", respuesta); 
+		  }  
+		});  
+		return false;  
+	} else {
+		MsgBox1("Error", '<div class="message_alert"></div>'+xError);
+	}
+}
+
 function Guardar_lbordenes(Ventana)
 {
 	xError="";

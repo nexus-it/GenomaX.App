@@ -72,7 +72,7 @@ session_start();
 			  
 			<div class="col-md-12">
 
-			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive ">
+			 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive " style="height: 300px;">
 			<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
 			<tbody id="tbcob<?php echo $NumWindow; ?>">
 			<tr><th colspan="2">Español</th><th colspan="2">Inglés</th><th id="th2<?php echo $NumWindow; ?>"><i class="fas fa-eraser"></i> </th></tr>
@@ -93,8 +93,8 @@ session_start();
 					{
 						$contarow=$contarow+1;
 						echo '
-				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="hidden" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[0].'</td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" />'.$rowhc[1].'</td>
-				  <td align="left"><input name="hdn_coberturaeng'.$contarow.$NumWindow.'" type="hidden" id="hdn_coberturaeng'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[2].'</td><td align="right"><input name="hdn_descripcioneng'.$contarow.$NumWindow.'" type="hidden" id="hdn_descripcioneng'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" />'.$rowhc[3].'</td>
+				  <tr id="tr'.$contarow.$NumWindow.'"><td align="left"><input name="hdn_cobertura'.$contarow.$NumWindow.'" type="text" id="hdn_cobertura'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" style="background-color: transparent; border-style: dashed;" /></td><td align="right"><input name="hdn_descripcion'.$contarow.$NumWindow.'" type="text" id="hdn_descripcion'.$contarow.$NumWindow.'" value="'.$rowhc[1].'" style="background-color: transparent; border-style: dashed;" /></td>
+				  <td align="left"><input name="hdn_coberturaeng'.$contarow.$NumWindow.'" type="text" id="hdn_coberturaeng'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" style="background-color: transparent; border-style: dashed;" /></td><td align="right"><input name="hdn_descripcioneng'.$contarow.$NumWindow.'" type="text" id="hdn_descripcioneng'.$contarow.$NumWindow.'" value="'.$rowhc[3].'" style="background-color: transparent; border-style: dashed;" /></td>
 				  <td><button onclick="EliminarFilaCOB'.$NumWindow.'(\''.$contarow.'\');" type="button" class="btn btn-danger btn-xs "> <i class="fas fa-eraser"></i> </button>
 				  </td></tr>
 				  ';
@@ -109,7 +109,6 @@ session_start();
 	  		</div>
 
 	</div>
-
 
 	</div>
 	</div>
@@ -167,13 +166,13 @@ function Addcobertura<?php echo $NumWindow; ?>() {
 	    var celda3 = document.createElement("td"); 
 		TotalFilas++;
 		fila.id="tr"+TotalFilas+"<?php echo $NumWindow; ?>";
-	    celda1.innerHTML = '<input name="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Cobertura+''+'" /> '+Cobertura; 
-		celda2.innerHTML = '<input name="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Descripcion+''+'" /> '+Descripcion; 
-		celda4.innerHTML = '<input name="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CoberturaEng+''+'" /> '+CoberturaEng; 
-		celda5.innerHTML = '<input name="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+DescripcionEng+''+'" /> '+DescripcionEng; 
+	    celda1.innerHTML = '<input name="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" type="text" id="hdn_cobertura'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Cobertura+''+'" /> '; 
+		celda2.innerHTML = '<input name="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" type="text" id="hdn_descripcion'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Descripcion+''+'" /> '; 
+		celda4.innerHTML = '<input name="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" type="text" id="hdn_coberturaeng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CoberturaEng+''+'" /> '; 
+		celda5.innerHTML = '<input name="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" type="text" id="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+DescripcionEng+''+'" /> '; 
 		celda3.innerHTML = '<button onclick="EliminarFilaCOB<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs"> <i class="fas fa-eraser"></i> </button>';
 	    fila.appendChild(celda1); 
-	    fila.appendChild(celda2); 
+	    fila.appendChild(celda2);
 	    fila.appendChild(celda4); 
 	    fila.appendChild(celda5); 
 	    fila.appendChild(celda3); 

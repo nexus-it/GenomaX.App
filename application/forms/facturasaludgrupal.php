@@ -56,7 +56,7 @@ session_start();
 	  <label for="txt_sede<?php echo $NumWindow; ?>">Sede</label>
 	  <select name="txt_sede<?php echo $NumWindow; ?>" id="txt_sede<?php echo $NumWindow; ?>" onchange="cargaringresos<?php echo $NumWindow; ?>();">
     <?php 
-	$SQL="Select Codigo_SDE, Nombre_SDE From czsedes Where Estado_SDE='1' Order By Codigo_SDE";
+	$SQL="Select Codigo_AFC, Nombre_SDE From czsedes Where Estado_SDE='1' Order By 2";
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_array($result)) 
 	{

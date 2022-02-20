@@ -229,7 +229,7 @@
 </tr>
 <?php 
 	if (isset($_GET["Ingreso"])) {
-	$SQL="Select Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Ingreso_ADM, sum(Valor_TAR*Cantidad_ORD), Tipo_EPS From gxadmision a, gxrangoactual b, gxpacientes c, gxordenescab d, gxordenesdet e, gxmanualestarifarios f, gxcontratos g, gxeps h Where b.Codigo_ANY=DATE_FORMAT(d.Fecha_ORD, '%Y') and b.Codigo_RNG=c.Codigo_RNG and a.Codigo_TER=c.Codigo_TER and LPAD(a.Codigo_ADM,10,'0')=LPAD(".$_GET["Ingreso"].",10,'0')  AND g.Codigo_EPS=h.Codigo_EPS and d.Codigo_ADM=a.Codigo_ADM and e.Codigo_SER=f.Codigo_SER and d.Codigo_ORD=e.Codigo_ORD and  FechaIni_TAR <=d.Fecha_ORD and FechaFin_TAR>=d.Fecha_ORD and Estado_ORD='1' and f.Codigo_TAR = g.Codigo_TAR and trim(g.Codigo_EPS) = trim(a.Codigo_EPS) and g.Codigo_PLA = a.Codigo_PLA and trim(e.Codigo_EPS) = trim(g.Codigo_EPS) and e.Codigo_PLA = g.Codigo_PLA Group By Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, Ingreso_ADM";
+	$SQL="Select Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, CuotaM_ADM, sum(Valor_TAR*Cantidad_ORD), Tipo_EPS From gxadmision a, gxrangoactual b, gxpacientes c, gxordenescab d, gxordenesdet e, gxmanualestarifarios f, gxcontratos g, gxeps h, gxtipoingreso i Where i.Tipo_ADM=a.Ingreso_ADM and b.Codigo_ANY=DATE_FORMAT(d.Fecha_ORD, '%Y') and b.Codigo_RNG=c.Codigo_RNG and a.Codigo_TER=c.Codigo_TER and LPAD(a.Codigo_ADM,10,'0')=LPAD(".$_GET["Ingreso"].",10,'0')  AND g.Codigo_EPS=h.Codigo_EPS and d.Codigo_ADM=a.Codigo_ADM and e.Codigo_SER=f.Codigo_SER and d.Codigo_ORD=e.Codigo_ORD and FechaIni_TAR <=d.Fecha_ORD and FechaFin_TAR>=d.Fecha_ORD and Estado_ORD='1' and f.Codigo_TAR = g.Codigo_TAR and trim(g.Codigo_EPS) = trim(a.Codigo_EPS) and g.Codigo_PLA = a.Codigo_PLA and trim(e.Codigo_EPS) = trim(g.Codigo_EPS) and e.Codigo_PLA = g.Codigo_PLA Group By Codigo_TAF, Copago_ADM, Cuota_ADM, Cuota_MOD, Porcentaje_COP, Maximo_COP, MaxAnual, CuotaM_ADM";
 	//error_log('Load Ingreso 1: '. $SQL);
 	$resultX = mysqli_query($conexion, $SQL);
 	//$resultX = mysqli_query($conexion, $SQL);
@@ -296,7 +296,7 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
 		$contarow++;
 		$Pte=0;
 		$Ent=$row[4];
-		if ($TipoADM=="A2") {
+		if ($TipoADM=="1") {
 			if ($cuotaadm=='1') {
 				$Pte=(($row[4]*$row[3])/$TotalFactura)*$valorCuota/$row[3];
 				$Ent=$row[4]-$Pte;
@@ -338,14 +338,7 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
 ';
 	}
 	mysqli_free_result($result); 
-	//
-	$SQL="Select a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD 
-from gxservicios a, gxordenesdet b, gxprocedimientos c, gxmanualestarifarios d, gxcontratos e 
-Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b.Codigo_SER AND
- a.Codigo_SER=b.Codigo_SER AND e.Codigo_EPS=b.Codigo_EPS and e.Codigo_PLA=b.Codigo_PLA and
- FechaIni_TAR <='".$rowZ[1]."' and FechaFin_TAR>='".$rowZ[1]." 23:59:59' AND  c.Procedimiento_PRC='0'  and LPAD(Codigo_ORD,10,'0')='".$rowZ[0]."' 
-";
-	$SQL="Select a.Codigo_SER, case when a.Tipo_SER='2' then CUM_MED ELSE CUPS_PRC end , Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD 
+	$SQL="Select a.Codigo_SER, case when a.Tipo_SER='2' then CUM_MED ELSE CUPS_PRC end , Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD, ValorPaciente_ORD 
 	FROM gxordenesdet b, gxmanualestarifarios d, gxcontratos e, 
 	gxservicios a LEFT JOIN gxprocedimientos c ON a.Codigo_SER=c.Codigo_SER LEFT JOIN gxmedicamentos f ON a.Codigo_SER=f.Codigo_SER 
 	Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and a.Codigo_SER=b.Codigo_SER AND e.Codigo_EPS=b.Codigo_EPS 
@@ -356,9 +349,9 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 	
 	while($row = mysqli_fetch_array($result)) {
 		$contarow++;
-		$Pte=0;
-		$Ent=$row[4];
-		if ($TipoADM=="A2") {
+		$Pte=$row[6];
+		$Ent=$row[4]-$row[6];
+		if ($TipoADM=="1") {
 			if ($cuotaadm=='1') {
 				$Pte=(($row[4]*$row[3])/$TotalFactura)*$valorCuota/$row[3];
 				$Ent=$row[4]-$Pte;
@@ -400,63 +393,6 @@ Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b
 ';
 	}
 	mysqli_free_result($result); 
-	 /* 
-	$SQL="Select a.Codigo_SER, CUM_MED, Nombre_SER, Cantidad_ORD, Valor_TAR, Codigo_ORD  
-from gxservicios a, gxordenesdet b, gxmedicamentos c, gxmanualestarifarios d, gxcontratos e  
-Where d.Codigo_SER=b.Codigo_SER and d.Codigo_TAR=e.Codigo_TAR and c.Codigo_SER=b.Codigo_SER AND
- a.Codigo_SER=b.Codigo_SER AND e.Codigo_EPS=b.Codigo_EPS and e.Codigo_PLA=b.Codigo_PLA and
- FechaIni_TAR <='".$rowZ[1]."' and FechaFin_TAR>='".$rowZ[1]." 23:59:59' and LPAD(Codigo_ORD,10,'0')='".$rowZ[0]."'";
- 	$result = mysqli_query($conexion, $SQL);
-	//$result = mysqli_query($conexion, $SQL);
-	error_log('Load Ingreso 5: '. $SQL);
-	
-	while($row = mysqli_fetch_array($result)) {
-		$contarow++;
-		$Pte=0;
-		$Ent=$row[4];
-		if ($TipoADM=="A2") {
-			if ($cuotaadm=='1') {
-				$Pte=(($row[4]*$row[3])/$TotalFactura)*$valorCuota/$row[3];
-				$Ent=$row[4]-$Pte;
-			}
-		}
-		if ($copagoadm=='1') {
-			if ($totalpaciente < $valorCopago) {
-				$Pte=$row[4]*$porcentaje/100;
-				$Ent=$row[4]-$Pte;
-			}
-		}
-		$totalpaciente=$totalpaciente+($Pte*$row[3]);
-		if ($copagoadm=='1') {
-			if ($totalpaciente > $valorCopago) {
-				//$Ent=($totalpaciente - $valorCopago)/$row[3];
-				//$Pte=($row[4]*$porcentaje/100);
-				$Pte=$Pte*$row[3]- ($totalpaciente - $valorCopago)/$row[3];
-				$Ent=$row[4]-$Pte;
-				$totalpaciente=$totalpaciente+($Pte*$row[3]);
-
-			}
-			if ($totalpaciente == $valorCopago) {
-				$Pte=0;
-				$Ent=$row[4];
-				$totalpaciente=$totalpaciente+($Pte*$row[3]);
-			}
-		}
-		$totalentidad=$totalentidad+($Ent*$row[3]);
-		$TotalServicios++;
-		echo '    
-<tr id="tr'.$contarow.$NumWindow.'"  class="warning">
-  <td><input name="hdn_ordenser'.$contarow.$NumWindow.'" type="hidden" id="hdn_ordenser'.$contarow.$NumWindow.'" value="'.$row[5].'" /><input name="hdn_codigoser'.$contarow.$NumWindow.'" type="hidden" id="hdn_codigoser'.$contarow.$NumWindow.'" value="'.$row[0].'" />'.$row[1].'</td>
-    <td>'.$row[2].'</td>
-    <td align="center"><input name="hdn_cantidadser'.$contarow.$NumWindow.'" type="hidden" id="hdn_cantidadser'.$contarow.$NumWindow.'" value="'.$row[3].'" />'.$row[3].'</td>
-    <td align="right"><input name="hdn_pteser'.$contarow.$NumWindow.'" type="hidden" id="hdn_pteser'.$contarow.$NumWindow.'" value="'.$Pte.'" />'.number_format($Pte, 2, ",", ".").'</td>
-    <td align="right"><input name="hdn_entser'.$contarow.$NumWindow.'" type="hidden" id="hdn_entser'.$contarow.$NumWindow.'" value="'.$Ent.'" />'.number_format($Ent, 2, ",", ".").'</td>
-    <td align="right"><input name="hdn_totser'.$contarow.$NumWindow.'" type="hidden" id="hdn_totser'.$contarow.$NumWindow.'" value="'.$row[4].'" />'.number_format($row[3]*$row[4], 2, ",", ".").'</td>
-</tr> 
-';
-	}
-	mysqli_free_result($result);  */
-	//
 	}
 	mysqli_free_result($resultZ); 
 }
