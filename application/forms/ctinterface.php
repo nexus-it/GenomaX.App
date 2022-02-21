@@ -73,6 +73,18 @@
     </div>
   </div>
   <div class="form-group">
+    <label class="col-sm-3 control-label" >Cuenta Cuotas Moderadoras</label>
+    <div class="col-sm-9">
+		<input type="text" class="form-control" id="CtaCuotaMod_XCT<?php echo $NumWindow; ?>" name="CtaCuotaMod_XCT<?php echo $NumWindow; ?>" placeholder="CUENTA cuotas moderadoras">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label" >Cuenta Copagos</label>
+    <div class="col-sm-9">
+		<input type="text" class="form-control" id="CtaCopagos_XCT<?php echo $NumWindow; ?>" name="CtaCopagos_XCT<?php echo $NumWindow; ?>" placeholder="CUENTA copagos">
+    </div>
+  </div>
+  <div class="form-group">
     <label class="col-sm-3 control-label" >Comprobante Saldos Iniciales</label>
     <div class="col-sm-9">
 		<select name="SaldosIni_XCT<?php echo $NumWindow; ?>" id="SaldosIni_XCT<?php echo $NumWindow; ?>">

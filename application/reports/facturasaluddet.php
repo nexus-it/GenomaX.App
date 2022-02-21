@@ -86,7 +86,7 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	$this->Cell(50,5,'Sub-Total','TLBR',0,'R',0);
 	$this->SetFont('Arial','B',10);
 	$this->Cell(5,5,'$','TB',0,'C',0);
-	$this->Cell(0,5,number_format($subtotal,2,'.',','),'TBR',0,'R',0); 
+	$this->Cell(0,5,number_format($subtotal + $totpcte,2,'.',','),'TBR',0,'R',0); 
 /*	$this->Cell(0,5,number_format($subtotalfac,2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 	$this->SetFont('Arial','',10);
@@ -123,13 +123,13 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	if ($rowH[42]=="PARTIC") {
 		$this->Cell(0,5,number_format($totpcte-$notcred,2,'.',','),'TBR',0,'R',0); 
 	} else {
-		$this->Cell(0,5,number_format($subtotal-$totpcte,2,'.',','),'TBR',0,'R',0); 
+		$this->Cell(0,5,number_format($subtotal,2,'.',','),'TBR',0,'R',0); 
 	}
 
 /*	$this->Cell(0,5,number_format($subtotalfac-$rowH[15],2,'.',','),'TBR',0,'R',0);*/
 	$this->Ln();
 /*	$this->Cell(0,4,ValorLetras($rowH[14]-$rowH[15]),'LBR',0,'L',0); */
-	$this->Cell(0,4,ValorLetras($subtotal-$totpcte),'LBR',0,'L',0);
+	$this->Cell(0,4,ValorLetras($subtotal),'LBR',0,'L',0);
 	$Cadena2=explode('\n',$lineas2);
 	$this->SetFont('Times','',7);
 	$conteo = count($Cadena2);

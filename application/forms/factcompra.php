@@ -74,6 +74,8 @@ session_start();
 </div>
 
     </div>
+  </div>
+
     <div class="col-md-12">
     <label>Detalle</label>
 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive " style="height:50%">
@@ -119,13 +121,8 @@ session_start();
     <label for="txt_observacion<?php echo $NumWindow; ?>">Observaciones</label>
     <textarea name="txt_observacion<?php echo $NumWindow; ?>" rows="2" id="txt_observacion<?php echo $NumWindow; ?>" required="required" ></textarea>
 </div>
-<input name="hdn_codigoter<?php echo $NumWindow; ?>" type="hidden" id="hdn_codigoter<?php echo $NumWindow; ?>"  />
         </div>
-    </div>
 
-    </div>
-
-<input name="hdn_numfact<?php echo $NumWindow; ?>" type="hidden" id="hdn_numfact<?php echo $NumWindow; ?>" value="" />
 </form>
 
 <script >
