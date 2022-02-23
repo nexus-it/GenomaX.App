@@ -241,6 +241,7 @@ function rptxls<?php echo $NumWindow; ?>(Pagina)
 		FormPost=FormPost+Var1+"="+this.value.toUpperCase()+"&";
 	});
 	FormPost=String(FormPost).substring(0,String(FormPost).length-1)
-	window.open("application/reports/export-excel.php?reporte=<?php echo $_GET["reporte"] ?>&"+FormPost,"","");
+	// window.open("application/reports/export-excel.php?reporte=<?php echo $_GET["reporte"] ?>&"+FormPost,"","");
+	window.open("application/reports/report-excel.php?rpt=<?php echo $_GET["reporte"] ?>&"+FormPost,"","");
 }
 </script>

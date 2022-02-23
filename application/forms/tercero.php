@@ -286,7 +286,7 @@ mysqli_free_result($result);
 </div>
 <datalist id="cuentaspuc<?php echo $NumWindow; ?>">
 <?php
-$SQL="SELECT concat(Codigo_CTA, ' ', Nombre_CTA) from czcuentascont where Codigo_NVL=5 and nombre_cta like '%cuenta%' order by 1 limit 10 ;";
+$SQL="SELECT concat(Codigo_CTA, ' ', Nombre_CTA) from czcuentascont where Codigo_NVL=5 and nombre_cta like '%cuenta%' order by 1  ;";
 $rstpuc = mysqli_query($conexion, $SQL);
 while($rowPUC = mysqli_fetch_array($rstpuc)) {
 	echo '<option value="'.$rowPUC[0].'">';

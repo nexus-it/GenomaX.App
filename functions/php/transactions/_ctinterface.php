@@ -22,7 +22,7 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
                     mysqli_free_result($result0);
                     $Consec=LoadConsec("czmovcontcab", "Codigo_CNT", $CodigoCNT, $Conn, "Codigo_CNT");
                     $ConsecCNT=$Consec;
-                    error_log('Consec CT:'.$ConsecCNT);
+                    error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
                     // Se carga el encabezado del Movimento
                     $SQL="Replace Into czmovcontcab(Codigo_CNT, Codigo_FNC, Codigo_TER, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) Select '".$ConsecCNT."', '".$row[0]."', b.Codigo_TER, DATE(a.Fecha_FAC), a.Codigo_FAC, CONCAT('Factura de Venta ',a.Codigo_FAC,'. ',b.TipoContrato_EPS), concat('Contrato ', b.Contrato_EPS,'. ',a.Nota_FAC), (a.ValPaciente_FAC + a.ValEntidad_FAC) FROM gxfacturas a, gxeps b, gxadmision c WHERE a.Codigo_EPS=b.Codigo_EPS AND c.Codigo_ADM=a.Codigo_ADM AND a.Codigo_FAC='".$NumDoc."';";
                     EjecutarSQL($SQL, $Conn);

@@ -4,7 +4,7 @@ header('Content-type:application/xls');
 header('Content-Disposition: attachment; filename='.$_GET["reporte"].'.xls');
 session_start();
 
-include '../../functions/php/nexus/database.php';	
+include '../../functions/php/nexus/database.php';
 
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 

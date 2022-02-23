@@ -2,8 +2,9 @@
 
 include '00trnsctns.php';
   $nxsTabla=$_POST["nxsTabla"];
-
+  error_log('MasterDB table: '.$nxsTabla);
   $SQL="SELECT COLUMN_NAME, COLUMN_DEFAULT, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='".$_SESSION["DB_NAME"]."' AND TABLE_NAME='".$nxsTabla."' ORDER BY ORDINAL_POSITION;";
+  error_log('MasterDB Describe: '.$SQL);
   $rstColumns = mysqli_query($conexion, $SQL);
   $jk=0;
   $Kampox="";

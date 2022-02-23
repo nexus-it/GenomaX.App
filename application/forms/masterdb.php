@@ -138,6 +138,9 @@ session_start();
 		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="text") {
 			echo '<textarea name="'.$colName.'" rows="1" id="'.$colName.'"'.$Xtyle.' disabled >'.$colValue.'</textarea>';
 		}
+		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="mediumtext") {
+			echo '<textarea name="'.$colName.'" rows="1" id="'.$colName.'"'.$Xtyle.' disabled >'.$colValue.'</textarea>';
+		}
 		if ($Dexcribe['DATA_TYPE'.$kontaCol]=="date") {
 			echo '<input type="date" name="'.$colName.'" id="'.$colName.'" value="'.$colValue.'" disabled'.$Xtyle.' >';
 		}
@@ -275,8 +278,13 @@ function Edit<?php echo $NumWindow; ?>(Fila)
   $rstColumns = mysqli_query($conexion, $SQL);
   while ($rowCols = mysqli_fetch_row($rstColumns)) {
   	if ($rowCols[4]=="char(1)") {
-  		echo '
-  	document.getElementById("chk_'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = false;';
+		if (($rowCols[1]=="0")||($rowCols[1]=="1")) {
+			echo '
+		document.getElementById("chk_'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = false;';
+		} else {
+			echo '
+		document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = false;';
+		}
   	} else {
   		echo '
   	document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = false;';
@@ -297,8 +305,13 @@ function CancelEdit<?php echo $NumWindow; ?>(Fila)
   $rstColumns = mysqli_query($conexion, $SQL);
   while ($rowCols = mysqli_fetch_row($rstColumns)) {
   	if ($rowCols[4]=="char(1)") {
-  		echo '
-  	document.getElementById("chk_'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
+		if (($rowCols[1]=="0")||($rowCols[1]=="1")) {
+			echo '
+		document.getElementById("chk_'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
+		} else {
+			echo '
+		document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
+		}
   	} else {
   		echo '
   	document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
@@ -326,8 +339,13 @@ function SaveEdit<?php echo $NumWindow; ?>(Fila)
   $nxsData='"Func=MasterDB';
   while ($rowCols = mysqli_fetch_row($rstColumns)) {
   	if ($rowCols[4]=="char(1)") {
-  		echo '
+		if (($rowCols[1]=="0")||($rowCols[1]=="1")) {
+			echo '
   	document.getElementById("chk_'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
+		} else {
+			echo '
+  	document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
+		}
   	} else {
   		echo '
   	document.getElementById("'.$rowCols[0].'"+Fila+"'.$NumWindow.'").disabled = true;';
