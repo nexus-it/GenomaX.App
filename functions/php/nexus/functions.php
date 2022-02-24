@@ -158,7 +158,7 @@ $json = file_get_contents($url);
 $jo = json_decode($json);
 //var_dump($jo);
 $html= $jo["valor"];
-$html="3927.25";
+$html="3913.79";
 echo $html;
 break;
 case 'klstndbyfin':
@@ -2093,10 +2093,11 @@ case 'loadSchedule' :
 									$conf='<li><a class="text-success" onclick="javascript:confcita'.$wind.'(\''.$rowy[6].'\', \''. $wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-ok-circle"></span> Confirmar Llegada</a></li>';
 								break;
 							}
-							$msgcita="";
+							$msgcita='<li role="separator" class="divider"></li>
+							<li><a class="text-primary" onclick="javascript:printReminder'.$wind.'(\''.$rowy[6].'\', \''.$fecha.'\',\''.$wind.'\');" data-toggle="modal" data-target="#GnmX_WinModal"> <span class="glyphicon glyphicon-tag"></span> Imprimir Recordatorio Paciente</a></li>';
 							$serv="";
 							if ($rowy[8]!="") {
-								$msgcita='<li role="separator" class="divider"></li>
+								$msgcita=$msgcita.'
 								<li><a class="text-primary" onclick="javascript:sendWhatsapp'.$wind.'(\''.$rowy[8].'\', \''.$rowy[7].'\');" > <span class="glyphicon glyphicon-earphone"></span> Enviar por Whatsapp</a></li>';
 							}
 							if ($rowy[10]!="") {

@@ -301,6 +301,11 @@ function ShowAgendas<?php echo $NumWindow; ?>(TheFecha) {
 	// CargarMedicosCx('<?php echo $NumWindow; ?>', '<?php echo $theArea; ?>', TheFecha);
 	
 }
+
+function printReminder<?php echo $NumWindow; ?>(idpcte, fecha, wind) {
+    CargarWind('Cita Programada Paciente '+idpcte, 'reports/citasprogramadasusuario.php?PACIENTE='+idpcte+'&FECHA_INICIAL='+fecha+'&FECHA_FINAL='+fecha, 'default.png', 'agendaplus.php','<?php echo $NumWindow; ?>' );
+}
+
 function newcita<?php echo $NumWindow; ?>(agenda, fecha, hora, wind) {
     CargarWind('Nueva Cita', 'forms/agendanewcita.php?agenda='+agenda+'&fecha='+fecha+'&hora='+hora, '1.Calendar.png', 'agendaplus.php',wind );
 }
