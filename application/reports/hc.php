@@ -1401,7 +1401,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	
 	// ORDENES DE MEDICAMENTOS
 	if ($rowx[11]!="0") {
-		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM, PpioActivo_MED From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";
+		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM, PpioActivo_MED, Descripcion_MED From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NumIndi=0;
 		while ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -1448,12 +1448,14 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->Cell(0,4,utf8_decode('Cantidad: '.$rowx2[8]),'R',0,'R',0);
 			$pdf->Ln();
 			$pdf->SetFont('Courier','B',8);
-			if($rowx2[9]!="") {
-				// $pdf->MultiCell(0,4,utf8_decode($rowx2[1]),'LR','L',0);
-			}
 			$pdf->SetFont('Times','I',8);
-			$pdf->MultiCell(0,4,utf8_decode('Nota: '.$rowx2[7]),'LBR','L',0);
-			$pdf->Ln();
+			if($rowx2[9]!="") {
+				$pdf->MultiCell(0,4,utf8_decode('Nota: '.$rowx2[7]),'LR','L',0);
+				$pdf->MultiCell(0,4,utf8_decode($rowx2[10]),'LRB','L',0);
+		    } else {
+				$pdf->MultiCell(0,4,utf8_decode('Nota: '.$rowx2[7]),'LBR','L',0);
+			}
+		    $pdf->Ln();
 			
 			
 		}
