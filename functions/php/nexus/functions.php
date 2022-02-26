@@ -158,7 +158,7 @@ $json = file_get_contents($url);
 $jo = json_decode($json);
 //var_dump($jo);
 $html= $jo["valor"];
-$html="3913.79";
+$html="3940.20";
 echo $html;
 break;
 case 'klstndbyfin':

@@ -181,13 +181,14 @@ mysqli_free_result($rstpuc);
     document.frm_form<?php echo $NumWindow; ?>.Codigo_TER<?php echo $NumWindow; ?>.focus();
 <?php
     if(isset($_GET["tercero"])) {
-        $SQL="Select ID_TER, Nombre_TER from czterceros Where ID_TER='".$_GET["tercero"]."'";
+        $SQL="Select ID_TER, Nombre_TER, RetVentas_TER from czterceros Where ID_TER='".$_GET["tercero"]."'";
         $result = mysqli_query($conexion, $SQL);
         $Optinex='';
         if($row = mysqli_fetch_array($result)) {
             echo '
         document.getElementById("Codigo_TER'.$NumWindow.'").value="'.$row[0].'";
         document.getElementById("Nombre_TER'.$NumWindow.'").value="'.$row[1].'";
+        document.getElementById("cmb_retencion'.$NumWindow.'").value="'.$row[2].'";
             ';
         }
         mysqli_free_result($result);
