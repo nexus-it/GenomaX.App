@@ -32,6 +32,12 @@
 		$consecutivo = $row['consecutivo']+1;
 		$query = "UPDATE gxdocumentosoporte SET factura = $consecutivo where Codigo_USR = '$usuario' and  cliente = '$cliente' and  proveedor =  '$proveedor' and factura IS NULL ";
 		$data['mensaje'] = $consecutivo;
+		$query = "select Consecutivo_CNS as consecutivo from itconsecutivos where Tabla_CNS='czcxp' and Campo_CNS='Codigo_CXP' ";
+		$result = mysqli_query($conexion, $query);
+		$row = mysqli_fetch_array($result);
+		$consec = $row['consecutivo']+1;
+		$SQL="Insert into czcxp(Codigo_CXP, Codigo_TER, Consec_FAC, Fecha_FAC, Vence_FAC, Referencia_CXP, Valor_FAC, Pagado_CXP, Saldo_CXP) Select '".$consec."', Codigo_TER, '".$consecutivo."', '".$date."', '".$date."', 'Documento Soporte '.$descripcion, '".$valorunitario*$cantidad."', '0', '".$valorunitario*$cantidad."' From czterceros Where ID_TER='".$proveedor."'";
+		mysqli_query($conexion, $SQL);
 	}
     $result = mysqli_query($conexion, $query);
     
@@ -97,8 +103,5 @@
 		echo json_encode($data);
 		//echo '500';
 	}
-
-	
-    
 
 ?>
