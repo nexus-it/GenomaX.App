@@ -8,13 +8,16 @@ session_start();
 ?>
 <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" class="form-horizontal" id="frm_form<?php echo $NumWindow; ?>" >
   <div class="row">
-    
+  <input name="Codigo_FAC<?php echo $NumWindow; ?>" type="hidden" id="Codigo_FAC<?php echo $NumWindow; ?>" value="X" />
     <div class="col-md-2 ">
 
 <div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
     <label for="Codigo_TER<?php echo $NumWindow; ?>">Proveedor</label>
     <div class="input-group">
-        <input  name="Codigo_TER<?php echo $NumWindow; ?>" id="Codigo_TER<?php echo $NumWindow; ?>" type="text" required class="form-control" onkeypress="BuscarTer<?php echo $NumWindow; ?>(event);"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-success" data-target="#GnmX_WinModal" data-toggle="modal" data-whatever="Tercero" onclick="TercDetEdit<?php echo $NumWindow; ?>(document.getElementById('Codigo_TER<?php echo $NumWindow; ?>').value)" ><i class="fas fa-edit"></i></button>
+        </span>
+        <input  name="Codigo_TER<?php echo $NumWindow; ?>" id="Codigo_TER<?php echo $NumWindow; ?>" type="text" required class="form-control" onkeypress="BuscarTer<?php echo $NumWindow; ?>(event);" onblur="BuscarTerBlur<?php echo $NumWindow; ?>();" />
         <span class="input-group-btn">	
             <button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Tercero" onclick="javascript:CargarSearch('Tercero', 'Codigo_TER<?php echo $NumWindow; ?>', 'Proveedor_TER=*1*');"><i class="fas fa-search"></i></button>
         </span>
@@ -74,6 +77,14 @@ session_start();
 </div>
 
     </div>
+    <div class="col-md-12">
+
+<div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
+    <label for="Observaciones_FAC<?php echo $NumWindow; ?>" >Observaciones</label>
+    <input  name="Observaciones_FAC<?php echo $NumWindow; ?>" id="Observaciones_FAC<?php echo $NumWindow; ?>" type="text" />
+</div>
+
+    </div>
   </div>
   <div class="row well well-sm">
   <div class="col-md-12">
@@ -91,7 +102,7 @@ session_start();
     </div>
     <div class="col-md-12">
     <label>Detalle</label>
-<div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive " style="height:50%">
+<div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive " style="height:35%">
         <table  width="99%" cellpadding="1" cellspacing="2"  class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
         <tr id="trh<?php echo $NumWindow; ?>"> 
             <th id="th1<?php echo $NumWindow; ?>">Codigo</th> 
@@ -114,8 +125,8 @@ session_start();
     <div class="col-md-9">
 
 <div class="form-group" id="grp_txt_idhc1<?php echo $NumWindow; ?>">
-    <label for="cmb_retencion<?php echo $NumWindow; ?>" title="">Concepto Retención</label>
-    <select name="cmb_retencion<?php echo $NumWindow; ?>" id="cmb_retencion<?php echo $NumWindow; ?>" onchange="TotalFactura<?php echo $NumWindow; ?>();" >
+    <label for="Codigo_RTE<?php echo $NumWindow; ?>" title="">Concepto Retención</label>
+    <select name="Codigo_RTE<?php echo $NumWindow; ?>" id="Codigo_RTE<?php echo $NumWindow; ?>" onchange="TotalFactura<?php echo $NumWindow; ?>();" >
     <option value="">- - -</option>
     <?php 
   $SQL="Select Codigo_RTE, concat(Nombre_RTE,' [',Tasa_RTE,'%]') from czconceptosretencion a Where Estado_RTE='1' Order By 1";
@@ -142,7 +153,7 @@ session_start();
         <div class="col-md-12">
 <div class="form-group">
     <label for="Subtotal_FAC<?php echo $NumWindow; ?>">SubTotal</label>
-    <input style="font-size:14px; font-weight: bold; color:#828427; " name="Subtotal_FAC<?php echo $NumWindow; ?>" id="Subtotal_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="<?php echo $sumtotal; ?>"/>
+    <input style="font-size:14px; font-weight: bold; color:#828427; " name="Subtotal_FAC<?php echo $NumWindow; ?>" id="Subtotal_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="0"/>
 </div>
         </div>
         <div class="col-md-12">
@@ -154,13 +165,13 @@ session_start();
         <div class="col-md-12">
 <div class="form-group">
     <label for="Retencion_FAC<?php echo $NumWindow; ?>">- Retención</label>
-    <input style="font-size:14px; font-weight: bold; color:#843232; " name="Retencion_FAC<?php echo $NumWindow; ?>" id="Retencion_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="<?php echo $sumtotal; ?>"/>
+    <input style="font-size:14px; font-weight: bold; color:#843232; " name="Retencion_FAC<?php echo $NumWindow; ?>" id="Retencion_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="0"/>
 </div>
         </div>
         <div class="col-md-12">
 <div class="form-group">
     <label for="Total_FAC<?php echo $NumWindow; ?>">TOTAL</label>
-    <input style="font-size:14px; font-weight: bold; color:#0E5012; " name="Total_FAC<?php echo $NumWindow; ?>" id="Total_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="<?php echo $sumtotal; ?>"/>
+    <input style="font-size:14px; font-weight: bold; color:#0E5012; " name="Total_FAC<?php echo $NumWindow; ?>" id="Total_FAC<?php echo $NumWindow; ?>" type="number" min="1" class="izq form-control" disabled value="0"/>
 </div>
         </div>
     
@@ -178,7 +189,9 @@ mysqli_free_result($rstpuc);
 </form>
 
 <script >
-    document.frm_form<?php echo $NumWindow; ?>.Codigo_TER<?php echo $NumWindow; ?>.focus();
+    FechaActual('Fecha_FAC<?php echo $NumWindow; ?>');
+    FechaActual('Vence_FAC<?php echo $NumWindow; ?>');
+    
 <?php
     if(isset($_GET["tercero"])) {
         $SQL="Select ID_TER, Nombre_TER, RetVentas_TER from czterceros Where ID_TER='".$_GET["tercero"]."'";
@@ -188,10 +201,13 @@ mysqli_free_result($rstpuc);
             echo '
         document.getElementById("Codigo_TER'.$NumWindow.'").value="'.$row[0].'";
         document.getElementById("Nombre_TER'.$NumWindow.'").value="'.$row[1].'";
-        document.getElementById("cmb_retencion'.$NumWindow.'").value="'.$row[2].'";
+        document.getElementById("Codigo_RTE'.$NumWindow.'").value="'.$row[2].'";
+        document.frm_form'.$NumWindow.'.Consec_FAC'.$NumWindow.'.focus();
             ';
         }
         mysqli_free_result($result);
+    } else {
+        echo 'document.frm_form'.$NumWindow.'.Codigo_TER'.$NumWindow.'.focus();';
     }
 ?>
 function addKoncept<?php echo $NumWindow; ?>(){
@@ -226,13 +242,13 @@ function addKoncept<?php echo $NumWindow; ?>(){
         var celda5 = document.createElement("td");
         var celda6 = document.createElement("td");
         var celda7 = document.createElement("td");
-        celda1.innerHTML = '<input type="text" name="Codigo_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Codigo_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Kuenta[0]+'" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none;" class="form-control input-sm" >';
-        celda2.innerHTML = '<input type="text" name="Nombre_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Nombre_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+KuentaX+'" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none;" class="form-control input-sm" >';
-        celda3.innerHTML = '<input onkeyup="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="number" name="Precio_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Precio_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none; text-align: right;" class="form-control input-sm" >';
-        celda4.innerHTML = '<select onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" name="Codigo_IVA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Codigo_IVA'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none;" class="form-control input-sm" ><?php echo $Optinex; ?></select>';
-        celda5.innerHTML = '<input onkeyup="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="number" name="Cantidad_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Cantidad_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="1" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none; text-align: right;" class="form-control input-sm" >';
-        celda6.innerHTML = '<input type="text" name="Nota_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Nota_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none;" class="form-control input-sm" >';
-        celda7.innerHTML = '<input type="number" name="Total_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Total_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 11px; text-transform: none; text-align: right;" class="form-control input-sm" >';
+        celda1.innerHTML = '<input type="text" name="Codigo_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Codigo_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Kuenta[0]+'" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none;" class="form-control input-sm" >';
+        celda2.innerHTML = '<input type="text" name="Nombre_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Nombre_CTA'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+KuentaX+'" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none;" class="form-control input-sm" >';
+        celda3.innerHTML = '<input onkeyup="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="number" name="Precio_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="0" id="Precio_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none; text-align: right;" class="form-control input-sm" >';
+        celda4.innerHTML = '<select onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" name="Codigo_IVA'+TotalFilas+'<?php echo $NumWindow; ?>" id="Codigo_IVA'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none;" class="form-control input-sm" ><?php echo $Optinex; ?></select>';
+        celda5.innerHTML = '<input onkeyup="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" onchange="TotalKoncept<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="number" name="Cantidad_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Cantidad_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="1" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none; text-align: right;" class="form-control input-sm" >';
+        celda6.innerHTML = '<input type="text" name="Nota_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Nota_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="" style="border-width: 0px; background-color: transparent; font-size: 12px; text-transform: none;" class="form-control input-sm" >';
+        celda7.innerHTML = '<input type="number" name="Total_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" id="Total_FAC'+TotalFilas+'<?php echo $NumWindow; ?>" value="0" style="border-width: 0px; background-color: transparent; font-size: 13px; text-transform: none; text-align: right;" class="form-control input-sm" >';
         fila.appendChild(celda1);
         fila.appendChild(celda2);
         fila.appendChild(celda3);
@@ -285,7 +301,7 @@ function TotalFactura<?php echo $NumWindow; ?>() {
         subTotal=subTotal+(precio*cantidad);
         impuesto=impuesto+(totConcept-(precio*cantidad));
     }
-    rtecode=document.getElementById("cmb_retencion<?php echo $NumWindow; ?>").value;
+    rtecode=document.getElementById("Codigo_RTE<?php echo $NumWindow; ?>").value;
     rte=0;
     switch (rtecode) {
         <?php
@@ -304,10 +320,10 @@ function TotalFactura<?php echo $NumWindow; ?>() {
     base=subTotal;
     valrte=base*rte;
     toTal=subTotal+impuesto-valrte;
-    document.getElementById("Subtotal_FAC<?php echo $NumWindow; ?>").value=subTotal;
-    document.getElementById("Impuestos_FAC<?php echo $NumWindow; ?>").value=impuesto;
+    document.getElementById("Subtotal_FAC<?php echo $NumWindow; ?>").value=subTotal.toFixed(2);
+    document.getElementById("Impuestos_FAC<?php echo $NumWindow; ?>").value=impuesto.toFixed(2);
     document.getElementById("Retencion_FAC<?php echo $NumWindow; ?>").value=valrte.toFixed(2);
-    document.getElementById("Total_FAC<?php echo $NumWindow; ?>").value=toTal;
+    document.getElementById("Total_FAC<?php echo $NumWindow; ?>").value=toTal.toFixed(2);
 
 }
 
@@ -320,6 +336,20 @@ function BuscarTer<?php echo $NumWindow; ?>(e) {
 		AbrirForm('application/forms/factcompra.php', '<?php echo $NumWindow; ?>', '&mode=<?php echo $modex; ?>&tercero='+document.getElementById('Codigo_TER<?php echo $NumWindow; ?>').value);
 	}  
   }
+}
+
+function BuscarTerBlur<?php echo $NumWindow; ?>() {
+  	if (document.getElementById('Codigo_TER<?php echo $NumWindow; ?>').value!="") {
+		AbrirForm('application/forms/factcompra.php', '<?php echo $NumWindow; ?>', '&mode=<?php echo $modex; ?>&tercero='+document.getElementById('Codigo_TER<?php echo $NumWindow; ?>').value);
+	}  
+}
+
+function TercDetEdit<?php echo $NumWindow; ?>(tercero) {
+	var nuewo="";
+	if (tercero=="") {
+		nuewo="Nuevo ";
+	}
+	CargarWind(nuewo+'Tercero', 'forms/tercero.php?tercero='+tercero, 'reseller_account_template.png', 'ctterceros.php','<?php echo $NumWindow; ?>' );
 }
 
 $("input[type=text]").addClass("form-control");
@@ -336,3 +366,4 @@ $("input[type=password]").addClass("hc_<?php echo $NumWindow; ?>");
 $("textarea").addClass("hc_<?php echo $NumWindow; ?>");
 $("select").addClass("hc_<?php echo $NumWindow; ?>");
 </script>
+<script src="functions/nexus/factcompra.js?v=<?php echo $_SESSION["VERSION_CONTROL"]; ?>.<?php echo $NumWindow; ?>"></script>

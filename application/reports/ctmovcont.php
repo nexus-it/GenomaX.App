@@ -102,7 +102,7 @@ $pdf->Cell(35,5,'Fecha: ','',0,'L',0);
 $pdf->SetFont('Arial','',9);
 $pdf->Cell(0,5,utf8_decode($row[6]),'',0,'L',0); //Nombre Tercero
 $pdf->Ln();
-$SQL="SELECT Sigla_TID, ID_TER, a.Codigo_CTA, a.Descripcion_CNT, Nombre_CCT, Debito_CNT, Credito_CNT From czmovcontdet a LEFT JOIN czterceros b ON a.Codigo_TER=b.Codigo_TER LEFT JOIN cztipoid e ON b.Codigo_TID=e.Codigo_TID LEFT JOIN czcentrocosto d ON a.Codigo_CCT=d.Codigo_CCT Where Codigo_CNT=".$row[0]." Order By 3";
+$SQL="SELECT Sigla_TID, ID_TER, a.Codigo_CTA, a.Descripcion_CNT, Nombre_CCT, Debito_CNT, Credito_CNT From czmovcontdet a LEFT JOIN czterceros b ON a.Codigo_TER=b.Codigo_TER LEFT JOIN cztipoid e ON b.Codigo_TID=e.Codigo_TID LEFT JOIN czcentrocosto d ON a.Codigo_CCT=d.Codigo_CCT Where Codigo_CNT=".$row[0]." Order By Debito_CNT desc";
 //echo $SQL;
 $pdf->SetFont('Arial','',8);
 $pdf->SetTextColor(135);
