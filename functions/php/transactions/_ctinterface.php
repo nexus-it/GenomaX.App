@@ -108,6 +108,39 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
 
             it_aud('1', 'Contabilidad', 'Interface Contable Factura Compra '.$NumDoc);
         break;
+        case 'Egreso':
+            $SQL="Select InterfazEG_XCT From itconfig_ct";
+            $result = mysqli_query($Conn, $SQL);
+	        if($row = mysqli_fetch_row($result)) {
+                error_log($row[0]);
+                if ($row[0]!="") {
+                    $SQL="Select Codigo_CNT From czmovcontcab Where Codigo_FNC='".$row[0]."' and Consec_FNC='".$NumDoc."'";
+                    error_log($SQL);
+                    $result0 = mysqli_query($Conn, $SQL);
+                    if($row0 = mysqli_fetch_row($result0)) {
+                        $CodigoCNT=$row0['Codigo_CNT'];
+                    }
+                    mysqli_free_result($result0);
+                    $Consec=LoadConsec("czmovcontcab", "Codigo_CNT", $CodigoCNT, $Conn, "Codigo_CNT");
+                    $ConsecCNT=$Consec;
+                    error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
+                    // Se carga el encabezado del Movimento
+                    $SQL="Replace Into czmovcontcab(Codigo_CNT, Codigo_FNC, Codigo_TER, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) Select '".$ConsecCNT."', '".$row[0]."', a.Codigo_TER, b.Fecha_CXP, a.Consec_FAC, CONCAT('Pago Factura ', a.Codigo_CXP), CONCAT('Saldo ', a.Saldo_CXP ), b.valor_CXP FROM czcxp a, czcxpdet b WHERE a.Codigo_CXP=b.Codigo_CXP AND a.Codigo_CXP='".$NumDoc."';";
+                    EjecutarSQL($SQL, $Conn);
+                    // Se eliminan registros anteriores si existen 
+                    $SQL="Delete from czmovcontdet Where Codigo_CNT='".$ConsecCNT."'";
+                    EjecutarSQL($SQL, $Conn);
+                    // Se crean los registros Contables
+                    $SQL="Insert Into czmovcontdet(Codigo_CNT, Codigo_TER, Codigo_CTA, Descripcion_CNT, Codigo_CCT, Debito_CNT, Credito_CNT) Select '".$ConsecCNT."', a.Codigo_TER, b.CxP_TER, CONCAT('Pago a Factura de Compra ',a.Consec_FAC), a.Codigo_CCT, c.Valor_CXP, 0 FROM czcxp a, czterceros b, czcxpdet c WHERE a.Codigo_CXP=c.Codigo_CXP and a.Codigo_TER=b.Codigo_TER and a.Codigo_FAC='".$NumDoc."'";
+                    EjecutarSQL($SQL, $Conn);
+                    // Cuenta Cont del banco donde se realiza el pago
+                    $SQL="Insert Into czmovcontdet(Codigo_CNT, Codigo_TER, Codigo_CTA, Descripcion_CNT, Codigo_CCT, Debito_CNT, Credito_CNT) Select '".$ConsecCNT."', b.Codigo_TER, c.Codigo_CTA, CONCAT( c.Nombre_BCO, ' ', c.TipoCta_BCO, ' ', c.CuentaNo_BCO), d.Codigo_CCT, 0, a.Valor_CXP FROM czcxpdet a, czcxp b, czbancos c, czfacturascompra d WHERE a.Codigo_CXP=b.Codigo_CXP AND c.Codigo_BCO=a.Codigo_BCO AND d.Codigo_FAC=b.Consec_FAC AND a.Codigo_CXP='".$NumDoc."'";
+                    EjecutarSQL($SQL, $Conn);
+                    
+                }
+            }
+            mysqli_free_result($result);
+        break;
 
     }
 }

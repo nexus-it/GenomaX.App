@@ -438,7 +438,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	//$pdf->Output("../../../../functions/php/GenomaXBackend/sendmails/archivos/FES-".$rowH[10].".pdf","F");
 	$pdf->Output(dirname(__DIR__,2)."\\functions\php\GenomaXBackend\sendmails\archivos\FES-".$rowH[10].".pdf","F");
 
-	error_log("Factura a enviar: ".$rowH[10]);
+	// error_log("Factura a enviar: ".$rowH[10]);
 	}
 	
 	mysqli_free_result($resultH);

@@ -198,4 +198,5 @@ function Save<?php echo $NumWindow; ?>() {
 
 
 </script>
+
 <script src="functions/nexus/camas.js?v=<?php echo $_SESSION["VERSION_CONTROL"]; ?>.<?php echo $NumWindow; ?>"></script>

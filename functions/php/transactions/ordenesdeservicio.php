@@ -20,7 +20,9 @@ include '00trnsctns.php';
 		$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER, ValorServicio_ORD, ValorEntidad_ORD) Select '".$Consec."', '".$_POST['codigoser'.$contador]."', ".$_POST['cantidadser'.$contador].", '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '".$_POST['codigoter'.$contador]."', Valor_TAR, Valor_TAR from gxmanualestarifarios c, gxcontratos d, gxadmision e Where d.Codigo_TAR=c.Codigo_TAR and '".TRIM($_POST['contrato'])."'=d.Codigo_EPS and '".$_POST['plan']."'=d.Codigo_PLA and c.Codigo_SER='".$_POST['codigoser'.$contador]."' and date(now()) between c.FechaIni_TAR and c.FechaFin_TAR and e.Codigo_ADM='".(int)$_POST['Ingreso']."'";
 		EjecutarSQL($SQL, $conexion);
 		}
-	} 	
+	} 
+	$SQL="Update gxordenesdet b, gxordenescab a, gxmanualestarifarios c, gxcontratos d, gxadmision e Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR Where a.Codigo_ORD=b.Codigo_ORD and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER AND a.Fecha_ORD between c.FechaIni_TAR and c.FechaFin_TAR and e.Codigo_ADM=a.Codigo_ADM and a.Codigo_ORD='".$Consec."';";
+	EjecutarSQL($SQL, $conexion);
 	if (isset($_POST['cantporctotal'])) {
 		$contador=1;
 		while($contador <= $_POST['cantporctotal']) { 
@@ -38,19 +40,19 @@ include '00trnsctns.php';
 					}
 				} else { //SI EL MANUAL TARIFARIO ES SOAT
 					if ($_POST['tipoproc'.$contador]=="5" ) {
-					$SQL="Select ".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*TRUNCATE((c.SalarioMinimo_ANY/30), -2)*a.Materiales_SQX/100 From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
+					$SQL="Select TRUNCATE(".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*(c.SalarioMinimo_ANY/30)*a.Materiales_SQX/100, -2) From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
 					}
 					if ($_POST['tipoproc'.$contador]=="4" ) {
-					$SQL="Select ".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*TRUNCATE((c.SalarioMinimo_ANY/30), -2)*a.Sala_SQX/100 From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
+					$SQL="Select TRUNCATE(".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*(c.SalarioMinimo_ANY/30)*a.Sala_SQX/100, -2) From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
 					}
 					if ($_POST['tipoproc'.$contador]=="3" ) {
-					$SQL="Select ".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*TRUNCATE((c.SalarioMinimo_ANY/30), -2)*a.Ayudante_SQX/100 From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
+					$SQL="Select TRUNCATE(".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*(c.SalarioMinimo_ANY/30)*a.Ayudante_SQX/100, -2) From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
 					}
 					if ($_POST['tipoproc'.$contador]=="2" ) {
-					$SQL="Select ".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*TRUNCATE((c.SalarioMinimo_ANY/30), -2)*a.Anestesiologo_SQX/100 From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
+					$SQL="Select TRUNCATE(".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*(c.SalarioMinimo_ANY/30)*a.Anestesiologo_SQX/100, -2) From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
 					}
 					if ($_POST['tipoproc'.$contador]=="1" ) {
-					$SQL="Select ".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*TRUNCATE((c.SalarioMinimo_ANY/30), -2)*a.Cirujano_SQX/100 From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
+					$SQL="Select TRUNCATE(".$_POST['porcproc'.$contador]."*".$_POST['cantproc'.$contador]."*(c.SalarioMinimo_ANY/30)*a.Cirujano_SQX/100, -2) From gxsoatqx as a, gxprocedimientos as b, czsalariomin as c Where b.GRUPOSOAT_PRC =a.Codigo_SQX and c.Codigo_ANY=year(now()) and trim(b.Codigo_SER)='".$_POST['codigoproc1'.$contador]."'";
 					}
 				}
 			}

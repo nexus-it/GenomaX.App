@@ -1,5 +1,6 @@
 <?php
 //var_dump($_POST);exit();
+ob_start();
 include('params.php');
 include '../nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
@@ -178,10 +179,10 @@ if($errno = curl_errno($curl)){
 	var_dump($errno);
 }
 
+ob_end_clean();
 curl_close($curl);
-
 echo $response;
-
+ob_end_flush();
 /*
 
 

@@ -77,8 +77,8 @@ case 'Egreso':
 break;
 
 case 'Servicios1':
-	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Servicio', CUPS_PRC as 'CUPS' from gxservicios a, gxprocedimientos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
-	$SQLx="a.Codigo_SER, Nombre_SER, CUPS_PRC from gxservicios a, gxprocedimientos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
+	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Servicio', CUPS_PRC as 'CUPS', SOAT_PRC as 'SOAT', nombreSOAT_PRC as 'Nombre SOAT' from gxservicios a, gxprocedimientos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
+	$SQLx="a.Codigo_SER, Nombre_SER, CUPS_PRC, SOAT_PRC, nombreSOAT_PRC from gxservicios a, gxprocedimientos b, gxmanualestarifarios c where a.codigo_ser=b.codigo_ser and c.codigo_ser=b.codigo_ser and '".date('Y-m-d')."' and '".date('Y-m-d')."' >= FechaIni_Tar and '".date('Y-m-d')."' <= FechaFin_TAR".$Where;
 break;
 
 case 'Servicios2':
@@ -87,8 +87,8 @@ case 'Servicios2':
 break;
 
 case 'ServiciosX1':
-	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Servicio', CUPS_PRC as 'CUPS' from gxservicios a, gxprocedimientos b where a.codigo_ser=b.codigo_ser".$Where;
-	$SQLx="a.Codigo_SER, Nombre_SER, CUPS_PRC from gxservicios a, gxprocedimientos b where trim(a.codigo_ser)=trim(b.codigo_ser)".$Where;
+	$SQL="a.Codigo_SER as 'Codigo', Nombre_SER as 'Nombre Servicio', CUPS_PRC as 'CUPS', SOAT_PRC as 'SOAT', nombreSOAT_PRC as 'Nombre SOAT' from gxservicios a, gxprocedimientos b where a.codigo_ser=b.codigo_ser".$Where;
+	$SQLx="a.Codigo_SER, Nombre_SER, CUPS_PRC, SOAT_PRC, nombreSOAT_PRC from gxservicios a, gxprocedimientos b where trim(a.codigo_ser)=trim(b.codigo_ser)".$Where;
 break;
 
 case 'ServiciosX2':
@@ -102,8 +102,8 @@ case 'Dispositivos':
 break;
 
 case 'ordenesdeservicio':
-	$SQL="LPAD(Codigo_ORD,10,'0') as 'Orden', Nombre_TER as 'Paciente', LPAD(a.Codigo_ADM,10,'0') as 'Admision', ID_TER as 'Identificacion' From gxadmision a, czterceros b, gxordenescab c Where a.Codigo_ADM=c.Codigo_ADM and a.Codigo_TER=b.Codigo_TER and Estado_ADM='I' and Estado_ORD='1' ".$Where;
-	$SQLx="LPAD(Codigo_ORD,10,'0'), Nombre_TER, LPAD(a.Codigo_ADM,10,'0'), ID_TER From gxadmision a, czterceros b, gxordenescab c Where a.Codigo_ADM=c.Codigo_ADM and a.Codigo_TER=b.Codigo_TER and Estado_ADM='I' and Estado_ORD='1' ".$Where;
+	$SQL="LPAD(Codigo_ORD,10,'0') as 'Orden', Nombre_TER as 'Paciente', LPAD(a.Codigo_ADM,10,'0') as 'Admision', ID_TER as 'Identificacion' From gxadmision a, czterceros b, gxordenescab c Where a.Codigo_ADM=c.Codigo_ADM and a.Codigo_TER=b.Codigo_TER ".$Where; // and Estado_ADM='I' and Estado_ORD='1' ".$Where;
+	$SQLx="LPAD(Codigo_ORD,10,'0'), Nombre_TER, LPAD(a.Codigo_ADM,10,'0'), ID_TER From gxadmision a, czterceros b, gxordenescab c Where a.Codigo_ADM=c.Codigo_ADM and a.Codigo_TER=b.Codigo_TER ".$Where; // and Estado_ADM='I' and Estado_ORD='1' ".$Where;
 break;
 
 case 'radicaciones':

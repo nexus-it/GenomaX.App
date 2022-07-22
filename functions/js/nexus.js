@@ -1000,7 +1000,8 @@ function Guardar_pacientes(Ventana)
 function FechaActual(Destino)
 {
 	$.get(Funciones,{'Func':'FechaActual'},function(data){ 
-		document.getElementById(Destino).value=data;
+		vfec=data;
+		document.getElementById(Destino).value=vfec;
 	}); 
 }
 
@@ -1150,7 +1151,7 @@ function NombreDispositivo(Valor, Ventana) {
 function ContratoPte(Ventana) {
 	idpte=document.getElementById('txt_paciente'+Ventana).value;
 	$.get(Funciones,{'Func':'ContratoPte','value':idpte},function(data){ 
-		document.getElementById('txt_NombreCAMA'+Ventana).value="";
+		//document.getElementById('txt_NombreCAMA'+Ventana).value="";
 		document.getElementById('txt_NombreDx'+Ventana).value="";
 		if (data.substring(2,9)!="Select ") {
 			document.getElementById('txt_Contrato'+Ventana).value=data;
@@ -2936,10 +2937,10 @@ function Guardar_radicaciones(Ventana)
 		xError="Digite la fecha final del periodo";}
 	if ((document.getElementById('txt_fecini'+Ventana).value.split("/")).reverse().join("-")>(document.getElementById('txt_fecfin'+Ventana).value.split("/")).reverse().join("-")) {
 		xError="La fecha inicial no puede ser mayor que la final";}
-	if (document.getElementById('hdn_total'+Ventana).value=="0") {
+	/* if (document.getElementById('hdn_total'+Ventana).value=="0") {
 		xError="No se han seleccionado facturas para la radicacion.";}
 	if (document.getElementById('hdn_controw'+Ventana).value=="0") {
-		xError="No existen facturas con los parametros dados.";}
+		xError="No existen facturas con los parametros dados.";} */
 
 	//Ejecucion de las intrucciones para guardar los registros
 	if (xError=="") {
@@ -3618,6 +3619,15 @@ function Guardar_klpolizaedit(Ventana)
 	});  
 	return false;  
 }
+function rptND(Pref,Consecutivo)
+{
+	CargarWind("Nota Debito "+Pref+Consecutivo, 'reports/notacredito.php?TIPO_NOTA=D&PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'notadebitolista.php',"rptND" );
+}
+function rptNC(Pref,Consecutivo)
+{
+	CargarWind("Nota Debito "+Pref+Consecutivo, 'reports/notacredito.php?TIPO_NOTA=C&PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'notadebitolista.php',"rptNC" );
+}
+
 function rptInvoice(Pref,Consecutivo)
 {
 	CargarWind("Factura "+Pref+Consecutivo, 'reports/facturasaluddet.php?PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'facturasaludlista.php',"rptinvoice" );

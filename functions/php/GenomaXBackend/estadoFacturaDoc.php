@@ -11,7 +11,6 @@ if ($poscufe!="0") {
 
   $curl = curl_init();
 
-
   curl_setopt_array($curl, array(
     CURLOPT_URL => $prefixUrl.'status/document/'.$_POST['cufe'],
     CURLOPT_RETURNTRANSFER => true,
@@ -33,9 +32,8 @@ if ($poscufe!="0") {
       'Authorization: Bearer '.$bearer
     ),
   ));
-
   $response = curl_exec($curl);
-
+  
   curl_close($curl);
   echo $response;
 } else {

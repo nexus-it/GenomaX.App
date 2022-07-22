@@ -245,7 +245,23 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$moneda="Dollars";	
 	}
 	$fin="";
+	$pos = strpos($rowH[10], 'EURO');
+	if ($pos !== false) {
+		$moneda="Euros";
+		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
+		if ($_GET["IDIOMA"]=="ENG") {
+			$fin=" and all the countries belonging to the Schengen agreement";	
+		}		
+	}
+	
 	if ("UNION EURO AXIS"==$rowH[10]) {
+		$moneda="Euros";
+		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
+		if ($_GET["IDIOMA"]=="ENG") {
+			$fin=" and all the countries belonging to the Schengen agreement";	
+		}		
+	}
+	if ("EUROAXIS UPGRADE"==$rowH[10]) {
 		$moneda="Euros";
 		$fin=" y todos los paìses pertenecientes del acuerdo Schengen";
 		if ($_GET["IDIOMA"]=="ENG") {
@@ -288,14 +304,14 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$pdf->Cell(0,5,'COBERTURAS','',0,'C',0);
 	}
 	$pdf->Ln();
-	$SQL="SELECT Nombre".$_GET["IDIOMA"]."_COB, Descripcion".$_GET["IDIOMA"]."_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob LIMIT 6";
+	$SQL="SELECT Nombre".$_GET["IDIOMA"]."_COB, Descripcion".$_GET["IDIOMA"]."_COB from klplanescobertura a, klemisiones b, klcotizaciones c where a.codigo_pla=c.codigo_pla and c.codigo_ctz=b.codigo_ctz and codigo_emi='".$rowH[2]."' order by orden_cob LIMIT 7";
 //	echo $SQL;
 	$result = mysqli_query($conexion, $SQL);
 	while ($row = mysqli_fetch_row($result)) {
 		$pdf->Ln();
 		$pdf->SetFont('Arial','',9);
 		$pdf->Cell(160,5,$row[0],'',0,'L',0);
-		$pdf->Cell(0,5,strtoupper($row[1]),'',0,'R',0);
+		$pdf->Cell(0,5,strtoupper(utf8_decode($row[1])),'',0,'R',0);
 	}
 	mysqli_free_result($result);
 	if ($_GET["IDIOMA"]=="ENG") {
@@ -317,9 +333,9 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	}
 	$pdf->SetFont('Arial','',11);
 	if ($_GET["IDIOMA"]=="ENG") {
-		$pdf->Cell(0,5,'This product does not require a deductible.','',0,'L',0);
+		$pdf->Cell(0,5,'This product does not require copays or deductibles.','',0,'L',0);
 	} else {
-		$pdf->Cell(0,5,'Este producto no requiere deducible.','',0,'L',0);
+		$pdf->Cell(0,5,'Este producto no requiere copagos ni deducibles.','',0,'L',0);
 	}
 
 	$pdf->SetY(216);

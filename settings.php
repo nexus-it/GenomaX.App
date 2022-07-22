@@ -82,6 +82,12 @@
 	}
 	else
 	{
+		if (isset($_SESSION["DB_CONTROL"])) {
+			if ($_SESSION["DB_CONTROL"]!=$_SESSION["DB_NAME"]) {
+				header('Location: functions/php/nexus/nosession.php?nxsdb='.$_GET["suffixdb"]);
+			}
+		}
+		$_SESSION["DB_CONTROL"]=$_SESSION["DB_NAME"];
 		include 'functions/php/nexus/pagina.php';
 		include 'themes/'.$_SESSION["THEME_DEFAULT"].'/index.php';
 	}

@@ -45,6 +45,7 @@
 	$RiesgoCardVHCT="0";
 	$FraminghamHCT="0";
 	$MedQuimioHCT="0";
+	$DescQxHCT="0";
 	// Datos generales del pcte
 	if (isset($_GET["Historia"])) {
 		if (trim($_GET["Historia"])!="") {
@@ -296,7 +297,11 @@ if ($FormatHCX=="1") {
 	  		  <?php if ($row["Antecedentes_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_antecedentes<?php echo $NumWindow; ?>" data-toggle="pill">Antecedentes</a></li>
 			  <?php } ?>
-			  <li role="presentation" class="active"><a href="#hc_tipo<?php echo $NumWindow; ?>" data-toggle="pill">Formato HC</a></li>
+			  <?php if ($row["DescQx_HCT"]!="1") { ?>
+				<li role="presentation" class="active"><a href="#hc_tipo<?php echo $NumWindow; ?>" data-toggle="pill">Formato HC</a></li>
+			  <?php } else {?>
+				<li role="presentation" class="active"><a href="#hc_tipo<?php echo $NumWindow; ?>" data-toggle="pill">Informe Quirúrgico</a></li>
+			  <?php } ?>
 			  <?php if ($row["Dx_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_diagnosticos<?php echo $NumWindow; ?>" data-toggle="pill">Diagnósticos</a></li>
 			  <?php } ?>
@@ -345,9 +350,9 @@ if ($FormatHCX=="1") {
 			  <?php if ($row["Qx_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_ordqx<?php echo $NumWindow; ?>" data-toggle="pill">Procedimientos</a></li>
 			  <?php } ?>
-			  <?php if ($row["Ordenes_HCT"]=="1") { ?>
+			  <!-- <?php if ($row["Ordenes_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_ordenaciones<?php echo $NumWindow; ?>" data-toggle="pill">Ord Servicio</a></li>
-			  <?php } ?>
+			  <?php } ?> -->
 			  <?php if ($row["Med_HCT"]=="1") { ?>
 			  <li role="presentation"><a href="#hc_medicamentos<?php echo $NumWindow; ?>" data-toggle="pill">Formulación</a></li>
 			  <?php } ?>
@@ -369,7 +374,7 @@ if ($FormatHCX=="1") {
 	  				$MedQuimioHCT=$row["MedQuimio_HCT"];
 	  				$AyudasDiagHCT=$row["AyudasDiag_HCT"];
 	  				$MedHCT=$row["Med_HCT"];
-	  				$OrdenesHCT=$row["Ordenes_HCT"];
+	  				$OrdenesHCT="0";//$row["Ordenes_HCT"];
 	  				$OrdQxHCT=$row["Qx_HCT"];
 					$OrdConsHCT=$row["Cons_HCT"];
 	  				$IndicacionesHCT=$row["Indicaciones_HCT"];
@@ -388,10 +393,10 @@ if ($FormatHCX=="1") {
 	  				$CtrlPreNatHCT=$row["CtrlPreNat_HCT"];
 					$RiesgoCardVHCT=$row["RiesgoCardV_HCT"];
 					$FraminghamHCT=$row["Framingham_HCT"];  
+					$DescQxHCT=$row["DescQx_HCT"];  
 	  				//Antecedentes
 					if ($AntecedentesHCT=="1") {
 					  require 'hc.antecedentes.php'; 
-	  					
 	  				}//Antecedentes
 	  				echo '
 	  				<div role="tabpanel" class="tab-pane fade active in" id="hc_tipo'.$NumWindow.'">
@@ -573,6 +578,7 @@ if ($FormatHCX=="1") {
 	  			}
 	  			mysqli_free_result($result);
 	  			//Campos del formato HC
+			if ($DescQxHCT!="1") {
 	  			$SQL="Select a.* from hccampos a, hctipos b where a.Codigo_HCT=b.Codigo_HCT and a.Codigo_HCT='".$_GET["FormatoHC"]."' and Grupo_HCC='0' ".$iSexPcte." Order By Orden_HCC;";
 				$result = mysqli_query($conexion, $SQL);
 				$rekerido="";
@@ -896,7 +902,10 @@ if ($FormatHCX=="1") {
 	  				}
 	  			}
 	  			mysqli_free_result($result);
-
+			} else {
+				// Desc Quirurgica
+				require 'hc.descquirurgica.php';
+			}
 	  		   echo '
 		  		</div>
 		  	</div>
@@ -2393,25 +2402,31 @@ function AddInsumo<?php echo $NumWindow; ?>() {
 	     var celda0 = document.createElement("td"); 
 	    var celda1 = document.createElement("td"); 
 	    var celda2 = document.createElement("td"); 
+		var celda3 = document.createElement("td"); 
 	    var celda4 = document.createElement("td"); 
 	    TotalFilas++;
 		fila.id="trhins"+TotalFilas+"<?php echo $NumWindow; ?>";
 		CodIns=document.getElementById('txt_codinsumo<?php echo $NumWindow; ?>').value;
 		Insumo=document.getElementById('txt_nombreserv<?php echo $NumWindow; ?>').value;
+		Observ=document.getElementById('txt_observins<?php echo $NumWindow; ?>').value;
 		CantInsumo=document.getElementById('txt_cantinsumo<?php echo $NumWindow; ?>').value;
 		celda0.innerHTML = '<input name="hdn_codinsumo'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_codinsumo'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CodIns+''+'" /> '+CodIns; 
 		celda1.innerHTML = ' '+Insumo; 
 		celda2.innerHTML = '<input name="hdn_cantinsumo'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_cantinsumo'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CantInsumo+'" /> '+CantInsumo; 
+		celda3.innerHTML = '<input name="hdn_observins'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_observins'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Observ+'" /> '+Observ; 
 		celda4.innerHTML = '<button onclick="EliminarFilaInsumo<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs btn-block"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button>'; 
 		fila.appendChild(celda0); 
 	    fila.appendChild(celda1); 
 	    fila.appendChild(celda2); 
+		fila.appendChild(celda3); 
 	    fila.appendChild(celda4); 
 	    miTabla.appendChild(fila); 
 		document.getElementById("hdn_controwins<?php echo $NumWindow; ?>").value=TotalFilas;
 		document.getElementById('txt_codinsumo<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_nombreserv<?php echo $NumWindow; ?>').value="";
+		document.getElementById('txt_observins<?php echo $NumWindow; ?>').value="";
 		document.getElementById('txt_codinsumo<?php echo $NumWindow; ?>').focus();
+
 	}
 }
 
@@ -2858,6 +2873,7 @@ function Selhc<?php echo $NumWindow; ?>() {
 if (isset($_GET["FormatoHC"])) {
 	if ($DxHCT=="1") {
 		$SQL="SELECT b.Codigo_HCF, a.Codigo_DGN, a.CodigoR_DGN, a.CodigoR2_DGN, a.CodigoR3_DGN, a.Tipo_DGN, a.Manejo_DGN FROM hcdiagnosticos a, hcfolios b, czterceros c WHERE a.Codigo_TER=b.Codigo_TER AND a.Codigo_HCF=b.Codigo_HCF AND c.Codigo_TER=a.Codigo_TER AND a.Codigo_DGN<>'' AND c.ID_TER='".$Hystory."' ORDER BY 1 DESC ";
+		error_log('Dx Ant.: '.$SQL);
 		$result = mysqli_query($conexion, $SQL);
 		while ($row = mysqli_fetch_array($result)) {
 			echo "document.frm_form".$NumWindow.".txt_dxppal".$NumWindow.".value='".$row[1]."';

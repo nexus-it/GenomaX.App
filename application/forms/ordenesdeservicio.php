@@ -296,6 +296,10 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 <?php
 	if (isset($_GET["Ingreso"])) {	
 	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, g.Codigo_EPS, g.Codigo_PLA, g.Codigo_TAR, Autorizacion_ADM, Observaciones_ADM, b.Nombre_TER from czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(a.Codigo_EPS) and d.Codigo_PLA=a.Codigo_PLA and LPAD(Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0') and Estado_ADM='I' and trim(g.Codigo_EPS)=trim(a.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA";
+  // echo " alert('".substr($_SESSION["it_CodigoUSR"],0,3)."')";
+  if ((($_SESSION["it_CodigoPRF"]=="0") &&(substr($_SESSION["it_CodigoUSR"],0,2)=="NX"))||($_SESSION["it_CodigoUSR"]=="0")) {
+		$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, g.Codigo_EPS, g.Codigo_PLA, g.Codigo_TAR, Autorizacion_ADM, Observaciones_ADM, b.Nombre_TER from czterceros b, gxeps c, gxplanes d, czterceros e, gxcontratos g, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(a.Codigo_EPS) and d.Codigo_PLA=a.Codigo_PLA and LPAD(Codigo_ADM,10,'0')=LPAD('".$_GET["Ingreso"]."',10,'0')  and trim(g.Codigo_EPS)=trim(a.Codigo_EPS) and g.Codigo_PLA=a.Codigo_PLA";
+  }
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
 	echo "
@@ -369,6 +373,9 @@ function BuscarIng<?php echo $NumWindow; ?>(e) {
 <?php
 	if (isset($_GET["Orden"])) {	
 	$SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, LPAD(Codigo_ORD,10,'0'), g.Codigo_ARE, date(Fecha_ORD), Descripcion_ORD, h.Codigo_EPS, h.Codigo_PLA, h.Codigo_TAR, Autorizacion_ORD, b.Nombre_TER from czterceros b, gxeps c, gxplanes d, czterceros e, gxordenescab g, gxcontratos h, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(a.Codigo_EPS) and d.Codigo_PLA=a.Codigo_PLA and a.Codigo_ADM=g.Codigo_ADM and Estado_ADM='I' and Estado_ORD<>'A' and LPAD(Codigo_ORD,10,'0')=LPAD(".$_GET["Orden"].",10,'0') and trim(h.Codigo_EPS)=trim(a.Codigo_EPS) and h.Codigo_PLA=a.Codigo_PLA";
+  if ((($_SESSION["it_CodigoPRF"]=="0") &&(substr($_SESSION["it_CodigoUSR"],0,2)=="NX"))||($_SESSION["it_CodigoUSR"]=="0")) {
+	  $SQL="Select date(fecha_adm), time(fecha_adm), LPAD(a.Codigo_ADM,10,'0'), b.ID_TER, e.Nombre_TER, Nombre_PLA, Nombre_CAM, LPAD(Codigo_ORD,10,'0'), g.Codigo_ARE, date(Fecha_ORD), Descripcion_ORD, h.Codigo_EPS, h.Codigo_PLA, h.Codigo_TAR, Autorizacion_ORD, b.Nombre_TER from czterceros b, gxeps c, gxplanes d, czterceros e, gxordenescab g, gxcontratos h, gxadmision a left join gxcamas f on a.Codigo_CAM=f.Codigo_CAM where a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=e.Codigo_TER and trim(c.Codigo_EPS)=trim(a.Codigo_EPS) and d.Codigo_PLA=a.Codigo_PLA and a.Codigo_ADM=g.Codigo_ADM  and Estado_ORD<>'A' and LPAD(Codigo_ORD,10,'0')=LPAD(".$_GET["Orden"].",10,'0') and trim(h.Codigo_EPS)=trim(a.Codigo_EPS) and h.Codigo_PLA=a.Codigo_PLA";
+  }
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
 	echo "

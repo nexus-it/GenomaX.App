@@ -107,23 +107,23 @@ function RefreshList<?php echo $NumWindow; ?>() {
 }
 
 function filtrarFactura(filtro){
-    $.ajax({
-        type: 'POST',
-        url: 'application/forms/facturasaludlista.php',
-        data: {
-            filtro: filtro
-        },
-        beforeSend: function()
-          {
-          },
-          success: function (data) {
-            $("#resultadofiltro").html(data)
-          },
-          error: function() { 
-            console.log(data);
-          }
-        });
-   }
+  $.ajax({
+  type: 'POST',
+  url: 'application/forms/facturasaludlista.php',
+  data: {
+      filtro: filtro
+  },
+  beforeSend: function()
+    {
+    },
+    success: function (data) {
+      $("#resultadofiltro").html(data)
+    },
+    error: function() { 
+      console.log(data);
+    }
+  });
+}
 
 $(document).ready(function() {
       $( "#filtrar" ).click(function() {
@@ -304,6 +304,49 @@ function putSendFactura(factura){
     });
     adjuntarArvhivos(fact);
     
+   }
+   function descargarFacturaXml(cufe,factura){
+    showProgress("1", factura)
+      $.ajax({
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/estadoFacturaDoc.php',
+        data: {
+          cufe: cufe,
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            obj = JSON.parse(data);
+            showProgress("0", factura)
+            //$("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+            
+            //alert(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid']);
+            if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['IsValid'] == 'false'){
+              $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
+              NoCuFE(factura,obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']+'"<br> "'+obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
+            }else{
+              if(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']=="Documento con errores en campos mandatorios") {
+                NoCuFE(factura, obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string']);
+              } else {
+              $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
+                MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
+                $ad_xml = obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['XmlFileName']
+                document.getElementById("btnedit"+factura).disabled = true;
+                document.getElementById("btnsend"+factura).disabled = true;
+                // mailFE(cufe, factura)
+                alert('https://backend.estrateg.com/API/storage/app/public/'.$nit.'/'.$factura.'ad'.$ad_xml.'.xml');
+
+              }
+            }
+          },
+          error: function() { 
+            showProgress("0", factura)
+            console.log(data);
+          }
+        });        
    }
    function adjuntarArvhivos(factura){
   $.ajax({

@@ -9,6 +9,12 @@ function nxs_chk($name, $window) {
       </div><input name="hdn_'.$name.$window.'" type="hidden" id="hdn_'.$name.$window.'" value="0" />';
 }
 
+function nxs_chk_lbl($name, $label, $window) {
+   echo '<div class="checkbox checkbox-success">
+         <input name="chk_'.$name.'ok'.$window.'" id="chk_'.$name.'ok'.$window.'" type="checkbox" value=""  onclick="javascript:nxs_chkd(\''.$name.$window.'\');" class="styled"><label for="chk_'.$name.'ok'.$window.'">'.$label.'</label>
+       </div><input name="hdn_'.$name.$window.'" type="hidden" id="hdn_'.$name.$window.'" value="0" />';
+ }
+ 
 function nxs_yesno($name, $window) {
   echo '<select name="'.$name.$window.'" id="'.$name.$window.'">
           <option value="0">NO</option>

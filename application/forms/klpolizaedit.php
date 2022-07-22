@@ -553,43 +553,66 @@ if (isset($_GET["Poliza"])) {
 	if($rowp = mysqli_fetch_array($resultp)) {
 		echo "MsgBox1('Edicion de Polizas','La poliza ".$_GET["Poliza"]." se encuentra anulada');";
 	} else {
-		$SQL="Select FechaIni_CTZ, FechaFin_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI='E' and Codigo_EMI='".$_GET["Poliza"]."' and date(now()) > FechaIni_CTZ";
-		$resultv = mysqli_query($conexion, $SQL);
-		if($rowv = mysqli_fetch_array($resultv)) {
-			echo "MsgBox1('Edicion de Polizas','La poliza ".$_GET["Poliza"]." se encuentra en vigencia (".$rowv[0]." - ".$rowv[1]."). No es posible editarla.');";
-		} else {
-			$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."'";
-			$result = mysqli_query($conexion, $SQL);
-			if($row = mysqli_fetch_array($result)) {
-				echo "
-				document.frm_form".$NumWindow.".txt_femision".$NumWindow.".value='".$row[0]."';
-				document.frm_form".$NumWindow.".txt_cotizacion".$NumWindow.".value='".$row[1]."';
-				document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".value='".$row[2]."';
-				document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".value='".$row[3]."';
-				document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".value='".$row[4]."';
-				document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".($row[5])."';
-				document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".value='".$row[6]."';
-				document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".value='".$row[7]."';
-				document.frm_form".$NumWindow.".txt_correo".$NumWindow.".value='".$row[8]."';
-				document.frm_form".$NumWindow.".txt_direccion".$NumWindow.".value='".$row[9]."';
-				document.frm_form".$NumWindow.".txt_telefono".$NumWindow.".value='".$row[10]."';
-				document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".value='".$row[12]."';
-				document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".value='".ucwords(strtolower($row[13]))."_PLA';
-				document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".value='".$row[14]."';
-				document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".($row[15])."';
-				document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".($row[16])."';
-				document.frm_form".$NumWindow.".txt_dias".$NumWindow.".value='".$row[17]."';
-				document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".value='".$row[18]."';
-				document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".value='".$row[19]."';
-				document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".value='".$row[20]."';
-				document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".value='".$row[21]."';
-				CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
-				CalcularDias".$NumWindow."();
+		$SQL="Select date(Fecha_EMI), a.Codigo_CTZ, Voucher_EMI, Nombres_KLI, Apellidos_KLI, FechaNac_KLI, Contacto_KLI, ID_TER, Correo_TER, Direccion_TER, Telefono_TER, Codigo_PLA, Codigo_AGE, Modalidad_CTZ, Codigo_DST, FechaIni_CTZ, FechaFin_CTZ, Dias_CTZ, c.Codigo_TER, Estado_EMI, Nacionalidad_KLI, Procedencia_CTZ, Case When date(now()) > FechaIni_CTZ then 'V' else 'F' end  From klcotizaciones a, klemisiones b, czterceros c, klclientes d Where a.Codigo_CTZ=b.Codigo_CTZ and a.Codigo_TER=c.Codigo_TER and a.Codigo_TER=d.Codigo_TER  and Estado_EMI<>'A' and Codigo_EMI='".$_GET["Poliza"]."'";
+		$result = mysqli_query($conexion, $SQL);
+		if($row = mysqli_fetch_array($result)) {
+			echo "
+			document.frm_form".$NumWindow.".txt_femision".$NumWindow.".value='".$row[0]."';
+			document.frm_form".$NumWindow.".txt_cotizacion".$NumWindow.".value='".$row[1]."';
+			document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".value='".$row[2]."';
+			document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".value='".$row[3]."';
+			document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".value='".$row[4]."';
+			document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".value='".($row[5])."';
+			document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".value='".$row[6]."';
+			document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".value='".$row[7]."';
+			document.frm_form".$NumWindow.".txt_correo".$NumWindow.".value='".$row[8]."';
+			document.frm_form".$NumWindow.".txt_direccion".$NumWindow.".value='".$row[9]."';
+			document.frm_form".$NumWindow.".txt_telefono".$NumWindow.".value='".$row[10]."';
+			document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".value='".$row[12]."';
+			document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".value='".ucwords(strtolower($row[13]))."_PLA';
+			document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".value='".$row[14]."';
+			document.frm_form".$NumWindow.".txt_fini".$NumWindow.".value='".($row[15])."';
+			document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".value='".($row[16])."';
+			document.frm_form".$NumWindow.".txt_dias".$NumWindow.".value='".$row[17]."';
+			document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".value='".$row[18]."';
+			document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".value='".$row[19]."';
+			document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".value='".$row[20]."';
+			document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".value='".$row[21]."';
+			CalcEdad".$NumWindow."('txt_fnac".$NumWindow."', 'txt_edad".$NumWindow."');
+			CalcularDias".$NumWindow."();
+			";
+			if($row[19]!="S") {
+				if($row[22]=="V") {
+					echo "MsgBox1('Edicion de Polizas','La poliza ".$_GET["Poliza"]." se encuentra en vigencia (".$row[15]." - ".$row[16]."). No es posible editarla.');";
+					echo "
+				document.frm_form".$NumWindow.".txt_femision".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_cotizacion".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_voucher".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_nombres".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_apellidos".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_fnac".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_contacto".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_pasaporte".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_correo".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_direccion".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_telefono".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_agencia".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_modalidad".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_destino".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_fini".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_ffin".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_dias".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".hdn_tercero".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_estado".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_plan".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".txt_nacionalidad".$NumWindow.".disabled = true;
+				document.frm_form".$NumWindow.".cmb_procedencia".$NumWindow.".disabled = true;
 				";
+				}
 			}
-			mysqli_free_result($result); 
 		}
-		mysqli_free_result($resultv); 
+		mysqli_free_result($result); 
+	
 	}
 	mysqli_free_result($resultp); 
 
@@ -927,12 +950,12 @@ function EliminarFilaPER<?php echo $NumWindow; ?>(Numero) {
     	CalcularDias<?php echo $NumWindow; ?>();
         $('.datepicker1<?php echo $NumWindow; ?>').data("DateTimePicker").maxDate(e.date);
     });
-
+/* 
 	$('.datepicker').datepicker({
 		format: "dd/mm/yyyy",
 		language: "es",
 		autoclose: true
-	});
+	}); */
 
  	$("input[type=text]").addClass("form-control");
     $("input[type=password]").addClass("form-control");

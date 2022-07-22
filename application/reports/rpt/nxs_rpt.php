@@ -23,7 +23,7 @@ while($row2 = mysqli_fetch_row($result2)) {
     $rpt_cols=str_replace("@".$row2[0],$_GET[$row2[0]],$rpt_cols);
 }
 mysqli_free_result($result2);    
-error_log($rpt_cols);
+// error_log($rpt_cols);
 include('templates/header.php');
 ?>
 

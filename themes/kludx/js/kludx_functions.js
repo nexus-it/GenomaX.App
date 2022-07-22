@@ -5,7 +5,7 @@ var kFunciones="functions/php/nexus/kfunctions.php";
 var Funciones="functions/php/nexus/functions.php";
 var Menu="themes/kludx/menu.php";
 
-var Modals = '<div class="modal fade" id="GnmX_WinModal"><div class="modal-dialog modal-lg" id="GnmX_ModWind" style="width: 94%;">  <div class="modal-content panel-success row">    <div class="modal-header panel-heading" id="GnmX_TitWind">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>          </div>  </div></div></div><div class="modal fade" id="GnmX_WinModal2"><div class="modal-dialog modal-lg" id="GnmX_ModWind2" style="width: 90%;">  <div class="modal-content panel-success row">    <div class="modal-header panel-heading" id="GnmX_TitWind2">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal2"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind2">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button></div>  </div></div></div>';
+var Modals = '<div class="modal fade" id="GnmX_WinModal"><div class="modal-dialog modal-xl" id="GnmX_ModWind" style="width: 94%;">  <div class="modal-content panel-success row" style="height: 90%;">    <div class="modal-header panel-heading" id="GnmX_TitWind">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>          </div>  </div></div></div><div class="modal fade" id="GnmX_WinModal2"><div class="modal-dialog modal-lg" id="GnmX_ModWind2" style="width: 90%;">  <div class="modal-content panel-success row">    <div class="modal-header panel-heading" id="GnmX_TitWind2">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span id="idWindModal2"></span></h4>    </div>    <div class="modal-body col-md-12" id="bodyWind2">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button></div>  </div></div></div>';
 var modal_Pass = '<div class="modal fade" id="GnmX_ChngPass"><div class="modal-dialog" id="GnmX_ModChngPass"> <div class="modal-content panel-success" id="ChngPassX">    <div class="modal-header panel-heading" id="GnmX_TitChngPass">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span class="glyphicon glyphicon-user"></span> Cambio de Clave <span id="idChngPass">&hellip;</span></h4>    </div>    <div class="modal-body" id="bodyChngPass">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>      <button type="button" class="btn btn-primary" onclick="javascript:PassCoDe();" data-dismiss="modal">Actualizar</button>    </div>  </div></div></div>';
 var Modal_Search = '<div class="modal fade" id="GnmX_Search" style="z-index: 1100;"><div class="modal-dialog" id="GnmX_ModSearch">  <div class="modal-content panel-success">    <div class="modal-header panel-heading" id="GnmX_TitSearch">      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> Buscar <span id="idSearch">&hellip;</span></h4>    </div>    <div class="modal-body" id="bodySearch">      <div class="cargando"></div>    </div>    <div class="modal-footer">      <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>      <button type="button" class="btn btn-primary" onclick="javascript:AcceptOk(\'txt_selSearch\',document.getElementById(\'hdn_TargetNxs\').value);" data-dismiss="modal" data-bs-dismiss="modal">Seleccionar</button> </div>  </div></div></div>';
 var Modal_Msg = '<div class="modal fade" id="msgbox1" tabindex="-1" aria-labelledby="ModalMsg" aria-hidden="true"> <div class="modal-dialog" id="NXS_ModMsgBox"> <div class="modal-content"> <div class="modal-header" id="NXS_TitMsgBox"> <h5 class="modal-title" id="ModalMsg">Modal title</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body" id="bodyMsgBox"> <div class="spinner-grow" role="status"> <span class="visually-hidden">Cargando...</span> </div> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button> </div> </div> </div> </div>';
@@ -228,10 +228,10 @@ var Audios = '<audio id="nxs_sound_error" src="http://cdn.genomax.co/media/audio
         document.getElementById('cardiconkld2').innerHTML = '<i class="fas fa-hourglass-half"></i>';
         document.getElementById('cardiconkld3').innerHTML = '<i class="fas fa-globe"></i>';
         document.getElementById('cardiconkld4').innerHTML = '<i class="fab fa-algolia"></i>';
-        document.getElementById('cardbuttonkld1').innerHTML = '<button type="button" class="btn btn-light btn-sm">TRM del día</button>';
-        document.getElementById('cardbuttonkld2').innerHTML = '<button type="button" class="btn btn-light btn-sm">StandBy por vencer</button>';
-        document.getElementById('cardbuttonkld3').innerHTML = '<button type="button" class="btn btn-light btn-sm">Pólizas vigentes</button>';
-        document.getElementById('cardbuttonkld4').innerHTML = '<button type="button" class="btn btn-light btn-sm">Pólizas por vencer</button>';
+        document.getElementById('cardbuttonkld1').innerHTML = '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#GnmX_WinModal" onclick="rptTrm();" >TRM del día</button>';
+        document.getElementById('cardbuttonkld2').innerHTML = '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#GnmX_WinModal" onclick="rptStandby();" >StandBy por vencer</button>';
+        document.getElementById('cardbuttonkld3').innerHTML = '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#GnmX_WinModal" onclick="rptVigentes();" >Pólizas vigentes</button>';
+        document.getElementById('cardbuttonkld4').innerHTML = '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#GnmX_WinModal" onclick="rptVencer();" >Pólizas por vencer</button>';
     }
     function loadUserOpts() {
         var divData = createDivs('usr_dataopts');
@@ -250,7 +250,7 @@ var Audios = '<audio id="nxs_sound_error" src="http://cdn.genomax.co/media/audio
         document.getElementById('usr_nameopts').classList.add('justify-content-center');
         document.getElementById('usr_roleopts').classList.add('d-flex');
         document.getElementById('usr_roleopts').classList.add('justify-content-center');
-        document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="themes/kludx/logoAxis.jpg" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
+        document.getElementById('usr_imgopts').innerHTML = '<img id="img_user" name="img_user" src="themes/kludx/logoAxis.jpg?v=AX" class="rounded-circle shadow-sm" alt="Imagen Usuario">';
         document.getElementById('usr_passopts').innerHTML = '<button id="btn_passusr" name="btn_passusr" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#GnmX_ChngPass">Cambio Clave</button>';
         document.getElementById('usr_sessionopts').innerHTML = '<button id="btn_sessionusr" name="btn_sessionusr" type="button" class="btn btn-light">Cerrar Sesión</button>';
     }
@@ -326,7 +326,8 @@ var Audios = '<audio id="nxs_sound_error" src="http://cdn.genomax.co/media/audio
         loadDataFetch('boxDistPln', Funciones, 'Func=kldistplan');
         loadDataFetch('boxDestCli', Funciones, 'Func=kldestclientes');
         loadDataFetch('boxVentas', Funciones, 'Func=klrepventas');
-        loadDataFetch('cardinnerkld1', Funciones, 'Func=kltrm');
+        // loadDataFetch('cardinnerkld1', Funciones, 'Func=kltrm');
+        kltrm();
         loadDataFetch('cardinnerkld2', Funciones, 'Func=klstndbyfin');
         loadDataFetch('cardinnerkld3', Funciones, 'Func=klpolizassi');
         loadDataFetch('cardinnerkld4', Funciones, 'Func=klpolizasfin');
@@ -385,7 +386,7 @@ var Audios = '<audio id="nxs_sound_error" src="http://cdn.genomax.co/media/audio
         setTimeout(function(){
             document.getElementById('kld_top').classList.remove('cover_lazy');
             document.getElementById('kld_top').classList.add('top_bar');
-        }, 600);
+        }, 650);
     }
 
     init();
@@ -503,4 +504,44 @@ function Loadnxswdgpolizano()
             $('#nxswdgpolizano').html(resp);
         }
     });
+}
+
+function animStatics(Dest, valor)
+{
+    interval=valor/50;
+    var objetivo = document.getElementById(Dest);
+    objetivo.innerHTML = "0";
+    setTimeout(function(){
+        LoadMesesVentas();
+    }, 100);
+}
+function rptVigentes()
+{
+    CargarWind("Emisiones Vigentes", 'reports/klvigentes.php', 'default.png', 'index.php',"rptinvoice" );
+}
+function rptStandby()
+{
+    CargarWind("Polizas en StandBy", 'reports/kstandby.php', 'default.png', 'index.php',"rptinvoice" );
+}
+function rptVencer()
+{
+    CargarWind("Polizas a Vencer", 'reports/kvencer.php', 'default.png', 'index.php',"rptinvoice" );
+}
+function kltrm()
+{
+    var fecha = new Date();
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var ano = fecha.getFullYear();
+    var date = ano+"-"+mes+"-"+dia;
+    const url =`https://www.datos.gov.co/resource/32sa-8pi3.json?vigenciadesde=${date}T00:00:00.000`;
+    fetch(url)
+      .then(response => response.json())
+      .then((response) => {
+        var v = response[0].valor;
+        console.log(v);
+        var objetivo = document.getElementById('cardinnerkld1');
+        objetivo.innerHTML = v;
+        
+         });
 }

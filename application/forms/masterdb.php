@@ -267,6 +267,7 @@ session_start();
     </datalist>
 </form>
 <script >
+	// Transact="functions/php/nexus/transactions/";
 //console.log('$: <?php echo $nxsWhere; ?>');
 function Edit<?php echo $NumWindow; ?>(Fila)
 {
@@ -356,8 +357,9 @@ function SaveEdit<?php echo $NumWindow; ?>(Fila)
   }
   mysqli_free_result($rstColumns);
   $nxsData=$nxsData.'&nxsTabla='.$nxsTabla.'"';
+  error_log($nxsData);
 ?>
-
+	alert(Transact);
 	$.ajax({  
 		type: "POST",  
 		url: Transact + "masterdb.php",  

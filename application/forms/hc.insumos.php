@@ -17,7 +17,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-8">
+						<div class="col-md-5">
 							<div class="form-group">
 								<label for="txt_nombreserv<?php echo $NumWindow; ?>">Insumo / Medicamento</label>
 								<input  name="txt_nombreserv<?php echo $NumWindow; ?>" id="txt_nombreserv<?php echo $NumWindow; ?>" type="text" disabled="disabled" />
@@ -27,14 +27,21 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="txt_cantinsumo<?php echo $NumWindow; ?>">Cantidad</label>
+								<input  name="txt_cantinsumo<?php echo $NumWindow; ?>" id="txt_cantinsumo<?php echo $NumWindow; ?>" type="number" value="1" min="1" max="100"/>
+							</div>			
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="txt_observins<?php echo $NumWindow; ?>">Observaciones</label>
 								<div class="input-group">	
-									<input  name="txt_cantinsumo<?php echo $NumWindow; ?>" id="txt_cantinsumo<?php echo $NumWindow; ?>" type="number" value="1" min="1" max="100"/>
+									<input  name="txt_observins<?php echo $NumWindow; ?>" id="txt_observins<?php echo $NumWindow; ?>" type="text" />
 									<span class="input-group-btn">	
 										<button class="btn btn-success" type="button" data-toggle="modal"  data-whatever="AddMedicaHC" onclick="javascript:AddInsumo<?php echo $NumWindow; ?>();"><i class="fas fa-plus"></i></button>
 									</span>
 								</div>
 							</div>			
 						</div>
+
 						
 						<div class="col-md-12">
 						  	<div id="zero_detalleins<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
@@ -44,6 +51,7 @@
 									<th id="th1insX'.$NumWindow.'">Codigo</th> 
 									<th id="th2insX'.$NumWindow.'">Producto</th> 
 									<th id="th3insX'.$NumWindow.'">Cantidad</th> 
+									<th id="th5insX'.$NumWindow.'">Observaciones</th>
 									<th id="th4insX'.$NumWindow.'">Eliminar</th> 
 								</tr> 
 

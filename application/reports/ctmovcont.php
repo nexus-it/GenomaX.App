@@ -61,7 +61,7 @@ $pdf->SetMargins(10, 10,10);
 $pdf->SetAutoPageBreak(true, 10);
 //echo $SQL;
 $result = mysqli_query($conexion, $SQL);
-error_log($SQL);
+// error_log($SQL);
 while($row = mysqli_fetch_row($result)) {
 $pdf->AddPage();
 //Encabezado de la tabla

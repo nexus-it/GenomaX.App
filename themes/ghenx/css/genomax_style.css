@@ -929,6 +929,9 @@
 	.altura100 {
 		height: 215px;
 	}
+	.main-footer {
+		display: none;
+	}
 	.alturahc {
 		height: 155px;
 	}

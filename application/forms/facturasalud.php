@@ -419,7 +419,9 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
   <input name="txt_totalentidad<?php echo $NumWindow; ?>" type="text" id="txt_totalentidad<?php echo $NumWindow; ?>" value="<?php echo number_format($totalentidad, 2, ",", "."); ?>" size="15" class="izq" disabled="disabled" /><br />
   <input name="hdn_totalenttmp<?php echo $NumWindow; ?>" type="hidden" id="hdn_totalenttmp<?php echo $NumWindow; ?>" value="<?php echo $totalentidad; ?>" />
   <label for="txt_dctoentidad<?php echo $NumWindow; ?>">Descuento Entidad</label>
-  <input name="txt_dctoentidad<?php echo $NumWindow; ?>" type="text" id="txt_dctoentidad<?php echo $NumWindow; ?>" value="0,00" size="15" class="izq" disabled="disabled" />
+  <input name="txt_dctoentidad<?php echo $NumWindow; ?>" type="text" id="txt_dctoentidad<?php echo $NumWindow; ?>" value="0.00" size="15" class="izq" disabled="disabled" />
+  <label for="txt_valoriva<?php echo $NumWindow; ?>">Valor IVA</label>
+  <input name="txt_valoriva<?php echo $NumWindow; ?>" type="text" id="txt_valoriva<?php echo $NumWindow; ?>" value="0.00" size="15" class="izq" disabled="disabled" />
 
 	</div>
 
@@ -515,7 +517,7 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 			document.getElementById('hdn_reingreso".$NumWindow."').value=\"1\";
 			";
 
-	}
+		}
 	}
 	else {
 		echo "
@@ -574,6 +576,7 @@ function chngvalpte<?php echo $NumWindow; ?>() {
 	$("select").addClass("form-control");
 
 <?php
+/*
 if ($Partic=="PARTIC") {
 ?>
 	valtot=document.getElementById('hdn_totalenttmp<?php echo $NumWindow; ?>').value;
@@ -588,6 +591,7 @@ if ($Partic=="PARTIC") {
 	document.getElementById('txt_totalpaciente<?php echo $NumWindow; ?>').value=valpte.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");;
 <?php	
 }
+*/
 ?>
 
 	$("input[type=time]").addClass("form-control");

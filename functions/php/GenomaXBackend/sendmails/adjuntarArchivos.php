@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 include '../../nexus/database.php';
 include 'mail.php';
 
@@ -28,6 +29,7 @@ include 'mail.php';
       $newfname = $destination_folder . basename($url);
 
       $Consecutivo = preg_replace('/[^0-9]/', '', $factura);
+      ob_end_clean();
       $cadena = explode($Consecutivo,$factura);
       $Pref = $cadena[0];
       
@@ -58,3 +60,4 @@ include 'mail.php';
             $indice++;
           // }
       }
+      ob_end_flush();

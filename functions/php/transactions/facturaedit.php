@@ -8,7 +8,7 @@ include '00trnsctns.php';
 	// Primero actualizamos contrato y plan...
 	$SQL="Update gxpacientes set Codigo_EPS='".$_POST["contrato"]."', Codigo_PLA='".$_POST["Plan"]."' Where Codigo_TER in (Select Codigo_TER from gxadmision Where Codigo_ADM='".(int)$_POST['Ingreso']."')";
 	EjecutarSQL($SQL, $conexion);
-	$SQL="Update gxadmision set Codigo_DGN='".$_POST["diagnostico"]."', Codigo_EPS='".$_POST["contrato"]."', Codigo_PLA='".$_POST["Plan"]."' Where Codigo_ADM='".(int)$_POST['Ingreso']."'";
+	$SQL="Update gxadmision set Fecha_ADM='".$_POST["fechaadm"]." ".$_POST["horaadm"]."', Codigo_DGN='".$_POST["diagnostico"]."', Codigo_EPS='".$_POST["contrato"]."', Codigo_PLA='".$_POST["Plan"]."' Where Codigo_ADM='".(int)$_POST['Ingreso']."'";
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Update gxfacturas set Fecha_FAC='".$_POST["ffactura"]." ".$_POST["horafac"]."', Codigo_EPS='".$_POST["contrato"]."', Codigo_PLA='".$_POST["Plan"]."', Month_FAC='".$_POST["mes"]."', Year_FAC='".$_POST["anyo"]."', Nota_FAC='".$_POST["nota"]."' Where Codigo_ADM='".(int)$_POST['Ingreso']."' and Estado_FAC='1'";
 	EjecutarSQL($SQL, $conexion);

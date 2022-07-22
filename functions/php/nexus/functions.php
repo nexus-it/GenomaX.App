@@ -24,7 +24,7 @@ case 'mnuLogout':
 	echo $html;
 break;
 case 'logoAxisKlud':
-	$html='<img src="themes/kludx/logoAxis.jpg" class="img-fluid rounded-circle" alt="User Image" >';
+	$html='<img src="themes/kludx/logoAxis.jpg?v='.$version.'" class="img-fluid rounded-circle" alt="User Image" >';
 	echo $html;
 break;
 case 'klwdgcotiza':
@@ -154,11 +154,12 @@ case 'kltrm':
     mysqli_free_result($result);
 	
 	$url = 'https://www.datos.gov.co/resource/32sa-8pi3.json?vigenciadesde='.$fechahoy.'T00:00:00.000';
+	// echo $url;
 $json = file_get_contents($url);
 $jo = json_decode($json);
 //var_dump($jo);
 $html= $jo["valor"];
-$html="3910.64";
+$html="3771.83";
 echo $html;
 break;
 case 'klstndbyfin':
@@ -2380,7 +2381,7 @@ case 'FechaActual':
 	$SQL="Select curdate();";	
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_row($result)) {
-		echo trim($row[0]);
+		echo trim(str_replace('\ufeff', '', $row[0]));
 	} 
 	mysqli_free_result($result);
 break;
@@ -2389,7 +2390,7 @@ case 'HoraActual':
 	$SQL="Select curtime();";	
 	$result = mysqli_query($conexion, $SQL);
 	while($row = mysqli_fetch_row($result)) {
-		echo trim($row[0]);
+		echo trim(str_replace('\ufeff', '', $row[0]));
 	} 
 	mysqli_free_result($result);
 break;

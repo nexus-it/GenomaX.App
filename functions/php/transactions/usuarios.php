@@ -13,8 +13,21 @@ include '00trnsctns.php';
 		it_aud('2', 'Usuarios', 'Codigo No. '.$Consec);
 	}
 	EjecutarSQL($SQL, $conexion);
+	$SQL="Delete from itusuariosareas Where Codigo_USR='".$Consec."';";
+	EjecutarSQL($SQL, $conexion);
+	$SQL="Delete from itusuariossedes Where Codigo_USR='".$Consec."';";
+	EjecutarSQL($SQL, $conexion);
+	while($contador <= $_POST['controw']) {
+		$contador++;
+		if($_POST['sedearea'.$contador]=="1") {
+			$SQL="Insert Into itusuariosareas(Codigo_USR, Codigo_ARE) Values('".$Consec."', '".$_POST['area'.$contador]."');";
+			EjecutarSQL($SQL, $conexion);
+			$SQL="Insert Into itusuariossedes(Codigo_USR, Codigo_SDE) Values('".$Consec."', '".$_POST['sede'.$contador]."');";
+			EjecutarSQL($SQL, $conexion);
+		}
+	}
 
-	if ($_POST["defaultpass"]=="1") {
+	if ($_POST["defpass"]=="1") { 
 		$SQL="Update itusuarios Set Clave_USR='10470c3b4b1fed12c3baac014be15fac67c6e815' Where Codigo_USR='".$Consec."'";
 		EjecutarSQL($SQL, $conexion);
 		it_aud('2', 'Usuarios', 'Clave por defecto. Usuario No. '.$Consec);

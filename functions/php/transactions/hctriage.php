@@ -1,25 +1,37 @@
 <?php
 
-include '00trnsctns.php';
+include '00trnsctns.php'; 
 
-	$SQL="Select max(Cast(Codigo_HCF as decimal(2)))  + 1 from hcfolios Where Codigo_TER='".$_POST['codigoter']."'";
-	$SQL="Select max(Codigo_HCF)  + 1 from hcfolios Where Codigo_TER='".$_POST['codigoter']."'";
-	$result = mysqli_query($conexion, $SQL);
-	if($row = mysqli_fetch_row($result)) {
-		if($row[0]==null) {
-			$ElFolio="1";
-		} else {
-			$ElFolio=$row[0];
-		}
+$SQL="Select max(Cast(Codigo_HCF as decimal(2)))  + 1 from hcfolios Where Codigo_TER='".$_POST['codigoter']."'";
+$SQL="Select max(Folio_HCF)  + 1 from hcfolios Where Codigo_TER='".$_POST['codigoter']."'";
+$result = mysqli_query($conexion, $SQL);
+if($row = mysqli_fetch_row($result)) {
+	if($row[0]==null) {
+		$XFolio="1";
 	} else {
-		$ElFolio="1";
+		$XFolio=$row[0];
 	}
-	mysqli_free_result($result);
+} else {
+	$XFolio="1";
+}
+mysqli_free_result($result);
+$SQL="Select max(Codigo_HCF)  + 1 from hcfolios Where Codigo_TER='".$_POST['codigoter']."'";
+$result = mysqli_query($conexion, $SQL);
+if($row = mysqli_fetch_row($result)) {
+	if($row[0]==null) {
+		$ElFolio="1";
+	} else {
+		$ElFolio=$row[0];
+	}
+} else {
+	$ElFolio="1";
+}
+mysqli_free_result($result);
 	if ($MSG=='Datos registrados correctamente. ') {
 		$MSG='Se ha clasificado Triage del paciente en el folio '.add_ceros($ElFolio,5);
 	}
 	//Generamos registro del nuevo folio
-	$SQL="Insert Into hcfolios(Codigo_TER, Codigo_HCT, Codigo_HCF, Fecha_HCF, Hora_HCF, Codigo_ADM, Codigo_ARE, Codigo_USR, FechaReg_HCF) Select '".$_POST['codigoter']."', '".$_POST['formatohc']."', '".$ElFolio."', date(now()), '".substr($_POST['hora'],0,5)."', '".$_POST['ingreso']."', Codigo_ARE, '".$_SESSION["it_CodigoUSR"]."', now() From gxconsultorios Where Codigo_CNS='".$_POST['modulo']."';";
+	$SQL="Insert Into hcfolios(Codigo_TER, Codigo_HCT, Codigo_HCF, Folio_HCF, Fecha_HCF, Hora_HCF, Codigo_ADM, Codigo_ARE, Codigo_USR, FechaReg_HCF) Select '".$_POST['codigoter']."', '".$_POST['formatohc']."', '".$ElFolio."', '".$ElFolio."', date(now()), '".substr($_POST['hora'],0,5)."', '".$_POST['ingreso']."', Codigo_ARE, '".$_SESSION["it_CodigoUSR"]."', now() From gxconsultorios Where Codigo_CNS='".$_POST['modulo']."';";
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Update hctriage Set Edad_TRG='".$_POST['edad']." ".$_POST['tipoe']."', Codigo_HCF='".$ElFolio."', Codigo_HTR='".$_POST['triage']."', Estado_TRG='3' Where Codigo_TER='".$_POST['codigoter']."' and Codigo_TRG='".$_POST['pretriage']."';";
 	EjecutarSQL($SQL, $conexion);

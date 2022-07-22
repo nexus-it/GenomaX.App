@@ -1,5 +1,7 @@
 <?php
 //var_dump($_POST);exit();
+ob_start();
+
 include('params.php');
 include '../nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
@@ -124,9 +126,15 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 
 //var_dump($payload);exit();
 
-$payload = json_encode($payload);
+//$payload  = preg_replace('/[0-9\@\.\;\" "]+/', '', $payload );
 
-print_r($payload);exit();
+//print_r($payload);exit();
+
+ob_clean();
+
+$payload = json_encode($payload,JSON_UNESCAPED_UNICODE);
+
+//print_r($payload);exit();
 
 
 $curl = curl_init();
@@ -136,7 +144,7 @@ $curl = curl_init();
 $TestSetId_vision = '';
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => $prefixUrl.'credit-note'.$TestSetId_vision,
+  CURLOPT_URL => $prefixUrl.'debit-note'.$TestSetId_vision,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -162,9 +170,10 @@ if($errno = curl_errno($curl)){
 	var_dump($errno);
 }
 
+ob_end_clean();
 curl_close($curl);
 echo $response;
-
+ob_end_flush();
 ?>
 
 

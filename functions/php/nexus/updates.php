@@ -106,21 +106,21 @@ case 'closetrg':
 		}
 		mysqli_free_result($result); 
 		/* Fin llamado por monitor */
-		it_aud('3', 'Triage', 'Llamado a atención de paciente: '.$_GET['value']);
+		it_aud('3', 'Triage', 'Llamado a atencion de paciente: '.$_GET['value']);
 break;
 
 case  'NoIngresos':
 		$MSG= 'Ingreso anulado correctamente.';
 		$SQL="Update gxadmision set Estado_ADM='A', UsuarioAnula_USR='".$_SESSION["it_CodigoUSR"]."', FechaAnula_ADM=now() where LPAD(Codigo_ADM,10,'0')=LPAD('".$_GET['value']."',10,'0');";	
 		mysqli_query($conexion, $SQL);
-		it_aud('3', 'Ingreso', 'Número de Admisión '.$_GET['value']);
+		it_aud('3', 'Ingreso', 'Nï¿½mero de Admisiï¿½n '.$_GET['value']);
 break;
 
 case  'NoOrden':
 		$MSG= 'Orden de Servicio anulada correctamente.<div class="message_ok"></div>';
 		$SQL="Update gxordenescab set Estado_ORD='0', UsuarioAnula_ORD='".$_SESSION["it_CodigoUSR"]."', FechaAnula_ORD=now() where LPAD(Codigo_ORD,10,'0')=LPAD('".$_GET['value']."',10,'0');";	
 		mysqli_query($conexion, $SQL);
-		it_aud('3', 'Orden de Servicio', 'Número de Orden '.$_GET['value']);
+		it_aud('3', 'Orden de Servicio', 'Nï¿½mero de Orden '.$_GET['value']);
 break;
 
 case  'NoFactura':
@@ -140,7 +140,7 @@ case  'NoFactura':
 			mysqli_free_result($result);
 			$result = mysqli_query($conexion, $SQL);
 			while($row = mysqli_fetch_array($result)) {
-				it_aud('3', 'Factura', 'Número de Factura '.$row[0]);
+				it_aud('3', 'Factura', 'Nï¿½mero de Factura '.$row[0]);
 			}
 		}
 	mysqli_free_result($result);
@@ -152,7 +152,7 @@ case 'Autorizar':
 	mysqli_query($conexion, $SQL);
 	$SQL="Update gxordenescab set Autorizacion_ORD='".$_GET['value2']."' where LPAD(Codigo_ADM,10,'0')=LPAD('".$_GET['value']."',10,'0');";	
 	mysqli_query($conexion, $SQL);
-	it_aud('2', 'Autorizaciones', 'Número de Ingreso '.$_GET['value']);
+	it_aud('2', 'Autorizaciones', 'Nï¿½mero de Ingreso '.$_GET['value']);
 	mysqli_free_result($result);
 break;
 

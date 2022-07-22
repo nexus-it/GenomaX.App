@@ -9,8 +9,13 @@ ini_set('session.gc_maxlifetime', 86400);
 // session_save_path(APP_PARENT_DIR . '/sessions');
 session_start();
 if (!(isset($_GET["nxsdb"]))) {
-	header('Location: enterprise.php');
-	$_GET["prefix"]="demo"; 
+	if (isset($_POST["nxsdb"])) {
+		$_GET["prefix"]=$_POST["nxsdb"]; 
+	}
+	else {
+		header('Location: enterprise.php');
+		$_GET["prefix"]="demo"; 
+	}
 } else {
 	$_GET["prefix"]=$_GET["nxsdb"]; 
 }

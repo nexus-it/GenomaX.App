@@ -88,19 +88,50 @@ session_start();
 
   				</div>
   				<div class="col-md-4">
+				  <?php nxs_chk_lbl('defpass', 'Utilizar clave por defecto', $NumWindow); ?>
   
-  <div class="checkbox checkbox-success">
-	<input name="chk_defpass<?php echo $NumWindow; ?>" id="chk_defpass<?php echo $NumWindow; ?>" type="checkbox" value=""  onclick="javascript:accssdflt<?php echo $NumWindow; ?>();" class="styled">
-	<label for="chk_defpass<?php echo $NumWindow; ?>">Utilizar clave por defecto</label>
-</div>
-<input name="hdn_defaultpass<?php echo $NumWindow; ?>" type="hidden" id="hdn_defaultpass<?php echo $NumWindow; ?>" value="0" />
-
   				</div>
   			</div>
+			<div class="row">
+			<div class="col-md-12">
+
+			<div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive alturahc">
+			<table  width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered" id="tblDetalle<?php echo $NumWindow; ?>" >
+			<tbody id="tbcob<?php echo $NumWindow; ?>">
+			<tr id="trh<?php echo $NumWindow; ?>"> 
+			<th id="th1<?php echo $NumWindow; ?>">Sede</th> 
+			<th id="th2<?php echo $NumWindow; ?>">Area</th> 
+			<th id="th2<?php echo $NumWindow; ?>"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> </th> 
+			</tr> 
+				<?php 
+			$SQL="SELECT a.Codigo_SDE, a.Nombre_SDE, b.Codigo_ARE, b.Nombre_ARE FROM czsedes a, gxareas b WHERE b.Codigo_SDE=a.Codigo_SDE and b.Estado_ARE='1' Order By 2,4";
+			$resulthc = mysqli_query($conexion, $SQL);
+			$contarow=0;
+			while($rowhc = mysqli_fetch_array($resulthc)) 
+				{
+					$contarow=$contarow+1;
+					echo '
+				<tr id="tr'.$contarow.$NumWindow.'">
+				<td align="left"><input name="hdn_sede'.$contarow.$NumWindow.'" type="hidden" id="hdn_sede'.$contarow.$NumWindow.'" value="'.$rowhc[0].'" />'.$rowhc[1].'</td>
+				<td align="left"><input name="hdn_area'.$contarow.$NumWindow.'" type="hidden" id="hdn_area'.$contarow.$NumWindow.'" value="'.$rowhc[2].'" />'.$rowhc[3].'</td>
+				<td>';
+				nxs_chk('sedearea'.$contarow, $NumWindow);
+				echo'</td>
+				</tr>
+				';
+				}
+			mysqli_free_result($resulthc); 
+				?>
+			</tbody>
+			</table><input name="hdn_controw<?php echo $NumWindow; ?>" type="hidden" id="hdn_controw<?php echo $NumWindow; ?>" value="<?php echo $contarow; ?>" />
+			</div>
+
+			</div>
+			</div>
 
 		</div>
 		<div class="col-md-2">
-<?php flush; ?>
+<?php flush(); ?>
   
 	<input name="hdn_users<?php echo $NumWindow; ?>" type="hidden" id="hdn_users<?php echo $NumWindow; ?>" value="<?php echo session_id(); ?>" />
 	<div id="div_foto<?php echo $NumWindow; ?>" class="foto_perfil">

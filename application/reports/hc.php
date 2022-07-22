@@ -421,6 +421,129 @@ function encabezadoz($titulo, $folioint){
 	mysqli_free_result($result0);
 	// Fin encabezado - Datos Personales
 }
+function descQx($Historia, $Folio) {
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$SQL="SELECT a.numqx_HC, a.fechaqx_HC, a.horainiqx_HC, a.horafinqx_HC, a.anestesiaqx_HC, c.Nombre_QRF, d.SOAT_PRC, d.Nombre_PRC, d.CUPS_PRC, a.idmd1_HC, a.idmd2_HC, a.idmd5_HC, a.idmd3_HC, a.idmd4_HC, a.idmd6_HC, a.idmd7_HC, a.idmd8_HC, e.Codigo_DGN, e.Descripcion_DGN, a.dxpos_HC, f.Descripcion_DGN, a.descripcionqx_HC FROM czterceros b, gxquirofanos c, gxprocedimientos d, gxdiagnostico e, hc_qx001 a LEFT JOIN gxdiagnostico f ON a.dxpos_HC= f.Codigo_DGN WHERE c.Codigo_QRF=a.quirofano_HC AND d.Codigo_SER=a.qxproc_HC AND e.Codigo_DGN=a.dxpre_HC and a.Codigo_TER=b.Codigo_TER AND b.ID_TER='".$Historia."' AND a.Codigo_HCF=".$Folio.";";
+	$result0 = mysqli_query($conexion, $SQL);
+	if ($row0 = mysqli_fetch_row($result0)) {
+	 // echo $SQL;
+		$this->SetFillColor(255);
+		$this->Ln();
+		$this->SetFont('Arial','B',10);
+		$this->Cell(0,6,utf8_decode($row0[7]),'BRTL',0,'C',1);
+		$this->Ln();
+
+		$this->SetFont('Arial','',9);
+		$this->Cell(20,5,utf8_decode('Cód. SOAT'),'',0,'L',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(99,5,$row0[6],'',0,'L',1);
+
+		$this->SetFont('Arial','',9);
+		$this->Cell(64,5,utf8_decode('Cód. CUPS'),'',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,$row0[8],'',0,'R',1);
+		$this->Ln();
+		
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Fecha Proc.'),'TBRL',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(48,5,$row0[1],'TBR',0,'L',1);
+		
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Hora Inicial'),'TBR',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,$row0[2],'TBR',0,'L',1);
+
+		$this->Ln();
+		
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Número de Proc.'),'BRL',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(48,5,$row0[0],'BR',0,'L',1);
+
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Hora Final'),'BR',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,$row0[3],'BR',0,'L',1);
+
+		$this->Ln();
+		
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Tipo Anestesia'),'BRL',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(48,5,$row0[4],'BR',0,'L',1);
+
+		$this->SetFont('Arial','',9);
+		$this->Cell(50,5,utf8_decode('Quirófano'),'BR',0,'R',1);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,$row0[5],'BR',0,'L',1);
+
+		$this->Ln();
+		$this->Cell(0,3,'','B',0,'L',0);
+		$this->Ln();
+
+		$this->DatosProf("Cirujano 1", $row0[9]);
+		$this->DatosProf("Cirujano 2", $row0[10]);
+		$this->Ln();
+		$this->DatosProf("Anestesiólogo", $row0[11]);
+		$this->DatosProf("Ayudante 1", $row0[12]);
+		$this->Ln();
+		$this->DatosProf("Ayudante 2", $row0[13]);
+		$this->DatosProf("Ayudante 3", $row0[14]);
+		$this->Ln();
+		$this->DatosProf("Instrumentador", $row0[15]);
+		$this->DatosProf("Otro", $row0[16]);
+		$this->Ln();
+		$this->Cell(0,3,'','T',0,'L',0);
+		$this->Ln();
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,utf8_decode('Diagnóstico PRE Operatorio'),'TRL',0,'L',1);
+		$this->Ln();
+		$this->SetFont('Arial','B',9);
+		$this->Cell(14,5,$row0[17],'L',0,'L',1);
+		$this->SetFont('Arial','',9);
+		$this->Cell(0,5,$row0[18],'R',0,'L',1);
+		$this->Ln();
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,utf8_decode('Diagnóstico POS Operatorio'),'RL',0,'L',1);
+		$this->Ln();
+		$this->SetFont('Arial','B',9);
+		$this->Cell(14,5,$row0[19],'LB',0,'L',1);
+		$this->SetFont('Arial','',9);
+		$this->Cell(0,5,$row0[20],'BR',0,'L',1);
+		$this->Ln();
+		$this->Cell(0,3,'','',0,'L',0);
+		$this->Ln();
+		$this->SetFont('Arial','B',9);
+		$this->Cell(0,5,utf8_decode('DESCRIPCIÓN QUIRÚRGICA'),'LTR',0,'L',1);
+		$this->Ln();
+		$this->SetFont('Arial','',9);
+		$this->MultiCell(0,4,utf8_decode($row0[21]),'RLB','L',1);
+		$this->Ln();
+	}
+	mysqli_free_result($result0);
+
+}
+function DatosProf($Cargo, $Id) {
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$SQL="SELECT Nombre_TER From czterceros Where ID_TER='".$Id."';";
+	$result0T = mysqli_query($conexion, $SQL);
+	if ($row0T = mysqli_fetch_row($result0T)) {
+		$this->SetFont('Arial','B',9);
+		$this->Cell(21,5,utf8_decode($Cargo),'',0,'L',1);
+		$this->SetFont('Arial','',9);
+		$this->Cell(17,5,$Id,'',0,'L',1);
+		$this->Cell(60,5,$row0T[0],'',0,'L',1);
+
+	} else {
+		$this->SetFont('Arial','B',9);
+		$this->Cell(21,5,utf8_decode($Cargo),'',0,'L',1);
+		$this->SetFont('Arial','',8);
+		$this->Cell(17,5,'- - - - - - - - -','',0,'L',1);
+		$this->Cell(60,5,'- - - - - - - - - - - - - - - - - - - - - - - - - -','',0,'L',1);
+
+	}
+}
 function NewItem($Bold, $Titulo) {
 	$this->SetX(10);
 	$this->SetDrawColor(143);
@@ -461,13 +584,13 @@ function loadOdonto($Tercero, $Folio, $Theme) {
 	$simbolos="";
 	mysqli_free_result($resultodont);
 	foreach ($estados as $estado) {
-		error_log($estado);
+		// error_log($estado);
 	    $dientes = explode("_", $estado);
 	    $diente = $dientes[0];
 	    $cara = $dientes[1];
 	    $valor = $dientes[2];
 	    $simbolo = explode("-", $valor);
-	    error_log(substr($diente,1,1));
+	    // error_log(substr($diente,1,1));
 	    switch (substr($diente,1,1)) {
 			case '1':
 				$dienteY=87;
@@ -855,14 +978,14 @@ mysqli_free_result($result1);
 //Datos del folio
 if (isset($_GET["FORMATO"])) {
 	if ($_GET["FORMATO"]=='*') {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT, DescQx_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	} else {
-		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+		$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT, DescQx_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and b.Codigo_HCT='".$_GET["FORMATO"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 	}
 } else {
-	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
+	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT, DescQx_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 }
-error_log($SQL);
+// error_log($SQL);
 $resultx = mysqli_query($conexion, $SQL);
 $kntfolix=0;
 while ($rowx = mysqli_fetch_row($resultx)) {
@@ -1025,6 +1148,9 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		}
 
 		// campos del formato de la hc
+		if ($rowx[39]=="1") {
+		$pdf->descQx($_GET["HISTORIA"], $rowx[1]);
+	} else {
 		$SQL="Select a.* From hc_". $rowx[20]." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$DatosHC = mysqli_fetch_array($resultx2);
@@ -1257,6 +1383,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			
 		}
 		mysqli_free_result($resultx2);
+	} // Fin de campos de HC
 		$pdf->Cell(0,3,"",'',0,'L',1);
 		$pdf->Ln();		
 		// PLUGINS
@@ -1471,7 +1598,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	}
 	// INSUMOS
 	if ($rowx[35]!="0") {
-		$SQL="Select c.Nombre_MED, Cantidad_SER From hcordenesins a, czterceros b, gxmedicamentos c Where a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
+		$SQL="Select c.Nombre_MED, Cantidad_SER, Observaciones_SER From hcordenesins a, czterceros b, gxmedicamentos c Where a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NumIndi=0;
 		while ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -1495,6 +1622,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				$pdf->SetFont('Arial','B',9);
 				$pdf->Cell(170,5,'PRODUCTO ','',0,'C',1);
 				$pdf->Cell(0,5,'CANTIDAD','',0,'C',1);
+				$pdf->Cell(0,5,'CANTIDAD','',0,'C',1);
 				$pdf->SetFillColor(255);
 				$pdf->Ln();
 				
@@ -1505,6 +1633,9 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->SetFont('Courier','B',9);
 			$pdf->Cell(170,4,utf8_decode($rowx2[0]),'B',0,'L',0);
 			$pdf->Cell(0,4,utf8_decode($rowx2[1]),'B',0,'R',0);
+			$pdf->Ln();
+			$pdf->SetFont('Courier','I',8);
+			$pdf->Cell(0,4,utf8_decode($rowx2[2]),'B',0,'L',0);
 			$pdf->Ln();
 			
 			

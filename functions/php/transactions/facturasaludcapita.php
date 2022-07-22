@@ -19,6 +19,7 @@ include '00trnsctns.php';
 	EjecutarSQL($SQL, $conexion);
 	// Servicios 
 	$Consec=LoadConsec("gxservicios", "Codigo_SER", "0", $conexion, "LPAD(Codigo_SER,6,'0')");
+	$Consec="X".$Consec;
 	$SQL="Insert into gxservicios(Codigo_SER, Nombre_SER, Tipo_SER, Codigo_CFC, EdadMinima_SER, EdadMaxima_SER, SexoM_SER, SexoF_SER, Complejidad_SER, Estado_SER) Values ('".$Consec."', '".$_POST["nombreserv"]."', '1', '00', '0',  '43800', '1', '1', '2', '1')";
 	// error_log('Fact Capita: '.$SQL);
 	$ConsecSer=$Consec;

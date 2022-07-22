@@ -12,6 +12,15 @@ if(isset($_POST["filtro"])){
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
+  $showRows=50;
+  $page="1";
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  }
+  $ini=(($page-1)*$showRows)+1;
+  if ($ini=="1") { $ini="0"; }
+  $fin=$page*$showRows;
+  
 ?>
 
 <!--
@@ -45,7 +54,7 @@ $(document).ready(function() {
 });    
 </script>
 -->
-<?php if($_GET['page'] == ""){ ?>
+
 <div class="col-md-12">
 
 	<?php if(isset($_POST["filtro"])==""){ ?><label class="label label-default">Listado de Notas Credito</label><?php }?>
@@ -57,7 +66,7 @@ $(document).ready(function() {
 	  <div class="col-md-12">
 
 <div class="form-group">
-<?php } ?>
+
 <?php
 
 /* $page = $_GET['page'];
@@ -67,14 +76,14 @@ $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
  */
 
-if($ini==''){
+/* if($ini==''){
 //$filtro = '';
 $ini=0;
-$fin=20;
+$fin=100;
 }else{
 	$ini=$_GET['ini'];
 	$fin=$_GET['fin'];
-}
+} */
 
 /* if(isset($page)){
   $ini = ($page - 1) * $rowsPerPage;

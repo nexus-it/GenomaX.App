@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>GenomaX | <?php echo $rpt_titulo; ?> </title>
+  <title><?php echo $_SESSION["NOMBRE_APP"]; ?> | <?php echo $rpt_titulo; ?> </title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <!-- Custom fonts for this template -->

@@ -5,7 +5,7 @@ $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION
 
 $SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='".$_GET["nxsrpt"]."'";
 $result = mysqli_query($conexion, $SQL);
-error_log($SQL);
+// error_log($SQL);
 if ($row = mysqli_fetch_row($result)) {
     $SQL=$row[0];
     $SQL2="Select Campo_RPT From nxs_gnx.itreportsparam Where Codigo_RPT='".$_GET["nxsrpt"]."'";
@@ -19,7 +19,7 @@ mysqli_free_result($result);
 
 $rawdata = array();
  $i=0;
- error_log($SQL);
+ // error_log($SQL);
 $result = mysqli_query($conexion, $SQL);
 while($row = mysqli_fetch_array($result))
 {

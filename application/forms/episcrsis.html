@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title>Epicrisis</title>
+</head>
+<body>
+    <div class="row">
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#tbEpicrisis1<?php echo $NumWindow; ?>"aria-controls="tbEpicrisis1<?php echo $NumWindow; ?>" role="tab" data-toggle="tab">IDENTIFICACION</a>
+            </li>
+            <li role="presentation" >
+                <a href="#tbEpicrisis2<?php echo $NumWindow; ?>"aria-controls="tbEpicrisis2<?php echo $NumWindow; ?>" role="tab" data-toggle="tab">DEL INGRESO</a>
+            </li>
+            <li role="presentation" >
+                <a href="#tbEpicrisis3<?php echo $NumWindow; ?>"aria-controls="tbEpicrisis3<?php echo $NumWindow; ?>" role="tab" data-toggle="tab">DE LA EVOLUCION</a>
+            </li>
+            <li role="presentation">
+                <a href="#tbEpicrisis4<?php echo $NumWindow; ?>"aria-controls="tbEpicrisis4<?php echo $NumWindow; ?>" role="tab" data-toggle="tab">DEL EGRESO</a>
+            </li>
+        </ul>
+        <form>
+            <div id="divEpicrisis<?php echo $NumWindow; ?>" class="col-md-12 tab-content">
+
+                <div id="tbEpicrisis1<?php echo $NumWindow; ?>" class="row tab-pane fade in active" role="tabpanel">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered">
+                                <tbody>
+
+                                    <tr class="col-12">
+                                        <td >
+                                           <span>Linea de Pago</span>
+                                           <input type="text" class="form-control" id="txt_Epicrisis1lp<?php echo $NumWindow; ?>" name="txt_Epicrisis1lp<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td colspan="6">
+                                            <div style="display:flex ;">
+                                                <div style="width:40%;">
+                                                    <span>Tipo de Documento</span>
+                                                    <select  class="form-control" id="txt_Epicrisis1td<?php echo $NumWindow; ?>" name="txt_Epicrisis1td<?php echo $NumWindow; ?>">
+                                                        <option hidden selected>Selecciona</option>
+                                                        <option value="CC">C.C</option>
+                                                        <option value="TI">T.I</option>
+                                                        <option value="PA">PA</option>
+                                                        <option value="CE">C.E</option>
+                                                        <option value="RC">R.C</option>
+                                                        <option value="NUIF">NUIF</option>
+                                                        <option value="MS">MS</option>
+                                                        <option value="AS">AS</option>
+                                                        <option value="D">D</option>
+                                                    </select>
+                                                </div>
+                                                <div style="width:60%;">
+                                                    <span>No.</span>
+                                                    <input type="text" class="form-control" id="txt_Epicrisis1tdn<?php echo $NumWindow; ?>" name="txt_Epicrisis1tdn<?php echo $NumWindow; ?>">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="col-12">
+                                        <td style="width:33%;">
+                                            <span>Primer Apellido</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis1pa<?php echo $NumWindow; ?>" name="txt_Epicrisis1pa<?php echo $NumWindow; ?>"/>
+                                        </td>
+                                        <td style="width:33%;">
+                                            <span>Segundo Apellido</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis1sa<?php echo $NumWindow; ?>" name="txt_Epicrisis1sa<?php echo $NumWindow; ?>"/>
+                                        </td>
+                                        <td style="width:33%;">
+                                            <span>Nombres</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis1n<?php echo $NumWindow; ?>" name="txt_Epicrisis1ln<?php echo $NumWindow; ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="col-12">
+                                        <td>
+                                            <span>Edad</span>
+                                            <div style="display:flex ;">
+                                                <input type="text" class="form-control" placeholder="Años" id="txt_Epicrisis1anos<?php echo $NumWindow; ?>" name="txt_Epicrisis1anos<?php echo $NumWindow; ?>"/>
+                                                <input type="text" class="form-control" placeholder="Meses" id="txt_Epicrisis1meses<?php echo $NumWindow; ?>" name="txt_Epicrisis1meses<?php echo $NumWindow; ?>"/>
+                                                <input type="text" class="form-control" placeholder="Dias" id="txt_Epicrisis1dias<?php echo $NumWindow; ?>" name="txt_Epicrisis1dias<?php echo $NumWindow; ?>"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span>Sexo</span>
+                                            <div>
+                                               <select name="" id="" class="form-control" id="txt_Epicrisis1sexo<?php echo $NumWindow; ?>" name="txt_Epicrisis1sexo<?php echo $NumWindow; ?>" >
+                                                   <option hidden selected>Selecciona</option>
+                                                   <option value="m">M</option>
+                                                   <option value="f">F</option>
+                                               </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <div>
+                                                    <span> Fecha Ingreso</span>
+                                                    <div style="display:flex ;">
+                                                       <input type="date" class="form-control" placeholder="Años" id="txt_Epicrisis1ianos<?php echo $NumWindow; ?>" name="txt_Epicrisis1ianos<?php echo $NumWindow; ?>"/>
+                                                       <input type="time" class="form-control" placeholder="Meses" id="txt_Epicrisis1imeses<?php echo $NumWindow; ?>" name="txt_Epicrisis1imeses<?php echo $NumWindow; ?>"/>
+                                                       <input type="text" class="form-control" placeholder="Servicio" id="txt_Epicrisis1iservicio<?php echo $NumWindow; ?>" name="txt_Epicrisis1iservicio<?php echo $NumWindow; ?>" >
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span> Fecha Egreso</span>
+                                                    <div style="display:flex ;">
+                                                       <input type="date" class="form-control" placeholder="Fecha" id="txt_Epicrisis1eanos<?php echo $NumWindow; ?>" name="txt_Epicrisis1eanos<?php echo $NumWindow; ?>"/>
+                                                       <input type="time" class="form-control" placeholder="Hora" id="txt_Epicrisis1emeses<?php echo $NumWindow; ?>" name="txt_Epicrisis1emeses<?php echo $NumWindow; ?>"/>
+                                                       <input type="text" class="form-control" placeholder="Servicio" id="txt_Epicrisis1eservicio<?php echo $NumWindow; ?>" name="txt_Epicrisis1eservicio<?php echo $NumWindow; ?>" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tbEpicrisis2<?php echo $NumWindow; ?>" class="row tab-pane fade" role="tabpanel">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Motivo de Consulta</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis2mc<?php echo $NumWindow; ?>" name="txt_Epicrisis2mc<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Enfermdad Actual y Antecedentes Pertinentes</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis2eaap<?php echo $NumWindow; ?>" name="txt_Epicrisis2eaap<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Examen Fisico de Ingreso (Hallazgos Positivos)</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis2efi<?php echo $NumWindow; ?>" name="txt_Epicrisis2efi<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Revision de Sistemas (Hallazgos Positivos)</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis2rs<?php echo $NumWindow; ?>" name="txt_Epicrisis2rs<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div style="text-align:center;">
+                                                <p>DIAGNOSTICO DE INGRESO</p>
+                                                <p>Escriba primero el diagnostico principal, luego/ el /los diagnósticos relacionados con el principal y al final/los no relacionados - si aplica.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis2cc10<?php echo $NumWindow; ?>" name="txt_Epicrisis2cc10<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td>
+                                            <span>Diagnostico</span>
+                                            <select  class="form-control" id="txt_Epicrisis2dx<?php echo $NumWindow; ?>" name="txt_Epicrisis2dx<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Principal</option>
+                                                <option value="">Relacionado</option>
+                                                <option value="">No Relacionado</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis2pc<?php echo $NumWindow; ?>" name="txt_Epicrisis2pc<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Presuntivo</option>
+                                                <option value="">Confirmado</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis2cc101<?php echo $NumWindow; ?>" name="txt_Epicrisis2cc101<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td>
+                                            <span>Diagnostico</span>
+                                            <select  class="form-control" id="txt_Epicrisis2dx1<?php echo $NumWindow; ?>" name="txt_Epicrisis2dx1<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Principal</option>
+                                                <option value="">Relacionado</option>
+                                                <option value="">No Relacionado</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis2pc1<?php echo $NumWindow; ?>" name="txt_Epicrisis2pc1<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Presuntivo</option>
+                                                <option value="">Confirmado</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis2cc102<?php echo $NumWindow; ?>" name="txt_Epicrisis2cc102<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td>
+                                            <span>Diagnostico</span>
+                                            <select  class="form-control" id="txt_Epicrisis2dx2<?php echo $NumWindow; ?>" name="txt_Epicrisis2dx2<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Principal</option>
+                                                <option value="">Relacionado</option>
+                                                <option value="">No Relacionado</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis2pc2<?php echo $NumWindow; ?>" name="txt_Epicrisis2pc2<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Presuntivo</option>
+                                                <option value="">Confirmado</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis2cc103<?php echo $NumWindow; ?>" name="txt_Epicrisis2cc103<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td>
+                                            <span>Diagnostico</span>
+                                            <select  class="form-control" id="txt_Epicrisis2dx3<?php echo $NumWindow; ?>" name="txt_Epicrisis2dx3<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Principal</option>
+                                                <option value="">Relacionado</option>
+                                                <option value="">No Relacionado</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select class="form-control" id="txt_Epicrisis2pc3<?php echo $NumWindow; ?>" name="txt_Epicrisis2pc3<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="">Presuntivo</option>
+                                                <option value="">Confirmado</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tbEpicrisis3<?php echo $NumWindow; ?>"  class="row tab-pane fade"  role="tabpanel">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;">
+                                            <p>Incluir los resultados de exámenes, accidentes, eventos adversos y complicaciones que generaron un cambio en el manejo</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Fecha</span>
+                                            <input type="date" class="form-control" id="txt_Epicrisis3fecha<?php echo $NumWindow; ?>" name="txt_Epicrisis3fecha<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:80%;">
+                                            <span>Evolucion</span>
+                                            <input type="text"class="form-control" id="txt_Epicrisis3evo<?php echo $NumWindow; ?>" name="txt_Epicrisis3evo<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Fecha</span>
+                                            <input type="date" class="form-control" id="txt_Epicrisis3fecha1<?php echo $NumWindow; ?>" name="txt_Epicrisis3fecha1<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:80%;">
+                                            <span>Evolucion</span>
+                                            <input type="text"class="form-control" id="txt_Epicrisis3evo1<?php echo $NumWindow; ?>" name="txt_Epicrisis3evo1<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Fecha</span>
+                                            <input type="date" class="form-control" id="txt_Epicrisis3fecha2<?php echo $NumWindow; ?>" name="txt_Epicrisis3fecha2<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:80%;">
+                                            <span>Evolucion</span>
+                                            <input type="text"class="form-control" id="txt_Epicrisis3evo2<?php echo $NumWindow; ?>" name="txt_Epicrisis3evo2<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Fecha</span>
+                                            <input type="date" class="form-control" id="txt_Epicrisis3fecha3<?php echo $NumWindow; ?>" name="txt_Epicrisis3fecha3<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:80%;">
+                                            <span>Evolucion</span>
+                                            <input type="text"class="form-control" id="txt_Epicrisis3evo3<?php echo $NumWindow; ?>" name="txt_Epicrisis3evo3<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Procedimientos quirurgicos u obstetricos:</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis3pqo<?php echo $NumWindow; ?>" name="txt_Epicrisis3pqo<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Tratamiento Medico:</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis3tmm<?php echo $NumWindow; ?>" name="txt_Epicrisis3tmm<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tbEpicrisis4<?php echo $NumWindow; ?>" class="row tab-pane fade" role="tabpanel">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table width="99%" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;">
+                                            <p>DIAGNOSTICOS DE EGRESO EN PACIENTE VIVO</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select class="form-control" id="txt_Epicrisis4pc<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc10<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc10<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select class="form-control" id="txt_Epicrisis4pc1<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc1<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx1<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx1<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc101<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc101<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis4pc2<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc2<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx2<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx2<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc102<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc102<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select name="" id="" class="form-control" id="txt_Epicrisis4pc3<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc3<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx3<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx3<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc103<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc103<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Otro no relacionado con el principal:    :</span>
+                                            <textarea rows="3" class="form-control" id="txt_JCSautorizacion3<?php echo $NumWindow; ?>" name="txt_JCSautorizacion3<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>PLAN DE MANEJO AMBULATORIO:</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis4pma<?php echo $NumWindow; ?>" name="txt_Epicrisis4pma<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>INCAPACIDAD FUNCIONAL (Escriba los días en letras y números):  </span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis4if<?php echo $NumWindow; ?>" name="txt_Epicrisis4if<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;">
+                                            <p>DIAGNOSTICOS DE EGRESO EN PACIENTE FALLECIDO</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis4pc4<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc4<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx4<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx4<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc104<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc104<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select class="form-control" id="txt_Epicrisis4pc5<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc5<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control"  id="txt_Epicrisis4dx5<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx5<?php echo $NumWindow; ?>"> 
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc105<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc105<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control" id="txt_Epicrisis4pc6<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc6<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx6<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx6<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc106<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc106<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span>Presuntivo/Confirmado</span>
+                                            <select  class="form-control"id="txt_Epicrisis4pc7<?php echo $NumWindow; ?>" name="txt_Epicrisis4pc7<?php echo $NumWindow; ?>">
+                                                <option hidden selected>Selecciona</option>
+                                                <option value="causa inmediata">Causa Inmediata</option>
+                                                <option value="originado por">Originado Por</option>
+                                            </select>
+                                        </td>
+                                        <td style="width:60%;">
+                                            <span>Diagnostico</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4dx7<?php echo $NumWindow; ?>" name="txt_Epicrisis4dx7<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td style="width:20%;">
+                                            <span>Codigo CIE-10</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4cc107<?php echo $NumWindow; ?>" name="txt_Epicrisis4cc107<?php echo $NumWindow; ?>">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>Otro no relacionado con el principal:    :</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis4orp<?php echo $NumWindow; ?>" name="txt_Epicrisis4orp<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <span>PLAN DE MANEJO AMBULATORIO:</span>
+                                            <textarea rows="3" class="form-control" id="txt_Epicrisis4pma2<?php echo $NumWindow; ?>" name="txt_Epicrisis4pma2<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="col-12">
+                                        <td class="col-6">
+                                            <span>Fecha</span>
+                                            <input type="date" class="form-control" id="txt_Epicrisis4fecha2<?php echo $NumWindow; ?>" name="txt_Epicrisis4fecha2<?php echo $NumWindow; ?>">
+                                        </td>
+                                        <td>
+                                            <span>Nombre MD que diligencio Epicrisis</span>
+                                            <input type="text" class="form-control" id="txt_Epicrisis4nme<?php echo $NumWindow; ?>" name="txt_Epicrisis4nme<?php echo $NumWindow; ?>">
+                                            <div>
+                                                <span>Registro Medico</span>
+                                                <input type="text" class="form-control" id="txt_Epicrisis4reg<?php echo $NumWindow; ?>" name="txt_Epicrisis4reg<?php echo $NumWindow; ?>">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span>Firma</span>
+                                            <textarea rows="5" class="form-control" id="txt_Epicrisis4firma<?php echo $NumWindow; ?>" name="txt_Epicrisis4firma<?php echo $NumWindow; ?>"></textarea>
+                                        </td>
+                                       
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $("input[type=text]").addClass("form-control");
+        $("input[type=password]").addClass("form-control");
+        $("textarea").addClass("form-control");
+        $("select").addClass("form-control");
+        $("input[type=date]").addClass("form-control");
+        $("input[type=number]").addClass("form-control");
+        $("input[type=time]").addClass("form-control");
+    </script>
+    
+
+</body>
+</html>

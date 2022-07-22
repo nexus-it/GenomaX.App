@@ -123,7 +123,7 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-1">
 
 	<div class="form-group">
 	  <label for="txt_cantidad<?php echo $NumWindow; ?>">Cantidad</label>
@@ -131,11 +131,32 @@ session_start();
 	</div>
 
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-1">
 
 	<div class="form-group">
 	  <label for="txt_valorpaciente<?php echo $NumWindow; ?>">Val. Pcte.</label>
 	  <input name="txt_valorpaciente<?php echo $NumWindow; ?>" type="number"  id="txt_valorpaciente<?php echo $NumWindow; ?>"  style="font-size:14px; font-weight: bold; color:#0E5012; "  onchange="CalTotFact<?php echo $NumWindow; ?>();" value="0">
+	</div>
+
+		</div>
+		<div class="col-md-2">
+
+	<div class="form-group">
+	  <label for="cmb_iva<?php echo $NumWindow; ?>">IVA</label>
+	  <select name="cmb_iva<?php echo $NumWindow; ?>" id="cmb_iva<?php echo $NumWindow; ?>" onchange="CalTotFact<?php echo $NumWindow; ?>();">
+    <?php 
+	$SQL="Select Porcentaje_IVA, Nombre_IVA From czimpuestos Where Estado_IVA='1' Order By Porcentaje_IVA";
+	$result = mysqli_query($conexion, $SQL);
+	while($row = mysqli_fetch_array($result)) 
+	{
+ 	?>
+    	<option value="<?php echo $row[0]; ?>"><?php echo ($row[1]); ?></option>
+    <?php
+	}
+	mysqli_free_result($result); 
+ 	?>
+	  </select>
+	  <input name="txt_valoriva<?php echo $NumWindow; ?>" type="hidden" id="txt_valoriva<?php echo $NumWindow; ?>" value="0" />
 	</div>
 
 		</div>
@@ -200,10 +221,14 @@ function onblurservicio<?php echo $NumWindow; ?>(valor) {
 }
 
 function CalTotFact<?php echo $NumWindow; ?>() {
+	porciva=document.getElementById("cmb_iva<?php echo $NumWindow; ?>").value;
 	valuni=document.getElementById("txt_valorservicio<?php echo $NumWindow; ?>").value;
 	cantidad=document.getElementById("txt_cantidad<?php echo $NumWindow; ?>").value;
 	pacientes=document.getElementById("txt_valorpaciente<?php echo $NumWindow; ?>").value;
-	document.getElementById("txt_valfactura<?php echo $NumWindow; ?>").value=(valuni*cantidad)-pacientes;
+	valiva=(porciva/100)*(parseInt(valuni)*parseInt(cantidad));
+	document.getElementById("txt_valoriva<?php echo $NumWindow; ?>").value=valiva;
+	
+	document.getElementById("txt_valfactura<?php echo $NumWindow; ?>").value=parseInt(valuni*cantidad)-parseInt(pacientes)+parseInt(valiva);
 }
 
 <?php

@@ -222,6 +222,12 @@ mysqli_free_result($result);
 </select>
 </div>
 	</div>
+	<div class="col-md-4">
+<div class="form-group">
+<label for="txt_nombresoat<?php echo $NumWindow; ?>">Nombre SOAT</label>
+<input name="txt_nombresoat<?php echo $NumWindow; ?>" type="text" id="txt_nombresoat<?php echo $NumWindow; ?>" >
+</div>
+	</div>
 	
 
 	</div>
@@ -428,7 +434,7 @@ ProcQx('<?php echo $NumWindow; ?>', '0');
 	
 	//colocar aca el llenado de campos para tiposervicio=1
 	if ($TipoServ=="1") {
-		$SQL="Select CUPS_PRC, ISS2001_PRC, ISS2000_PRC, SOAT_PRC, MAPIPOS_PRC, UVR_PRC, GRUPOSOAT_PRC, Procedimiento_PRC, UVRMin_PRC, UVRMax_PRC, Sala_PRC, Material_PRC, Especialista_PRC, Anestesiologo_PRC, Ayudante_PRC, PuntosSOAT_PRC, Tercerizar_PRC from gxprocedimientos where LPAD(Codigo_SER,6,'0')=LPAD('".$_GET["Servicio"]."',6,'0')";
+		$SQL="Select CUPS_PRC, ISS2001_PRC, ISS2000_PRC, SOAT_PRC, MAPIPOS_PRC, UVR_PRC, GRUPOSOAT_PRC, Procedimiento_PRC, UVRMin_PRC, UVRMax_PRC, Sala_PRC, Material_PRC, Especialista_PRC, Anestesiologo_PRC, Ayudante_PRC, PuntosSOAT_PRC, Tercerizar_PRC, NombreSOAT_PRC from gxprocedimientos where LPAD(Codigo_SER,6,'0')=LPAD('".$_GET["Servicio"]."',6,'0')";
 		$result = mysqli_query($conexion, $SQL);
 		if($row = mysqli_fetch_array($result)) {
 		$rdntipo='0';
@@ -457,6 +463,7 @@ ProcQx('<?php echo $NumWindow; ?>', '0');
 			document.frm_form".$NumWindow.".cmb_tercerizar".$NumWindow.".value='".$row[16]."';
 			document.frm_form".$NumWindow.".txt_uvrmax".$NumWindow.".value='".$row[9]."';
 			document.frm_form".$NumWindow.".txt_puntossoat".$NumWindow.".value='".$row[15]."';
+			document.frm_form".$NumWindow.".txt_nombresoat".$NumWindow.".value='".$row[17]."';
 		";
 		}
 		mysqli_free_result($result); 

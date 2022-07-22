@@ -21,7 +21,7 @@ include '00trnsctns.php';
 				$serviciosqz=', 1';
 			}
 		}
-		$SQL="Replace into gxprocedimientos(Codigo_SER, Nombre_PRC, CUPS_PRC, ISS2001_PRC, ISS2000_PRC, SOAT_PRC, MAPIPOS_PRC, Procedimiento_PRC, UVR_PRC, GRUPOSOAT_PRC, PuntosSOAT_PRC, Tercerizar_PRC, UVRMin_PRC, UVRMax_PRC".$serviciosqx.") VALUES ('".$Consec."', '".$_POST['nombre']."', '".$_POST['cups2']."', '".$_POST['iss2001']."', '".$_POST['iss2000']."', '".$_POST['soat']."', '".$_POST['mapipos']."',".$_POST['quirurgico'].", ".$_POST['uvr'].", ".$_POST['gruposoat'].", ".$_POST['puntossoat'].", ".$_POST['tercerizar'].", ".$_POST['uvrmin'].", ".$_POST['uvrmax'].$serviciosqz.")";
+		$SQL="Replace into gxprocedimientos(Codigo_SER, Nombre_PRC, NombreSOAT_PRC, CUPS_PRC, ISS2001_PRC, ISS2000_PRC, SOAT_PRC, MAPIPOS_PRC, Procedimiento_PRC, UVR_PRC, GRUPOSOAT_PRC, PuntosSOAT_PRC, Tercerizar_PRC, UVRMin_PRC, UVRMax_PRC".$serviciosqx.") VALUES ('".$Consec."', '".$_POST['nombre']."', '".$_POST['nombresoat']."', '".$_POST['cups2']."', '".$_POST['iss2001']."', '".$_POST['iss2000']."', '".$_POST['soat']."', '".$_POST['mapipos']."',".$_POST['quirurgico'].", ".$_POST['uvr'].", ".$_POST['gruposoat'].", ".$_POST['puntossoat'].", ".$_POST['tercerizar'].", ".$_POST['uvrmin'].", ".$_POST['uvrmax'].$serviciosqz.")";
 		EjecutarSQL($SQL, $conexion);
 	}
 	if ($_POST['tiposervicio']=="3") {

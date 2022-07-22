@@ -36,6 +36,10 @@ while($row = mysqli_fetch_array($result)) {
 	$value="";
 	$clase="";
 	$enabled="";
+	$autoFill="";
+	if (substr($row["Campo_RPT"],-8)=="_INICIAL") {
+		$autoFill=' onblur="printIni'.$NumWindow.'(\''.substr($row["Campo_RPT"],0,strlen($row["Campo_RPT"])-8).'\')"';
+	}
 	if ($row["Value_RPT"]!=" ") {
 		$value=$row["Value_RPT"];
 		eval ($value);
@@ -121,7 +125,7 @@ while($row = mysqli_fetch_array($result)) {
 		if ($row["Search_RPT"]!="") {
 			echo '<div class="input-group">';
 		}
-  		echo '<input type="'.$type.'" name="txt_'.$row["Campo_RPT"].$NumWindow.'" id="txt_'.$row["Campo_RPT"].$NumWindow.'" class="form-control '.$clase.$NumWindow.'" value="'.$value.'"  '.$enabled.' ';
+  		echo '<input type="'.$type.'" name="txt_'.$row["Campo_RPT"].$NumWindow.'" id="txt_'.$row["Campo_RPT"].$NumWindow.'" class="form-control '.$clase.$NumWindow.'" value="'.$value.'"  '.$autoFill.$enabled.' ';
   		eval($row["Script_RPT"]);
 	    echo '>';
 	    if ($row["Search_RPT"]!="") {
@@ -203,7 +207,14 @@ function upd_mesfincot<?php echo $NumWindow; ?>()
 	
 $('#txt_MES_FINAL<?php echo $NumWindow; ?>').value=mes1-totalmeses-1;
 }
-
+function printIni<?php echo $NumWindow; ?>(Tipo)
+{
+	valIni=document.getElementById('txt_'+Tipo+'_INICIAL<?php echo $NumWindow; ?>').value;
+	valFin=document.getElementById('txt_'+Tipo+'_FINAL<?php echo $NumWindow; ?>').value;
+	if (valFin=="") {
+		document.getElementById('txt_'+Tipo+'_FINAL<?php echo $NumWindow; ?>').value=valIni;
+	}
+}
 function rptpreview<?php echo $NumWindow; ?>(Pagina)
 {
 	$('#iframecont<?php echo $NumWindow; ?>').css("opacity",".5");

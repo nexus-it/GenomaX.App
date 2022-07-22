@@ -12,6 +12,15 @@ if(isset($_POST["filtro"])){
 	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
+  $showRows=50;
+  $page="1";
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  }
+  $ini=(($page-1)*$showRows)+1;
+  if ($ini=="1") { $ini="0"; }
+  $fin=$page*$showRows;
+  
 ?>
 
 <!--
@@ -67,14 +76,14 @@ $offset = ($page - 1) * $rowsPerPage;
 sleep(1);
  */
 
-if($ini==''){
+/* if($ini==''){
 //$filtro = '';
 $ini=0;
-$fin=20;
+$fin=100;
 }else{
 	$ini=$_GET['ini'];
 	$fin=$_GET['fin'];
-}
+} */
 
 /* if(isset($page)){
   $ini = ($page - 1) * $rowsPerPage;
@@ -233,8 +242,27 @@ function putSendNC(notacredito){
 
               success: function (data) {
                 
+                obj = JSON.parse(data);
+                //showProgress("0", factura)
                 //$("#resultadoEnvioFacturaCapita").html("Factura Enviada con exito")
-                $("#resultadoEnvioND").html(data)
+
+                if(obj['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'] == 'false'){
+                  $("#resultadoEnvioNC").html(obj['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']['string'])
+                  //NoCuFE(factura,obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']+'"<br> "'+obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string'])
+                }else{
+                  if(obj['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage']=="Documento con errores en campos mandatorios") {
+                    //NoCuFE(factura, obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string']);
+                  }
+                } 
+                 MsgBox1('Envío de Nota correcto',obj['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage']);
+                //$("#resultadoEnvioNC").html(data)
+
+
+
+
+                //$("#resultadoEnvioFacturaCapita").html("Factura Enviada con exito")
+                //$("#resultadoEnvioND").html(data)
+
 
               },
               error: function() { 

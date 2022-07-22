@@ -293,9 +293,12 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		$tamEspacio=4;
 	}
 	while ($row = mysqli_fetch_row($result)) {
-		$pdf->SetFont('Arial','',$tamLetra);
+		$pdf->SetFont('Helvetica','',$tamLetra);
 		$pdf->Cell(160,$tamEspacio,utf8_decode($row[0]),'',0,'L',0);
-		$pdf->Cell(0,$tamEspacio,utf8_decode(strtoupper($row[1])),'',0,'R',0);
+		error_log('fpdf: '.$row[1]);
+		//$pdf->Cell(0,$tamEspacio,utf8_decode(strtoupper(iconv("UTF-8", "windows-1252",$row[1]))),'',0,'R',0); 
+		//$pdf->Cell(0,$tamEspacio,strtoupper(html_entity_decode(utf8_decode(htmlentities($row[1])))),'',0,'R',0); 
+		$pdf->Cell(0,$tamEspacio,strtoupper(utf8_decode($row[1])),'',0,'R',0); 
 		$pdf->Ln();
 		
 	}
@@ -306,15 +309,15 @@ while ($rowH = mysqli_fetch_row($resultH)) {
     $resultqr = mysqli_query($conexion, $SQL);
 	if ($rowqr = mysqli_fetch_row($resultqr)) {
 	
-		$tempDir = '';      
+		$tempDir = "qr/";      
 	    $codeContents = 'http://verify.klud.axistravellers.com/?qr='.$rowqr[0]; 
-	     
+	    
 	    // we need to generate filename somehow,  
 	    // with md5 or with database ID used to obtains $codeContents... 
 	    $fileName = '_qrkl_'.$rowqr[0].'.png'; 
 	     
 	    $pngAbsoluteFilePath = $tempDir.$fileName; 
-	    $urlRelativeFilePath = ''.$fileName; 
+	    $urlRelativeFilePath = 'qr/'.$fileName; 
 	     
 	    // generating 
 	    //if (!file_exists($pngAbsoluteFilePath)) { 
@@ -322,8 +325,8 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	    //} 
 	     
 	    // displaying 
-	    $pdf->Image($urlRelativeFilePath,22,231,27);
-	    $pdf->Image('../../qrverify.jpg',12,234,0);
+	    $pdf->Image($urlRelativeFilePath,22,236,27);
+	    $pdf->Image('../../qrverify.jpg',12,239,0);
 	}
 	mysqli_free_result($resultqr);
 	// Enunciado Pie de Poliza

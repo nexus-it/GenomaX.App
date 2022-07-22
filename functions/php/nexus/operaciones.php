@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(E_ERROR | E_PARSE);
 session_start();
 date_default_timezone_set('America/Bogota');
@@ -131,18 +131,18 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
             $Consecutivo = preg_replace('/[^0-9]/', '', $string);
             $cadena = explode($Consecutivo,$string);
             $Pref = $cadena[0];
-            $btnedit='onclick="CargarForm(\'application/'.$row[0].'?Ingreso='.$row[4].'\', \''.$row[1].'\', \''.$row[2].'\'); AddFavsForm(\''.$row[0].'\'); "'; 
+             $btnedit='onclick="CargarForm(\'application/forms/editdocumentosoporte.php?documento='.$row[0].'\', \''.$row[0].'\', \''.$row[0].'\'); AddFavsForm(\''.$row[0].'\'); "'; 
             $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
             $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
             $btnxml='onclick="descargaFactXml(\''.$row[0].'\'); "';
             $btnprint=' title="Vista previa Documento '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptDocSop(\''.$Consecutivo.'\')"';
-            if($row[5] != '0'){
+            /*if($row[5] != '0'){
                $sendInvoice = ' disabled="disabled" title="Documento Enviado" ';
                $sendMail = ' ';
             }else{
                $sendInvoice = ' ';
                $sendMail = ' disabled="disabled" title="Mail Enviado" ';
-            }
+            }*/
             $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
                <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>';
                //<button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
@@ -171,7 +171,7 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
       echo $html;
 
 	} else {
-		echo '<span class="error">No se pudo acceder informacion de facturacion.</span>';
+		echo '<span class="error">No se pudo acceder informacion de Documentos soporte o no existe ninguno.</span>';
 	}
 	mysqli_free_result($result);
 }
@@ -184,12 +184,15 @@ function listarFacturas($filtro,$ini,$fin){
   INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
+
+  //echo $SQL;
   
   if($filtro <> ''){
    $SQL .=  $filtro; 
   }
   $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
   error_log($SQL);
+  //echo $SQL;
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -226,7 +229,8 @@ function listarFacturas($filtro,$ini,$fin){
             $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
             $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
-            $btnxml='href="https://backend.estrateg.com/API/storage/app/public/900993679/FE-'.$row[0].'.xml" download="FE-'.$row[0].'.xml"';
+            //$btnxml='href="https://backend.estrateg.com/API/storage/app/public/900993679/FE-'.$row[0].'.xml" download="FE-'.$row[0].'.xml"';
+            $btnxml='onclick="descargarFacturaXml(\''.$row[5].'\', \''.$row[0].'\'); "';
             $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice(\''.$Pref.'\',\''.$Consecutivo.'\')"';
             if($row[5] != '0'){
                $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
@@ -323,25 +327,25 @@ function contarFacts($filtro, $pag, $ShowReg) {
 
 function listarNotasCredito($filtro,$ini,$fin){
    
-   if($ini == ''){
+  /*  if($ini == ''){
       $ini=0;
    }
    if($fin <> 20){
       $ini=$fin;
       $fin=20;
-   }
+   } */
 
    $html="";	
 
-  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesenc t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT";
+  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesenc t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT and t5.Naturaleza_NCT = 'C'";
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
   
   if($filtro <> ''){
    $SQL .=  " where T5.Codigo_NCT = '$filtro' "; 
   }
-  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit 0,20  ";
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit $ini,$fin  ";
 
-  
+  //echo $SQL;
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -349,6 +353,131 @@ function listarNotasCredito($filtro,$ini,$fin){
       	$html = '<tr>
             <th>Notas Credito</th>
             <th>Fecha NC</th>
+				<th>Factura</th>
+				<th>Fecha</th>
+				<th>Paciente / Cliente</th>
+				<th>Entidad</th>
+				<th colspan="2">Estados</th>
+			</tr>';
+		$html .= '<tbody class="row items">';
+
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $result4 = mysqli_query($conexion, $SQL_m);
+      $row4 = mysqli_fetch_row($result4);
+      $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
+      while($row = mysqli_fetch_array($result)){
+            $html .= '<tr class="item">';
+            $html .= '<td> '.($row['Codigo_NCT']).'</td>';
+            $html .= '<td> '.($row['Fecha_NCT']).'</td>';
+            $html .= '<td> '.($row[1]).'</td>';
+            $html .= '<td> '.($row['Fecha_FAC']).'</td>'; 
+            $html .= '<td> '.($row['Nombre_TER']).'</td>';
+            $html .= '<td> '.($row['Nombre_EPS']).'</td>';
+
+            $cadnit = explode("-",verficarEmpresaReg());
+            //$cadfac = explode("-",$row[1]);
+            $cufe = ValidarCUfe($cadnit[0],'NC',$row['Codigo_NCT']);
+            //print_r("cufe=".$cufe);exit();
+            if($cufe  <> ''){
+
+               $sql_update = "update cznotascontablesenc Set IdFE_FAC='".$cufe."' where Codigo_NCT='".$row['Codigo_NCT']."' and (IdFE_FAC IS NULL or IdFE_FAC = '1' or IdFE_FAC = '');";
+               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+               mysqli_query ($conexion, $sql_update);
+               
+               $sendInvoice = ' disabled="disabled" title="Nota Credito Enviada" ';
+               $sendMail = ' ';
+            }else{
+               $sendInvoice = ' ';
+               $sendMail = ' disabled="disabled" title="Mail Enviado" ';
+            }
+
+            /*
+            $string = str_replace(' ','',str_replace('-',' ',$row['Codigo_NCT']));
+            $Consecutivo = preg_replace('/[^0-9]/', '', $string);
+            $cadena = explode($Consecutivo,$string);
+            $Pref = $cadena[0];
+            */
+            $Consecutivo =$row['Codigo_NCT'];
+            $Pref = 'NC';
+            $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $btnsend='onclick="putSendNC(\''.$row['Codigo_NCT'].'\'); "';
+            $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row['Codigo_NCT'].'\'); "';
+            $btnxml='onclick="descargaFactXml(\''.$row['Codigo_NCT'].'\'); "';
+            $btnprint=' title="Vista previa NC '.$row['Codigo_NCT'].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptNC(\''.$Pref.'\',\''.$Consecutivo.'\')"';
+            
+
+            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
+            <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-success" '.$btnxml.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
+            </div>
+            <div class="progress" style="display: none; margin-top: 0px;" name="prgFE'.($row[0]).'" id="prgFE'.($row[0]).'"> <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 99%; height: 16px; margin-top: 0px;"> <span class="sr-only">Enviando Factura</span> </div></div>
+            ';
+            $html .= '<td align="center">'.$botonera.'</td>'; 
+
+
+            if($url == 'existe'){
+               //$html .= '<td><i title="Nota Credito Enviada" class="fa fa-paper-plane"></i></td>';
+            }else{
+               //$html .= '<td> <a title="Enviar Nota Credito a la DIAN" href="#" class="enviarnotacreditodian" data="'.$row['Codigo_NCT'].'"><i class="fa fa-paper-plane"></i></a><div id="resultadoEnvioNC"></div> </td>';
+            }
+
+            $html .= '</tr>';
+      }
+      $html .= '</tbody>';
+
+      echo $html;
+
+      /* $SQL1="SELECT count(*) as conteo FROM gxfacturas t1 
+      INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
+      INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
+      INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
+      $conexion=conexion();
+      $result1 = mysqli_query($conexion, $SQL1);
+      if($row1 = mysqli_fetch_row($result1)) {
+          $conteo =  $row1[0];
+      }
+      mysqli_free_result($result);
+      return $conteo; */
+   
+
+	} else {
+		echo '<span class="error">No se pudo acceder a la versión del sistema.</span>';
+	}
+	mysqli_free_result($result);	
+}
+
+
+function listarNotasDebito($filtro,$ini,$fin){
+   
+  /*  if($ini == ''){
+      $ini=0;
+   }
+   if($fin <> 20){
+      $ini=$fin;
+      $fin=20;
+   } */
+
+   $html="";	
+
+  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesend t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT and t5.Naturaleza_NCT = 'D'";
+   //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
+  
+  if($filtro <> ''){
+   $SQL .=  " where T5.Codigo_NCT = '$filtro' "; 
+  }
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit $ini,$fin ";
+
+ 
+  $conexion=conexion();
+  $result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_array($result)) {
+      //echo $SQL;
+      	$html = '<tr>
+            <th>Notas Debito</th>
+            <th>Fecha ND</th>
 				<th>Factura</th>
 				<th>Fecha</th>
 				<th>Paciente / Cliente</th>
@@ -378,11 +507,58 @@ function listarNotasCredito($filtro,$ini,$fin){
             /* $cadnit = explode("-",verficarEmpresaReg());
             $url = url_exists("https://backend.estrateg.com/nexusIt/storage/app/public/".$cadnit[0]."/NCS-9".$row['Codigo_NCT'].".pdf")? 'existe' : 'no existe';
              */
-            if($url == 'existe'){
-               $html .= '<td><i title="Nota Credito Enviada" class="fa fa-paper-plane"></i></td>';
+
+            $cadnit = explode("-",verficarEmpresaReg());
+            //$cadfac = explode("-",$row[1]);
+            $cufe = ValidarCUfe($cadnit[0],'ND',$row['Codigo_NCT']);
+
+            If($cufe  <> ''){
+
+               $sql_update = "update cznotascontablesend Set IdFE_FAC='".$cufe."' where Codigo_NCT='".$row['Codigo_NCT']."' and (IdFE_FAC IS NULL or IdFE_FAC = '1' or IdFE_FAC = '');";
+               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+               mysqli_query ($conexion, $sql_update);
+               
+               $sendInvoice = ' disabled="disabled" title="Nota Debito Enviada" ';
+               $sendMail = ' ';
             }else{
-               $html .= '<td> <a title="Enviar Nota Credito a la DIAN" href="#" class="enviarnotacreditodian" data="'.$row['Codigo_NCT'].'"><i class="fa fa-paper-plane"></i></a><div id="resultadoEnvioNC"></div> </td>';
+               $sendInvoice = ' ';
+               $sendMail = ' disabled="disabled" title="Mail Enviado" ';
             }
+
+
+
+
+            $Consecutivo =$row['Codigo_NCT'];
+            $Pref = 'ND';
+            $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $btnsend='onclick="putSendND(\''.$row['Codigo_NCT'].'\'); "';
+            $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row['Codigo_NCT'].'\'); "';
+            $btnxml='onclick="descargaFactXml(\''.$row['Codigo_NCT'].'\'); "';
+            $btnprint=' title="Vista previa ND'.$row['Codigo_NCT'].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptND(\''.$Pref.'\',\''.$Consecutivo.'\')"';
+            
+
+            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
+            <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-success" '.$btnxml.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> </button>
+            <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
+            </div>
+            <div class="progress" style="display: none; margin-top: 0px;" name="prgFE'.($row[0]).'" id="prgFE'.($row[0]).'"> <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 99%; height: 16px; margin-top: 0px;"> <span class="sr-only">Enviando Factura</span> </div></div>
+            ';
+            $html .= '<td align="center">'.$botonera.'</td>'; 
+
+
+            if($url == 'existe'){
+               //$html .= '<td><i title="Nota Debito Enviada" class="fa fa-paper-plane"></i></td>';
+            }else{
+               //$html .= '<td> <a title="Enviar Nota Debito a la DIAN" href="#" class="enviarnotadebitodian" data="'.$row['Codigo_NCT'].'"><i class="fa fa-paper-plane"></i></a><div id="resultadoEnvioND"></div> </td>';
+            }
+
+               
+           
+
+
 
             $html .= '</tr>';
       }
@@ -408,7 +584,6 @@ function listarNotasCredito($filtro,$ini,$fin){
 	}
 	mysqli_free_result($result);	
 }
-
 
 
 function listarFacturasCapita($filtro,$ini,$fin){

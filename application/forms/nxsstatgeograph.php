@@ -70,7 +70,7 @@ session_start();
                 <button type="button" class="btn btn-success btn-block hidden-print" title="Imprimir" data-toggle="modal"  onclick="printwndw('<?php echo $NumWindow; ?>', 'FACTURADO EN UN PERIODO')"> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
               </div>
               <div class="col-xs-6">
-                <button type="button" class="btn btn-success btn-block hidden-print" title="Exportar" data-toggle="modal" data-target="#GnmX_WinModal" onclick="printcartedad<?php echo $NumWindow; ?>()"> <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> </button>
+                <button type="button" class="btn btn-success btn-block hidden-print" title="Exportar" data-toggle="modal" data-target="#GnmX_WinModal" onclick="detalle<?php echo $NumWindow; ?>()"> <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> </button>
               </div>
             </div>
 		</div>
@@ -85,14 +85,14 @@ function veriffechas<?php echo $NumWindow; ?>() {
     AbrirForm('application/forms/nxsstatgeograph.php', '<?php echo $NumWindow; ?>', '');
 }
 
-function printcartedad<?php echo $NumWindow; ?>() {
+function detalle<?php echo $NumWindow; ?>() {
     <?php
-    $SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From nxs_gnx.ititems Where Codigo_ITM='520';";
+    $SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From nxs_gnx.ititems Where Codigo_ITM='661';";
     $resulthc = mysqli_query($conexion, $SQL);
     if ($rowhc = mysqli_fetch_array($resulthc)) 
         {
     ?>
-    CargarWind('<?php echo $rowhc[0]; ?>', '<?php echo $rowhc[1]; ?>', '<?php echo $rowhc[2]; ?>', 'nxsstatgeograph.php','<?php echo $NumWindow; ?>' );
+    CargarWind('<?php echo $rowhc[0]; ?>', '<?php echo $rowhc[1]; ?>', '<?php echo $rowhc[2]; ?>', 'detorigenpctes.php','<?php echo $NumWindow; ?>' );
     <?php
         }
     mysqli_free_result($resulthc); 

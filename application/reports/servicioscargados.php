@@ -149,6 +149,14 @@ $pdf->SetAutoPageBreak(true, 20);
 $ValorTotal=0;
 //while($row = mysqli_fetch_row($result)) {
 	$pdf->SetFillColor(255);
+// Tipo de Manual Tarifario
+	$SQL="Select b.Tipo_TAR From gxcontratos as a, gxtarifas as b, gxadmision as c Where a.Codigo_TAR=b.Codigo_TAR and a.Codigo_EPS=c.Codigo_EPS and a.Codigo_PLA=c.Codigo_PLA and LPAD(c.Codigo_ADM,10,0)=LPAD('".$_GET["CODIGO_ADMISION"]."',10,'0') ;";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		$TipoManual=$row[0];
+	}
+	mysqli_free_result($result);
+
 	$SQL="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(m.Valor_TAR)) FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d, gxmanualestarifarios m, gxcontratos x, gxadmision y WHERE m.Codigo_SER=b.Codigo_SER AND m.Codigo_TAR=x.Codigo_TAR AND x.Codigo_EPS=y.Codigo_EPS AND x.Codigo_PLA=y.Codigo_PLA AND y.Codigo_ADM=a.Codigo_ADM AND LPAD(a.Codigo_ADM,10,0)=LPAD('".$_GET["CODIGO_ADMISION"]."',10,'0') AND a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND a.Fecha_ORD between m.FechaIni_TAR and m.FechaFin_TAR GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	$result = mysqli_query($conexion, $SQL);
 //	echo $SQL;
@@ -157,23 +165,73 @@ $ValorTotal=0;
 		$pdf->Cell(10,5,utf8_decode($row[0]).' - ','',0,'C',0);
 		$pdf->Cell(0,5,strtoupper(utf8_decode($row[1])),'',0,'L',0);
 		$pdf->Ln();
-		$SQL="SELECT left(Nombre_SER,65), sum(b.Cantidad_ORD), (m.Valor_TAR), sum(b.Cantidad_ORD*(m.Valor_TAR)) FROM gxordenescab a, gxordenesdet b, gxservicios d, gxmanualestarifarios m, gxcontratos x, gxadmision y WHERE m.Codigo_SER=b.Codigo_SER AND m.Codigo_TAR=x.Codigo_TAR AND x.Codigo_EPS=y.Codigo_EPS AND x.Codigo_PLA=y.Codigo_PLA AND y.Codigo_ADM=a.Codigo_ADM AND LPAD(a.Codigo_ADM,10,0)=LPAD('".$_GET["CODIGO_ADMISION"]."',10,'0') AND a.Codigo_ORD=b.Codigo_ORD AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND d.Codigo_CFC='".$row[0]."' AND a.Fecha_ORD between m.FechaIni_TAR and m.FechaFin_TAR GROUP BY left(Nombre_SER,65), (m.Valor_TAR)";
+		$SQL="SELECT left(Nombre_SER,65), sum(b.Cantidad_ORD), (m.Valor_TAR), sum(b.Cantidad_ORD*(m.Valor_TAR)), b.Codigo_SER FROM gxordenescab a, gxordenesdet b, gxservicios d, gxmanualestarifarios m, gxcontratos x, gxadmision y WHERE m.Codigo_SER=b.Codigo_SER AND m.Codigo_TAR=x.Codigo_TAR AND x.Codigo_EPS=y.Codigo_EPS AND x.Codigo_PLA=y.Codigo_PLA AND y.Codigo_ADM=a.Codigo_ADM AND LPAD(a.Codigo_ADM,10,0)=LPAD('".$_GET["CODIGO_ADMISION"]."',10,'0') AND a.Codigo_ORD=b.Codigo_ORD AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND d.Codigo_CFC='".$row[0]."' AND a.Fecha_ORD between m.FechaIni_TAR and m.FechaFin_TAR GROUP BY left(Nombre_SER,65), (m.Valor_TAR)";
 		$resultX = mysqli_query($conexion, $SQL);
 		while ($rowX = mysqli_fetch_row($resultX)) {
-			$pdf->SetFont('Arial','',9);
-			$pdf->Cell(130,5,$rowX[0],'',0,'L',0);
-			$pdf->SetFont('Arial','',10);
-			$pdf->Cell(13,5,utf8_decode($rowX[1]),'',0,'C',0);
-			$pdf->Cell(25,5,utf8_decode($rowX[2]),'',0,'R',0);
-			$pdf->Cell(0,5,utf8_decode($rowX[3]),'',0,'R',0);
-			$pdf->Ln();
+			$nombreSER=$rowX[0];
+			$GrupoSOAT="0";
+			if ($TipoManual=='SOAT') {
+				$SQL="Select left(UPPER(NombreSOAT_PRC),65), grupoSOAT_PRC from gxprocedimientos Where Codigo_SER='".$rowX[4]."'";
+				$rstSOAT = mysqli_query($conexion, $SQL);
+				while ($rowName = mysqli_fetch_row($rstSOAT)) {
+					$nombreSER=$rowName[0];
+					$GrupoSOAT=$rowName[1];
+				}
+				mysqli_free_result($rstSOAT);
+			}
+			if ($row[0]!="04") {
+				$pdf->SetFont('Arial','',9);
+				$pdf->Cell(130,5,utf8_decode($nombreSER),'',0,'L',0);
+				$pdf->SetFont('Arial','',10);
+				$pdf->Cell(13,5,utf8_decode($rowX[1]),'',0,'C',0);
+				$pdf->Cell(25,5,utf8_decode($rowX[2]),'',0,'R',0);
+				$pdf->Cell(0,5,utf8_decode($rowX[3]),'',0,'R',0);
+				$pdf->Ln();
+			} else {
+				$pdf->SetFont('Arial','',9);
+				$pdf->Cell(0,5,utf8_decode($nombreSER),'',0,'L',0);
+				$totalProc=$rowX[3];
+				if ($TipoManual=='SOAT') { //SI EL MANUAL TARIFARIO ES SOAT
+					$totalProc=0;
+					$pdf->Ln();
+					$SQL="select Tipo_PRD, Codigo2_SER, left(NombreSOAT_PRC, 65), Cantidad_PRD, Porcentaje_PRD, Valor_SER, '".$GrupoSOAT."' From gxprocedimientosdet a, gxprocedimientos b Where a.Codigo2_SER=b.Codigo_SER and a.Codigo_SER='".$rowX[4]."' and Codigo_ORD in (Select Codigo_ORD From gxordenescab Where LPAD(Codigo_ADM,10,0)=LPAD('".$_GET["CODIGO_ADMISION"]."',10,'0')) Order By Tipo_PRD;";
+					$resultSOAT = mysqli_query($conexion, $SQL);
+					$NombreSerQx="";
+					while ($rowSOAT = mysqli_fetch_row($resultSOAT)) {
+						if ($rowSOAT[0]=="1") { $NombreSerQx="GRUPO ".$rowSOAT[6]." CIRUJANO O GINECOLOGO"; }
+						if ($rowSOAT[0]=="2") { $NombreSerQx="GRUPO ".$rowSOAT[6]." ANESTESIOLOGO"; }
+						if ($rowSOAT[0]=="3") { $NombreSerQx="GRUPO ".$rowSOAT[6]." AYUDANTIA QUIRURGICA"; }
+						if ($rowSOAT[0]=="4") { $NombreSerQx="GRUPO ".$rowSOAT[6]." DERECHOS DE SALA"; }
+						if ($rowSOAT[0]=="5") { $NombreSerQx="GRUPO ".$rowSOAT[6]." MATERIALES Y MED."; }
+						$pdf->SetFont('Arial','I',8);
+						$pdf->Cell(10,5,'','',0,'C',0);
+						$pdf->Cell(120,5,utf8_decode($NombreSerQx),'',0,'L',0);
+						$pdf->Cell(13,5,utf8_decode($rowSOAT[3]),'',0,'C',0);
+						$pdf->Cell(25,5,utf8_decode($rowSOAT[5]),'',0,'R',0);
+						$pdf->Cell(0,5,utf8_decode($rowSOAT[5]),'',0,'R',0);
+						$pdf->Ln();
+						$totalProc=$totalProc+$rowSOAT[5];
+					}
+					mysqli_free_result($resultSOAT);
+					$pdf->Cell(130,5,'','',0,'C',0);
+				}
+				$pdf->SetFont('Arial','',10);
+				$pdf->Cell(13,5,utf8_decode($rowX[1]),'',0,'C',0);
+				$pdf->Cell(25,5,utf8_decode(number_format($totalProc,2,'.','')),'',0,'R',0);
+				$pdf->Cell(0,5,utf8_decode(number_format($totalProc,2,'.','')),'',0,'R',0);
+				$pdf->Ln();
+			}
 		}
 		mysqli_free_result($resultX);
+		$TotalCFC=$row[2];
+		if ($row[0]=="04") {
+			$TotalCFC=$totalProc;
+		}
 		$pdf->Cell(163,5,'','',0,'C',0);
 		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(0,5,number_format($row[2],2,'.',','),'T',0,'R',0);
+		$pdf->Cell(0,5,number_format($TotalCFC,2,'.',','),'T',0,'R',0);
 		$pdf->Ln();
-		$ValorTotal=$ValorTotal+$row[2];
+		$ValorTotal=$ValorTotal+$TotalCFC;
 	}
 	mysqli_free_result($result);
 	$pdf->Ln();
