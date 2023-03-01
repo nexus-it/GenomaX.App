@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 	$SQL="Select date(now()), time(now());";
@@ -22,7 +22,7 @@ session_start();
 <legend>Empleado:</legend>
 <input name="hdn_terceros<?php echo $NumWindow; ?>" type="hidden" id="hdn_terceros<?php echo $NumWindow; ?>" value="<?php echo session_id(); ?>" />
 
-<label for="txt_idempleado<?php echo $NumWindow; ?>">Id.</label><input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" /><a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a>
+<label for="txt_idempleado<?php echo $NumWindow; ?>">Id.</label><input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" /><a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a>
 <span id="Empleado<?php echo $NumWindow; ?>" class="nombre"></span>
 </fieldset>
 <?php  ?>
@@ -45,7 +45,7 @@ while($row = mysqli_fetch_array($result))
 	}
 mysqli_free_result($result); 
  ?>
-</select> <a href="javascript:AgregarFilaMarcacion<?php echo $NumWindow; ?>();"><img src="http://cdn.genomax.co/media/image/add.png" alt="Agregar Marcación Manual" align="absmiddle" title="Agregar Marcación Manual" /></a><br />
+</select> <a href="javascript:AgregarFilaMarcacion<?php echo $NumWindow; ?>();"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" alt="Agregar Marcación Manual" align="absmiddle" title="Agregar Marcación Manual" /></a><br />
 <hr align="center" width="95%" size="1"  class="anulado" />
  <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" >
 <table  width="95%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
@@ -76,7 +76,7 @@ mysqli_free_result($result);
 			$SQL="color-out";
 		}
 		if ($row[6]!="-") {
-			$Eliminar='<a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/images/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar marcación manual" /></a>';
+			$Eliminar='<a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar marcación manual" /></a>';
 		} else {
 			$Eliminar="";
 		}
@@ -196,7 +196,7 @@ function AgregarFilaMarcacion<?php echo $NumWindow; ?>()  {
     celda2.innerHTML = '<input name="hdn_hora'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_hora'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+document.frm_form<?php echo $NumWindow; ?>.txt_hora<?php echo $NumWindow; ?>.value+''+'" />'+document.frm_form<?php echo $NumWindow; ?>.txt_hora<?php echo $NumWindow; ?>.value; 
     celda3.innerHTML = '<input name="hdn_tipomarca'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_tipomarca'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CodTipo+''+'" />'+NomTipo; 
     celda4.innerHTML = '<input name="hdn_usuario'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_usuario'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+<?php echo $_SESSION["it_CodigoUSR"]; ?>+'" />Manual'; 
-    celda5.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\'<?php echo $NumWindow; ?>\');"><img src="http://cdn.genomax.co/media/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar marcación manual" /></a>'; 
+    celda5.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\'<?php echo $NumWindow; ?>\');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar marcación manual" /></a>'; 
 	celda1.className=Estilacho;
 	celda2.className=Estilacho;
 	celda3.className=Estilacho;

@@ -1,9 +1,9 @@
 <?php
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$totregistros=0;
 	$limitsql='150';
@@ -258,7 +258,7 @@ function swapPagado<?php echo $NumWindow; ?>(Kontador) {
 function FactDetCar<?php echo $NumWindow; ?>(factura) {
 	var faktura= factura.replace(" ", "!");
 	<?php
-	$SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From nxs_gnx.ititems Where Codigo_ITM='512';";
+	$SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From ".$_SESSION['DB_NXS'].".ititems Where Codigo_ITM='512';";
 	$resulthc = mysqli_query($conexion, $SQL);
 	if ($rowhc = mysqli_fetch_array($resulthc)) 
 		{

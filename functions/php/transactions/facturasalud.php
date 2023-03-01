@@ -6,6 +6,9 @@ include '00trnsctns.php';
 	if ($MSG=='Datos registrados correctamente. ') {
 		$MSG='Se ha generado correctamente la factura '.($Consec);
 	}
+	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
+	mysqli_query($conexion, $MyZone);
+
 	$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Nota_FAC, Month_FAC, Year_FAC, ValIVA_FAC) Values ('".$_POST['sede']."','".$Consec."', '".(int)$_POST['Ingreso']."', '".$_POST["fechafac"]." ".$_POST["horafac"]."', '".$_POST['totalpte']."',  '".$_POST["totalent"]."', '".$_POST["totalent"]."', '".$_POST["contrato"]."', '".$_POST["plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["nota"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."', '".$_POST["valoriva"]."')";
 	EjecutarSQL($SQL, $conexion);
 

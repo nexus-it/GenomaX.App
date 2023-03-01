@@ -3,7 +3,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 include '../../functions/php/GenomaXBackend/params.php';
@@ -43,7 +43,7 @@ function Footer()
 }
 $FormatoPagina="Letter";
 $Orientation="P";
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='documentosoporte'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='documentosoporte'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
     $SQL=$row[0];
@@ -77,7 +77,7 @@ while($row = mysqli_fetch_row($result)) {
 $pdf->AddPage();
 
 
-
+/*
     $CUFE = $row[17]; 
     //echo "CUFE=".$CUFE;
     $cadena='NumFac: '.$row[0].PHP_EOL
@@ -97,27 +97,30 @@ $pdf->AddPage();
     $pdf->SetY(6);
     $pdf->SetFont('Arial','B',8);
     $pdf->Cell(0,210,'CUFE: '.$CUFE,'',0,'L',0);
+    */
 //Encabezado de la tabla
 if (trim($row[15])=="A") {
     $pdf->Image('../../anulado.jpg',25,1,0);
 }
 $pdf->SetY(5);
+
 $pdf->SetFont('Arial','B',11);
 $pdf->Cell(0,6,strtoupper($row[1]),'',0,'C',0); //Razon Social
 $pdf->Ln();
-$pdf->SetFont('Arial','B',9);
+$pdf->SetFont('Arial','B',8);
 $pdf->Cell(0,6,'NIT '.$row[2],'',0,'C',0);
 $pdf->Ln();
-$pdf->SetFont('Arial','B',10);
-$pdf->Cell(0,6,utf8_decode('DOCUMENTO SOPORTE '),'B',0,'C',0);
+$pdf->SetFont('Arial','B',7);
+$pdf->Cell(0,6,utf8_decode('Resolucion No. 18764024778657, Rango desde la 1 hasta 100, con vigencia entre 31-01-2022 hasta 31-01-2023'),'B',0,'L',0);
+
 $pdf->SetY(9);
 $pdf->Ln();
-$pdf->SetFont('Courier','B',13);
-$pdf->Cell(0,6,'No. '.$row[0],'',0,'R',0); //Numero NC 
+$pdf->SetFont('Courier','B',12);
+$pdf->Cell(0,6,'Documento Soporte No. '.$row[0],'',0,'R',0); //Numero NC 
 
 $pdf->SetY(25);
 $pdf->SetFont('Arial','B',9);
-$pdf->Cell(25,5,utf8_decode('Fecha NC: '),'',0,'L',0);
+$pdf->Cell(25,5,utf8_decode('Fecha DS: '),'',0,'L',0);
 $pdf->SetFont('Arial','',9);
 $pdf->Cell(90,5,$row[3],'',0,'L',0); //Fecha NC
 $pdf->SetFont('Arial','B',9);

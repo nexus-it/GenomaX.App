@@ -15,20 +15,20 @@ if (isset($_GET["nxsdb"])){
 }
 ?>
 <body  class=" fixed sidebar-mini skin-green">
-<audio id="nxs_sound_error" src="http://cdn.genomax.co/media/audio/error-03.mp3" preload="auto"></audio>
-<audio id="nxs_sound_info" src="http://cdn.genomax.co/media/audio/beep-29.mp3" preload="auto"></audio>
-<audio id="nxs_sound_ok" src="http://cdn.genomax.co/media/audio/ok-03.mp3" preload="auto"></audio>
-<audio id="nxs_sound_done" src="http://cdn.genomax.co/media/audio/done-03.mp3" preload="auto"></audio>
-<audio id="nxs_sound_intro" src="http://cdn.genomax.co/media/audio/intro.mp3" preload="auto"></audio>
+<audio id="nxs_sound_error" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/audio/error-03.mp3" preload="auto"></audio>
+<audio id="nxs_sound_info" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/audio/beep-29.mp3" preload="auto"></audio>
+<audio id="nxs_sound_ok" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/audio/ok-03.mp3" preload="auto"></audio>
+<audio id="nxs_sound_done" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/audio/done-03.mp3" preload="auto"></audio>
+<audio id="nxs_sound_intro" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/audio/intro.mp3" preload="auto"></audio>
 <div id="TodoAll" class="wrapper">
 <!-- Tema nuevo -->
 <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="http://cdn.genomax.co/media/image/logo_genomax.png" alt="GenomaX" height="45px" title="GenomaX <?php ShowVersion(); ?>"></span>
+      <span class="logo-mini"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/logo_genomax.png" alt="GenomaX" height="45px" title="GenomaX <?php ShowVersion(); ?>"></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><img src="http://cdn.genomax.co/media/image/titgenomax_45.png" height="45px" style="margin-top: 2;" alt="GenomaX" title="GenomaX <?php ShowVersion(); ?>"> </span>
+      <span class="logo-lg"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/titgenomax_45.png" height="45px" style="margin-top: 2;" alt="GenomaX" title="GenomaX <?php ShowVersion(); ?>"> </span>
       <!-- <div id="logo" title="Mostrar página inicial" ></div> -->
  	</a>
   
@@ -98,7 +98,7 @@ if (isset($_GET["nxsdb"])){
     </nav>
   </header>
 <!-- Menu Barra Lateral -->
-  <aside class="main-sidebar" style="background-position: center;background-size: cover;background-image: url('themes/ghenx/img/bcksidebar.jpg');">
+  <aside class="main-sidebar" style="background-position: center;background-size: cover;background-image: url('<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/bcksidebar.jpg');">
     <section class="sidebar" style="background-color: rgba(34, 45, 50, 0.95);">
       <!-- Sidebar user panel -->
       <div class="user-panel">
@@ -111,7 +111,9 @@ if (isset($_GET["nxsdb"])){
       </div>
       <ul class="sidebar-menu" data-widget="tree" id="nxs_mainmenu">
       	<?php
+        //error_log("Menu... ");
 			nxsLoadModules($_SESSION["NEXUS_APP"], $_SESSION["it_CodigoPRF"]);
+      //error_log("...Menu ");
 		?>
 		<li class="header"> -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  </li>
         <li class="manito"><a onClick="nxs_meet1('normal')" title="Video Conferencias Seguras" data-toggle="modal" data-target="#GnmX_NXSMeet"> <i class="glyphicon glyphicon-facetime-video" aria-hidden="true" id="nxs_callin"></i> <span><b>NEXUS.<em>Meet</em></b></span> </a></li>
@@ -130,7 +132,7 @@ if (isset($_GET["nxsdb"])){
   $SQL="Select Class_ALR, Titulo_ALR, Texto_ALR From italertas Where Estado_ALR='1'";
   $resultrt = mysqli_query($conexion, $SQL);
   while ($rowrt = mysqli_fetch_array($resultrt)) {
-    echo '<div class="alert alert-'.$rowrt[0].'" role="alert" style="color: white; padding: 5px;margin-bottom: 2px;""><strong>'.$rowrt[1].'</strong> '.$rowrt[2].'</div>';
+    echo '<div class="alert alert-'.$rowrt[0].'" role="alert" style="color:#FEFEFE; padding: 5px;margin-bottom: 2px;""><strong>'.$rowrt[1].'</strong> '.$rowrt[2].'</div>';
   }
   mysqli_free_result($resultrt);
 

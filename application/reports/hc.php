@@ -3,7 +3,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 class PDF extends FPDF
@@ -92,10 +92,10 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
     $this->HREF='';
 }
 function Header() {
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL="SELECT sql_rpt from nxs_gnx.itreports where codigo_rpt='hc'";
+$SQL="SELECT sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hc'";
 $resultH = mysqli_query($conexion, $SQL);
 if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=$rowH[0];
@@ -134,7 +134,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 	$this->SetFont('Arial','B',12);
 	if ($_GET["FOLIO_FINAL"]==$_GET["FOLIO_INICIAL"]) {
 		if ($rowH[5]=="REGISTRO DE ENFERMERIA") {
-			$SQL="Select dispositivo_HC, curacion_HC from hc_ENFERMERIA a, czterceros b, hcfolios c Where c.Codigo_HCF=a.Codigo_HCF and a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Folio_HCF='".$_GET["FOLIO_INICIAL"]."';";
+			$SQL="Select dispositivo_HC, curacion_HC from hc_enfermeria a, czterceros b, hcfolios c Where c.Codigo_HCF=a.Codigo_HCF and a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Folio_HCF='".$_GET["FOLIO_INICIAL"]."';";
 			$resultEnf = mysqli_query($conexion, $SQL);
 			if ($rowEnf = mysqli_fetch_row($resultEnf)) {
 				if ($rowEnf[0]!="") {
@@ -167,7 +167,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 }
 function Footer()
 {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query($conexion, "SET time_zone = '".$_SESSION["DB_TIMEZONE"]."'");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	
@@ -211,7 +211,7 @@ function firmas($Firma, $Tercero, $NombreDoc, $RM, $PosYe){
 	$this->SetFont('Arial','B',8);
 	$this->Cell(130,4,"",'',0,'C',0);
 	$this->Cell(0,3,utf8_decode($NombreDoc),'T',0,'C',0);
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select b.Nombre_ESP From gxmedicosesp a, gxespecialidades b Where a.Codigo_ESP=b.Codigo_ESP and b.Estado_ESP='1' and  Codigo_TER='".$Tercero."' Order By a.Tipo_ESP";
 	$resultx2 = mysqli_query($conexion, $SQL);
 	while ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -228,7 +228,7 @@ function firmas($Firma, $Tercero, $NombreDoc, $RM, $PosYe){
 }
 
 function diagnosticoz($historia, $folio) {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select c.Codigo_DGN, c.Descripcion_DGN, a.Tipo_DGN, g.Nombre_TDG, d.Codigo_DGN, d.Descripcion_DGN, e.Codigo_DGN, e.Descripcion_DGN, f.Codigo_DGN, f.Descripcion_DGN, a.Manejo_DGN From gxtipodiag g, czterceros b, gxdiagnostico c, hcdiagnosticos a left join gxdiagnostico d on a.CodigoR_DGN=d.Codigo_DGN left join gxdiagnostico e on a.CodigoR2_DGN=e.Codigo_DGN left join gxdiagnostico f on a.CodigoR3_DGN=f.Codigo_DGN Where a.Codigo_TER=b.Codigo_TER and g.Codigo_TDG=a.Tipo_DGN and c.Codigo_DGN=a.Codigo_DGN and a.Codigo_HCF='".$folio."' and b.ID_TER='".$historia."'";
 	$resultx2 = mysqli_query($conexion, $SQL);
 	$this->NewItem("B", "Diagnóstico");
@@ -299,7 +299,7 @@ function encabezadoz($titulo, $folioint){
 		$this->Cell(0,5,'','',0,'C',0);
 		$this->Ln();
 	}
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select k.Sigla_TID, b.ID_TER, b.Nombre_TER, a.EstCivil_PAC, a.fechanac_pac, j.Nombre_SEX, a.Actividad_PAC, b.direccion_ter, b.telefono_ter, l.Nombre_DEP, m.Nombre_MUN, a.Barrio_PAC, c.Acudiente_ADM, c.Telefono_ADM, a.Padre_PAC, a.Madre_PAC, a.Parentesco_PAC, e.Nombre_TER, f.Nombre_PLA, g.Nombre_RNG, i.Codigo_HCF, Folio_HCF, Fecha_HCF from gxpacientes a, czterceros b, gxadmision c, gxeps d, czterceros e, gxplanes f, gxrangosalario g, gxtipoingreso h, hcfolios i, gxtiposexo j, cztipoid k, czdepartamentos l, czmunicipios m where j.Codigo_SEX=a.Codigo_SEX and k.Codigo_TID=b.Codigo_TID and l.Codigo_DEP=a.Codigo_DEP and m.Codigo_DEP=l.Codigo_DEP and m.Codigo_MUN=a.Codigo_MUN and h.Tipo_ADM=c.Ingreso_ADM and g.Codigo_RNG=a.Codigo_RNG and f.codigo_pla=c.codigo_pla and d.codigo_eps=c.codigo_eps and d.codigo_ter=e.codigo_ter and a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=a.Codigo_TER and c.Codigo_ADM=i.Codigo_ADM and b.ID_TER='".$_GET["HISTORIA"]."' and i.Codigo_HCF=".$folioint." order by i.Codigo_HCF desc limit 1";
 	$result0 = mysqli_query($conexion, $SQL);
 	if ($row0 = mysqli_fetch_row($result0)) {
@@ -422,7 +422,7 @@ function encabezadoz($titulo, $folioint){
 	// Fin encabezado - Datos Personales
 }
 function descQx($Historia, $Folio) {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="SELECT a.numqx_HC, a.fechaqx_HC, a.horainiqx_HC, a.horafinqx_HC, a.anestesiaqx_HC, c.Nombre_QRF, d.SOAT_PRC, d.Nombre_PRC, d.CUPS_PRC, a.idmd1_HC, a.idmd2_HC, a.idmd5_HC, a.idmd3_HC, a.idmd4_HC, a.idmd6_HC, a.idmd7_HC, a.idmd8_HC, e.Codigo_DGN, e.Descripcion_DGN, a.dxpos_HC, f.Descripcion_DGN, a.descripcionqx_HC FROM czterceros b, gxquirofanos c, gxprocedimientos d, gxdiagnostico e, hc_qx001 a LEFT JOIN gxdiagnostico f ON a.dxpos_HC= f.Codigo_DGN WHERE c.Codigo_QRF=a.quirofano_HC AND d.Codigo_SER=a.qxproc_HC AND e.Codigo_DGN=a.dxpre_HC and a.Codigo_TER=b.Codigo_TER AND b.ID_TER='".$Historia."' AND a.Codigo_HCF=".$Folio.";";
 	$result0 = mysqli_query($conexion, $SQL);
 	if ($row0 = mysqli_fetch_row($result0)) {
@@ -525,7 +525,7 @@ function descQx($Historia, $Folio) {
 
 }
 function DatosProf($Cargo, $Id) {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="SELECT Nombre_TER From czterceros Where ID_TER='".$Id."';";
 	$result0T = mysqli_query($conexion, $SQL);
 	if ($row0T = mysqli_fetch_row($result0T)) {
@@ -561,20 +561,20 @@ function NewItem($Bold, $Titulo) {
 	$this->SetDrawColor(90);
 }
 function loadubicanatom($Tercero, $Folio, $PositionY) {
-	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select PosX_HUA, PosY_HUA From hcubicanatom a, czterceros c Where a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$Folio."' and c.ID_TER='".$Tercero."'";
 	$resultvh = mysqli_query($conexion, $SQL);
 	while ($rowvh = mysqli_fetch_row($resultvh)) {
 		$CoordX = 38+$rowvh[0]*2;
-		$CoordY = $PositionY -3 + $rowvh[1]*2;
-		$this->Image('http://cdn.genomax.co/media/image/valher/point.png',$CoordX,$CoordY,2);
+		$CoordY = $PositionY -3 + $rowvh[1]*2; 
+		$this->Image($_SESSION["NEXUS_CDN"].'/image/valher/point.png',$CoordX,$CoordY,2);
 	}
 	mysqli_free_result($resultvh);
 	
 }
 function loadOdonto($Tercero, $Folio, $Theme) {
 	$Nota="";
-	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select Estados_ODG, Nota_ODG From hcodontograma a, czterceros c Where a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$Folio."' and c.ID_TER='".$Tercero."'";
 	$resultodont = mysqli_query($conexion, $SQL);
 	if ($rowodont = mysqli_fetch_row($resultodont)) {
@@ -718,7 +718,7 @@ function loadOdonto($Tercero, $Folio, $Theme) {
 		$ElSimbolo="";
 		$ElSimbolo=$simbolo[0];
 		if ($ElSimbolo!="") {
-		    $this->Image('http://cdn.genomax.co/media/image/odontog/'.$simbolo[0].'.png',$dienteX,$dienteY,0);
+		    $this->Image($_SESSION["NEXUS_CDN"].'/image/odontog/'.$simbolo[0].'.png',$dienteX,$dienteY,0);
 		    $simbolos=$simbolos."'".$simbolo[0]."', ";
 		}
 	}
@@ -736,7 +736,7 @@ function loadOdonto($Tercero, $Folio, $Theme) {
 	$this->SetY(205);
 	while ($rowodont = mysqli_fetch_row($resultodont)) {
 		$positionY = $this->GetY();
-		$this->Image('http://cdn.genomax.co/media/image/odontog/'.$rowodont[0].'.png',10,$positionY,0);
+		$this->Image($_SESSION["NEXUS_CDN"].'/image/odontog/'.$rowodont[0].'.png',10,$positionY,0);
 		$this->Cell(6,6,'','',0,'',0);
 		$this->Cell(0,6,$rowodont[1],'',0,'',0);
 		$this->Ln();
@@ -744,7 +744,7 @@ function loadOdonto($Tercero, $Folio, $Theme) {
 	mysqli_free_result($resultodont);
 }
 function Antexedentes($AntTable, $Foliox, $Name) {
-	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion=mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select a.Codigo_TER From ".$AntTable." a, czterceros c Where a.Codigo_TER=c.Codigo_TER and a.Codigo_HCF='".$Foliox."' and c.ID_TER='".$_GET["HISTORIA"]."'";
 	
 	$resulttbl = mysqli_query($conexion, $SQL);
@@ -937,7 +937,7 @@ $FormOrden="";
 if (isset($_GET["FormOrden"])) {
 	$FormOrden=$_GET["FormOrden"];
 }
-$SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='hc'";
+$SQL="SELECT page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hc'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];
@@ -1001,7 +1001,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		$pdf->SetFont('Arial','BI',10);
 		if ($UnFolio==0) {
 			if ($rowx[0]=="REGISTRO DE ENFERMERIA") {
-				$SQL="Select dispositivo_HC, curacion_HC from hc_ENFERMERIA a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Codigo_HCF='".$rowx[1]."';";
+				$SQL="Select dispositivo_HC, curacion_HC from hc_enfermeria a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."' and Codigo_HCF='".$rowx[1]."';";
 				$resultEnf = mysqli_query($conexion, $SQL);
 				if ($rowEnf = mysqli_fetch_row($resultEnf)) {
 					if ($rowEnf[0]!="") {
@@ -1138,7 +1138,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			$pdf->NewItem("B", "Ubicación Anatómica");
 			$pdf->Cell(0,5,'','B',0,'L',0);
 			$pdf->Ln();
-			$pdf->Image('http://cdn.genomax.co/media/image/valher/posanatombas'.$SexoPcte.'.jpg',41,$Posy+7,130);
+			$pdf->Image($_SESSION["NEXUS_CDN"].'/image/valher/posanatombas'.$SexoPcte.'.jpg',41,$Posy+7,130);
 			$pdf->loadubicanatom($_GET["HISTORIA"], $rowx[1], $Posy+5);
 			$pdf->SetY($Posy+94);
 			$pdf->SetX(10);
@@ -1151,7 +1151,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		if ($rowx[39]=="1") {
 		$pdf->descQx($_GET["HISTORIA"], $rowx[1]);
 	} else {
-		$SQL="Select a.* From hc_". $rowx[20]." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
+		$SQL="Select a.* From hc_". strtolower($rowx[20])." a, czterceros b Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."';";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$DatosHC = mysqli_fetch_array($resultx2);
 		mysqli_free_result($resultx2);
@@ -1517,7 +1517,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 				$pdf->Cell(0,5,'','B',0,'L',0);
 				$pdf->Ln();
 			}
-			$pdf->Image('http://cdn.genomax.co/media/image/odontog/0.png',10,75,200);
+			$pdf->Image($_SESSION["NEXUS_CDN"].'/image/odontog/0.png',10,75,200);
 			$pdf->Ln();	
 			$pdf->loadOdonto($_GET["HISTORIA"], $rowx[1], 'ghenx');
 		// FIRMA PROFESIONAL

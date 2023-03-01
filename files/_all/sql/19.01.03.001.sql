@@ -1,0 +1,10 @@
+UPDATE `itconfig` SET `Version_DCD`='19.01.08.001';
+INSERT INTO `itplugins` (`Codigo_PLG`, `Nombre_PLG`, `Ruta_PLG`) VALUES ('5', 'Diagnosticos Mas Frecuentes', 'dgfrecuentes');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('7', '5');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('17', '5');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('8', '5');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('10', '3');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('13', '3');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('8', '3');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('13', '1');
+INSERT INTO `itperfilplugins` (`Codigo_PRF`, `Codigo_PLG`) VALUES ('13', '2');

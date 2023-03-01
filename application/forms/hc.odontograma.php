@@ -10,7 +10,7 @@
 			  	<li><a href="javascript:actualOdonto('<?php echo $NumWindow; ?>');"><strong>Tratamiento Actual</strong></a></li>
 			  <?php 
 			    $SQL="Select Estados_ODG, Fecha_HCF, Nota_ODG From hcodontograma a, hcfolios b, czterceros c Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF=b.Codigo_HCF and c.Codigo_TER=b.Codigo_TER and ID_TER='".$Hystory."';";
-			    error_log($SQL);
+			    //error_log($SQL);
 			    $resultodt = mysqli_query($conexion, $SQL);
 			    while($rowodt = mysqli_fetch_array($resultodt)) {
 			  ?>
@@ -31,7 +31,7 @@
 						while ($row = mysqli_fetch_array($result)) {
 						?>
 						<button type="button" class="btn btn-default odontobutton " id="btn_odnt_<?php echo $row[0].$NumWindow; ?>" name="btn_odnt_<?php echo $row[0].$NumWindow; ?>" onclick="TtoDentalD('<?php echo $row[0]; ?>', '<?php echo $row[1]; ?>', '<?php echo $row[2]; ?>', '<?php echo $NumWindow; ?>');" title="<?php echo $row[1]; ?>" style="background-color: #f4f4f400; width: 161px;text-align: left;">
-							<img src="http://cdn.genomax.co/media/image/odontog/<?php echo $row[0]; ?>.png" />
+							<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/odontog/<?php echo $row[0]; ?>.png" />
 							<span class="odontolabel " style="color: #668e33;text-align: left; width: 116px;"><small><?php echo $row[1]; ?></small></span>
 						</button>
 						<?php

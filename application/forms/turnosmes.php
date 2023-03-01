@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 	$elanyo = date("Y");
@@ -61,7 +61,7 @@ mysqli_free_result($result);
 ?>
 <label for="txt_anyo<?php echo $NumWindow; ?>">Año </label>
 <input name="txt_anyo<?php echo $NumWindow; ?>" type="text" id="txt_anyo<?php echo $NumWindow; ?>" value="<?php echo $Anyo; ?>" size="4" maxlength="4" /> 
-<a href="javascript:CargarHorario<?php echo $NumWindow; ?>();"> <img id="img_tabla<?php echo $NumWindow; ?>" src="http://cdn.genomax.co/media/image/table_import.png"  alt="Cargar Horario" align="absmiddle" title="Cargar Horario" /></a>
+<a href="javascript:CargarHorario<?php echo $NumWindow; ?>();"> <img id="img_tabla<?php echo $NumWindow; ?>" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/table_import.png"  alt="Cargar Horario" align="absmiddle" title="Cargar Horario" /></a>
 </fieldset>
 <fieldset>
 <legend>Horario Mes:</legend>
@@ -139,7 +139,7 @@ function CargarHorario<?php echo $NumWindow; ?>() {
 		$.get(Funciones,{'Func':'CargarHorario','ventana':'<?php echo $NumWindow; ?>', 'area':document.getElementById("cmb_areas<?php echo $NumWindow; ?>").value, 'contrato':document.getElementById("cmb_contrato<?php echo $NumWindow; ?>").value, 'mes':document.getElementById("cmb_mes<?php echo $NumWindow; ?>").value, 'anyo':document.getElementById("txt_anyo<?php echo $NumWindow; ?>").value},function(data){ 
 			document.getElementById('destino<?php echo $NumWindow; ?>').innerHTML=data;
 			if (document.getElementById("hdn_printear<?php echo $NumWindow; ?>").value=='1') {
-				document.getElementById('print<?php echo $NumWindow; ?>').innerHTML='<a href="javascript:Imprimir_turnosmes(\'<?php echo $NoVent1; ?>\');"><img id="img_print<?php echo $NumWindow; ?>" src="http://cdn.genomax.co/media/image/button_print.png"  alt="Vista Previa Impresión" align="absmiddle" title="Vista Previa Impresión" /></a>';
+				document.getElementById('print<?php echo $NumWindow; ?>').innerHTML='<a href="javascript:Imprimir_turnosmes(\'<?php echo $NoVent1; ?>\');"><img id="img_print<?php echo $NumWindow; ?>" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/button_print.png"  alt="Vista Previa Impresión" align="absmiddle" title="Vista Previa Impresión" /></a>';
 				document.getElementById("Imprimir<?php echo $NoVent1; ?>").style.display  = 'inline';
 			}else{
 				document.getElementById("Imprimir<?php echo $NoVent1; ?>").style.display  = 'none';

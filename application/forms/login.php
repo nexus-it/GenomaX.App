@@ -1,11 +1,13 @@
 <?php
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
-	$SQL="Select Nombre_APP from itaplicaciones where Activo_APP='1' and Codigo_APP='".$_SESSION["NEXUS_APP"]."';";
+	$SQL="Select Nombre_APP from ".$_SESSION['DB_NXS'].".itaplicaciones where Activo_APP='1' and Codigo_APP='".$_SESSION["NEXUS_APP"]."';";
 	$resultX = mysqli_query($conexion, $SQL);
 	if($rowX = mysqli_fetch_array($resultX)) {
+//		error_log("Try Login");
 		if (is_file('themes/'.$_SESSION["THEME_DEFAULT"].'/login.php')) {
 			include 'themes/'.$_SESSION["THEME_DEFAULT"].'/login.php'; 
+			
 		} else {
 ?>
 <div id="head"><div id="logo"></div>:: <?php echo $_SESSION["NOMBRE_APP"]; ?> :: <span id="razonsocial"></span>
@@ -25,7 +27,7 @@
 <?php } ?>
 <div id="idlogin" class="idlogin">
 <div class="logintitle" id="ztitles_1">
-<img src="http://cdn.genomax.co/media/image/loginico.png" border="0" align="left"/>
+<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loginico.png" border="0" align="left"/>
 Acceso de Usuarios
 </div>
 	<div class="container-fluid">
@@ -62,9 +64,9 @@ Acceso de Usuarios
 	<div id="gxversion" class="version" >
 		Versión: 0.9.0.5
 	</div>
-	<div id="userbar" >
-		<img src="http://cdn.genomax.co/media/image/user_green.png" align="center">Inicie Sesión...
-	</div>
+	<!-- <div id="userbar" >
+		<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/user_green.png" align="center">Inicie Sesión...
+	</div> -->
 </div>
 <?php
 		}

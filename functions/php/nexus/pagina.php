@@ -76,7 +76,7 @@ function listar_directorios_rutajs($ruta, $ver){
 function CargarHead($ver)
 {
 	include 'functions/php/nexus/database.php';
-	define ('NAME_APP', $_SESSION["NOMBRE_APP"]);
+	define (NAME_APP, $_SESSION["NOMBRE_APP"]);
 	include 'functions/php/nexus/permisos.php';
 	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/menu.php';
 	echo '<!DOCTYPE html">
@@ -106,7 +106,7 @@ echo '
 function KargarHead($ver)
 {
 	include 'functions/php/nexus/database.php';
-	define ('NAME_APP', $_SESSION["NOMBRE_APP"]);
+	define (NAME_APP, $_SESSION["NOMBRE_APP"]);
 	include 'functions/php/nexus/permisos.php';
 	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/menu.php';
 	echo '<!DOCTYPE html">
@@ -129,7 +129,7 @@ echo '
 function LoadHead($ver)
 {
 	include 'functions/php/nexus/database.php';
-	define ('NAME_APP', $_SESSION["NOMBRE_APP"]);
+	define (NAME_APP, $_SESSION["NOMBRE_APP"]);
 	include 'functions/php/nexus/permisos.php';
 	include 'themes/'.$_SESSION["THEME_DEFAULT"].'/menu.php';
 	echo '<!DOCTYPE html">
@@ -158,7 +158,7 @@ function LoadHead($ver)
   <!-- Daterange picker -->
   <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/bower_components/bootstrap-daterangepicker/daterangepicker.css?v='.$ver.'">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css?v='.$ver.'">
+  <!-- <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css?v='.$ver.'"> -->
   <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/css/sweetalert.css?v='.$ver.'">
   <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/css/genomax_style.css?v='.$ver.'">
   <link rel="stylesheet" href="themes/'.$_SESSION["THEME_DEFAULT"].'/css/bootstrap.typeahead.css?v='.$ver.'">
@@ -216,7 +216,7 @@ echo '
 /*CargarPlgns();*/
 echo '
 </script>';
-include 'themes/'.$_SESSION["THEME_DEFAULT"].'/plugins.php';
+ include 'themes/'.$_SESSION["THEME_DEFAULT"].'/plugins.php';
 
 echo '
 <script>

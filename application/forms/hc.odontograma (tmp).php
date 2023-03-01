@@ -23,7 +23,7 @@
 						while ($row = mysqli_fetch_array($result)) {
 						?>
 						<button type="button" class="btn btn-default odontobutton " id="btn_odnt_<?php echo $row[0].$NumWindow; ?>" name="btn_odnt_<?php echo $row[0].$NumWindow; ?>" onclick="TtoDentalD('<?php echo $row[0]; ?>', '<?php echo $row[1]; ?>', '<?php echo $row[2]; ?>', '<?php echo $NumWindow; ?>');" title="<?php echo $row[1]; ?>" style="background-color: #f4f4f400; width: 161px;text-align: left;">
-							<img src="themes/ghenx/img/icons/16x16/1.PatientFile.png" />
+							<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/1.PatientFile.png" />
 							<span class="odontolabel " style="color: #668e33;text-align: left; width: 116px;"><small><?php echo $row[1]; ?></small></span>
 						</button>
 						<?php
@@ -61,7 +61,7 @@
 				<div class="form-group">
 					<label for="txt_odontodesc<?php echo $NumWindow; ?>">Descripción</label>
 				  	<textarea name="txt_odontodesc<?php echo $NumWindow; ?>" rows="5" id="txt_odontodesc<?php echo $NumWindow; ?>" ></textarea>
-				</div>
+				</div> 
 
 					</div>
 				</div>

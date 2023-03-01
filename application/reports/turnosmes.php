@@ -4,7 +4,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -26,7 +26,7 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 $SQLH="SELECT O.RazonSocial_DCD, O.NIT_DCD, C.Fecha_TUR, B.Nombre_ARE, E.Nombre_TCL, '".$_GET["CODIGO_MES"]."', '".$_GET["CODIGO_ANYO"]."', I.Codigo_USR, I.ID_USR From itconfig AS O, czareas AS B, czturnosenc AS C, cztipocontratos AS E, itusuarios AS I Where B.Codigo_ARE='".$_GET["CODIGO_AREA"]."' AND E.Codigo_TCL='".$_GET["CODIGO_CONTRATO"]."' AND I.Codigo_USR=C.Codigo_USR  AND C.Nombre_TUR=CONCAT_WS('-','Mes','".$_GET["CODIGO_ANYO"]."', '".$_GET["CODIGO_MES"]."', '".$_GET["CODIGO_AREA"]."', '".$_GET["CODIGO_CONTRATO"]."')";
@@ -171,7 +171,7 @@ function Footer()
     //Arial italic 8
     $this->SetFont('Arial','',8);
     $Observaciones="66";
-    $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+    $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
     mysqli_query ($conexion, "SET NAMES 'utf8'");
     $SQLF="Select Observaciones_TUR From czturnosenc AS C Where C.Nombre_TUR=CONCAT_WS('-','Mes','".$_GET["CODIGO_ANYO"]."', '".$_GET["CODIGO_MES"]."', '".$_GET["CODIGO_AREA"]."', '".$_GET["CODIGO_CONTRATO"]."')";
     $resultF = mysql_db_query($_SESSION["DB_NAME"], $SQLF, $conexion);
@@ -188,7 +188,7 @@ function Footer()
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, RazonSocial_DCD from nxs_gnx.itreports, itconfig where codigo_rpt='turnosmes'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, RazonSocial_DCD from ".$_SESSION['DB_NXS'].".itreports, itconfig where codigo_rpt='turnosmes'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$SQL=$row[0];

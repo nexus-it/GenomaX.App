@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(E_ERROR | E_PARSE);
 session_start();
 date_default_timezone_set('America/Bogota');
@@ -23,8 +23,12 @@ function nxs_yesno($name, $window) {
 }
 
 function FechaNow() {
+   $conexion=conexion();
+   
+   $MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
+	mysqli_query($conexion, $MyZone);
+   
   $SQL="Select curdate();";  
-  $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
   while($row = mysqli_fetch_row($result)) {
     echo trim($row[0]);
@@ -74,18 +78,42 @@ function verficarEmpresaReg(){
  }
 
  function datosEnvioMail($factura){
-   $SQL = "SELECT a.NIT_DCD, a.Razonsocial_DCD,  e.ID_TER, e.Nombre_TER, e.Correo_TER
+   $SQL = "SELECT a.NIT_DCD, a.Razonsocial_DCD,  e.ID_TER, e.Nombre_TER, e.Correo_TER, d.EmailContact_EPS
    From itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i
    Where c.Codigo_AFC = b.Codigo_AFC and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM 
    and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA
-   and c.Codigo_FAC = '$factura' and c.EnvioFacCli_FAC = '0'
-   Order By c.Codigo_FAC";
+   and c.Codigo_FAC = '$factura' 
+   Order By c.Codigo_FAC"; //and c.EnvioFacCli_FAC = '0'
    $conexion=conexion();
    $resultadoEmp = mysqli_query($conexion, $SQL);
    if ($rowEmp = mysqli_fetch_row($resultadoEmp)) {
       return $rowEmp;
    }
  }
+
+ function llenarSelect2($sql,$filtrado){
+   $llenarSelect = array();
+   $conexion=conexion();
+   $result = mysqli_query($conexion, $sql);
+   $result1 = mysqli_query($conexion, $sql);
+    while($row = mysqli_fetch_array($result)) {
+     if($row[5]){
+     $llenarSelect[] = '<option value="'.$row[0]."-".$row[5].'">'.$row[1].'</option>';
+     }else{
+      $llenarSelect[] = '<option value="'.$row[0]."-".$row[4].'">'.$row[1].'</option>';
+     }
+
+   }
+   if(!empty($filtrado)){
+     $row = mysqli_fetch_array($result1);
+     if($row[5]){
+     $llenarSelect[] = '<option value="'.$row[0]."-".$row[5].'" selected >'.$row[1].'</option>';
+     }else{
+      $llenarSelect[] = '<option value="'.$row[0]."-".$row[4].'">'.$row[1].'</option>';
+     }
+   }
+   return $llenarSelect;
+}
 
  function actualizarEstadoEnvioFact($factura){
     $SQL = "UPDATE gxfacturas SET EnvioFacCli_FAC = 1 WHERE Codigo_FAC = '$factura' ";
@@ -375,9 +403,9 @@ function MyFecha($fecha){
 function Conexion()
 {
   if (isset($_SESSION["DB_NAME"])) {
-	 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
   } else {
-   $conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+   $conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
   }
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";

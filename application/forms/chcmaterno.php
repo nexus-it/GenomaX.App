@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 
@@ -31,7 +31,7 @@ mysqli_free_result($result);
  ?>  
  </select>
  <br />
-<label for="txt_idempleado<?php echo $NumWindow; ?>">Responsable </label><input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" /><a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a> 
+<label for="txt_idempleado<?php echo $NumWindow; ?>">Responsable </label><input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" /><a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a> 
 <input name="txt_responsable<?php echo $NumWindow; ?>" type="text" id="txt_responsable<?php echo $NumWindow; ?>" size="60" readonly="readonly" /> 
 <br />
 <label for="txt_estado<?php echo $NumWindow; ?>">Estado</label>

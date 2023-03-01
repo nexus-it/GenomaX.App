@@ -74,7 +74,7 @@ case 'nxs_mailing':
 break;
 
 case 'NxsToolBar':
-	$SQL="Select OptPrinter_ITM, OptNew_ITM, OptNo_ITM, OpSave_ITM from nxs_gnx.ititems where Enlace_ITM='forms/".$_GET['NombrePag'].".php';";	
+	$SQL="Select OptPrinter_ITM, OptNew_ITM, OptNo_ITM, OpSave_ITM from ".$_SESSION['DB_NXS'].".ititems where Enlace_ITM='forms/".$_GET['NombrePag'].".php';";	
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$SQL="";
@@ -1208,9 +1208,9 @@ break;
 
 case 'LoadFavs':
 	if ($_SESSION["it_CodigoPRF"]!='0') {
-		$SQL="Select distinct a.Codigo_ITM, Icono_ITM, Nombre_ITM, Enlace_ITM, Contador_FAV from itfavoritos a, nxs_gnx.ititems b, itpermisos c, itusuarios d Where a.Codigo_ITM=b.Codigo_ITM and a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and Activo_ITM='1' and c.Codigo_PRF=d.Codigo_PRF and a.Codigo_USR=d.Codigo_USR and a.Codigo_ITM=c.Codigo_ITM Order by Contador_FAV desc Limit 6;";
+		$SQL="Select distinct a.Codigo_ITM, Icono_ITM, Nombre_ITM, Enlace_ITM, Contador_FAV from itfavoritos a, ".$_SESSION['DB_NXS'].".ititems b, itpermisos c, itusuarios d Where a.Codigo_ITM=b.Codigo_ITM and a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and Activo_ITM='1' and c.Codigo_PRF=d.Codigo_PRF and a.Codigo_USR=d.Codigo_USR and a.Codigo_ITM=c.Codigo_ITM Order by Contador_FAV desc Limit 6;";
 	} else {
-		$SQL="Select distinct a.Codigo_ITM, Icono_ITM, Nombre_ITM, Enlace_ITM, Contador_FAV from itfavoritos a, nxs_gnx.ititems b, itusuarios d Where a.Codigo_ITM=b.Codigo_ITM and a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and Activo_ITM='1' and  a.Codigo_USR=d.Codigo_USR Order by Contador_FAV desc Limit 6;";
+		$SQL="Select distinct a.Codigo_ITM, Icono_ITM, Nombre_ITM, Enlace_ITM, Contador_FAV from itfavoritos a, ".$_SESSION['DB_NXS'].".ititems b, itusuarios d Where a.Codigo_ITM=b.Codigo_ITM and a.Codigo_USR='".$_SESSION["it_CodigoUSR"]."' and Activo_ITM='1' and  a.Codigo_USR=d.Codigo_USR Order by Contador_FAV desc Limit 6;";
 	}
 	$result = mysqli_query($conexion, $SQL);
 	$ItemFav="";
@@ -1225,7 +1225,7 @@ case 'LoadFavs':
 		$ItemFav=$ItemFav.'
 		<div class="col-md-2 col-sm-4 col-xs-6">
 <div class="box manito" id="nxsFavDiv-'.$row[0].'" onclick="CargarForm(\'application/'.$row[3].'\',\''.$row[2].'\', \''.$iconito.'\')"  style="margin-bottom: 0px;">
-  <div class="box-header" style="margin-top:2px; background-image: url(http://cdn.genomax.co/media/image/icons/32x32/'.$iconito.');background-position: center;background-repeat: no-repeat;">
+  <div class="box-header" style="margin-top:2px; background-image: url(<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/32x32/'.$iconito.');background-position: center;background-repeat: no-repeat;">
     <small><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> </small>
   </div>
   <div class="box-body no-padding center-block" >
@@ -2169,7 +2169,7 @@ case 'MyTurnos':
 		<td><input name="hdn_empleado1'.$ContFila.$_GET["Ventana"].'" type="hidden" id="hdn_empleado1'.$ContFila.$_GET["Ventana"].'" value="'.$row[3].'" />'.$row[4].'</td>
 		<td><input name="hdn_turno2'.$ContFila.$_GET["Ventana"].'" type="hidden" id="hdn_turno2'.$ContFila.$_GET["Ventana"].'" value="'.$row[9].'" />'.$row[10].'</td>
 		<td><input name="hdn_empleado2'.$ContFila.$_GET["Ventana"].'" type="hidden" id="hdn_empleado2'.$ContFila.$_GET["Ventana"].'" value="'.$row[7].'" />'.$row[8].'</td>
-		<td><a href="javascript:EliminarFilaOrden(\''.$ContFila.'\',\''.$_GET["Ventana"].'\');"><img src="themes/'.$_GET["Tema"].'/img/remove.png" alt="Eliminar" align="absmiddle" title="Eliminar fila de la programación" /></a></td>
+		<td><a href="javascript:EliminarFilaOrden(\''.$ContFila.'\',\''.$_GET["Ventana"].'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png" alt="Eliminar" align="absmiddle" title="Eliminar fila de la programación" /></a></td>
 		</tr>';
 	}
 	mysqli_free_result($result);

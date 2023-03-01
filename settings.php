@@ -19,9 +19,9 @@
 		define('DB_USER', $_SESSION["DB_USER"]);*/
 	define(DB_SUFFIX, $_GET["suffixdb"]);
 
-	$conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	$conexion = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
 	if (!$conexion) {
-		error_log('Fail Conection: '.DB_HOST.'-'.DB_USER.'-'.DB_PASSWORD.'-'.DB_NAME);
+		error_log('Fail Connection: '.DB_HOST.'-'.DB_USER.'-'.DB_PASSWORD.'-'.DB_NAME.'-'.DB_PORT);
 		header('Location: 404.shtml');
 	    /* echo "Conexion fallida (settings).".$_SESSION["DB_SUFFIX"].' '.DB_HOST.' '.DB_USER.' '.DB_NAME; */
 	    exit;
@@ -41,6 +41,7 @@
 
 	define('NEXUS_APP', $Appis);
 	*/
+	$_SESSION["DB_NXS"]=DB_NXS;
 	$_SESSION["NEXUS_APP"]=NEXUS_APP;
 	if($_SESSION["NEXUS_APP"]=="10") {
 		$SQL="Select PrefPoliza_KLD from klconfig";
@@ -51,7 +52,7 @@
 		mysqli_free_result($result);
 		
 	}
-	$SQL="Select Theme_APP, Nombre_APP from nxs_gnx.itaplicaciones where Codigo_APP='".NEXUS_APP."';";	
+	$SQL="Select Theme_APP, Nombre_APP from ".$_SESSION['DB_NXS'].".itaplicaciones where Codigo_APP='".NEXUS_APP."';";
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$_SESSION["THEME_DEFAULT"]=$row[0];
@@ -64,13 +65,17 @@
 		$_SESSION["NOMBRE_APP"]='GenomaX';
 		define ('NOMBRE_APP',$_SESSION["NOMBRE_APP"]);
 	}
+	//error_log('loading Theme:'.$_SESSION["THEME_DEFAULT"]);
 	mysqli_free_result($result);
 
 	$_SESSION["DB_NAME"]=DB_NAME;
 	$_SESSION["DB_USER"]=DB_USER;
 	$_SESSION["DB_PASSWORD"]=DB_PASSWORD;
 	$_SESSION["DB_HOST"]=DB_HOST;
+	$_SESSION["DB_PORT"]=DB_PORT;
 	$_SESSION["DB_TIMEZONE"]=DB_TIMEZONE;
+
+	$_SESSION["NEXUS_CDN"]=NEXUS_CDN;
 
 	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
 	mysqli_query($conexion, $MyZone);

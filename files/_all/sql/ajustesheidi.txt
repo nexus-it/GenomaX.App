@@ -1,0 +1,291 @@
+Updatecheck<|||>3<|||>1
+DoUsageStatistics<|||>3<|||>1
+UpdatecheckLastrun<|||>1<|||>2017-07-04 13:37:45
+LastUsageStatisticCall<|||>1<|||>2017-07-01 13:23:18
+SessionManager_WindowHeight<|||>3<|||>417
+ColWidths_connform.ListSessions<|||>1<|||>163,50,50,50,50,50,53
+ColsVisible_connform.ListSessions<|||>1<|||>0
+ColPositions_connform.ListSessions<|||>1<|||>0,1,2,3,4,5,6
+ColSort_connform.ListSessions<|||>1<|||>0,0
+CoolBand0Index<|||>3<|||>0
+CoolBand0Break<|||>3<|||>1
+CoolBand0Width<|||>3<|||>1360
+CoolBand1Index<|||>3<|||>1
+CoolBand1Break<|||>3<|||>1
+CoolBand1Width<|||>3<|||>1360
+MainWinOnMonitor<|||>3<|||>0
+ColWidths_MainForm.ListDatabases<|||>1<|||>150,80,50,50,50,50,50,50,50,50,120
+ColsVisible_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColPositions_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColSort_MainForm.ListDatabases<|||>1<|||>0,0
+ColWidths_MainForm.ListVariables<|||>1<|||>160,200,275
+ColsVisible_MainForm.ListVariables<|||>1<|||>0,1,2
+ColPositions_MainForm.ListVariables<|||>1<|||>0,1,2
+ColSort_MainForm.ListVariables<|||>1<|||>0,0
+ColWidths_MainForm.ListStatus<|||>1<|||>160,275,100,100
+ColsVisible_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColPositions_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColSort_MainForm.ListStatus<|||>1<|||>0,0
+ColWidths_MainForm.ListProcesses<|||>1<|||>70,80,80,80,80,50,50,145
+ColsVisible_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColPositions_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColSort_MainForm.ListProcesses<|||>1<|||>0,1
+ColWidths_MainForm.ListCommandStats<|||>1<|||>120,100,100,100,215
+ColsVisible_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColPositions_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColSort_MainForm.ListCommandStats<|||>1<|||>1,1
+ColWidths_MainForm.ListTables<|||>1<|||>120,70,70,120,120,70,100,50,70,70,70,70,70,90,120,70,70,70,50
+ColsVisible_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,18
+ColPositions_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+ColSort_MainForm.ListTables<|||>1<|||>0,0
+LastSessions<|||>1<|||>AxisTravellers
+LastActiveSession<|||>1<|||>AxisTravellers
+MemoEditorWidth<|||>3<|||>753
+MemoEditorHeight<|||>3<|||>277
+ColWidths_frmTableEditor.listColumns<|||>1<|||>60,100,156,90,60,65,50,119,130,140,100,100
+ColsVisible_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColPositions_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColSort_frmTableEditor.listColumns<|||>1<|||>-1,0
+ColWidths_frmTableEditor.treeIndexes<|||>1<|||>338,100,80
+ColsVisible_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
+ColPositions_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
+ColSort_frmTableEditor.treeIndexes<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>96,80,100,80,80,80
+ColsVisible_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColPositions_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColSort_frmTableEditor.listForeignKeys<|||>1<|||>-1,0
+FileDialogEncoding_MainForm<|||>3<|||>0
+ExportSQL_CreateTables<|||>3<|||>0
+ExportSQL_DataHow<|||>3<|||>2
+ExportSQL_Output<|||>3<|||>4
+ExportSQL_Database<|||>1<|||>gnx_sdnc
+MainWinMaximized<|||>3<|||>1
+DateTimeEditor_CursorPos_Type4<|||>3<|||>19
+querymemoheight<|||>3<|||>461
+SQLFile0<|||>1<|||>C:\Users\PTatil01\Dropbox\nexusapp\files\sql\script-20170530.sql
+SQLFile1<|||>1<|||>C:\Users\PTatil01\Dropbox\nexusapp\files\sql\reingresos_pacientes3.sql
+SQLFile2<|||>1<|||>C:\Users\PTatil01\Dropbox\nexusapp\files\sql\reingresos_pacientes2.sql
+SQLFile3<|||>1<|||>C:\Users\PTatil01\Dropbox\nexusapp\files\sql\reingresos_pacientes.sql
+SQLFile4<|||>1<|||>C:\Users\PTatil01\Dropbox\nexusapp\files\sql\script-20170513.sql
+Servers\AxisTravellers\SessionCreated<|||>1<|||>2016-12-09 07:38:19
+Servers\AxisTravellers\Host<|||>1<|||>axistravellers.com
+Servers\AxisTravellers\WindowsAuth<|||>3<|||>0
+Servers\AxisTravellers\User<|||>1<|||>klud
+Servers\AxisTravellers\Password<|||>1<|||>4A73687D6C38393A3B3C317
+Servers\AxisTravellers\LoginPrompt<|||>3<|||>0
+Servers\AxisTravellers\Port<|||>1<|||>3306
+Servers\AxisTravellers\NetType<|||>3<|||>0
+Servers\AxisTravellers\Compressed<|||>3<|||>0
+Servers\AxisTravellers\LocalTimeZone<|||>3<|||>0
+Servers\AxisTravellers\QueryTimeout<|||>3<|||>0
+Servers\AxisTravellers\KeepAlive<|||>3<|||>0
+Servers\AxisTravellers\FullTableStatus<|||>3<|||>1
+Servers\AxisTravellers\Databases<|||>1<|||>
+Servers\AxisTravellers\Comment<|||>1<|||>
+Servers\AxisTravellers\StartupScriptFilename<|||>1<|||>
+Servers\AxisTravellers\SSHtunnelHost<|||>1<|||>
+Servers\AxisTravellers\SSHtunnelHostPort<|||>3<|||>0
+Servers\AxisTravellers\SSHtunnelUser<|||>1<|||>
+Servers\AxisTravellers\SSHtunnelPassword<|||>1<|||>3
+Servers\AxisTravellers\SSHtunnelTimeout<|||>3<|||>4
+Servers\AxisTravellers\SSHtunnelPrivateKey<|||>1<|||>
+Servers\AxisTravellers\SSHtunnelPort<|||>3<|||>3307
+Servers\AxisTravellers\SSL_Active<|||>3<|||>0
+Servers\AxisTravellers\SSL_Key<|||>1<|||>
+Servers\AxisTravellers\SSL_Cert<|||>1<|||>
+Servers\AxisTravellers\SSL_CA<|||>1<|||>
+Servers\AxisTravellers\SSL_Cipher<|||>1<|||>
+Servers\AxisTravellers\ServerVersionFull<|||>1<|||>5.6.35-cll-lve - MySQL Community Server (GPL)
+Servers\AxisTravellers\ConnectCount<|||>3<|||>12
+Servers\AxisTravellers\ServerVersion<|||>3<|||>50635
+Servers\AxisTravellers\LastConnect<|||>1<|||>2017-07-05 09:50:39
+Servers\AxisTravellers\lastUsedDB<|||>1<|||>klud
+Servers\AxisTravellers\QueryHistory\1<|||>1<|||>2017-06-07 19:22:09|klud|125|select date(now())
+Servers\AxisTravellers\QueryHistory\3<|||>1<|||>2017-06-07 21:06:31|klud|140|select date(now()), Valor_TRM, Fecha_TRM from cztrm order by 3 desc limit 1
+Servers\AxisTravellers\QueryHistory\2<|||>1<|||>2017-06-19 20:46:59|klud|701|INSERT INTO `itreports` (`Codigo_RPT`, `Descripcion_RPT`, `SQL_RPT`) VALUES ('listarnotascreditofecha', 'Notas Credito por periodo', 'Select\r\n D.Codigo_FAC, DATE_FORMAT(D.Fecha_FAC, \'%d/%m/%Y\'),LPAD(A.Codigo_ADM,10,\'0\'), concat(Q.Sigla_TID,\' \',C.ID_TER), left(C.Nombre_TER, 60), \r\n J.Descripcion_ADM, E.Codigo_EPS, F.Nombre_TER, concat(\'{\',I.Codigo_USR,\'} \', I.ID_USR), D.ValPaciente_FAC, D.ValEntidad_FAC, D.MotivoAnula_FAC, D.ValCredito_FAC, D.ValTotal_FAC \r\nFrom\r\n czterceros AS C, gxeps AS E, czterceros AS F, cztipoid as Q, \r\n itusuarios AS I, gxtipoingreso AS J, gxadmision AS A, gxfacturas AS D \r\n left join czradicacionesdet AS K On D.Codigo_FAC=K.Codigo_FAC \r\nWhere\r\n A.Codigo_TER = C.Codigo_TER AND Q.Codigo_TID = C.Codigo_TID and D.Codigo_ADM=A.Codigo_ADM\r\n AND F.Codigo_TER = E.Codigo_TER AND trim(D.Codigo_EPS) = trim(E.Codigo_EPS) \r\n AND D.UsuarioAnula_FAC = I.Codigo_USR AND J.Tipo_ADM = A.Ingreso_ADM and D.Estado_FAC=\'0\'\r\n AND D.FechaAnula_FAC>=\'@FECHA_INICIAL 00:00:00\' AND D.FechaAnula_FAC<=\'@FECHA_FINAL 23:59:59\'\r\nOrder By\r\nD.Fecha_FAC, D.Codigo_FAC');<{{{><}}}>UPDATE `ititems` SET `Enlace_ITM`='reports/listarnotascreditofecha.php' WHERE  `Codigo_ITM`=415 AND `Codigo_MNU`=52 AND `Codigo_MOD`=3 AND `Codigo_APP`=2;<{{{><}}}>INSERT INTO `itreportsparam` (`Codigo_RPT`, `Campo_RPT`, `Titulo_RPT`, `Orden_RPT`, `Tipo_RPT`) VALUES ('listarnotascreditofecha', 'FECHA_INICIAL', 'Fecha Inicial', '1', 'D');<{{{><}}}>INSERT INTO `itreportsparam` (`Codigo_RPT`, `Campo_RPT`, `Titulo_RPT`, `Orden_RPT`, `Tipo_RPT`) VALUES ('listarnotascreditofecha', 'FECHA_FINAL', 'Fecha Final', '2', 'D');<{{{><}}}>UPDATE `itreports` SET `SQL_RPT`='Select\r\n LPAD(A.Codigo_NCT ,10,\'0\'), DATE_FORMAT(A.Fecha_NCT, \'%d/%m/%Y\'), A.NumeroDoc_NCT, DATE_FORMAT(D.Fecha_FAC, \'%d/%m/%Y\'), concat(Q.Sigla_TID,\' \',C.ID_TER), left(C.Nombre_TER, 60),\r\n E.Codigo_EPS, F.Nombre_TER, A.Valor_NCT , D.ValTotal_FAC , concat(\'{\',I.Codigo_USR,\'} \', I.ID_USR)\r\nFrom\r\n czterceros AS C, gxeps AS E, czterceros AS F, cztipoid as Q, \r\n itusuarios AS I, cznotascontablesenc AS A, gxfacturas AS D \r\nWhere\r\n A.Codigo_TER = C.Codigo_TER AND Q.Codigo_TID = C.Codigo_TID \r\n AND F.Codigo_TER = E.Codigo_TER AND trim(D.Codigo_EPS) = trim(E.Codigo_EPS) \r\n AND A.Codigo_USR = I.Codigo_USR and A.Naturaleza_NCT=\'C\' And A.NumeroDoc_NCT=D.Codigo_FAC\r\n AND A.Fecha_NCT >=\'@FECHA_INICIAL 00:00:00\' AND A.Fecha_NCT <=\'@FECHA_FINAL 23:59:59\' \r\nOrder By\r\nA.Codigo_NCT' WHERE  `Codigo_RPT`='listarnotascreditofecha' AND `Codigo_DCD`=0;<{{{><}}}>
+Servers\AxisTravellers\QueryHistory\4<|||>1<|||>2017-06-19 20:47:54|klud|313|CREATE TABLE `itconfig_fc` (	`CierreDias_XFC` INT NULL DEFAULT '0') COMMENT='Parametros Facturacion' COLLATE='utf8_general_ci' ENGINE=InnoDB ;<{{{><}}}>UPDATE `ititems` SET `Codigo_ITM`='417' WHERE  `Codigo_ITM`=369 AND `Codigo_MNU`=91 AND `Codigo_MOD`=6 AND `Codigo_APP`=2;
+Servers\AxisTravellers\QueryHistory\5<|||>1<|||>2017-06-22 18:16:02|klud|141|select ID_TER as 'No ID', Nombre_AGE as 'Nombre Agencia', Estado_AGE as 'Estado' From klagencias a, czterceros b Where a.Codigo_TER=b.Codigo_TER
+Servers\AxisTravellers\QueryHistory\6<|||>1<|||>2017-07-03 22:56:04|klud|140|Select Nombre_USR from itusuarios where ID_USR= 'camila';
+Servers\GenomaX\SessionCreated<|||>1<|||>2017-05-26 22:28:54
+Servers\GenomaX\Host<|||>1<|||>nexus-it.co
+Servers\GenomaX\WindowsAuth<|||>3<|||>0
+Servers\GenomaX\User<|||>1<|||>nxs_root
+Servers\GenomaX\Password<|||>1<|||>4E777977343D36382E4
+Servers\GenomaX\LoginPrompt<|||>3<|||>0
+Servers\GenomaX\Port<|||>1<|||>3306
+Servers\GenomaX\NetType<|||>3<|||>0
+Servers\GenomaX\Compressed<|||>3<|||>0
+Servers\GenomaX\LocalTimeZone<|||>3<|||>0
+Servers\GenomaX\QueryTimeout<|||>3<|||>0
+Servers\GenomaX\KeepAlive<|||>3<|||>0
+Servers\GenomaX\FullTableStatus<|||>3<|||>1
+Servers\GenomaX\Databases<|||>1<|||>
+Servers\GenomaX\Comment<|||>1<|||>
+Servers\GenomaX\StartupScriptFilename<|||>1<|||>
+Servers\GenomaX\SSHtunnelHost<|||>1<|||>
+Servers\GenomaX\SSHtunnelHostPort<|||>3<|||>0
+Servers\GenomaX\SSHtunnelUser<|||>1<|||>
+Servers\GenomaX\SSHtunnelPassword<|||>1<|||>7
+Servers\GenomaX\SSHtunnelTimeout<|||>3<|||>4
+Servers\GenomaX\SSHtunnelPrivateKey<|||>1<|||>
+Servers\GenomaX\SSHtunnelPort<|||>3<|||>3307
+Servers\GenomaX\SSL_Active<|||>3<|||>0
+Servers\GenomaX\SSL_Key<|||>1<|||>
+Servers\GenomaX\SSL_Cert<|||>1<|||>
+Servers\GenomaX\SSL_CA<|||>1<|||>
+Servers\GenomaX\SSL_Cipher<|||>1<|||>
+Servers\GenomaX\ServerVersionFull<|||>1<|||>5.6.35-cll-lve - MySQL Community Server (GPL)
+Servers\GenomaX\ConnectCount<|||>3<|||>16
+Servers\GenomaX\ServerVersion<|||>3<|||>50635
+Servers\GenomaX\LastConnect<|||>1<|||>2017-07-01 13:24:01
+Servers\GenomaX\RefusedCount<|||>3<|||>3
+Servers\GenomaX\lastUsedDB<|||>1<|||>gnx_sdnc
+Servers\GenomaX\gnx_sdnc|czcartera\Filter<|||>1<|||>codigo_fac='BAQ 0000003495'
+Servers\GenomaX\gnx_sdnc|czcartera\RecentFilters\1<|||>1<|||>codigo_fac='BAQ 0000003495'
+Servers\GenomaX\gnx_sdnc|czcartera\RecentFilters\2<|||>1<|||>codigo_fac='BAQ 0000002495'
+Servers\GenomaX\gnx_sdnc|czcartera\RecentFilters\3<|||>1<|||>codigo_fac='BAQ 0000003429'
+Servers\GenomaX\gnx_sdnc|czterceros\Filter<|||>1<|||>id_ter='22683418'
+Servers\GenomaX\gnx_sdnc|czterceros\RecentFilters\1<|||>1<|||>id_ter='22683418'
+Servers\GenomaX\gnx_sdnc|czterceros\RecentFilters\2<|||>1<|||>id_ter='22257395'
+Servers\GenomaX\gnx_sdnc|czterceros\RecentFilters\3<|||>1<|||>id_ter='22583045'
+Servers\GenomaX\gnx_sdnc|gxadmision\RecentFilters\1<|||>1<|||>codigo_adm='18476'
+Servers\GenomaX\gnx_sdnc|gxfacturas\Filter<|||>1<|||>	codigo_fac='BAQ 0000003495'
+Servers\GenomaX\gnx_sdnc|gxfacturas\RecentFilters\1<|||>1<|||>codigo_fac='BAQ 0000003495'
+Servers\GenomaX\gnx_sdnc|gxfacturas\RecentFilters\2<|||>1<|||>codigo_fac='BAQ 0000003490'
+Servers\GenomaX\gnx_sdnc|gxfacturas\RecentFilters\3<|||>1<|||>codigo_fac='BAQ 0000002495'
+Servers\GenomaX\gnx_sdnc|gxfacturas\RecentFilters\4<|||>1<|||>codigo_fac='BAQ 0000003550'
+Servers\GenomaX\gnx_sdnc|hcfolios\Filter<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\gnx_sdnc|hcfolios\RecentFilters\1<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\gnx_sdnc|hcfolios\RecentFilters\2<|||>1<|||>codigo_ter='2714'
+Servers\GenomaX\gnx_sdnc|hcfolios\RecentFilters\3<|||>1<|||>codigo_ter='3107'
+Servers\GenomaX\gnx_sdnc|hcsignosvitales\Filter<|||>1<|||>codigo_ter='3107'
+Servers\GenomaX\gnx_sdnc|hcsignosvitales\Sort<|||>1<|||>0_Codigo_HCF|
+Servers\GenomaX\gnx_sdnc|hcsignosvitales\RecentFilters\1<|||>1<|||>codigo_ter='3107'
+Servers\GenomaX\gnx_sdnc|hc_ENFERMERIA\Filter<|||>1<|||>codigo_ter='3107'
+Servers\GenomaX\gnx_sdnc|hc_ENFERMERIA\RecentFilters\1<|||>1<|||>codigo_ter='3107'
+Servers\GenomaX\gnx_sdnc|hc_TFEVOL\Filter<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\gnx_sdnc|hc_TFEVOL\RecentFilters\1<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\gnx_sdnc|hc_TREVOL\Filter<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\gnx_sdnc|hc_TREVOL\RecentFilters\1<|||>1<|||>codigo_ter='2673'
+Servers\GenomaX\QueryHistory\4<|||>1<|||>2017-06-04 21:51:56|gnx_sdnc|140|select * from gxfacturas where codigo_fac > 'BAQ 0000003647'
+Servers\GenomaX\QueryHistory\5<|||>1<|||>2017-06-04 21:54:38|gnx_sdnc|125|update gxfacturas set fecha_fac='2017-05-31' where codigo_fac > 'BAQ 0000003647'
+Servers\GenomaX\QueryHistory\6<|||>1<|||>2017-06-13 11:48:40|gnx_sdnc|140|Select<{{{><}}}> D.Codigo_FAC, DATE_FORMAT(D.Fecha_FAC, '%d/%m/%Y'),LPAD(A.Codigo_ADM,10,'0'), concat(Q.Sigla_TID,' ',C.ID_TER), left(C.Nombre_TER, 60), <{{{><}}}> J.Descripcion_ADM, E.Codigo_EPS, F.Nombre_TER, concat('{',I.Codigo_USR,'} ', I.ID_USR), D.ValPaciente_FAC, D.ValEntidad_FAC, D.MotivoAnula_FAC, D.ValCredito_FAC, D.ValTotal_FAC <{{{><}}}>From<{{{><}}}><{{{><}}}> czterceros AS C, gxeps AS E, czterceros AS F, cztipoid as Q, <{{{><}}}> itusuarios AS I, gxtipoingreso AS J, gxadmision AS A, gxfacturas AS D <{{{><}}}> left join czradicacionesdet AS K On D.Codigo_FAC=K.Codigo_FAC <{{{><}}}>Where<{{{><}}}> A.Codigo_TER = C.Codigo_TER AND Q.Codigo_TID = C.Codigo_TID and D.Codigo_ADM=A.Codigo_ADM<{{{><}}}> AND F.Codigo_TER = E.Codigo_TER AND trim(D.Codigo_EPS) = trim(E.Codigo_EPS) <{{{><}}}> AND D.UsuarioAnula_FAC = I.Codigo_USR AND J.Tipo_ADM = A.Ingreso_ADM and D.Estado_FAC='0'<{{{><}}}> <{{{><}}}>  AND D.FechaAnula_FAC>='2017-05-01 00:00:00' AND D.FechaAnula_FAC<='2017-06-15 23:59:59'<{{{><}}}>  <{{{><}}}>/* AND D.FechaAnula_FAC>='@FECHA_INICIAL 00:00:00' AND D.FechaAnula_FAC<='@FECHA_FINAL 23:59:59' */<{{{><}}}>Order By<{{{><}}}>D.Fecha_FAC, D.Codigo_FAC
+Servers\GenomaX\QueryHistory\7<|||>1<|||>2017-06-13 12:38:54|gnx_sdnc|109|Select<{{{><}}}> LPAD(A.Codigo_NCT ,10,'0'), DATE_FORMAT(A.Fecha_NCT, '%d/%m/%Y'), A.NumeroDoc_NCT, DATE_FORMAT(D.Fecha_FAC, '%d/%m/%Y'), concat(Q.Sigla_TID,' ',C.ID_TER), left(C.Nombre_TER, 60),<{{{><}}}>  E.Codigo_EPS, F.Nombre_TER, concat('{',I.Codigo_USR,'} ', I.ID_USR), A.Valor_NCT , D.ValCredito_FAC, D.ValTotal_FAC <{{{><}}}>From<{{{><}}}><{{{><}}}> czterceros AS C, gxeps AS E, czterceros AS F, cztipoid as Q, <{{{><}}}> itusuarios AS I, cznotascontablesenc AS A, gxfacturas AS D <{{{><}}}>Where<{{{><}}}> A.Codigo_TER = C.Codigo_TER AND Q.Codigo_TID = C.Codigo_TID <{{{><}}}> AND F.Codigo_TER = E.Codigo_TER AND trim(D.Codigo_EPS) = trim(E.Codigo_EPS) <{{{><}}}> AND A.Codigo_USR = I.Codigo_USR and A.Naturaleza_NCT='C' And A.NumeroDoc_NCT=D.Codigo_FAC<{{{><}}}> <{{{><}}}>  AND A.Fecha_NCT >='2017-05-01 00:00:00' AND A.Fecha_NCT <='2017-06-15 23:59:59'<{{{><}}}>  <{{{><}}}>/* AND A.Fecha_NCT >='@FECHA_INICIAL 00:00:00' AND A.Fecha_NCT <='@FECHA_FINAL 23:59:59' */<{{{><}}}>Order By<{{{><}}}>A.Codigo_NCT
+Servers\GenomaX\QueryHistory\9<|||>1<|||>2017-06-13 12:47:20|gnx_sdnc|2434|Select<{{{><}}}> LPAD(A.Codigo_NCT ,10,'0'), DATE_FORMAT(A.Fecha_NCT, '%d/%m/%Y'), A.NumeroDoc_NCT, DATE_FORMAT(D.Fecha_FAC, '%d/%m/%Y'), concat(Q.Sigla_TID,' ',C.ID_TER), left(C.Nombre_TER, 60),<{{{><}}}>  E.Codigo_EPS, F.Nombre_TER, concat('{',I.Codigo_USR,'} ', I.ID_USR), A.Valor_NCT , D.ValCredito_FAC, D.ValTotal_FAC <{{{><}}}>From<{{{><}}}><{{{><}}}> czterceros AS C, gxeps AS E, czterceros AS F, cztipoid as Q, <{{{><}}}> itusuarios AS I, cznotascontablesenc AS A, gxfacturas AS D <{{{><}}}>Where<{{{><}}}> A.Codigo_TER = C.Codigo_TER AND Q.Codigo_TID = C.Codigo_TID <{{{><}}}> AND F.Codigo_TER = E.Codigo_TER AND trim(D.Codigo_EPS) = trim(E.Codigo_EPS) <{{{><}}}> AND A.Codigo_USR = I.Codigo_USR and A.Naturaleza_NCT='C' And A.NumeroDoc_NCT=D.Codigo_FAC<{{{><}}}> <{{{><}}}>  AND A.Fecha_NCT >='2017-04-01 00:00:00' AND A.Fecha_NCT <='2017-06-15 23:59:59'<{{{><}}}>  <{{{><}}}>/* AND A.Fecha_NCT >='@FECHA_INICIAL 00:00:00' AND A.Fecha_NCT <='@FECHA_FINAL 23:59:59' */<{{{><}}}>Order By<{{{><}}}>A.Codigo_NCT
+Servers\GenomaX\QueryHistory\8<|||>1<|||>2017-07-01 13:25:36|gnx_sdnc|156|Select b.Codigo_ORD, a.Codigo_SER, sum(a.Cantidad_ORD), avg(a.ValorPaciente_ORD), avg(a.ValorEntidad_ORD), avg(a.ValorServicio_ORD), a.Codigo_EPS, a.Codigo_PLA, a.Codigo_TER<{{{><}}}>From gxordenesdet a, gxordenescab b, gxadmision c, gxordenescab x, gxadmision y<{{{><}}}>Where a.Codigo_ORD=b.Codigo_ORD and b.Codigo_ADM=c.Codigo_ADM and x.Codigo_ADM=y.Codigo_ADM<{{{><}}}> and y.Codigo_TER=c.Codigo_TER and month(c.Fecha_ADM)='04' and year(c.Fecha_ADM)='2017' and b.Estado_ORD='1'<{{{><}}}> and c.Estado_ADM='I'<{{{><}}}> <{{{><}}}> Group by b.Codigo_ORD, a.Codigo_SER, a.Codigo_EPS, a.Codigo_PLA, a.Codigo_TER
+Servers\GenomaX\QueryHistory\1<|||>1<|||>2017-07-01 13:27:49|gnx_sdnc|140|Select count(*)<{{{><}}}>from gxfacturas a<{{{><}}}>where a.Fecha_FAC='2017-07-01'
+Servers\GenomaX\QueryHistory\2<|||>1<|||>2017-07-01 13:28:54|gnx_sdnc|405|Select *<{{{><}}}>from gxfacturas a<{{{><}}}>where a.Fecha_FAC='2017-07-01'
+Servers\GenomaX\QueryHistory\3<|||>1<|||>2017-07-01 13:54:56|gnx_sdnc|125|Select codigo_adm<{{{><}}}>from gxfacturas a<{{{><}}}>where a.Fecha_FAC='2017-07-01' and a.Estado_FAC='1'
+Servers\GenomaX\QueryHistory\10<|||>1<|||>2017-07-01 14:04:36|gnx_sdnc|421|Select Codigo_ADM, Codigo_TER, '2017-07-01', Codigo_EPS, Codigo_PLA, Riesgo_ADM, Ingreso_ADM, '2017-07-01', Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, Observaciones_ADM, Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, '6'<{{{><}}}>from gxadmision x<{{{><}}}>where x.Codigo_ADM in<{{{><}}}>(<{{{><}}}>Select codigo_adm<{{{><}}}>from gxfacturas a<{{{><}}}>where a.Fecha_FAC='2017-07-01' and a.Estado_FAC='1'<{{{><}}}>)
+Servers\GenomaX\QueryHistory\11<|||>1<|||>2017-07-01 14:08:14|gnx_sdnc|266|SET @numero=0;<{{{><}}}>SELECT @numero:=@numero+1
+Servers\GenomaX\QueryHistory\12<|||>1<|||>2017-07-01 14:08:24|gnx_sdnc|250|SET @numero=7000;<{{{><}}}>SELECT @numero:=@numero+1
+Servers\GenomaX\QueryHistory\13<|||>1<|||>2017-07-01 14:14:03|gnx_sdnc|406|SET @numero=19014;<{{{><}}}>Insert Into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Riesgo_ADM, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, Observaciones_ADM, Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, Codigo_USR)<{{{><}}}><{{{><}}}>Select @numero:=@numero+1, Codigo_TER, '2017-07-01', Codigo_EPS, Codigo_PLA, Riesgo_ADM, Ingreso_ADM, '2017-07-01', Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, Observaciones_ADM, Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, '6'<{{{><}}}>from gxadmision x<{{{><}}}>where x.Estado_ADM='F' and <{{{><}}}>x.Codigo_ADM in<{{{><}}}>(Select codigo_adm<{{{><}}}>from gxfacturas a<{{{><}}}>where a.Fecha_FAC='2017-07-01' and a.Estado_FAC='1');<{{{><}}}>Update itconsecutivos SET `Consecutivo_CNS`=@numero WHERE  `Campo_CNS`='Codigo_ADM' AND `Tabla_CNS`='gxadmision' AND `Codigo_DCD`=0;
+Servers\GenomaX\QueryHistory\14<|||>1<|||>2017-07-01 14:20:57|gnx_sdnc|156|UPDATE gxfacturas SET Fecha_FAC='2017-06-30'<{{{><}}}>where Fecha_FAC='2017-07-01' and Estado_FAC='1'
+Servers\IHC\SessionCreated<|||>1<|||>2016-12-09 07:41:34
+Servers\IHC\Host<|||>1<|||>ihc.com.co
+Servers\IHC\WindowsAuth<|||>3<|||>0
+Servers\IHC\User<|||>1<|||>ihccomco_root
+Servers\IHC\Password<|||>1<|||>4770657A6935363738392E4
+Servers\IHC\LoginPrompt<|||>3<|||>0
+Servers\IHC\Port<|||>1<|||>3306
+Servers\IHC\NetType<|||>3<|||>0
+Servers\IHC\Compressed<|||>3<|||>0
+Servers\IHC\LocalTimeZone<|||>3<|||>0
+Servers\IHC\QueryTimeout<|||>3<|||>0
+Servers\IHC\KeepAlive<|||>3<|||>0
+Servers\IHC\FullTableStatus<|||>3<|||>1
+Servers\IHC\Databases<|||>1<|||>
+Servers\IHC\Comment<|||>1<|||>
+Servers\IHC\StartupScriptFilename<|||>1<|||>
+Servers\IHC\SSHtunnelHost<|||>1<|||>
+Servers\IHC\SSHtunnelHostPort<|||>3<|||>0
+Servers\IHC\SSHtunnelUser<|||>1<|||>
+Servers\IHC\SSHtunnelPassword<|||>1<|||>6
+Servers\IHC\SSHtunnelTimeout<|||>3<|||>4
+Servers\IHC\SSHtunnelPrivateKey<|||>1<|||>
+Servers\IHC\SSHtunnelPort<|||>3<|||>3307
+Servers\IHC\SSL_Active<|||>3<|||>0
+Servers\IHC\SSL_Key<|||>1<|||>
+Servers\IHC\SSL_Cert<|||>1<|||>
+Servers\IHC\SSL_CA<|||>1<|||>
+Servers\IHC\SSL_Cipher<|||>1<|||>
+Servers\IHC\ServerVersionFull<|||>1<|||>5.5.53-cll-lve - MySQL Community Server (GPL)
+Servers\IHC\ConnectCount<|||>3<|||>2
+Servers\IHC\ServerVersion<|||>3<|||>50553
+Servers\IHC\LastConnect<|||>1<|||>2017-06-12 21:29:05
+Servers\IHC\lastUsedDB<|||>1<|||>ihccomco_ihc
+Servers\Sadinca\SessionCreated<|||>1<|||>2016-12-09 07:42:23
+Servers\Sadinca\Host<|||>1<|||>107.180.25.99
+Servers\Sadinca\WindowsAuth<|||>3<|||>0
+Servers\Sadinca\User<|||>1<|||>genomax
+Servers\Sadinca\Password<|||>1<|||>4D7678763336383B3
+Servers\Sadinca\LoginPrompt<|||>3<|||>0
+Servers\Sadinca\Port<|||>1<|||>3306
+Servers\Sadinca\NetType<|||>3<|||>0
+Servers\Sadinca\Compressed<|||>3<|||>0
+Servers\Sadinca\LocalTimeZone<|||>3<|||>0
+Servers\Sadinca\QueryTimeout<|||>3<|||>0
+Servers\Sadinca\KeepAlive<|||>3<|||>0
+Servers\Sadinca\FullTableStatus<|||>3<|||>1
+Servers\Sadinca\Databases<|||>1<|||>
+Servers\Sadinca\Comment<|||>1<|||>
+Servers\Sadinca\StartupScriptFilename<|||>1<|||>
+Servers\Sadinca\SSHtunnelHost<|||>1<|||>
+Servers\Sadinca\SSHtunnelHostPort<|||>3<|||>0
+Servers\Sadinca\SSHtunnelUser<|||>1<|||>
+Servers\Sadinca\SSHtunnelPassword<|||>1<|||>6
+Servers\Sadinca\SSHtunnelTimeout<|||>3<|||>4
+Servers\Sadinca\SSHtunnelPrivateKey<|||>1<|||>
+Servers\Sadinca\SSHtunnelPort<|||>3<|||>3307
+Servers\Sadinca\SSL_Active<|||>3<|||>0
+Servers\Sadinca\SSL_Key<|||>1<|||>
+Servers\Sadinca\SSL_Cert<|||>1<|||>
+Servers\Sadinca\SSL_CA<|||>1<|||>
+Servers\Sadinca\SSL_Cipher<|||>1<|||>
+Servers\Sadinca\ServerVersionFull<|||>1<|||>5.6.35-cll-lve - MySQL Community Server (GPL)
+Servers\Sadinca\ConnectCount<|||>3<|||>5
+Servers\Sadinca\ServerVersion<|||>3<|||>50635
+Servers\Sadinca\LastConnect<|||>1<|||>2017-06-12 21:29:19
+Servers\Sadinca\lastUsedDB<|||>1<|||>sadinca
+Servers\Sadinca\QueryHistory\1<|||>1<|||>2016-12-13 11:57:07|sadinca|110|SELECT c.Codigo_SER, c.Nombre_SER, sum(a.Cantidad_ORD), b.Nombre_TER, g.Nombre_SDE, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>FROM gxordenesdet a, czterceros b, gxservicios c, gxordenescab d, gxadmision e, itusuariossedes f, czsedes g, czterceros h    <{{{><}}}>WHERE  a.Codigo_TER= b.Codigo_TER AND a.Codigo_SER= c.Codigo_SER AND d.Codigo_ORD=a.Codigo_ORD AND h.Codigo_TER=e.Codigo_TER <{{{><}}}>AND e.Codigo_ADM=d.Codigo_ADM AND f.Codigo_USR=e.Codigo_USR AND g.Codigo_SDE=f.Codigo_SDE<{{{><}}}>AND b.ID_TER >= '0' AND b.ID_TER <='ZZZZZZZZZZZ' AND d.Fecha_ORD >='2016-11-01' AND d.Fecha_ORD <='2016-12-01' <{{{><}}}>Group By g.Nombre_SDE, b.Nombre_TER, c.Codigo_SER, c.Nombre_SER, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>Order By g.Nombre_SDE, b.Nombre_TER, h.Nombre_TER, c.Codigo_SER, c.Nombre_SER
+Servers\Sadinca\QueryHistory\2<|||>1<|||>2016-12-13 11:57:45|sadinca|5258|SELECT c.Codigo_SER, c.Nombre_SER, sum(a.Cantidad_ORD), b.Nombre_TER, g.Nombre_SDE, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>FROM gxordenesdet a, czterceros b, gxservicios c, gxordenescab d, gxadmision e, itusuariossedes f, czsedes g, czterceros h    <{{{><}}}>WHERE  a.Codigo_TER= b.Codigo_TER AND a.Codigo_SER= c.Codigo_SER AND d.Codigo_ORD=a.Codigo_ORD <{{{><}}}>AND h.Codigo_TER=e.Codigo_TER <{{{><}}}>AND e.Codigo_ADM=d.Codigo_ADM AND f.Codigo_USR=e.Codigo_USR <{{{><}}}>AND b.ID_TER >= '0' AND b.ID_TER <='ZZZZZZZZZZZ' AND d.Fecha_ORD >='2016-11-01' AND d.Fecha_ORD <='2016-12-01' <{{{><}}}>Group By g.Nombre_SDE, b.Nombre_TER, c.Codigo_SER, c.Nombre_SER, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>Order By g.Nombre_SDE, b.Nombre_TER, h.Nombre_TER, c.Codigo_SER, c.Nombre_SER
+Servers\Sadinca\QueryHistory\3<|||>1<|||>2016-12-13 11:58:26|sadinca|749|SELECT c.Codigo_SER, c.Nombre_SER, sum(a.Cantidad_ORD), b.Nombre_TER, g.Nombre_SDE, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>FROM gxordenesdet a, czterceros b, gxservicios c, gxordenescab d, gxadmision e, itusuariossedes f, czsedes g, czterceros h    <{{{><}}}>WHERE  a.Codigo_TER= b.Codigo_TER AND a.Codigo_SER= c.Codigo_SER AND d.Codigo_ORD=a.Codigo_ORD <{{{><}}}>AND h.Codigo_TER=e.Codigo_TER <{{{><}}}>AND e.Codigo_ADM=d.Codigo_ADM AND f.Codigo_USR=e.Codigo_USR AND g.Codigo_SDE=e.Codigo_SDE<{{{><}}}>AND b.ID_TER >= '0' AND b.ID_TER <='ZZZZZZZZZZZ' AND d.Fecha_ORD >='2016-11-01' AND d.Fecha_ORD <='2016-12-01' <{{{><}}}>Group By g.Nombre_SDE, b.Nombre_TER, c.Codigo_SER, c.Nombre_SER, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>Order By g.Nombre_SDE, b.Nombre_TER, h.Nombre_TER, c.Codigo_SER, c.Nombre_SER
+Servers\Sadinca\QueryHistory\4<|||>1<|||>2016-12-13 11:59:29|sadinca|671|SELECT c.Codigo_SER, c.Nombre_SER, sum(a.Cantidad_ORD), b.Nombre_TER, g.Nombre_SDE, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>FROM gxordenesdet a, czterceros b, gxservicios c, gxordenescab d, gxadmision e, czsedes g, czterceros h    <{{{><}}}>WHERE  a.Codigo_TER= b.Codigo_TER AND a.Codigo_SER= c.Codigo_SER AND d.Codigo_ORD=a.Codigo_ORD <{{{><}}}>AND h.Codigo_TER=e.Codigo_TER <{{{><}}}>AND e.Codigo_ADM=d.Codigo_ADM AND  g.Codigo_SDE=e.Codigo_SDE<{{{><}}}>AND b.ID_TER >= '0' AND b.ID_TER <='ZZZZZZZZZZZ' AND d.Fecha_ORD >='2016-11-01' AND d.Fecha_ORD <='2016-12-01' <{{{><}}}>Group By g.Nombre_SDE, b.Nombre_TER, c.Codigo_SER, c.Nombre_SER, e.Codigo_ADM, h.Nombre_TER<{{{><}}}>Order By g.Nombre_SDE, b.Nombre_TER, h.Nombre_TER, c.Codigo_SER, c.Nombre_SER
+Servers\Sadinca\QueryHistory\5<|||>1<|||>2016-12-16 10:39:16|sadinca|78|Select * from hccampos where codigo_hct='VALHER1'
+Servers\Sadinca\QueryHistory\6<|||>1<|||>2016-12-16 10:39:42|sadinca|78|Select * from hccampos where codigo_hct='VALHER1' order by orden_hcc
+Servers\Sadinca\sadinca|czempleados\Sort<|||>1<|||>0_Nombre1_EMP|
+Servers\Sadinca\sadinca|gxadmision\Filter<|||>1<|||>codigo_adm='15690'
+Servers\Sadinca\sadinca|gxadmision\RecentFilters\1<|||>1<|||>codigo_adm='15690'
+Servers\Sadinca\sadinca|gxadmision\RecentFilters\2<|||>1<|||>codigo_adm='15629'
+Servers\SanDiego\SessionCreated<|||>1<|||>2016-12-09 07:40:14
+Servers\SanDiego\Host<|||>1<|||>clinicasandiego.co
+Servers\SanDiego\WindowsAuth<|||>3<|||>0
+Servers\SanDiego\User<|||>1<|||>clini7pz_root
+Servers\SanDiego\Password<|||>1<|||>4B74697E6D393A3B3C3D328
+Servers\SanDiego\LoginPrompt<|||>3<|||>0
+Servers\SanDiego\Port<|||>1<|||>3306
+Servers\SanDiego\NetType<|||>3<|||>0
+Servers\SanDiego\Compressed<|||>3<|||>0
+Servers\SanDiego\LocalTimeZone<|||>3<|||>0
+Servers\SanDiego\QueryTimeout<|||>3<|||>0
+Servers\SanDiego\KeepAlive<|||>3<|||>0
+Servers\SanDiego\FullTableStatus<|||>3<|||>1
+Servers\SanDiego\Databases<|||>1<|||>
+Servers\SanDiego\Comment<|||>1<|||>
+Servers\SanDiego\StartupScriptFilename<|||>1<|||>
+Servers\SanDiego\SSHtunnelHost<|||>1<|||>
+Servers\SanDiego\SSHtunnelHostPort<|||>3<|||>0
+Servers\SanDiego\SSHtunnelUser<|||>1<|||>
+Servers\SanDiego\SSHtunnelPassword<|||>1<|||>2
+Servers\SanDiego\SSHtunnelTimeout<|||>3<|||>4
+Servers\SanDiego\SSHtunnelPrivateKey<|||>1<|||>
+Servers\SanDiego\SSHtunnelPort<|||>3<|||>3307
+Servers\SanDiego\SSL_Active<|||>3<|||>0
+Servers\SanDiego\SSL_Key<|||>1<|||>
+Servers\SanDiego\SSL_Cert<|||>1<|||>
+Servers\SanDiego\SSL_CA<|||>1<|||>
+Servers\SanDiego\SSL_Cipher<|||>1<|||>
+Servers\SanDiego\ServerVersionFull<|||>1<|||>5.6.30-76.3-log - Percona Server (GPL), Release 76.3, Revision 3850db5
+Servers\SanDiego\ConnectCount<|||>3<|||>1
+Servers\SanDiego\ServerVersion<|||>3<|||>50630
+Servers\SanDiego\LastConnect<|||>1<|||>2016-12-22 15:58:03

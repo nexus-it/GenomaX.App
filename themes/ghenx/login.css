@@ -125,15 +125,6 @@ box-shadow:         0px 0px 8px 0px rgba(50, 50, 50, 0.54);
     -moz-transition: all 0.75s ease-in-out; 
 }
 
-.messagesx{
-    background-color:#f90000;
-    color: #FEFEFE;
-    height: 40px;
-    transition: all 0.75s ease-in-out;
-    -webkit-transition: all 0.75s ease-in-out;
-    -moz-transition: all 0.75s ease-in-out; 
-}
-
 .messages:hover {
     background-color:#16AB5E;
 }

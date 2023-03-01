@@ -7,7 +7,7 @@ include '00trnsctns.php';
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Update czcartera set Saldo_CAR=ValorFac_CAR + ValorDeb_CAR - ValorCre_CAR - ".$_POST['valornc'].", ValorCre_CAR=ValorCre_CAR+ ".$_POST['valornc']." where Codigo_FAC='".$_POST['factura']."';";
 	EjecutarSQL($SQL, $conexion);
-	$SQL="Insert into cznotascontablesenc(Codigo_NCT, Naturaleza_NCT, Descripcion_NCT, Fecha_NCT, TipoDoc_NCT, NumeroDoc_NCT, Codigo_TER, Valor_NCT, Codigo_USR) values(".$Consec.", 'C', '".$_POST['observacion']."', '".$_POST['fecha']."', '01', '".$_POST['factura']."', ".$_POST['codigoter'].", ".$_POST['valornc'].", '".$_SESSION["it_CodigoUSR"]."');";
+	$SQL="Insert into cznotascontablesenc(Codigo_NCT, Naturaleza_NCT, Descripcion_NCT, Fecha_NCT, TipoDoc_NCT, NumeroDoc_NCT, Codigo_TER, Valor_NCT, Codigo_USR) values(".$Consec.", 'C', '".$_POST['observacion']."', '".$_POST['fecha']."', '01', '".$_POST['factura']."', '".$_POST['codigoter']."', ".$_POST['valornc'].", '".$_SESSION["it_CodigoUSR"]."');";
 	EjecutarSQL($SQL, $conexion);
 	$totalnc=$_POST['controw'];
 	for ($i = 1; $i <= $totalnc; $i++) {

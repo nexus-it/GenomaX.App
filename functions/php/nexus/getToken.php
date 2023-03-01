@@ -4,7 +4,7 @@ session_start();
 
     function getToken() {
         $SQL="Select URLToken_XFE, BodyToken_XFE, NombreClave_XFE, UserAPI_XFE, PasswAPI_XFE, ScopeToken_XFE, HeaderToken_XFE, KeyAPI_XFE, URL_XFE from itconfig_fe Where Estado_XFE='1';";
-        $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+        $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
         $result = mysqli_query($conexion, $SQL);
         if($row = mysqli_fetch_row($result)) {
             $URLToken_XFE=$row[0];

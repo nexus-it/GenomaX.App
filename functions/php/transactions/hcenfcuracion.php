@@ -34,7 +34,7 @@ include '00trnsctns.php';
 	$SQL="Insert Into hcfolios(Codigo_TER, Codigo_HCT, Codigo_HCF, Fecha_HCF, Hora_HCF, Codigo_ADM, Codigo_ARE, Codigo_USR, FechaReg_HCF, Folio_HCF) Values ('".$_POST['codigoter']."', 'ENFERMERIA', '".$ElFolio."', '".($_POST['fecha'])."', '".substr($_POST['hora'],0,5)."', '".$_POST['ingreso']."', '".$_POST['area']."', '".$_SESSION["it_CodigoUSR"]."', now(), '".$XFolio."')";
 	EjecutarSQL($SQL, $conexion);
 	//REGISTRO DE ENFERMERIA
-	$SQL="Insert Into hc_ENFERMERIA(Codigo_TER, Codigo_HCF, nota_HC, curacion_HC) Values ('".$_POST['codigoter']."', '".$ElFolio."', '".$_POST['notaenf']."', '".$_POST['curaciones']."')";
+	$SQL="Insert Into hc_enfermeria(Codigo_TER, Codigo_HCF, nota_HC, curacion_HC) Values ('".$_POST['codigoter']."', '".$ElFolio."', '".$_POST['notaenf']."', '".$_POST['curaciones']."')";
 	EjecutarSQL($SQL, $conexion);
 	// SIGNOS VITALES
 	$totalsv=12;

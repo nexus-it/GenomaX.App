@@ -2,7 +2,7 @@
 
 session_start();
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
 	$SQL="Select Sum(Individual_PLA), Sum(Pareja_PLA), Sum(Hijos_PLA) from klplanesprecios where Codigo_PLA='".$_POST["Plan"]."'";

@@ -3,7 +3,7 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 ?>
 <div class="row" style="height:98%;">
@@ -23,7 +23,7 @@ session_start();
 
 <form id="frm_form<?php echo $NumWindow; ?>"><div class="panel-body contreport" id="div_cont<?php echo $NumWindow; ?>">
 <?php 
-$SQL="Select Campo_RPT, Titulo_RPT, Tipo_RPT, Value_RPT, Script_RPT, Search_RPT from nxs_gnx.itreportsparam where trim(codigo_rpt)=trim('".$_GET["reporte"]."') Order By Orden_RPT";
+$SQL="Select Campo_RPT, Titulo_RPT, Tipo_RPT, Value_RPT, Script_RPT, Search_RPT from ".$_SESSION['DB_NXS'].".itreportsparam where trim(codigo_rpt)=trim('".$_GET["reporte"]."') Order By Orden_RPT";
 //echo $SQL;
 $conexion=Conexion();
 $result = mysqli_query($conexion, $SQL);
@@ -72,7 +72,7 @@ while($row = mysqli_fetch_array($result)) {
   <select name="txt_'.$row["Campo_RPT"].$NumWindow.'" id="txt_'.$row["Campo_RPT"].$NumWindow.'" class="form-control '.$clase.'" '.$enabled.' ';
   		eval($row["Script_RPT"]);
 	    echo '>';
-  		$SQL="Select Valor_RPT, Texto_RPT, Comando_RPT, Seleccionado_RPT from nxs_gnx.itreportslistas where trim(Codigo_rpt)=trim('".$_GET["reporte"]."') and trim(Campo_rpt)=trim('".$row["Campo_RPT"]."') Order By Orden_RPT";
+  		$SQL="Select Valor_RPT, Texto_RPT, Comando_RPT, Seleccionado_RPT from ".$_SESSION['DB_NXS'].".itreportslistas where trim(Codigo_rpt)=trim('".$_GET["reporte"]."') and trim(Campo_rpt)=trim('".$row["Campo_RPT"]."') Order By Orden_RPT";
 //		echo $SQL;
 		$resultx = mysqli_query($conexion, $SQL);
 		while($rowx = mysqli_fetch_array($resultx)) {
@@ -96,7 +96,7 @@ while($row = mysqli_fetch_array($result)) {
   <select name="txt_'.$row["Campo_RPT"].$NumWindow.'" id="txt_'.$row["Campo_RPT"].$NumWindow.'" class="form-control '.$clase.'" '.$enabled.' ';
   		eval($row["Script_RPT"]);
 	    echo '>';
-  		$SQL="Select Consulta_RPT, Comando_RPT from nxs_gnx.itreportsselects where trim(Codigo_rpt)=trim('".$_GET["reporte"]."') and trim(Campo_rpt)=trim('".$row["Campo_RPT"]."') ";
+  		$SQL="Select Consulta_RPT, Comando_RPT from ".$_SESSION['DB_NXS'].".itreportsselects where trim(Codigo_rpt)=trim('".$_GET["reporte"]."') and trim(Campo_rpt)=trim('".$row["Campo_RPT"]."') ";
 //		echo $SQL;
 		$resultxt = mysqli_query($conexion, $SQL);
 		if($rowxt = mysqli_fetch_array($resultxt)) {

@@ -14,7 +14,7 @@ include '00trnsctns.php';
 				EjecutarSQL($SQL, $conexion);
 			}
 			$SQL="Update czinvsolfarmacia Set Estado_ISF='S', Pendiente_ISF = Pendiente_ISF - ".$_POST['cantdespmed'.$contador]." Where Codigo_ISF='".$_POST['solicitud']."' and Codigo_SER='".$_POST['codmed'.$contador]."';";
-			$SQL="Update czinvsolfarmacia Set Estado_ISF='S', Codigo_USR='".$_SESSION["it_CodigoUSR"]."' Where Codigo_ISF='".$_POST['solicitud']."' and Codigo_SER='".$_POST['codmed'.$contador]."';";
+			//$SQL="Update czinvsolfarmacia Set Estado_ISF='S', Codigo_USR='".$_SESSION["it_CodigoUSR"]."' Where Codigo_ISF='".$_POST['solicitud']."' and Codigo_SER='".$_POST['codmed'.$contador]."';";
 			EjecutarSQL($SQL, $conexion);
 		}
 		$contador++; 

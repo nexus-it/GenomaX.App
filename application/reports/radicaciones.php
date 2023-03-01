@@ -4,7 +4,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -26,13 +26,13 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	
 	
 	$this->Image('../../files/logo'.$_SESSION["DB_SUFFIX"].'.jpg',3,1,0);
-	$SQL="Select Upper(z.Razonsocial_DCD), LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y'), d.Nombre_TER, Upper(b.Nombre_PLA), Concat(d.ID_TER,'-',d.DigitoVerif_TER), c.Codigo_EPS, Radicado_RAD From itconfig as z, czradicacionescab as a, gxplanes as b, gxeps as c, czterceros as d 
-Where d.Codigo_TER=c.Codigo_TER and a.Codigo_EPS=c.Codigo_EPS and a.Codigo_PLA=b.Codigo_PLA 
+	$SQL="Select Upper(z.Razonsocial_DCD), LPAD(a.Codigo_RAD,10,'0'), DATE_FORMAT(a.Fecha_RAD, '%d/%m/%Y'), Case a.Estado_RAD When '1' Then 'Sin Confirmar' When '2' Then 'Confirmado' End, DATE_FORMAT(a.FechaConf_RAD, '%d/%m/%Y'), d.Nombre_TER, a.Codigo_PLA, Concat(d.ID_TER,'-',d.DigitoVerif_TER), c.Codigo_EPS, Radicado_RAD From itconfig as z, czradicacionescab as a, gxeps as c, czterceros as d 
+Where d.Codigo_TER=c.Codigo_TER and a.Codigo_EPS=c.Codigo_EPS
 and LPAD(a.Codigo_RAD,10,'0')=LPAD('".$_GET["CODIGO_INICIAL"]."',10,'0')";
 	$resultRAD = mysqli_query($conexion, $SQL);
 	if ($rowRAD = mysqli_fetch_row($resultRAD)) {
@@ -57,7 +57,13 @@ and LPAD(a.Codigo_RAD,10,'0')=LPAD('".$_GET["CODIGO_INICIAL"]."',10,'0')";
 		$this->SetY(47);
 		$this->Cell(62,6,'NIT '.$rowRAD[7],'',0,'L',0);	
 		$this->SetY(47);
-		$this->Cell(0,6,'PLAN: '.$rowRAD[6],'',0,'R',0);	
+		$SQL="Select Upper(Nombre_PLA) From gxplanes Where Codigo_PLA='".$rowRAD[6]."'";
+		$resultRADp = mysqli_query($conexion, $SQL);
+		if ($rowRADp = mysqli_fetch_row($resultRADp)) {
+			$this->Cell(0,6,'PLAN: '.$rowRADp[0],'',0,'R',0);
+		} else {
+			$this->Cell(0,6,'PLAN: TODOS','',0,'R',0);
+		}
 	}
 	mysqli_free_result($resultRAD);
 	$this->SetFillColor(235);
@@ -97,7 +103,7 @@ function Footer()
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT page_rpt, orientacion_rpt, sql_rpt from nxs_gnx.itreports where codigo_rpt='radicaciones'";
+$SQL="SELECT page_rpt, orientacion_rpt, sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='radicaciones'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];

@@ -1,9 +1,9 @@
-<?php
-
+﻿<?php
+ob_start();
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 include '../../functions/php/GenomaXBackend/params.php';
@@ -43,17 +43,17 @@ function Footer()
 }
 $FormatoPagina="Letter";
 $Orientation="P";
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='notacredito'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='notacredito'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
     $SQL=$row[0];
     $Orientation=$row[2];
     $FormatoPagina=$row[1];
-    $SQL=str_replace("@TIPO_NOTA",$_GET["TIPO_NOTA"],$SQL);
+    $SQL=str_replace("@TIPO_NOTA",strtolower($_GET["TIPO_NOTA"]),$SQL);
     $SQL=str_replace("@CODIGO_INICIAL",$_GET["CODIGO_INICIAL"],$SQL);
     $SQL=str_replace("@CODIGO_FINAL",$_GET["CODIGO_FINAL"],$SQL);
 }
-//echo $SQL;
+//echo "sql = ".$SQL;
 mysqli_free_result($result);
 
 if($_GET["TIPO_NOTA"] == "C"){
@@ -71,7 +71,7 @@ $pdf->SetCreator('@Skanner79');
 //Se construyen los márgenes y saltos de página
 $pdf->SetMargins(10, 10,10);
 $pdf->SetAutoPageBreak(true, 10);
-// echo $SQL;
+  error_log( $SQL);
 $result = mysqli_query($conexion, $SQL);
 while($row = mysqli_fetch_row($result)) {
 $pdf->AddPage();
@@ -96,7 +96,7 @@ $pdf->AddPage();
     $pdf->Image("http://" . $_SERVER['HTTP_HOST'].$currentDir."qr_generator.php?code=". urlencode($cadena),180,234,27,27 , "png");
     $pdf->SetY(6);
     $pdf->SetFont('Arial','B',8);
-    $pdf->Cell(0,200,'CUFE: '.$CUFE,'',0,'L',0);
+    $pdf->Cell(0,210,'CUFE: '.$CUFE,'',0,'L',0);
 //Encabezado de la tabla
 if (trim($row[15])=="A") {
     $pdf->Image('../../anulado.jpg',25,1,0);
@@ -232,7 +232,12 @@ $pdf->Cell(4,5,'','',0,'L',0); //direccion
 $pdf->Cell(46,5,'CONTABILIZADA','T',0,'L',0); //direccion
 }
 mysqli_free_result($result);
+
+ ob_end_clean();
+
 //mysqli_close();
 //Mostramos el informe
 $pdf->Output();
+
+ob_end_flush();
 ?>

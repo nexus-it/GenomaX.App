@@ -97,7 +97,7 @@ include '00trnsctns.php';
 		}
 	} 
 	// Riesgo Especifico
-	if ($RiesgoEspecifHCT!="0") {
+	if ($RiesgoEspecifHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  = '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcidriesgoesp' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -118,7 +118,7 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	}
 	// Embarazo Actual 
-	if ($EmbarazoActHCT!="0") {
+	if ($EmbarazoActHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  LIKE '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcembactual' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -139,7 +139,7 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	}
 	// Riesgo Obstetrico
-	if ($RiesgoObstHCT!="0") {
+	if ($RiesgoObstHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  LIKE '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcriegoobs' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -160,7 +160,7 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	}
 	// Control Paraclinico
-	if ($CtrlParacObsHCT!="0") {
+	if ($CtrlParacObsHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  = '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcctrlparaobs' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -181,12 +181,12 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	}
 	// Test de Framingham
-	if ($FraminghamHCT!="0") {
+	if ($FraminghamHCT=="1") {
 		$SQL="Insert Into hcframingham(Codigo_TER, Codigo_HCF, Sexofr_HCA, Edadfr_HCA, TAsistfr_HCA, ColTfr_HCA, ColHDLfr_HCA, Medicadofr_HCA, Fumafr_HCA, Puntosfr_HCA, Riesgofr_HCA) Values('".$_POST['codigoter']."', '".$ElFolio."', '".$_POST['sexofr']."', '".$_POST['edadfr']."', '".$_POST['tsafr']."', '".$_POST['totcfr']."', '".$_POST['hdlfr']."', '".$_POST['medicfr']."', '".$_POST['fumafr']."', '".$_POST['puntosfr']."', '".$_POST['porcfr']."');";
 		EjecutarSQL($SQL, $conexion);
 	}
 	// Factores de Riesgo Cardiovascular
-	if ($RiesgoCardVHCT!="0") {
+	if ($RiesgoCardVHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  = '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcriegocv' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -241,7 +241,7 @@ include '00trnsctns.php';
 		
 	}
 	// Control Prenatal
-	if ($CtrlPreNatHCT!="0") {
+	if ($CtrlPreNatHCT=="1") {
 		$SQL="SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA  = '".$_SESSION["DB_NAME"]."' AND TABLE_NAME = 'hcctrlprentl' AND COLUMN_NAME not in ('Codigo_HCF', 'Codigo_TER')";
 		$resultHCA = mysqli_query($conexion, $SQL);
 		$antRes=0;
@@ -262,7 +262,7 @@ include '00trnsctns.php';
 		EjecutarSQL($SQL, $conexion);
 	}
 	// error_log('Val Heridas: '.$ValHeridasHCT);
-	if ($ValHeridasHCT!="0") {
+	if ($ValHeridasHCT=="1") {
 		for ($i = 1; $i <= 47; $i++) {
 			for ($j = 1; $j <= 66; $j++) {
 				if (isset($_POST['VH'.$j.'-'.$i])) {
@@ -581,7 +581,7 @@ include '00trnsctns.php';
 	}
 	
 	// GUARDAR CAMPOS DE LA HC
-	$SQL1="Insert Into hc_".$_POST['formatohc']."(Codigo_TER, Codigo_HCF, ";
+	$SQL1="Insert Into hc_".strtolower($_POST['formatohc'])."(Codigo_TER, Codigo_HCF, ";
 	$SQL2=") Values('".$_POST['codigoter']."', '".$ElFolio."', ";
 	$SQL="Select Codigo_HCC, Orden_HCC, Tipo_HCC from hccampos where Codigo_HCT='".$_POST['formatohc']."' and Tipo_HCC<>'well' order by Orden_HCC";
 	$resulty = mysqli_query($conexion, $SQL);

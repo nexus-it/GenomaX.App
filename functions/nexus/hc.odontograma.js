@@ -60,7 +60,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\" width=\"24px\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\" width=\"24px\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			$("#txt"+partesEstado[0]).val("");
 			break;
@@ -460,7 +460,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			$("#"+partesEstado[0]+"-C5").append("<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">");
+			$("#"+partesEstado[0]+"-C5").append("<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">");
 			$("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "22":
@@ -602,7 +602,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "40":
@@ -611,7 +611,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "41":
@@ -620,7 +620,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "42":
@@ -629,7 +629,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "43":
@@ -809,7 +809,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "47":
@@ -818,7 +818,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "48":
@@ -827,7 +827,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "49":
@@ -836,7 +836,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\" style=\"height: 42px; margin-top: -12px; width: 16px;\" >";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\" style=\"height: 42px; margin-top: -12px; width: 16px;\" >";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		case "50":
@@ -845,7 +845,7 @@ function paintDiente(cadena, ventana)
 				"text-align": "center"
 			};
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\" style=\"height: 42px; margin-top: -12px; width: 26px;\" >";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\" style=\"height: 42px; margin-top: -12px; width: 26px;\" >";
 		    $("#"+partesEstado[0]+"-C5").css(css);
 			break;
 		
@@ -1943,7 +1943,7 @@ function deleteDiente(cadena, ventana)
 			break;
 		case "48":
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";
-			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"http://cdn.genomax.co/media/image/odontog/"+tratamiento[0]+".png\">";
+			document.getElementById(partesEstado[0]+"-C5").innerHTML="<img src=\"https://cdn.genomax.app/image/odontog/"+tratamiento[0]+".png\">";
 			break;
 		case "49":
 			document.getElementById(partesEstado[0]+"-C5").innerHTML="";

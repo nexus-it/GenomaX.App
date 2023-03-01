@@ -59,8 +59,8 @@ function Guardar_facturasalud(Ventana)
 				
 				if (respuesta.substr(0,39)=="Se ha generado correctamente la factura") {
 					theinvoice=respuesta.substr(40,Tam);
-					Pref=getCharsInString(theinvoice);
-					Consecutivo=getNumbersInString(theinvoice);
+					Pref=getNumbersInString(theinvoice);
+					Consecutivo=getCharsInString(theinvoice);
 					Pref=Pref.trim();
 					InsertarHTML(NomProgress, '');
 					document.getElementById(NomGuardar).style.display  = 'block';

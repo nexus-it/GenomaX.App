@@ -111,7 +111,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 	elseif(is_dir(dirname(__FILE__).'/font'))
 		$this->fontpath = dirname(__FILE__).'/font/';
 	else
-		$this->fontpath = 'http://cdn.genomax.co/media/fpdffonts/';
+		$this->fontpath = '<?php echo $_SESSION["NEXUS_CDN"]; ?>/fpdffonts/';
 	// Core fonts
 	$this->CoreFonts = array('courier', 'helvetica', 'times', 'symbol', 'zapfdingbats');
 	// Scale factor

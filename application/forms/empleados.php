@@ -2,9 +2,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 <form name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" method="post"  action="functions/php/nexus/uploads.php?route=images&class=terceros&style=profile&wind=<?php echo $NumWindow; ?>" enctype="multipart/form-data" target="upload_target<?php echo $NumWindow; ?>" onreset="document.frm_form<?php echo $NumWindow; ?>.hdn_terceros<?php echo $NumWindow; ?>.value='<?php echo session_id(); ?>';FotoEmp<?php echo $NumWindow; ?>('0.png');">
@@ -15,8 +15,8 @@ session_start();
 		<div id="div_foto<?php echo $NumWindow; ?>" class="foto_perfil thumbnail center-block" style="background-repeat: no-repeat;background-position: center; background-size: contain;">
 			<div id="div_preupload<?php echo $NumWindow; ?>" class="preupload" style="visibility:hidden"></div>
 			<div id="div_cmd<?php echo $NumWindow; ?>" class="foto_cmd" >
-				<img src="http://cdn.genomax.co/media/image/add-mini.png"  alt="Cambiar Foto" width="16" height="16" align="absmiddle" title="Actualizar Foto" class="pic_add" onclick="upl_file<?php echo $NumWindow; ?>.click();"/> 
-				<img src="http://cdn.genomax.co/media/image/remove-mini.png"  alt="Eliminar Foto" width="16" height="16" align="absmiddle" title="Eliminar Foto" class="pic_remove" onclick="KillPic('files/images/terceros/',document.getElementById('hdn_terceros<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
+				<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add-mini.png"  alt="Cambiar Foto" width="16" height="16" align="absmiddle" title="Actualizar Foto" class="pic_add" onclick="upl_file<?php echo $NumWindow; ?>.click();"/> 
+				<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/remove-mini.png"  alt="Eliminar Foto" width="16" height="16" align="absmiddle" title="Eliminar Foto" class="pic_remove" onclick="KillPic('files/images/terceros/',document.getElementById('hdn_terceros<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
 				<input name="upl_file<?php echo $NumWindow; ?>" type="file" class="input_file_upload" id="upl_file<?php echo $NumWindow; ?>" size="1" accept="image/x-png, image/gif, image/jpeg"/ onchange="frm_form<?php echo $NumWindow; ?>.submit();startUpload('<?php echo $NumWindow; ?>', 'terceros');" >
 				<iframe id="upload_target<?php echo $NumWindow; ?>" style="width:0; height:0;border: 0px solid #ffffff;" name="upload_target<?php echo $NumWindow; ?>"  width="320" height="240" ></iframe>
 			</div>

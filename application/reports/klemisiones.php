@@ -7,7 +7,7 @@ include '../../functions/php/nexus/database.php';
 include('phpqrcode/qrlib.php'); 
 //include('config.php'); 
 
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -47,7 +47,7 @@ function Footer()
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='klemisiones'";
+$SQL="SELECT page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='klemisiones'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];
@@ -69,7 +69,7 @@ $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetFillColor(255);
 //while($row = mysqli_fetch_row($result)) {
 
-$SQL="SELECT sql_rpt from nxs_gnx.itreports where codigo_rpt='klemisiones'";
+$SQL="SELECT sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='klemisiones'";
 $resultH = mysqli_query($conexion, $SQL);
 if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=$rowH[0];
@@ -295,7 +295,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	while ($row = mysqli_fetch_row($result)) {
 		$pdf->SetFont('Helvetica','',$tamLetra);
 		$pdf->Cell(160,$tamEspacio,utf8_decode($row[0]),'',0,'L',0);
-		error_log('fpdf: '.$row[1]);
+		//error_log('fpdf: '.$row[1]);
 		//$pdf->Cell(0,$tamEspacio,utf8_decode(strtoupper(iconv("UTF-8", "windows-1252",$row[1]))),'',0,'R',0); 
 		//$pdf->Cell(0,$tamEspacio,strtoupper(html_entity_decode(utf8_decode(htmlentities($row[1])))),'',0,'R',0); 
 		$pdf->Cell(0,$tamEspacio,strtoupper(utf8_decode($row[1])),'',0,'R',0); 

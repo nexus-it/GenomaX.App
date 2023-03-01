@@ -12,7 +12,7 @@
 		autoclose: true
 	});';
   */
-  
+  flush();
   include 'plugins/gxchartboard/gxchartboard.php';
   
 ?>

@@ -26,7 +26,10 @@ include '00trnsctns.php';
 		if ($FechaRem=="") { $FechaRem="0000-00-00"; }
 		if($rowd = mysqli_fetch_row($resultd)) {
 			$SQL="Update gxadmision Set Codigo_TER='".$row[0]."', Fecha_ADM='".($_POST['fechaadm'])." ".$_POST['horaadm']."', Codigo_EPS='".trim($_POST['Contrato'])."', Codigo_PLA='".trim($_POST['Plan'])."', Codigo_CXT='".$_POST['riesgo']."', Codigo_FNC='".$_POST['finconsulta']."', Ingreso_ADM='".$_POST['TipoIng']."', FechaHosp_ADM='".($FechaHosp)."', Codigo_CAM='".$_POST['cama']."', Codigo_DGN='".$_POST['diagnostico']."', ValorRemitido_ADM='".$_POST['remitido']."', Remision_ADM='".$_POST['remision']."', FechaRemision_ADM='".($FechaRem)."', IPS_ADM='".$_POST['ips']."', Motivo_ADM='".$_POST['motivo']."', Acudiente_ADM='".$_POST['acudiente']."', Direccion_ADM='".$_POST['direccion']."', Telefono_ADM='".$_POST['telefono']."', Autorizacion_ADM='".$_POST['autorizacion']."', FechaAutorizacion_ADM='".($FechaAutoriz)."', Observaciones_ADM='".$_POST['observacion']."', Codigo_USR='".$_SESSION["it_CodigoUSR"]."', UsuarioAnula_USR='', Estado_ADM='I', Copago_ADM='".$_POST['copago']."', Cuota_ADM='".$_POST['cuota']."', FechaFin_ADM='".($FechaFin)."', Codigo_SDE='".$_POST['sede']."', Codigo_PTT='".$_POST['tipopct']."', Codigo_CIT='".$_POST['citax']."'  Where Codigo_ADM='".$Consec."';";
-			
+			EjecutarSQL($SQL, $conexion);
+			$SQL="UPDATE gxordenesdet SET Codigo_EPS='".trim($_POST['Contrato'])."', Codigo_PLA='".trim($_POST['Plan'])."' WHERE codigo_ord in (select codigo_ord from gxordenescab where codigo_adm IN ( '".$Consec."') AND estado_ord='1');";
+			EjecutarSQL($SQL, $conexion);
+			$SQL="UPDATE gxfacturas T1, ( SELECT b.Codigo_ADM, SUM(a.Cantidad_ORD * a.ValorEntidad_ORD) total FROM gxordenesdet a, gxordenescab b where a.Codigo_ORD=b.Codigo_ORD and b.Estado_ORD='1' GROUP BY b.Codigo_ADM ) T2 SET T1.ValTotal_FAC = T2.total- T1.ValCredito_FAC - T1.ValIVA_FAC , T1.ValEntidad_FAC = T2.total WHERE T1.Codigo_ADM = T2.Codigo_ADM AND T1.ValEntidad_FAC <> T2.total AND T2.Codigo_ADM IN ('".$Consec."')";
 			EjecutarSQL($SQL, $conexion);
 			it_aud('2', 'Admisiones', 'Ingreso No.'.$Consec);
 		} else {

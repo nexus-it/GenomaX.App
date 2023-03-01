@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 ?>
@@ -16,7 +16,7 @@ session_start();
 
 <label for="txt_idempleado<?php echo $NumWindow; ?>">Id.</label>
 <input name="txt_idempleado<?php echo $NumWindow; ?>" id="txt_idempleado<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp<?php echo $NumWindow; ?>(event);" />
-<a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a>
+<a href="javascript:CargarSearch('Empleado', 'txt_idempleado<?php echo $NumWindow; ?>', 'NULL');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a>
 <span id="Empleado<?php echo $NumWindow; ?>" class="nombre"></span>
 </fieldset>
 <?php  ?>
@@ -26,7 +26,7 @@ session_start();
   <input name="txt_fechaini<?php echo $NumWindow; ?>" type="date" id="txt_fechaini<?php echo $NumWindow; ?>" >
 <label for="txt_valor<?php echo $NumWindow; ?>">Valor Salario</label>
 <input name="txt_valor<?php echo $NumWindow; ?>" type="text" id="txt_valor<?php echo $NumWindow; ?>" size="15" maxlength="15">
- <a href="javascript:AgregarFilaSalario(document.frm_form<?php echo $NumWindow; ?>.txt_fechaini<?php echo $NumWindow; ?>.value, document.frm_form<?php echo $NumWindow; ?>.txt_valor<?php echo $NumWindow; ?>.value, '<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.hdn_controw<?php echo $NumWindow; ?>.value, '<?php echo $_SESSION["THEME_DEFAULT"]; ?>');"><img src="http://cdn.genomax.co/media/image/add.png" alt="Agregar al historial" align="absmiddle" title="Agregar al historial" /></a><br />
+ <a href="javascript:AgregarFilaSalario(document.frm_form<?php echo $NumWindow; ?>.txt_fechaini<?php echo $NumWindow; ?>.value, document.frm_form<?php echo $NumWindow; ?>.txt_valor<?php echo $NumWindow; ?>.value, '<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.hdn_controw<?php echo $NumWindow; ?>.value, '<?php echo $_SESSION["THEME_DEFAULT"]; ?>');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" alt="Agregar al historial" align="absmiddle" title="Agregar al historial" /></a><br />
 <hr align="center" width="95%" size="1"  class="anulado" />
  <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" >
 <table  width="95%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
@@ -52,7 +52,7 @@ session_start();
 		echo '  <tr id="tr'.$contarow.$NumWindow.'">
     <td><input name="hdn_fechaini'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechaini'.$contarow.$NumWindow.'" value="'.FormatoFecha($row[0]).'" />'.FormatoFecha($row[0]).'</td>
     <td><input name="hdn_valorslr'.$contarow.$NumWindow.'" type="hidden" id="hdn_valorslr'.$contarow.$NumWindow.'" value="'.$row[1].'" />'.$row[1].'</td>
-    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/images/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar salario del empleado" /></a></td>
+    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar salario del empleado" /></a></td>
   </tr>
 ';
 	}

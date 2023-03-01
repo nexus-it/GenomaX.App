@@ -2,9 +2,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 ?>
@@ -260,7 +260,7 @@ mysqli_free_result($resultz);
     <td>'.$row[2].'</td>
     <td><input name="hdn_codigoter'.$contarow.$NumWindow.'" type="hidden" id="hdn_codigoter'.$contarow.$NumWindow.'" value="'.$row[4].'" />'.$row[5].'</td>
     <td align="center"><input class="sinborde" name="hdn_cantidadser'.$contarow.$NumWindow.'" type="number" id="hdn_cantidadser'.$contarow.$NumWindow.'" value="'.$row[3].'" min="1" /></td>
-    <td align="center"><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a></td>
+    <td align="center"><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a></td>
   </tr>
 ';
 	}
@@ -275,7 +275,7 @@ mysqli_free_result($resultz);
     <td>'.$row[2].'</td>
     <td><input name="hdn_codigoter'.$contarow.$NumWindow.'" type="hidden" id="hdn_codigoter'.$contarow.$NumWindow.'" value="'.$row[4].'" />'.$row[5].'</td>
     <td align="center"><input class="sinborde" name="hdn_cantidadser'.$contarow.$NumWindow.'" type="number" id="hdn_cantidadser'.$contarow.$NumWindow.'" value="'.$row[3].'" min="1" /></td>
-    <td align="center"><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a></td>
+    <td align="center"><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a></td>
   </tr>
 ';
   }

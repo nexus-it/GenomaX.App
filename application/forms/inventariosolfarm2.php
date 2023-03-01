@@ -2,9 +2,9 @@
 	
 session_start();
 $NumWindow=$_GET["target"];
-include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");	
 /*
 //VERIFICAMOS QUE EL USUARIO TENGA ASIGNADA UNA BODEGA ACTIVA
@@ -33,7 +33,7 @@ mysqli_query ($conexion, "SET NAMES 'utf8'");
 	<div class="row">
 	<?php 
 	$SQL="Select distinct b.ID_TER, b.Nombre_TER, concat(c.Fecha_HCF,' ', c.Hora_HCF), e.Codigo_ADM, f.Nombre_ARE, d.Nombre_CAM, k.Nombre_SDE, g.Nombre_USR, m.Nombre_TER, n.Nombre_PLA, c.Codigo_TER, c.Codigo_HCF From czinvsolfarmacia a, czterceros b, hcfolios c, gxcamas d, gxadmision e, gxareas f, itusuarios g, czsedes k, gxeps l, czterceros m, gxplanes n Where n.Codigo_PLA=e.Codigo_PLA and c.Codigo_ADM=e.Codigo_ADM and d.Codigo_CAM=e.Codigo_CAM and k.Codigo_SDE=e.Codigo_SDE and l.Codigo_EPS=e.Codigo_EPS and l.Codigo_TER=m.Codigo_TER and b.Codigo_TER=a.Codigo_TER and c.Codigo_TER=b.Codigo_TER and c.Codigo_HCF=a.Codigo_HCF and c.Codigo_USR=g.Codigo_USR and f.Codigo_ARE=c.Codigo_ARE and a.Estado_ISF in ('S', 'P') and a.Codigo_ISF='".$_GET["numsol"]."'  and a.Pendiente_ISF > 0";
-	error_log($SQL);
+	//error_log($SQL);
 	$resultx = mysqli_query($conexion, $SQL);
 	while($rowx = mysqli_fetch_array($resultx)) 
 		{
@@ -116,7 +116,7 @@ mysqli_query ($conexion, "SET NAMES 'utf8'");
 			<?php 
 			$filasMed=0;
 			$SQL="Select e.Codigo_SER, b.Nombre_MED, e.Formula_ISF, e.Pendiente_ISF From gxmedicamentos b, czinvsolfarmacia e Where e.Codigo_SER=b.Codigo_SER and e.Codigo_ISF='".$_GET["numsol"]."' and e.Pendiente_ISF > 0";
-			error_log($SQL);
+			//error_log($SQL);
 			$resultm = mysqli_query($conexion, $SQL);
 			while($rowm = mysqli_fetch_array($resultm)) {
 				$filasMed=$filasMed+1;

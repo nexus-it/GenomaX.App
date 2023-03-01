@@ -4,7 +4,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -26,10 +26,10 @@ function PDF($orientation='P',$unit='mm',$format='halfletter')
 }
 function Header()
 {
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL="SELECT sql_rpt from nxs_gnx.itreports where codigo_rpt='hcayudasdx'";
+$SQL="SELECT sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hcayudasdx'";
 $resultH = mysqli_query($conexion, $SQL);
 if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=$rowH[0];
@@ -62,7 +62,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 }
 function Footer()
 {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query($conexion, "SET time_zone = '".$_SESSION["DB_TIMEZONE"]."'");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	
@@ -92,7 +92,7 @@ function Footer()
 $FormatoPagina="halfletter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='hcayudasdx'";
+$SQL="SELECT page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hcayudasdx'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];

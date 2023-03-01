@@ -4,7 +4,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -26,7 +26,7 @@ function PDF($orientation='P',$unit='mm',$format='halfletter')
 }
 function Header()
 {
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 $SQLH="Select RazonSocial_DCD, NIT_DCD, Direccion_DCD, Telefonos_DCD, Ciudad_DCD from itconfig";
@@ -82,7 +82,7 @@ $notacx="";
 $FormatoPagina="halfletter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, RazonSocial_DCD, NotaCita_XCX from itconfig_cx, nxs_gnx.itreports, itconfig where codigo_rpt='citasprogramadasusuario'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, RazonSocial_DCD, NotaCita_XCX from itconfig_cx, ".$_SESSION['DB_NXS'].".itreports, itconfig where codigo_rpt='citasprogramadasusuario'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$SQL=$row[0];

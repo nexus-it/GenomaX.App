@@ -1,11 +1,11 @@
 <?php
 
 include '00trnsctns.php';
-  error_log('MasterDB');
+  //error_log('MasterDB');
   $nxsTabla=$_POST["nxsTabla"];
-  error_log('MasterDB table: '.$nxsTabla);
+  //error_log('MasterDB table: '.$nxsTabla);
   $SQL="SELECT COLUMN_NAME, COLUMN_DEFAULT, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='".$_SESSION["DB_NAME"]."' AND TABLE_NAME='".$nxsTabla."' ORDER BY ORDINAL_POSITION;";
-  error_log('MasterDB Describe: '.$SQL);
+  //error_log('MasterDB Describe: '.$SQL);
   $rstColumns = mysqli_query($conexion, $SQL);
   $jk=0;
   $Kampox="";
@@ -31,7 +31,7 @@ include '00trnsctns.php';
   $Valorez=substr($Valorez, 0,strlen($Valorez)-2);
 
   $SQL="Replace Into ".$nxsTabla."(".$Kampox.") Values (".$Valorez.");";
-   error_log('MasterDB: '.$SQL);
+   //error_log('MasterDB: '.$SQL);
     EjecutarSQL($SQL, $conexion);
   $MSG='Datos registrados correctamente. '.$nxsTabla;
 	

@@ -1,13 +1,13 @@
 <?php
 session_start();
 include '../../../functions/php/nexus/database.php';   
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
     mysqli_query ($conexion, "SET NAMES 'utf8'");
 $TheRpt="";
 if (isset($_GET["nxsrpt"]))
 {
     $TheRpt=$_GET["nxsrpt"];
-    $SQL="Select Descripcion_RPT, Subtitle_RPT, SQL_RPT from nxs_gnx.itreports where trim(codigo_rpt)=trim('".$_GET["nxsrpt"]."');";
+    $SQL="Select Descripcion_RPT, Subtitle_RPT, SQL_RPT from ".$_SESSION['DB_NXS'].".itreports where trim(codigo_rpt)=trim('".$_GET["nxsrpt"]."');";
 $resulttb = mysqli_query($conexion, $SQL);
 if($rowtb = mysqli_fetch_array($resulttb)) {
     $rpt_titulo=$rowtb[0];
@@ -16,14 +16,14 @@ if($rowtb = mysqli_fetch_array($resulttb)) {
 }
 mysqli_free_result($resulttb);
 $rpt_cols=substr($rpt_sql, 0, stripos($rpt_sql, "where"))." WHERE 1=0 LIMIT 1";
-$SQL2="Select Campo_RPT From nxs_gnx.itreportsparam Where Codigo_RPT='".$_GET["nxsrpt"]."'";
+$SQL2="Select Campo_RPT From ".$_SESSION['DB_NXS'].".itreportsparam Where Codigo_RPT='".$_GET["nxsrpt"]."'";
 $result2 = mysqli_query($conexion, $SQL2);
 while($row2 = mysqli_fetch_row($result2)) {
     $rpt_subtitulo=str_replace("@".$row2[0],$_GET[$row2[0]],$rpt_subtitulo);
     $rpt_cols=str_replace("@".$row2[0],$_GET[$row2[0]],$rpt_cols);
 }
 mysqli_free_result($result2);    
-// error_log($rpt_cols);
+//error_log($rpt_cols);
 include('templates/header.php');
 ?>
 

@@ -10,7 +10,7 @@ session_start();
     <?php 
 $SQL="Select ".$SQL." and 1=0";
 $SQLx="Select ".$SQLx." and 1=0";
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 $result = mysqli_query($conexion, $SQL);
@@ -64,7 +64,7 @@ function valSearch(e){
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==13){
     document.getElementById('loadsearchNxs').style.visibility='visible';
-    document.getElementById('resultadosNxs').innerHTML='<div class="center-block"><img src="http://cdn.genomax.co/media/image/loading.gif" class="img-responsive" alt="Cargando..." align="center"></div>';
+    document.getElementById('resultadosNxs').innerHTML='<div class="center-block"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loading.gif" class="img-responsive" alt="Cargando..." align="center"></div>';
     ExecSearch(document.getElementById('txt_buscarNxs').value, document.getElementById('cmb_criterioNxs').value, document.getElementById('cmb_camposNxs').value, '<?php echo $_GET['req']; ?>', '<?php echo $_GET['cond']; ?>');
     document.getElementById('loadsearchNxs').style.visibility='hidden';
     

@@ -14,7 +14,7 @@ function listarFacturasCompra($filtro,$ini,$fin){
    $SQL .=  $filtro; 
   }
   $SQL .= " and a.Codigo_TER=b.Codigo_TER AND a.Codigo_FAC=c.Codigo_FAC ORDER BY a.Fecha_FAC DESC LIMIT 200"; //  limit $ini,$fin
-  error_log($SQL);
+  //error_log($SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -31,7 +31,7 @@ function listarFacturasCompra($filtro,$ini,$fin){
 			';
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       
@@ -51,7 +51,7 @@ function listarFacturasCompra($filtro,$ini,$fin){
             $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
             $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
-            $btnxml='href="https://backend.estrateg.com/API/storage/app/public/900993679/FE-'.$row[0].'.xml" download="FE-'.$row[0].'.xml"';
+            $btnxml='onclick="descargarFacturaXml(\''.$row[5].'\', \''.$row[0].'\'); "';
             $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice(\''.$Pref.'\',\''.$Consecutivo.'\')"';
             if($row[5] != '0'){
                $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
@@ -92,14 +92,14 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
   
   $SQL="SELECT factura, date, Razonsocial_DCD, Nombre_TER, sum(cantidad*valor)  FROM gxdocumentosoporte t1 
   INNER JOIN czterceros t2 ON t1.proveedor = t2.ID_TER 
-  INNER JOIN itconfig t3 ON T1.cliente = SUBSTRING_INDEX(NIT_DCD, '-', 1) ";
+  INNER JOIN itconfig t3 ON t1.cliente = SUBSTRING_INDEX(NIT_DCD, '-', 1) ";
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
   /*
   if($filtro <> ''){
    $SQL .=  $filtro; 
   }*/
   $SQL .= " GROUP BY factura  ORDER BY date desc  limit $ini,$fin"; //  limit $ini,$fin
-  error_log($SQL);
+  //error_log($SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -116,8 +116,6 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
 			';
 		$html .= '<tbody class="row items">';
 
-      
-      
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
       while($row = mysqli_fetch_array($result)){
             $html .= '<tr class="item">';
@@ -132,7 +130,7 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
             $cadena = explode($Consecutivo,$string);
             $Pref = $cadena[0];
              $btnedit='onclick="CargarForm(\'application/forms/editdocumentosoporte.php?documento='.$row[0].'\', \''.$row[0].'\', \''.$row[0].'\'); AddFavsForm(\''.$row[0].'\'); "'; 
-            $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
+            $btnsend='onclick="putSendDS(\''.$row[0].'\'); "';
             $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
             $btnxml='onclick="descargaFactXml(\''.$row[0].'\'); "';
             $btnprint=' title="Vista previa Documento '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptDocSop(\''.$Consecutivo.'\')"';
@@ -144,8 +142,8 @@ function listarDocumentoSoporte($filtro,$ini,$fin){
                $sendMail = ' disabled="disabled" title="Mail Enviado" ';
             }*/
             $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
-               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>';
-               //<button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>';
                //<button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
                //<button type="button" class="btn btn-success" '.$btnxml.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> </button>
                $botonera.='<button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
@@ -191,7 +189,7 @@ function listarFacturas($filtro,$ini,$fin){
    $SQL .=  $filtro; 
   }
   $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
-  error_log($SQL);
+  //error_log($SQL);
   //echo $SQL;
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
@@ -209,7 +207,7 @@ function listarFacturas($filtro,$ini,$fin){
 			';
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       
@@ -337,7 +335,7 @@ function listarNotasCredito($filtro,$ini,$fin){
 
    $html="";	
 
-  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesenc t5 ON T1.Codigo_FAC = T5.NumeroDoc_NCT and t5.Naturaleza_NCT = 'C'";
+  $SQL="SELECT * FROM gxfacturas t1   INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER   INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS  INNER JOIN cznotascontablesenc t5 ON t1.Codigo_FAC = t5.NumeroDoc_NCT and t5.Naturaleza_NCT = 'C'";
    //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
   
   if($filtro <> ''){
@@ -346,6 +344,7 @@ function listarNotasCredito($filtro,$ini,$fin){
   $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc limit $ini,$fin  ";
 
   //echo $SQL;
+  //error_log( $SQL);
   $conexion=conexion();
   $result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_array($result)) {
@@ -361,7 +360,7 @@ function listarNotasCredito($filtro,$ini,$fin){
 			</tr>';
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
@@ -381,7 +380,7 @@ function listarNotasCredito($filtro,$ini,$fin){
             if($cufe  <> ''){
 
                $sql_update = "update cznotascontablesenc Set IdFE_FAC='".$cufe."' where Codigo_NCT='".$row['Codigo_NCT']."' and (IdFE_FAC IS NULL or IdFE_FAC = '1' or IdFE_FAC = '');";
-               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
                mysqli_query ($conexion, $sql_update);
                
                $sendInvoice = ' disabled="disabled" title="Nota Credito Enviada" ';
@@ -486,7 +485,7 @@ function listarNotasDebito($filtro,$ini,$fin){
 			</tr>';
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
@@ -515,7 +514,7 @@ function listarNotasDebito($filtro,$ini,$fin){
             If($cufe  <> ''){
 
                $sql_update = "update cznotascontablesend Set IdFE_FAC='".$cufe."' where Codigo_NCT='".$row['Codigo_NCT']."' and (IdFE_FAC IS NULL or IdFE_FAC = '1' or IdFE_FAC = '');";
-               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+               $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
                mysqli_query ($conexion, $sql_update);
                
                $sendInvoice = ' disabled="disabled" title="Nota Debito Enviada" ';
@@ -627,7 +626,7 @@ function listarFacturasCapita($filtro,$ini,$fin){
 		}      
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       
@@ -679,9 +678,6 @@ function listarFacturasCapita($filtro,$ini,$fin){
 }
 
 
-
-
-
 function listarNotasCreditoCapita($filtro,$ini,$fin){
    
    if($ini == ''){
@@ -693,8 +689,6 @@ function listarNotasCreditoCapita($filtro,$ini,$fin){
    }
 
    $html="";	
-
-
 
   $SQL="SELECT * FROM gxfacturas t1 
   INNER JOIN gxeps t2 ON t1.Codigo_EPS = t2.Codigo_EPS 
@@ -727,12 +721,10 @@ function listarNotasCreditoCapita($filtro,$ini,$fin){
 		}      
 		$html .= '<tbody class="row items">';
 
-      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
       $result4 = mysqli_query($conexion, $SQL_m);
       $row4 = mysqli_fetch_row($result4);
       
-      
-
       $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
       while($row = mysqli_fetch_array($result)){
             $html .= '<tr class="item">';
@@ -780,9 +772,6 @@ function listarNotasCreditoCapita($filtro,$ini,$fin){
 }
 
 
-
-
-
 function url_exists($url) {
     $h = get_headers($url);
     $status = array();
@@ -792,7 +781,7 @@ function url_exists($url) {
 
 
 function ValidarCUfe($nit,$prefix,$number){
-   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
    mysqli_query ($conexion, "SET NAMES 'utf8'");
    $cadena = explode("-",$nit);
    $sql = "SELECT * FROM `Billing`.`documents` where identification_number =".$cadena[0]." AND CUFE IS NOT NULL and prefix = '".$prefix."' and number = ".$number ;

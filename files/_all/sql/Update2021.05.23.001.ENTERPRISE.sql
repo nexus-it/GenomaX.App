@@ -1,0 +1,71 @@
+-- NUEVO ENTERPRISE 2021
+UPDATE `itconfig` SET `Version_DCD`='[Enterprise] 21.05.23.001' ;
+ALTER TABLE `hcodontogramasimbolos`
+	CHANGE COLUMN `Simbolo_OGS` `Tipo_OGS` CHAR(1) NULL DEFAULT NULL AFTER `Descripcion_OGS`;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=1;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=2;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=3;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='D' WHERE  `Codigo_OGS`=4;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=5;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=6;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='D' WHERE  `Codigo_OGS`=7;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=8;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=9;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=10;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=11;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=12;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=13;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=14;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=15;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=16;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=17;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=18;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=19;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=20;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=21;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=22;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='R' WHERE  `Codigo_OGS`=23;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=24;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=25;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=26;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=27;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=28;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=29;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=30;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=31;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=32;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=33;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=34;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='U' WHERE  `Codigo_OGS`=35;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=36;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='T' WHERE  `Codigo_OGS`=37;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=38;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=39;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=40;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=41;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=42;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=43;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=44;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='F' WHERE  `Codigo_OGS`=45;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=46;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=47;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=48;
+UPDATE `hcodontogramasimbolos` SET `Tipo_OGS`='A' WHERE  `Codigo_OGS`=49;
+ALTER TABLE `gxfacturas`
+	ADD COLUMN `Month_FAC` VARCHAR(20) NOT NULL AFTER `Fecha_FAC`,
+	ADD COLUMN `Year_FAC` CHAR(4) NOT NULL DEFAULT '2021' AFTER `Month_FAC`,
+	ADD INDEX `Month_FAC` (`Month_FAC`),
+	ADD INDEX `Year_FAC` (`Year_FAC`);
+UPDATE gxfacturas SET year_fac=YEAR(fecha_fac);
+UPDATE gxfacturas SET MONTH_fac='ENERO' where month(fecha_fac)='1';
+UPDATE gxfacturas SET MONTH_fac='FEBRERO' where month(fecha_fac)='2';
+UPDATE gxfacturas SET MONTH_fac='MARZO' where month(fecha_fac)='3';
+UPDATE gxfacturas SET MONTH_fac='ABRIL' where month(fecha_fac)='4';
+UPDATE gxfacturas SET MONTH_fac='MAYO' where month(fecha_fac)='5';
+UPDATE gxfacturas SET MONTH_fac='JUNIO' where month(fecha_fac)='6';
+UPDATE gxfacturas SET MONTH_fac='JULIO' where month(fecha_fac)='7';
+UPDATE gxfacturas SET MONTH_fac='AGOSTO' where month(fecha_fac)='8';
+UPDATE gxfacturas SET MONTH_fac='SEPTIEMBRE' where month(fecha_fac)='9';
+UPDATE gxfacturas SET MONTH_fac='OCTUBRE' where month(fecha_fac)='10';
+UPDATE gxfacturas SET MONTH_fac='NOVIEMBRE' where month(fecha_fac)='11';
+UPDATE gxfacturas SET MONTH_fac='DICIEMBRE' where month(fecha_fac)='12';

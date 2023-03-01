@@ -1,0 +1,1 @@
+UPDATE `klud`.`itconfig` SET `Version_DCD`='XX.21.xz.001';

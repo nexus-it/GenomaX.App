@@ -24,13 +24,7 @@
             </p>
           </div>
 
-          <div class="mastfoot">
-            <div class="inner" style="padding: 0 1.5rem;">
-              <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=1QZxc8F1H8KX1Zo5breJo5cTw8P4E0QNP8gi9jUdOxtYjD8FmjrAieGSFvw8"></script></span>
-              <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
-            </div>
-          </div>
-
+          
         </div>
 
       </div>

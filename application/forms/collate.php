@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
 ?>
@@ -29,10 +29,10 @@ session_start();
 <script >
 
 function ProgresSync<?php echo $NumWindow; ?>(Orden, Contender, Datos) {
-	InsertarHTML(Contender+'<?php echo $NumWindow; ?>', '<div align="center"><img src="http://cdn.genomax.co/media/image/button_ok.png" border="0" align="absmiddle" /></div>');
+	InsertarHTML(Contender+'<?php echo $NumWindow; ?>', '<div align="center"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/button_ok.png" border="0" align="absmiddle" /></div>');
 	InsertarHTML(Contender+'<?php echo $NumWindow; ?>',Datos+'<div id="Sync_'+Orden+'_<?php echo $NumWindow; ?>" ></div>');
 
-	InsertarHTML('Sync_'+Orden+'_<?php echo $NumWindow; ?>', '<div align="center"><img src="http://cdn.genomax.co/media/image/loadingform.gif" border="0" align="absmiddle" /></div>');
+	InsertarHTML('Sync_'+Orden+'_<?php echo $NumWindow; ?>', '<div align="center"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loadingform.gif" border="0" align="absmiddle" /></div>');
 }
 
 function SyncEmpFP<?php echo $NumWindow; ?>() {

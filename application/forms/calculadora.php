@@ -2,7 +2,7 @@
 	
 
 session_start();	
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 ?>
 <div id="calc" style="width: 169; height: 176" class="drag">
   <form name="calculator">

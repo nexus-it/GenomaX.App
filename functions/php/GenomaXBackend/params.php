@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 
 
@@ -9,18 +9,29 @@
 
 function ValidarBearer ($nit){
   ///AQUI SACO EL autorizacion y settesid de la compañia
-	$conexion1 = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+	$conexion1 = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing","3306");
   mysqli_query ($conexion1, "SET NAMES 'utf8'");
   $cadena = explode("-",$nit);
   $sql = "SELECT api_token as bearer FROM `Billing`.`users` a, companies b where a.id = b.user_id and b.identification_number = ".  $cadena[0] ;
-  //echo $sql;
-  $result = mysqli_query($conexion1, $sql);
+	
+$result = mysqli_query($conexion1, $sql);
   $datosEmp = mysqli_fetch_array($result);
+  //print_r($datosEmp['bearer']);exit();
 return $datosEmp['bearer'];
 }
 
+function buscarid($tabla,$parametro){
+  $conexion1 = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
+  mysqli_query ($conexion1, "SET NAMES 'utf8'");
+  $sql = "SELECT id  FROM `Billing`.`".$tabla."` where code = ".  $parametro ;
+  $result = mysqli_query($conexion1, $sql);
+  $dato = mysqli_fetch_array($result);
+  return $dato['id'];
+ 
+}
+
  function ValidarCUfe($nit,$prefix,$number){
-    $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+    $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
     mysqli_query ($conexion, "SET NAMES 'utf8'");
     $cadena = explode("-",$nit);
     $sql = "SELECT * FROM `Billing`.`documents` where identification_number =".$cadena[0]." AND CUFE IS NOT NULL and prefix = '".$prefix."' and number = ".$number ;

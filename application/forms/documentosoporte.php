@@ -1,11 +1,11 @@
-
+﻿
 <?php
 	session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 <form action="" method="post" name="frm_form" id="frm_form" class="form-horizontal container">
@@ -22,9 +22,9 @@
   		<span class="input-group-btn">	
   			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_WinModal" onclick="javascript:LoadPcte();" title="Edición de Pacientes"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
   		</span>
-  		<input required name="txt_paciente" type="text" id="txt_paciente" onblur="javascript:NombreTercero('', this.value, 'gxpacientes');EpsPcte('', this.value);" onkeypress="BuscarPte(event);" onkeydown="if(event.keyCode==115){CargarSearch('Paciente', 'txt_paciente', 'NULL')};" style="font-size:15px; font-weight: bold; color:#0E5012; "/>
+  		<input required name="txt_paciente" type="text" id="txt_paciente" onblur="javascript:NombreTercero('', this.value, 'czterceros');EpsPcte('', this.value);" onkeypress="BuscarPte(event);" onkeydown="if(event.keyCode==115){CargarSearch('Paciente', 'txt_paciente', 'NULL')};" style="font-size:15px; font-weight: bold; color:#0E5012; "/>
   		<span class="input-group-btn">	
-  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Paciente', 'txt_paciente', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Paciente" onclick="javascript:CargarSearch('Tercero', 'txt_paciente', 'NULL');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
   		</span>
   	</div>
 </div>
@@ -51,7 +51,7 @@
 <label for="txt_retencion">Retencion</label><P>
 	<select class="form-control" name="txt_retencion" id="txt_retencion">
 		<option></option>
-		<?php $TipoDoc = llenarSelect("SELECT * FROM czconceptosretencion where Estado_RTE = 1 ",""); 
+		<?php $TipoDoc = llenarSelect2("SELECT * FROM czconceptosretencion where Estado_RTE = 1 ",""); 
 		foreach($TipoDoc as $TipoDocs){
 			echo $TipoDocs;
 		}

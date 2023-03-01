@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 ?>
@@ -172,7 +172,7 @@ function Addcobertura<?php echo $NumWindow; ?>() {
 		celda5.innerHTML = '<input name="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" type="text" id="hdn_descripcioneng'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+DescripcionEng+''+'" /> '; 
 		celda3.innerHTML = '<button onclick="EliminarFilaCOB<?php echo $NumWindow; ?>(\''+TotalFilas+'\');" type="button" class="btn btn-danger btn-xs"> <i class="fas fa-eraser"></i> </button>';
 	    fila.appendChild(celda1); 
-	    fila.appendChild(celda2);
+	    fila.appendChild(celda2); 
 	    fila.appendChild(celda4); 
 	    fila.appendChild(celda5); 
 	    fila.appendChild(celda3); 

@@ -48,7 +48,7 @@
 	-moz-opacity:0.75;
 	z-index: 5;
 	position: absolute;
-	background-image: url(../images/loading.gif);
+	background-image: url(https://cdn.genomax.app/image/loading.gif);
 	}
 	.preupload2 {
 	float: right;
@@ -65,7 +65,7 @@
 	-moz-opacity:0.75;
 	z-index: 5;
 	position: absolute;
-	background-image: url(../images/loading.gif);
+	background-image: url(https://cdn.genomax.app/image/loading.gif);
 	}
 	.preuploadx {
 	float: right;
@@ -82,7 +82,7 @@
 	-moz-opacity:0.75;
 	z-index: 5;
 	position: absolute;
-	background-image: url(../images/loading.gif);
+	background-image: url(https://cdn.genomax.app/image/loading.gif);
 	}
 	
 	.ball {
@@ -920,7 +920,7 @@
 	border-color: #0C814F;
 	height: 160px;
 	width: 100%;
-	background-image: url(images/aquamark.png);
+	background-image: url(https://cdn.genomax.app/image/aquamark.png);
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	overflow: auto;
@@ -943,7 +943,7 @@
 	border-color: #0C4F81;
 	height: 320px;
 	width: 100%;
-	background-image: url(images/aquamark.png);
+	background-image: url(https://cdn.genomax.app/image/aquamark.png);
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	overflow: auto;
@@ -1142,7 +1142,7 @@
 		text-align: left;
 		margin-bottom: -3px;
 		white-space: nowrap;
-		background-image: url(../img/bckg.png);
+		/* background-image: url(../img/bckg.png); */
 		background-color: #000000;
 		background-repeat: repeat-x;
 	}
@@ -1169,7 +1169,7 @@
   		/* background-color: rgba(246,246,252,0.95); */
 	}
 	#gxtabs > li > a > div{
-		background-image: url(../img/bckg.png);
+		/* background-image: url(../img/bckg.png); */
 		background-color: #000000;
 		background-repeat: repeat-x;
 	}
@@ -1431,7 +1431,7 @@
 	.cargando {
 	background-repeat: no-repeat;
 	background-position: 49% 49%;
-	background-image: url(../images/loadingform.gif);
+	background-image: url(https://cdn.genomax.app/image/loadingform.gif);
 	position: absolute;
 	left: 0px;
 	right: 0px;
@@ -1728,13 +1728,13 @@
 	border: 1px dotted #009A66;
 	margin-top: 9px;
 	background-attachment: fixed;
-	background-image: url(images/aquamark.png);
+	background-image: url(https://cdn.genomax.app/image/aquamark.png);
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	}
 	
 	.loadsearch {
-	background-image: url(../images/loading.gif);
+	background-image: url(https://cdn.genomax.app/image/loading.gif);
 	background-repeat: no-repeat;
 	height: 11px;
 	width: 43px;

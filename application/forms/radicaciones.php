@@ -2,9 +2,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 ?>
@@ -42,8 +42,8 @@ session_start();
 			} else {
 				$Kontra="AND codigo_fac NOT IN (SELECT codigo_fac FROM czradicacionesdet)";
 			}
-			$SQL="SELECT a.Codigo_EPS, a.Nombre_EPS, a.Contrato_EPS FROM gxeps a WHERE a.Codigo_EPS IN (SELECT DISTINCT codigo_eps FROM gxfacturas WHERE estado_fac<>'0' ".$Kontra.") and estado_eps='1' ORDER BY a.Nombre_EPS";
-			error_log($SQL);
+			$SQL="SELECT a.Codigo_EPS, a.Nombre_EPS, a.Contrato_EPS FROM gxeps a WHERE a.Codigo_EPS IN (SELECT DISTINCT codigo_eps FROM gxfacturas WHERE estado_fac<>'0' ".$Kontra.") /* and estado_eps='1' */ ORDER BY a.Nombre_EPS";
+			//error_log($SQL);
 			$result = mysqli_query($conexion, $SQL);
 			while($row = mysqli_fetch_array($result)) {
 		?>
@@ -122,9 +122,9 @@ session_start();
 </div>
 <div class="row well well-sm">
 	 <div align="right">Selecci&oacute;n: <a href="javascript:radicarAll<?php echo $NumWindow; ?>('None');">
-	<img src="http://cdn.genomax.co/media/image/checkedboxno.png" alt="Quitar Seleccion" align="absmiddle" title="Quitar Seleccion" longdesc="Quitar Seleccion" /></a> 
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/checkedboxno.png" alt="Quitar Seleccion" align="absmiddle" title="Quitar Seleccion" longdesc="Quitar Seleccion" /></a> 
 	 <a href="javascript:radicarAll<?php echo $NumWindow; ?>('All');">
-	<img src="http://cdn.genomax.co/media/image/checkedbox.png" alt="Seleccionar Todas" align="absmiddle" title="Seleccionar Todas" longdesc="Seleccionar Todas" /></a> </div>
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/checkedbox.png" alt="Seleccionar Todas" align="absmiddle" title="Seleccionar Todas" longdesc="Seleccionar Todas" /></a> </div>
 	 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" ><span id="factrad<?php echo $NumWindow; ?>">
 	<table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
 	<tbody id="tbDetalle<?php echo $NumWindow; ?>">

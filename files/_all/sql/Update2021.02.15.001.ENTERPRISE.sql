@@ -1,0 +1,45 @@
+-- NUEVO ENTERPRISE 2021
+
+UPDATE `itconfig` SET `Version_DCD`='[Enterprise] 21.02.18.100' ;
+ALTER TABLE `gxconsultorios`
+	CHANGE COLUMN `Codigo_DCD` `Codigo_DCD` INT(5) NOT NULL DEFAULT '0' FIRST;
+ALTER TABLE `gxconsultorios`
+	CHANGE COLUMN `Nombre_CNS` `Nombre_CNS` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `Codigo_CNS`;
+ALTER TABLE `czautfacturacion`
+	ADD COLUMN `Ceros_AFC` INT NULL DEFAULT '10' AFTER `ClaveTecnica_AFC`;
+UPDATE `itreports` SET `SQL_RPT`='Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, \n b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, \n c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,\'-\',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, \n LPAD(f.Codigo_ADM,10,\'0\'), CONCAT(h.Sigla_TID,\' \', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD, g.Direccion_TER, g.Telefono_TER, Barrio_PAC, Nombre_MUN, x.Codigo_DGN, x.Descripcion_DGN, Prefijo_AFC, ValCredito_FAC, date(f.fecha_adm), f.FechaFin_ADM, d.contrato_eps, d.nombre_eps, d.Tipo_EPS, FacXOrd_EPS, Tipo_AFC  \nFrom itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i, gxpacientes p, czmunicipios m, gxdiagnostico x \nWhere x.Codigo_DGN=f.Codigo_DGN and m.Codigo_MUN=p.Codigo_MUN and m.Codigo_DEP=p.Codigo_DEP and c.Codigo_AFC = b.Codigo_AFC and \np.Codigo_TER=g.Codigo_TER and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM \n and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA\n and c.Codigo_FAC>=Concat(\'@PREFIJO\',\' \',LPAD(\'@CODIGO_INICIAL\',b.Ceros_AFC,\'0\')) and c.Codigo_FAC<=Concat(\'@PREFIJO\',\' \',LPAD(\'@CODIGO_FINAL\',b.Ceros_AFC,\'0\'));' WHERE  `Codigo_RPT`='facturasaluddet' AND `Codigo_DCD`=0;
+------------------------
+ALTER TABLE `czradicacionesdet`
+	ADD CONSTRAINT `FK_czradicacionesdet_gxfacturas` FOREIGN KEY (`Codigo_FAC`) REFERENCES `gxfacturas` (`Codigo_FAC`) ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE `czautfacturacion`
+	ADD COLUMN `Separador_AFC` CHAR(1) NULL DEFAULT ' ' AFTER `ClaveTecnica_AFC`;
+	
+ALTER TABLE `czautfacturacion`
+	CHANGE COLUMN `Separador_AFC` `Separador_AFC` VARCHAR(50) NULL DEFAULT ' ' COLLATE 'utf8_general_ci' AFTER `ClaveTecnica_AFC`;
+UPDATE `itreports` SET `SQL_RPT`='Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, \n b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, \n c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,\'-\',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, \n LPAD(f.Codigo_ADM,10,\'0\'), CONCAT(h.Sigla_TID,\' \', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD, g.Direccion_TER, g.Telefono_TER, Barrio_PAC, Nombre_MUN, x.Codigo_DGN, x.Descripcion_DGN, Prefijo_AFC, ValCredito_FAC, date(f.fecha_adm), f.FechaFin_ADM, d.contrato_eps, d.nombre_eps, d.Tipo_EPS, FacXOrd_EPS, Tipo_AFC  \nFrom itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i, gxpacientes p, czmunicipios m, gxdiagnostico x \nWhere x.Codigo_DGN=f.Codigo_DGN and m.Codigo_MUN=p.Codigo_MUN and m.Codigo_DEP=p.Codigo_DEP and c.Codigo_AFC = b.Codigo_AFC and \np.Codigo_TER=g.Codigo_TER and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM \n and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA\n and c.Codigo_FAC>=Concat(\'@PREFIJO\',b.Separador_AFC,LPAD(\'@CODIGO_INICIAL\',b.Ceros_AFC,\'0\')) and c.Codigo_FAC<=Concat(\'@PREFIJO\',b.Separador_AFC,LPAD(\'@CODIGO_FINAL\',b.Ceros_AFC,\'0\'));' WHERE  `Codigo_RPT`='facturasaluddet' AND `Codigo_DCD`=0;
+
+UPDATE czautfacturacion a
+SET a.Ceros_AFC='0'
+WHERE a.Ceros_AFC='10';
+ALTER TABLE `czautfacturacion`
+	CHANGE COLUMN `Ceros_AFC` `Ceros_AFC` VARCHAR(1) NULL DEFAULT '0' AFTER `Separador_AFC`;
+UPDATE czautfacturacion a
+SET a.Ceros_AFC=''
+WHERE a.Ceros_AFC<>'0';
+
+
+
+UPDATE `itreports` SET `SQL_RPT`='Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, \n b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, \n c.ValEntidad_FAC, c.ValCredito_FAC, c.Estado_FAC, CONCAT(e.ID_TER,\'-\',e.DigitoVerif_TER), e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, \n LPAD(f.Codigo_ADM,10,\'0\'), CONCAT(h.Sigla_TID,\' \', g.ID_TER), g.Nombre_TER, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD, g.Direccion_TER, g.Telefono_TER, Barrio_PAC, Nombre_MUN, x.Codigo_DGN, x.Descripcion_DGN, Prefijo_AFC, ValCredito_FAC, date(f.fecha_adm), f.FechaFin_ADM, d.contrato_eps, d.nombre_eps, d.Tipo_EPS, FacXOrd_EPS, Tipo_AFC  \nFrom itconfig a, czautfacturacion b, gxfacturas c, gxeps d, czterceros e, gxadmision f, czterceros g, cztipoid h, gxplanes i, gxpacientes p, czmunicipios m, gxdiagnostico x \nWhere x.Codigo_DGN=f.Codigo_DGN and m.Codigo_MUN=p.Codigo_MUN and m.Codigo_DEP=p.Codigo_DEP and c.Codigo_AFC = b.Codigo_AFC and \np.Codigo_TER=g.Codigo_TER and d.Codigo_EPS= c.Codigo_EPS and e.Codigo_TER= d.Codigo_TER and f.Codigo_ADM =c.Codigo_ADM \n and g.Codigo_TER=f.Codigo_TER and h.Codigo_TID=g.Codigo_TID and i.Codigo_PLA= c.Codigo_PLA\n and c.Codigo_FAC>=Concat(\'@PREFIJO\',b.Separador_AFC,trim(LPAD(\'@CODIGO_INICIAL\',10,b.Ceros_AFC))) and c.Codigo_FAC<=Concat(\'@PREFIJO\',b.Separador_AFC,trim(LPAD(\'@CODIGO_FINAL\',10,b.Ceros_AFC)));' WHERE  `Codigo_RPT`='facturasaluddet' AND `Codigo_DCD`=0;
+
+
+INSERT INTO `ititems` (`Codigo_ITM`, `Codigo_MNU`, `Nombre_ITM`, `Icono_ITM`, `Enlace_ITM`) VALUES ('572', '15', 'Total Historias Clinicas', '1.PatientFile.png', 'forms/hctotales.php');
+ALTER TABLE `czautfacturacion`
+	CHANGE COLUMN `Separador_AFC` `Separador_AFC` VARCHAR(50) NULL DEFAULT '-' COLLATE 'utf8_general_ci' AFTER `ClaveTecnica_AFC`,
+	CHANGE COLUMN `Ceros_AFC` `Ceros_AFC` VARCHAR(1) NULL DEFAULT ' ' COLLATE 'utf8_general_ci' AFTER `Separador_AFC`;
+UPDATE `itreports` SET `SQL_RPT`='SELECT concat(c.Codigo_CIT,\'-\',c.Codigo_AGE) AS \'CODIGO CEX\', j.Sigla_TID AS \'TIPO DOC.\', d.ID_TER AS \'IDENTIFICACION\', a.Codigo_SEX AS \'GENERO\', d.Nombre_TER AS \'NOMBRE PACIENTE\', TIMESTAMPDIFF(YEAR,a.FechaNac_PAC,c.FechaGraba_CIT) AS \'EDAD\', \r\n v.Nombre_MUN AS \'MUNICIPIO\', d.Telefono_TER AS \'TELEFONOS\', d.Direccion_TER AS \'DIRECCION\', i.Nombre_EPS AS \'CONTRATO\', g.Nombre_ARE AS \'AREA\', h.Nombre_CNS AS \'CONSULTORIO\', c.Hora_AGE AS \'TURNO\', c.Fecha_AGE AS \'FECHA CITA\', c.FechaDeseada_CIT AS \'FECHA DESEADA\' , c.FechaGraba_CIT AS \'FECHA ASIGNACION\', \r\n (case c.Estado_CIT when \'X\' then \'CANCELADA\' when \'R\' then \'REPROGRAMADA\' ELSE (  case  when w.Codigo_HCF IS NULL then \'NO ATENDIDO\'  ELSE \'ATENDIDO\' END) END) AS \'ESTADO\', \r\n f.Nombre_ESP AS \'ESPECIALIDAD\',e.ID_TER  AS \'ID MEDICO\',e.Nombre_TER  AS \'NOMBRE DEL MEDICO\', case c.TipoConsulta_CIT when \'1\' then \'PRIMERA VEZ\' ELSE \'CONTROL\' END AS \'TIPO CITA\', u.ID_USR AS \'COD. USUARIO\', u.Nombre_USR AS \'NOMBRE USUARIO\'\r\nFrom gxpacientes a, gxagendacab b, czterceros d, czterceros e, gxespecialidades f, gxareas g, gxconsultorios h, gxeps i, cztipoid j, itusuarios u, czmunicipios v, gxcitasmedicas c LEFT JOIN hcfolios w ON w.Codigo_TER=c.Codigo_TER AND w.Fecha_HCF=c.Fecha_AGE \r\nWHERE a.Codigo_MUN=v.Codigo_MUN AND a.Codigo_DEP=v.Codigo_DEP AND a.Codigo_TER=d.Codigo_TER and a.Codigo_TER=c.Codigo_TER and e.Codigo_TER=b.Codigo_TER and f.Codigo_ESP=b.Codigo_ESP and j.Codigo_TID=d.Codigo_TID AND u.Codigo_USR=c.Codigo_USR\r\nand g.Codigo_ARE=b.Codigo_ARE and c.Codigo_AGE=b.Codigo_AGE and h.Codigo_CNS=b.Codigo_CNS and i.Codigo_EPS=a.Codigo_EPS  AND Estado_AGE=\'1\' \r\n AND @VARFECHA  between \'@FECHA_INICIAL\' and \'@FECHA_FINAL 23:59:59\'  Order By  5,2,3,6,1,7' WHERE  `Codigo_RPT`='citasxdia' AND `Codigo_DCD`=0;
+
+UPDATE `itdashboard` SET `Nombre_DSH`='Admisiones / Facturado Mes' WHERE  `Codigo_DSH`=47 AND `Nombre_DSH`='Admisiones' AND `Reporte_DSH`='gxingresosmes' LIMIT 1;
+UPDATE `itdashboard` SET `Nombre_DSH`='Facturación Mensual' WHERE  `Codigo_DSH`=50 AND `Nombre_DSH`='Facturación' AND `Reporte_DSH`='gxfacturdoxmes' LIMIT 1;
+UPDATE `itdashboard` SET `Nombre_DSH`='Cartera por Edades' WHERE  `Codigo_DSH`=59 AND `Nombre_DSH`='Cartera' AND `Reporte_DSH`='gxcarteraedades' LIMIT 1;
+UPDATE `itdashboard` SET `Nombre_DSH`='Pacientes Atendidos' WHERE  `Codigo_DSH`=91 AND `Nombre_DSH`='Historias Clínicas' AND `Reporte_DSH`='gxpctesatendidos' LIMIT 1;

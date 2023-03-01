@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 <form action="" method="post" name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" class="form-horizontal container">
@@ -200,12 +200,23 @@ mysqli_free_result($result);
   </select>
 </div> 
   </div>
-
+<?php
+	$SQL="Select DxReq_XAD from itconfig_ad";
+	$result = mysqli_query($conexion, $SQL);
+	$DxReq_XAD=' required ';
+	if ($row = mysqli_fetch_array($result)) 
+	{
+		if($row["DxReq_XAD"]=="1") {
+			$DxReq_XAD=' ';
+		}
+	}
+ 	mysqli_free_result($result);
+?>
   <div class="col-md-1">
 <div class="form-group">
   <label for="txt_diagnostico<?php echo $NumWindow; ?>">Cód. Dx.</label>
   <div class="input-group">	
- 	 <input name="txt_diagnostico<?php echo $NumWindow; ?>" type="text" id="txt_diagnostico<?php echo $NumWindow; ?>"  onblur="HCDxOnBlur<?php echo $NumWindow; ?>();" required onkeydown="if(event.keyCode==115){CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL')};" />
+ 	 <input name="txt_diagnostico<?php echo $NumWindow; ?>" type="text" id="txt_diagnostico<?php echo $NumWindow; ?>"  onblur="HCDxOnBlur<?php echo $NumWindow; ?>();" <?php echo $DxReq_XAD; ?> onkeydown="if(event.keyCode==115){CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL')};" />
   	  <span class="input-group-btn">	
   		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Diagnostico" onclick="javascript:CargarSearch('Diagnostico', 'txt_diagnostico<?php echo $NumWindow; ?>', 'NULL');"><i class="fas fa-search"></i></button>
   	  </span>

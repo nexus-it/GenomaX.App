@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 ?>
@@ -89,9 +89,9 @@ session_start();
 <div class="col-md-12">
 
 	 <div align="right">Selecci&oacute;n: <a href="javascript:radicarAll<?php echo $NumWindow; ?>('None');">
-	<img src="http://cdn.genomax.co/media/image/checkedboxno.png" alt="Quitar Seleccion" align="absmiddle" title="Quitar Seleccion" longdesc="Quitar Seleccion" /></a> 
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/checkedboxno.png" alt="Quitar Seleccion" align="absmiddle" title="Quitar Seleccion" longdesc="Quitar Seleccion" /></a> 
 	 <a href="javascript:radicarAll<?php echo $NumWindow; ?>('All');">
-	<img src="http://cdn.genomax.co/media/image/checkedbox.png" alt="Seleccionar Todas" align="absmiddle" title="Seleccionar Todas" longdesc="Seleccionar Todas" /></a> </div>
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/checkedbox.png" alt="Seleccionar Todas" align="absmiddle" title="Seleccionar Todas" longdesc="Seleccionar Todas" /></a> </div>
 
 	 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" ><span id="factrad<?php echo $NumWindow; ?>">
 	<table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >

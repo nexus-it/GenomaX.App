@@ -1,9 +1,9 @@
 <?php
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 	function idTer($CodigoTER, $conn) {
@@ -12,7 +12,7 @@ session_start();
 			$SQL="Select Id_TER from czterceros Where Codigo_TER='".$CodigoTER."'";
 			$resultter = mysqli_query($conn, $SQL);
 			if ($rowter = mysqli_fetch_row($resultter)) {
-				error_log($rowter[0]);
+				//error_log($rowter[0]);
 				return $rowter[0];
 			} else {
 				return "";

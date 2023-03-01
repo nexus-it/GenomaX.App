@@ -15,7 +15,7 @@ include '00trnsctns.php';
 		if (isset($_POST['cobertura'.$i])) {
 			$plaorder++;
 			$SQL="Insert Into klplanescobertura(Codigo_PLA, Orden_COB, Nombre_COB, Descripcion_COB, NombreEng_COB, DescripcionEng_COB) values('".$Consec."', '".$plaorder."', '".$_POST['cobertura'.$i]."', '".$_POST['descripcion'.$i]."', '".$_POST['coberturaeng'.$i]."', '".$_POST['descripcioneng'.$i]."')";
-			error_log('kld cobertura plan '.$_POST['plan'].' - '.$SQL);
+			//error_log('kld cobertura plan '.$_POST['plan'].' - '.$SQL);
 			EjecutarSQL($SQL, $conexion);
 		}
 	}

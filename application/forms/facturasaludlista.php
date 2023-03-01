@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 	session_start();
   $NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
   $showRows=50;
   $page="1";
@@ -107,27 +107,27 @@ function RefreshList<?php echo $NumWindow; ?>() {
 }
 
 function filtrarFactura(filtro){
-  $.ajax({
-  type: 'POST',
-  url: 'application/forms/facturasaludlista.php',
-  data: {
-      filtro: filtro
-  },
-  beforeSend: function()
-    {
-    },
-    success: function (data) {
-      $("#resultadofiltro").html(data)
-    },
-    error: function() { 
-      console.log(data);
-    }
-  });
-}
+    $.ajax({
+        type: 'POST',
+        url: 'application/forms/facturasaludlista.php',
+        data: {
+            filtro: filtro
+        },
+        beforeSend: function()
+          {
+          },
+          success: function (data) {
+            $("#resultadofiltro").html(data)
+          },
+          error: function() { 
+            console.log(data);
+          }
+        });
+   }
 
 $(document).ready(function() {
       $( "#filtrar" ).click(function() {
-$('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
+$('.items').html('<div class="loading"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
   filtrarFactura($("#filtro<?php echo $NumWindow; ?>").val());
       });
 });
@@ -278,10 +278,11 @@ function putSendFactura(factura){
               } else {
               $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
                 MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
+		//mailFE(cufe, factura);
+                adjuntarArvhivos(factura);
                 document.getElementById("btnedit"+factura).disabled = true;
                 document.getElementById("btnsend"+factura).disabled = true;
-                mailFE(cufe, factura)
-                //adjuntarArvhivos(factura);
+                
               }
             }
           },
@@ -292,19 +293,67 @@ function putSendFactura(factura){
         });        
    }   
    function mailFE(cufe, fact) {
-    Consecutivo = fact.replace('/[^0-9]/', '' );
-    Consecutivo = parseInt(fact);
-    // alert (Consecutivo);
-    cadena = explode(Consecutivo,fact);
-    Pref = $cadena[0];
+    //alert (fact);
+
+    Consecutivo = fact.replace(/[^0-9]+/g, '' );
+    //alert (Consecutivo);
+    Consecutivo = parseInt(Consecutivo);
+
+    
+
+     
+    //cadena = explode(Consecutivo,fact);
+    //Pref = $cadena[0];
+
+    Pref = fact.replace(/[0-9]+/g, "")
     
     urlrpt="application/reports/facturasaluddet.php?PREFIJO="+Pref+"&CODIGO_INICIAL="+Consecutivo+"&CODIGO_FINAL="+Consecutivo+"&namedoc=1";
-    $.get(urlrpt,{'Func':'CodUsrBdg','value':Nombre},function(data){ 
+    $.get(urlrpt,{'Func':'CodUsrBdg','value':fact},function(data){ 
       document.getElementById('hdn_usuario'+Ventana).value=data;
     });
     adjuntarArvhivos(fact);
     
    }
+
+   
+
+   function descargaxml(ad_xml,factura){
+  $.ajax({
+            type: 'POST',
+            url: 'functions/php/GenomaXBackend/sendmails/adjuntarArchivosxml.php',
+            data: {
+              ad_xml: ad_xml,
+              factura: factura
+
+            },
+            beforeSend: function()
+             {
+                
+             },
+              success: function (response) {
+                //obj = JSON.parse(data);
+                //alert(data);
+                MsgBox1('Descarga de xml correcto',response);
+
+                response = response.replace(/[^a-zA-Z 0-9./-]+/g,'');
+                
+                //window.open("https://backend.estrateg.com/API/storage/app/public/"+response);
+                
+                window.open("functions/php/GenomaXBackend/sendmails/archivos/"+response)
+
+                //desxml(response);
+               
+              },
+              error: function() { 
+                console.log(data);
+              }
+            });
+}
+
+function desxml(data){
+  window.open(data)
+}
+
    function descargarFacturaXml(cufe,factura){
     showProgress("1", factura)
       $.ajax({
@@ -332,12 +381,13 @@ function putSendFactura(factura){
                 NoCuFE(factura, obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['ErrorMessage']['string']);
               } else {
               $("#resultadoEnvioFacturaEstado").html(obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage'])
-                MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
-                $ad_xml = obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['XmlFileName']
+                //MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['StatusMessage']);
+                //MsgBox1('Envío de Factura correcto',obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['XmlFileName']);
+                ad_xml = obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['XmlFileName']
                 document.getElementById("btnedit"+factura).disabled = true;
                 document.getElementById("btnsend"+factura).disabled = true;
-                // mailFE(cufe, factura)
-                alert('https://backend.estrateg.com/API/storage/app/public/'.$nit.'/'.$factura.'ad'.$ad_xml.'.xml');
+                descargaxml(ad_xml,factura);
+                //MsgBox1('https://backend.estrateg.com/API/storage/app/public/'.$nit+'/'+$factura+'ad'+$ad_xml+'.xml');
 
               }
             }

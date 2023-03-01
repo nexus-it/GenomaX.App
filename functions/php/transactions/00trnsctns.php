@@ -1,12 +1,27 @@
 <?php
 
 session_start();
+
+function logError($cons, $msg, $Conn) {
+	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
+	mysqli_query($Conn, $MyZone);
+
+	$SQL="Insert into itxerror(xdate, xtime, xsql, xerror) values(DATE(NOW()), TIME(NOW()), '".str_replace("'","\'",$cons)."', '".str_replace("'","\'",$msg)."')";
+	$pos= stripos($cons, "itxerror");
+	if ($pos === false) {
+		EjecutarSQL($SQL,$Conn);
+	}
+}
 function EjecutarSQL($Cons, $Conn) {
+	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
+	mysqli_query($Conn, $MyZone);
+
 	$Flag=0;
 	if(mysqli_query($Conn, $Cons)) {
 		$Flag=1;
 	  } else {
-        error_log("NXS_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
+        //error_log("NXS_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
+		logError($Cons, mysqli_error($Conn), $Conn);
     }
 }
 function LoadConsec($Tabla, $Campo, $Valor, $Conn, $Campo2) {
@@ -107,7 +122,7 @@ mysqli_query($conexion, $SQL);
 */
 // creamos una bandera
 $result_transaccion = true;
-$conexion->autocommit(FALSE);
+mysqli_autocommit($conexion,FALSE);
 mysqli_begin_transaction($conexion, MYSQLI_TRANS_START_READ_WRITE);
  
 ?>

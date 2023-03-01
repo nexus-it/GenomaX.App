@@ -1,0 +1,4 @@
+UPDATE `itconfig` SET `Version_DCD`='18.12.12.001';
+CREATE TABLE `itplugins` ( 	`Codigo_PLG` INT(2) NOT NULL, 	`Nombre_PLG` VARCHAR(100) NULL, 	`Estado_PLG` CHAR(1) NULL DEFAULT '1', 	PRIMARY KEY (`Codigo_PLG`), 	INDEX `Nombre_PLG` (`Nombre_PLG`), 	INDEX `Codigo_PLG` (`Codigo_PLG`), 	INDEX `Estado_PLG` (`Estado_PLG`) ) COMMENT='Plugins del Sistema' COLLATE='utf8_general_ci' ENGINE=InnoDB;
+ALTER TABLE `itplugins`	ADD COLUMN `Ruta_PLG` VARCHAR(100) NULL DEFAULT NULL AFTER `Nombre_PLG`;
+INSERT INTO `itplugins` (`Codigo_PLG`, `Nombre_PLG`, `Ruta_PLG`) VALUES ('1', 'Facturado x Entidad Mensual', 'factentmens');

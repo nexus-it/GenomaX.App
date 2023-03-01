@@ -6,7 +6,7 @@ session_start();
 	if(isset($_POST["txt_loginuser"]))
 	{
 		//Incluimos el archivo que contiene los datos de la conexion del Nexus it MySQL.
-		$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+		$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 		//Seleccionamos de la tabla Usuarios el usuario que concuerde con los datos suministrados.
 		$SQL = "Select Codigo_USR from itusuarios where ID_USR = '".$_POST["txt_loginuser"]."'";
 		$result = mysqli_query($conexion, $SQL);
@@ -15,7 +15,7 @@ session_start();
 			{
 			//Ahora hacemos una consulta en la cual buscamos tanto al usuario como la clave. 
 			$SQL = "Select Codigo_USR, Nombre_USR, ID_USR, a.Codigo_PRF, Nombre_PRF from itusuarios a, itperfiles b where a.Codigo_PRF=b.Codigo_PRF and ID_USR= '".$_POST["txt_loginuser"]."' and Clave_USR = SHA1('".$_POST["txt_loginpass"]."') and Activo_USR='1'";
-			error_log($SQL);
+//			error_log($SQL);
 			$result = mysqli_query($conexion, $SQL);
 			$row = mysqli_fetch_array($result);
 			//Si la consulta es diferente de cero la contraseña es válida

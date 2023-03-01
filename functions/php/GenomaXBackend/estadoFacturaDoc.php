@@ -1,10 +1,11 @@
 <?php
+ob_start();
 include('params.php');
 include '../nexus/database.php';
 $poscufe=$_POST['cufe'];
 if ($poscufe=="") { $poscufe="0";}
 $sql = "update gxfacturas Set IdFE_FAC='".$poscufe."' where codigo_fac='".$_POST['factura']."';";
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, $sql);
 if ($poscufe!="0") {
   $bearer = ValidarBearer(verficarEmpresaReg());
@@ -32,10 +33,21 @@ if ($poscufe!="0") {
       'Authorization: Bearer '.$bearer
     ),
   ));
-  $response = curl_exec($curl);
+
   
+
+  $response = curl_exec($curl);
+
+  ob_end_clean(); 
   curl_close($curl);
   echo $response;
+ 
+  ob_end_flush();
+ 
 } else {
-  echo 'Documento con errores en campos mandatorios';
+  echo 'Documento con errores en campos mandatorios..';  
+  $poscufe="0";
+  $sql = "update gxfacturas Set IdFE_FAC='".$poscufe."' where codigo_fac='".$_POST['factura']."';";
+  $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+  mysqli_query ($conexion, $sql);
 }

@@ -3,7 +3,7 @@
 session_start();
 include 'rutafpdf.php';
 include '../../functions/php/nexus/database.php';	
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 
@@ -25,10 +25,10 @@ function PDF($orientation='P',$unit='mm',$format='Letter')
 }
 function Header()
 {
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL="SELECT sql_rpt from nxs_gnx.itreports where codigo_rpt='hcadmision'";
+$SQL="SELECT sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hcadmision'";
 $resultH = mysqli_query($conexion, $SQL);
 if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=$rowH[0];
@@ -78,7 +78,7 @@ if ($rowH = mysqli_fetch_row($resultH)) {
 }
 function Footer()
 {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query($conexion, "SET time_zone = '".$_SESSION["DB_TIMEZONE"]."'");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	
@@ -120,7 +120,7 @@ function firmas($Firma, $Tercero, $NombreDoc, $RM, $PosYe){
 	$this->SetFont('Arial','B',8);
 	$this->Cell(130,4,"",'',0,'C',0);
 	$this->Cell(0,3,utf8_decode($NombreDoc),'T',0,'C',0);
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select b.Nombre_ESP From gxmedicosesp a, gxespecialidades b Where a.Codigo_ESP=b.Codigo_ESP and b.Estado_ESP='1' and  Codigo_TER='".$Tercero."' Order By a.Tipo_ESP";
 	$resultx2 = mysqli_query($conexion, $SQL);
 	while ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -143,7 +143,7 @@ function encabezadoz($titulo){
 		$this->Cell(0,5,$titulo,'',0,'C',1);
 		$this->Ln();
 	}
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select k.Sigla_TID, b.ID_TER, b.Nombre_TER, a.EstCivil_PAC, a.fechanac_pac, j.Nombre_SEX, a.Actividad_PAC, b.direccion_ter, b.telefono_ter, l.Nombre_DEP, m.Nombre_MUN, a.Barrio_PAC, c.Acudiente_ADM, c.Telefono_ADM, a.Padre_PAC, a.Madre_PAC, a.Parentesco_PAC, e.Nombre_TER, f.Nombre_PLA, g.Nombre_RNG, i.Codigo_HCF, Folio_HCF from gxpacientes a, czterceros b, gxadmision c, gxeps d, czterceros e, gxplanes f, gxrangosalario g, gxtipoingreso h, hcfolios i, gxtiposexo j, cztipoid k, czdepartamentos l, czmunicipios m where j.Codigo_SEX=a.Codigo_SEX and k.Codigo_TID=b.Codigo_TID and l.Codigo_DEP=a.Codigo_DEP and m.Codigo_DEP=l.Codigo_DEP and m.Codigo_MUN=a.Codigo_MUN and h.Tipo_ADM=c.Ingreso_ADM and g.Codigo_RNG=a.Codigo_RNG and f.codigo_pla=c.codigo_pla and d.codigo_eps=c.codigo_eps and d.codigo_ter=e.codigo_ter and a.Codigo_TER=b.Codigo_TER and c.Codigo_TER=a.Codigo_TER and c.Codigo_ADM=i.Codigo_ADM and c.Codigo_ADM='".$_GET["CODIGO_FINAL"]."' order by i.Codigo_HCF desc limit 1";
 	$result0 = mysqli_query($conexion, $SQL);
 	if ($row0 = mysqli_fetch_row($result0)) {
@@ -260,7 +260,7 @@ function encabezadoz($titulo){
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='hcadmision'";
+$SQL="SELECT page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='hcadmision'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];

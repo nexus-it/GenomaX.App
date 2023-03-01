@@ -1,0 +1,1 @@
+update gxfacturas set ValTotal_FAC=(ValPaciente_FAC+ValEntidad_FAC)- ValCredito_FAC

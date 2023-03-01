@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	if (isset($_GET["ModeHC"])) {
 		$ModeHC=$_GET["ModeHC"];
@@ -67,6 +67,7 @@
 	$FormatHCX=1;
 	if (isset($_GET["FormatoHC"])) {
 		$SQL="Select Activo_HCT from hctipos where Codigo_HCT='".$_GET["FormatoHC"]."' ".$iSexPcte.";";
+		//error_log($SQL);
 		$result = mysqli_query($conexion, $SQL);
 		while($row = mysqli_fetch_array($result)) {
 			$FormatHCX=$row[0];
@@ -2873,7 +2874,7 @@ function Selhc<?php echo $NumWindow; ?>() {
 if (isset($_GET["FormatoHC"])) {
 	if ($DxHCT=="1") {
 		$SQL="SELECT b.Codigo_HCF, a.Codigo_DGN, a.CodigoR_DGN, a.CodigoR2_DGN, a.CodigoR3_DGN, a.Tipo_DGN, a.Manejo_DGN FROM hcdiagnosticos a, hcfolios b, czterceros c WHERE a.Codigo_TER=b.Codigo_TER AND a.Codigo_HCF=b.Codigo_HCF AND c.Codigo_TER=a.Codigo_TER AND a.Codigo_DGN<>'' AND c.ID_TER='".$Hystory."' ORDER BY 1 DESC ";
-		error_log('Dx Ant.: '.$SQL);
+		// error_log('Dx Ant.: '.$SQL);
 		$result = mysqli_query($conexion, $SQL);
 		while ($row = mysqli_fetch_array($result)) {
 			echo "document.frm_form".$NumWindow.".txt_dxppal".$NumWindow.".value='".$row[1]."';

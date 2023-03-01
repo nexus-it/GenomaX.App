@@ -1,0 +1,7 @@
+UPDATE `itconfig` SET `Version_DCD`='[VIBRANIUM]19.07.25.001';
+UPDATE `ititems` SET `Padre_ITM`='497' WHERE  `Codigo_ITM`=424 AND `Codigo_MNU`=100 AND `Codigo_MOD`=2 AND `Codigo_APP`=2;
+UPDATE `ititems` SET `Padre_ITM`='497' WHERE  `Codigo_ITM`=474 AND `Codigo_MNU`=100 AND `Codigo_MOD`=2 AND `Codigo_APP`=2;
+UPDATE `ititems` SET `Padre_ITM`='497' WHERE  `Codigo_ITM`=475 AND `Codigo_MNU`=100 AND `Codigo_MOD`=2 AND `Codigo_APP`=2;
+UPDATE `ititems` SET `Padre_ITM`='497' WHERE  `Codigo_ITM`=476 AND `Codigo_MNU`=100 AND `Codigo_MOD`=2 AND `Codigo_APP`=2;
+UPDATE `ititems` SET `Padre_ITM`='497' WHERE  `Codigo_ITM`=477 AND `Codigo_MNU`=100 AND `Codigo_MOD`=2 AND `Codigo_APP`=2;
+UPDATE `itusuarios` SET `Clave_USR`='452382ae7664e8c5c86e15491d552fba26685b7b' WHERE  `Codigo_USR`='1' AND `ID_USR`='nexus';

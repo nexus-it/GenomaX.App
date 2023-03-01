@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 	$SQL="Select date(now()), time(now());";
@@ -23,7 +23,7 @@ session_start();
 <label for="txt_ods<?php echo $NumWindow; ?>">No. ODS</label>
 <input name="hdn_odsx<?php echo $NumWindow; ?>" type="hidden" id="hdn_odsx<?php echo $NumWindow; ?>" />
 <input name="txt_ods<?php echo $NumWindow; ?>" id="txt_ods<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarODS<?php echo $NumWindow; ?>(event);" />
-<a href="javascript:CargarSearch('ODS2', 'txt_ods<?php echo $NumWindow; ?>', 'Estado_ODS=*0*');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar ODS" align="absmiddle" title="Buscar ODS" /></a> 
+<a href="javascript:CargarSearch('ODS2', 'txt_ods<?php echo $NumWindow; ?>', 'Estado_ODS=*0*');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar ODS" align="absmiddle" title="Buscar ODS" /></a> 
 <label for="txt_usuarioods<?php echo $NumWindow; ?>">Usuario </label><input name="txt_usuarioods<?php echo $NumWindow; ?>" type="text" disabled="disabled" id="txt_usuarioods<?php echo $NumWindow; ?>" size="35"  />
 <br />
 <label for="txt_nombreods<?php echo $NumWindow; ?>">Título </label><input name="txt_nombreods<?php echo $NumWindow; ?>" type="text" disabled="disabled" id="txt_nombreods<?php echo $NumWindow; ?>" size="35"  /> 
@@ -47,7 +47,7 @@ session_start();
 <label for="txt_fechaprog<?php echo $NumWindow; ?>">Programar </label>
   <input name="txt_fechaprog<?php echo $NumWindow; ?>" type="text" class="datepicker" id="txt_fechaprog<?php echo $NumWindow; ?>" value="<?php echo FormatoFecha($FechaActual); ?>" size="10" maxlength="10">
   <input name="txt_horaprog<?php echo $NumWindow; ?>" type="text" id="txt_horaprog<?php echo $NumWindow; ?>" value="<?php echo date("H:i:s"); ?>" size="10" maxlength="10">
-<a href="javascript:AddProg<?php echo $NumWindow; ?>()"><img src="http://cdn.genomax.co/media/image/add.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Agregar programación" align="absmiddle" title="Agregar programación" /></a>
+<a href="javascript:AddProg<?php echo $NumWindow; ?>()"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Agregar programación" align="absmiddle" title="Agregar programación" /></a>
 </div>
 <hr align="center" width="95%" size="1"  class="anulado" />
 <label for="txt_fechawork<?php echo $NumWindow; ?>">Nueva tarea </label>
@@ -55,7 +55,7 @@ session_start();
   <input name="txt_horawork<?php echo $NumWindow; ?>" type="text" id="txt_horawork<?php echo $NumWindow; ?>" value="<?php echo date("H:i:s"); ?>" size="10" maxlength="10">
   <label for="txt_tarea<?php echo $NumWindow; ?>">Descripción </label>
   <input name="txt_tarea<?php echo $NumWindow; ?>" type="text" id="txt_tarea<?php echo $NumWindow; ?>" value="" size="90">
-  <a href="javascript:AddWork<?php echo $NumWindow; ?>()"><img src="http://cdn.genomax.co/media/image/add.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Agregar tarea" align="absmiddle" title="Agregar tarea" /></a>
+  <a href="javascript:AddWork<?php echo $NumWindow; ?>()"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Agregar tarea" align="absmiddle" title="Agregar tarea" /></a>
   <br />
 <hr align="center" width="95%" size="1"  class="anulado" />
  <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" >
@@ -183,7 +183,7 @@ function AgregarResp<?php echo $NumWindow; ?>(Item1, Item2, Item3) {
 	celda1.innerHTML =Item1+'<input type="hidden" name="hdn_fecha'+TotalFilas+'<?php echo $NumWindow; ?>" id="hdn_fecha'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Item1+'" />';
 	celda2.innerHTML =Item2+'<input type="hidden" name="hdn_hora'+TotalFilas+'<?php echo $NumWindow; ?>" id="hdn_hora'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Item2+'" />';
 	celda3.innerHTML =Item3+'<input type="hidden" name="hdn_tarea'+TotalFilas+'<?php echo $NumWindow; ?>" id="hdn_tarea'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+Item3+'" />';
-	celda4.innerHTML ='<a href="javascript:DeleteWork<?php echo $NumWindow; ?>(\''+TotalFilas+'\')"><img src="http://cdn.genomax.co/media/image/remove.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Eliminar tarea" align="right" title="Eliminar tarea" /></a>';
+	celda4.innerHTML ='<a href="javascript:DeleteWork<?php echo $NumWindow; ?>(\''+TotalFilas+'\')"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/remove.png" class="imgenabled<?php echo $NumWindow; ?>" alt="Eliminar tarea" align="right" title="Eliminar tarea" /></a>';
 	fila.appendChild(celda1); 
 	fila.appendChild(celda2); 
 	fila.appendChild(celda3); 

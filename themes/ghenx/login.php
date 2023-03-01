@@ -1,6 +1,6 @@
 <?php
 // Todo esto solo es para que cambie el video de fondo vada vez que alguien se loguee...
-    $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+    $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
     $SQL="Select Codigo_LGN, Nombre_LGN from nxs_videologin where Codigo_LGN in (select case when a.Codigo_LGN=max(b.Codigo_LGN) then '1' else (a.Codigo_LGN+1) end from nxs_videologin a, nxs_videologin b where a.Actual_LGN='1');";
     $resultX = mysqli_query($conexion, $SQL);
     $nxslgn="bcklogin01.webm";
@@ -14,15 +14,15 @@
 ?>
 <video id="mivideo" autoplay="autoplay" playsinline autoplay muted loop>
   <!-- <source src="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/videologin/<?php echo $nxslgn; ?>" type="video/webm"></source> -->
-  <source src="http://cdn.genomax.co/media/video/<?php echo $nxslgn; ?>" type="video/webm"></source>
+  <source src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/video/<?php echo $nxslgn; ?>" type="video/webm"></source>
 </video>
 <script> document.getElementById('mivideo').play(); </script>
 <div class="container">
     <div class="row login_box">
         <div class="overlay"></div>
         <div class="col-md-12 col-xs-12" align="center">
-            <div class="line"><h3><img src="http://cdn.genomax.co/media/image/title_genomax.png"  alt="GenomaX" title="GenomaX"/> </h3> </div>
-            <div class="outter"><img src="http://cdn.genomax.co/media/image/login_genomax.png" class="image-circle"/></div>   
+            <div class="line"><h3><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/title_genomax.png"  alt="GenomaX" title="GenomaX"/> </h3> </div>
+            <div class="outter"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/login_genomax.png" class="image-circle"/></div>   
             <h1>Inicio de Sesión</h1>
             <span id="razonsocial"></span>
         </div>

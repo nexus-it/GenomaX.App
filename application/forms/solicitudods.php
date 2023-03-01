@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 	$SQL="Select date(now()), time(now());";
@@ -23,7 +23,7 @@ session_start();
 <label for="txt_ods<?php echo $NumWindow; ?>">No. ODS</label>
 <input type="hidden" name="hdn_odsx<?php echo $NumWindow; ?>" id="hdn_odsx<?php echo $NumWindow; ?>" />
 <input name="txt_ods<?php echo $NumWindow; ?>" id="txt_ods<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarODS<?php echo $NumWindow; ?>(event);" />
-<a href="javascript:CargarSearch('ODS', 'txt_ods<?php echo $NumWindow; ?>', 'Estado_ODS=*0*');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar ODS" align="absmiddle" title="Buscar ODS" /></a> 
+<a href="javascript:CargarSearch('ODS', 'txt_ods<?php echo $NumWindow; ?>', 'Estado_ODS=*0*');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar ODS" align="absmiddle" title="Buscar ODS" /></a> 
 <br />
 <label for="txt_nombreods<?php echo $NumWindow; ?>">Título </label><input name="txt_nombreods<?php echo $NumWindow; ?>" type="text" id="txt_nombreods<?php echo $NumWindow; ?>" size="35" maxlength="50"  /> 
 <label for="txt_fecha<?php echo $NumWindow; ?>">Fecha </label>

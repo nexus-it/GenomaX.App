@@ -7,7 +7,7 @@ if(isset($_GET["DB_HOST"])) {
 	$conexion = mysqli_connect($_GET["DB_HOST"], $_GET["DB_USER"], $_GET["DB_PASSWORD"], $_GET["DB_NAME"]);
 	define(SUFFIXO, $_GET["DB_SUFFIX"]);
 } else {
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	define(SUFFIXO, $_SESSION["DB_SUFFIX"]);
 }
 mysqli_query ($conexion, "SET NAMES 'utf8'");
@@ -200,7 +200,7 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	}*/
 	if ($valcred!="0") {
 		$this->AddFont('SegoeScript','','segoescript.php');
-		$this->Image('../../notacredito.jpg',125,242,40);			
+		$this->Image($_SESSION["NEXUS_CDN"].'/image/notacredito.jpg',125,242,40);			
 		$SQL="Select a.Codigo_NCT From cznotascontablesenc a Where a.NumeroDoc_NCT='".$codfac."' and a.Estado_NCT='1'";
 		$result = mysqli_query($conexion, $SQL);
 		//echo $SQL;
@@ -321,7 +321,7 @@ function Footer()
 $FormatoPagina="Letter";
 $Orientation="P";
 $NombreEmpresa="";
-$SQL="SELECT page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='facturasaluddet'";
+$SQL="SELECT page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='facturasaluddet'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$FormatoPagina=$row[0];
@@ -343,7 +343,7 @@ $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetFillColor(255);
 //while($row = mysqli_fetch_row($result)) {
 
-$SQL="SELECT sql_rpt from nxs_gnx.itreports where codigo_rpt='facturasaluddet'";
+$SQL="SELECT sql_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='facturasaluddet'";
 $resultH = mysqli_query($conexion, $SQL);
 if ($rowH = mysqli_fetch_row($resultH)) {
 	$SQL=$rowH[0];
@@ -434,6 +434,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	$pdf->TableHD();
 	// Tipo de Manual Tarifario
 	$SQL="Select b.Tipo_TAR From gxcontratos as a, gxtarifas as b, gxadmision as c Where a.Codigo_TAR=b.Codigo_TAR and a.Codigo_EPS=c.Codigo_EPS and a.Codigo_PLA=c.Codigo_PLA and LPAD(c.Codigo_ADM,10,0)=LPAD('".$rowH[21]."',10,'0') ;";
+	//error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
 	if($row = mysqli_fetch_row($result)) {
 		$TipoManual=$row[0];
@@ -446,7 +447,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 	} else {
 		$SQL="Select c.Codigo_CFC, c.Nombre_CFC, SUM(b.CantidadOLD_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)), a.Descripcion_ORD FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' GROUP BY c.Codigo_CFC, c.Nombre_CFC";
 	}
-	// error_log($SQL);
+	 //error_log($SQL);
 	$result = mysqli_query($conexion, $SQL);
 	$subtotalfac=0;
 	// echo $SQL;
@@ -474,7 +475,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 		} else {
 			$SQL="Select ".$descorden.", sum(b.CantidadOLD_ORD), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), sum(b.CantidadOLD_ORD)*(b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end, c.Codigo_CFC FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d left join gxprocedimientos f on d.Codigo_SER=f.Codigo_SER left join gxmedicamentos g on d.Codigo_SER=g.Codigo_SER WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH[25]."' AND b.Codigo_PLA='".$rowH[26]."' AND LPAD(a.Codigo_ADM,10,'0')='".$rowH[21]."' AND d.Codigo_CFC='".$row[0]."' GROUP BY left(Nombre_SER, 60), (b.ValorPaciente_ORD+b.ValorEntidad_ORD), d.Codigo_SER, Autorizacion_ORD, CASE d.Tipo_SER WHEN '1' THEN f.CUPS_PRC WHEN '2' then g.CUM_MED end  ";
 		}
-		// error_log($SQL);
+		 //error_log($SQL);
 		$resultX = mysqli_query($conexion, $SQL);
 		$TipoConcepto="";
 		while ($rowX = mysqli_fetch_row($resultX)) {
@@ -500,6 +501,7 @@ while ($rowH = mysqli_fetch_row($resultH)) {
 				$GrupoSOAT="0";
 				if ($TipoManual=='SOAT') {
 					$SQL="Select left(UPPER(NombreSOAT_PRC),65), grupoSOAT_PRC, SOAT_PRC from gxprocedimientos Where Codigo_SER='".$rowX[4]."'";
+					//echo($SQL);
 					$rstSOAT = mysqli_query($conexion, $SQL);
 					while ($rowName = mysqli_fetch_row($rstSOAT)) {
 						$nombreSER=$rowName[0];

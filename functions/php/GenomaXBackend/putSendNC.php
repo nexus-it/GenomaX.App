@@ -3,7 +3,7 @@
 ob_start();
 include('params.php');
 include '../nexus/database.php';
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
 $SQL = "Select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC, c.Codigo_ADM, c.Fecha_FAC, c.ValPaciente_FAC, c.ValEntidad_FAC, c.ValCredito_FAC, c.ValTotal_FAC , c.Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER, LPAD(f.Codigo_ADM,10,'0'), CONCAT(h.Sigla_TID,' ', g.ID_TER), g.Nombre_TER as nompasciente, i.Nombre_PLA, c.Codigo_EPS, c.Codigo_PLA, adddate(c.Fecha_FAC,d.VenceFactura_EPS), f.Autorizacion_ADM, a.Ciudad_DCD
@@ -34,19 +34,22 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 	$result = mysqli_query($conexion, $SQL_DET);
 	//echo $SQL_DET;
 	while ($row = mysqli_fetch_array($result)) {
+		
 		$detalle[] =array(
 					"unit_measure_id"=> 70,
 					"invoiced_quantity"=> "1",
 					"line_extension_amount"=> $row['valor'],
 					"free_of_charge_indicator"=> false,
-					/*"tax_totals": [
-						{
-							"tax_id": 1,
-							"tax_amount": "159663.865",
-							"taxable_amount": "840336.134",
-							"percent": "19.00"
-						}
-					],*/
+					"tax_totals" => [
+							
+							array(
+							"tax_id" => 1,
+							"tax_amount" => "0",
+							"taxable_amount" => "0",
+							"percent" => "0"
+							)
+							],
+					
 					"description"=> $row['Nombre_SER'],
 					"notes"=> $row['Nombre_SER'],
 					"code"=> $row['Descripcion_SER'],
@@ -85,8 +88,8 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 		"establishment_address"=>$rowH['Direccion_DCD'],
 		"establishment_phone"=>$rowH['Telefonos_DCD'],
 		"establishment_municipality"=> $establishment_municipality,
-		"sendmail"=> false,
-		"sendmailtome"=> false,
+		"sendmail"=> true,
+		"sendmailtome"=> true,
 		"seze"=> "2021-2017",
 		"head_note"=> $rowH['EncabezadoFact_DCD'],
 		"foot_note"=> $rowH['PiePaginaFact_DCD'],
@@ -103,14 +106,18 @@ while ($rowH = mysqli_fetch_array($resultH)) {
 			"type_liability_id"=> 7,
 			"municipality_id"=> 822,
 			"type_regime_id"=> 1
-		),/*
-		"tax_totals"=> array(
+		),
+		"tax_totals"=> [
+				
+				array(
+				
 				"tax_id"=> 1,
-				"tax_amount"=> "159663.865",
-				"percent"=> "19",
-				"taxable_amount"=> "840336.134"
-		)
-		,*/
+				"tax_amount"=> "0",
+				"percent"=> "0",
+				"taxable_amount"=> "0"
+				)
+				],
+		
 		"legal_monetary_totals"=> array(
 			"line_extension_amount"=> $rowH['ValEntidad_FAC'],
 			"tax_exclusive_amount"=> "0",
@@ -128,6 +135,8 @@ ob_clean();
 
 $payload = json_encode($payload,JSON_UNESCAPED_UNICODE);
 
+//print_r($payload);exit();
+//print_r($bearer);exit();
 
 
 $curl = curl_init();

@@ -8,10 +8,10 @@ if(isset($_POST["filtro"])){
 
 
 	session_start();
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
 	
@@ -59,7 +59,7 @@ $(document).ready(function() {
 	        <div class="container">  
 			<?php
 			if(isset($_POST["filtro"])==""){
-	          $SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from nxs_gnx.ititems as a, nxs_gnx.itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
+	          $SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='0' AND Codigo_ITM = 459 order by Codigo_ITM;";
             $result3 = mysqli_query($conexion, $SQL);
             $row3 = mysqli_fetch_row($result3);
             $action='onclick="CargarForm(\'application/'.$row3[2].'\', \''.$row3[1].'\', \''.$row3[4].'\'); AddFavsForm(\''.$row3[0].'\');"'; 
@@ -184,7 +184,7 @@ function filtrarFactura(filtro){
 $(document).ready(function() {
            $( "#filtrar" ).click(function() {
 			  
-			$('.items').html('<div class="loading"><img src="files/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
+			$('.items').html('<div class="loading"><img  src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loading.gif" width="70px" height="70px"/><br/>Un momento por favor...</div>');
 			 filtrarFactura($("#filtro<?php echo $NumWindow; ?>").val()
                             );
             });

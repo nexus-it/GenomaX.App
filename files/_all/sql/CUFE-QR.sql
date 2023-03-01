@@ -1,0 +1,2 @@
+-- select SHA1('323200000129201508120611311109376.00010.000245928.1603107165.721296705.2070008537131800199436693ff6f2a553c3646a063436fd4dd9ded0311471');
+SELECT (CONCAT(b.Prefijo_AFC, SUBSTRING(a.Codigo_FAC,INSTR(a.Codigo_FAC,b.Separador_AFC)+1), a.Fecha_FAC, '000000', a.ValTotal_FAC, '010.00020.00030.0031', d.ID_TER, b.ClaveTecnica_AFC)) FROM gxfacturas a, czautfacturacion b, gxeps c, czterceros d WHERE a.Codigo_EPS=c.Codigo_EPS AND c.Codigo_TER=d.Codigo_TER AND a.Codigo_AFC=b.Codigo_AFC AND a.Codigo_FAC='STM-14'

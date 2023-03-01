@@ -3,13 +3,13 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	function MostrarItems($conn, $Aplicacion, $Modulo, $Menu, $Item, $Prefijo, $NumWindow1)
 	{
-		$SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM from nxs_gnx.ititems where Activo_ITM='1' and Codigo_APP='".$Aplicacion."' and Codigo_MOD='".$Modulo."' and Codigo_MNU='".$Menu."' and Padre_ITM='".$Item."' order by Codigo_ITM;";	
+		$SQL="Select Codigo_ITM, Nombre_ITM, Enlace_ITM from ".$_SESSION['DB_NXS'].".ititems where Activo_ITM='1' and Codigo_APP='".$Aplicacion."' and Codigo_MOD='".$Modulo."' and Codigo_MNU='".$Menu."' and Padre_ITM='".$Item."' order by Codigo_ITM;";	
 //		echo $SQL;
 		$resultXY = mysqli_query($conn, $SQL);
 		while($rowXY = mysqli_fetch_array($resultXY)) 
@@ -75,7 +75,7 @@ session_start();
  <?php  ?>
 <?php 
 	//Aplicaciones
-	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From nxs_gnx.itaplicaciones Where Activo_APP='1' and Codigo_APP='".$_SESSION["NEXUS_APP"]."' Order By Codigo_APP";
+	$SQL="Select Codigo_APP, Nombre_APP, Descripcion_APP From ".$_SESSION['DB_NXS'].".itaplicaciones Where Activo_APP='1' and Codigo_APP='".$_SESSION["NEXUS_APP"]."' Order By Codigo_APP";
 	$resultX = mysqli_query($conexion, $SQL);
 	//echo $SQL;
 	while($rowX = mysqli_fetch_array($resultX)) {
@@ -84,7 +84,7 @@ session_start();
 			<div class="panel-body">
 				<div id="zero_detalle'.$NumWindow.'" >';
 		//Modulos
-		$SQL="Select Codigo_MOD, Nombre_MOD from nxs_gnx.itmodulos where Activo_MOD='1' and Codigo_APP='".$rowX[0]."' order by Codigo_MOD";
+		$SQL="Select Codigo_MOD, Nombre_MOD from ".$_SESSION['DB_NXS'].".itmodulos where Activo_MOD='1' and Codigo_APP='".$rowX[0]."' order by Codigo_MOD";
 		$resultXX = mysqli_query($conexion, $SQL);
 		while($rowXX = mysqli_fetch_array($resultXX)) {
 				echo '
@@ -99,7 +99,7 @@ session_start();
 				echo '
 			<div id="div_'.str_replace(" ","_",$rowXX[1])."_".$rowXX[0].'" >';
 			
-			$SQL="Select Codigo_MNU, Nombre_MNU from nxs_gnx.itmenu where Activo_MNU='1' and Codigo_APP='".$rowX[0]."' and Codigo_MOD='".$rowXX[0]."' order by Codigo_MNU;";
+			$SQL="Select Codigo_MNU, Nombre_MNU from ".$_SESSION['DB_NXS'].".itmenu where Activo_MNU='1' and Codigo_APP='".$rowX[0]."' and Codigo_MOD='".$rowXX[0]."' order by Codigo_MNU;";
 			$resultXXX = mysqli_query($conexion, $SQL);
 			while($rowXXX = mysqli_fetch_array($resultXXX)) {
 			
@@ -183,7 +183,7 @@ $(":input:text:visible:first", "#frm_form<?php echo $NumWindow; ?>").focus();
 	}
 	
 	if ($ThePerfil!='0') {
-		$SQL="Select a.Codigo_ITM From itpermisos a, nxs_gnx.ititems b, nxs_gnx.itaplicaciones c Where b.Codigo_APP=c.Codigo_APP and Activo_ITM='1' and Enlace_ITM<>'#' and a.Codigo_ITM=b.Codigo_ITM and c.Activo_APP='1' and a.Codigo_PRF='".$ThePerfil."'";
+		$SQL="Select a.Codigo_ITM From itpermisos a, ".$_SESSION['DB_NXS'].".ititems b, ".$_SESSION['DB_NXS'].".itaplicaciones c Where b.Codigo_APP=c.Codigo_APP and Activo_ITM='1' and Enlace_ITM<>'#' and a.Codigo_ITM=b.Codigo_ITM and c.Activo_APP='1' and a.Codigo_PRF='".$ThePerfil."'";
 		$result = mysqli_query($conexion, $SQL);
 		while($row = mysqli_fetch_array($result)) {
 			echo"
@@ -250,7 +250,7 @@ function MarcarChk<?php echo $NumWindow; ?>(Menu)
 	}
 <?php
 $MiMenu="";
-$SQL="Select b.Codigo_MNU, b.Codigo_ITM From nxs_gnx.ititems b, nxs_gnx.itaplicaciones c Where b.Codigo_APP=c.Codigo_APP and Activo_ITM='1' and Enlace_ITM<>'#' and c.Activo_APP='1' Order By 1,2";
+$SQL="Select b.Codigo_MNU, b.Codigo_ITM From ".$_SESSION['DB_NXS'].".ititems b, ".$_SESSION['DB_NXS'].".itaplicaciones c Where b.Codigo_APP=c.Codigo_APP and Activo_ITM='1' and Enlace_ITM<>'#' and c.Activo_APP='1' Order By 1,2";
 $result = mysqli_query($conexion, $SQL);
 echo '	switch  (Menu) {
 	';

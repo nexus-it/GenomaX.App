@@ -94,7 +94,7 @@ a:active {
 </head>
 <base target="frmdestino" >
 <body>
-<div id="menu2"><img src="http://cdn.genomax.co/media/image/jc_header_menu.png" width="200" height="100" /><a href="http://localhost/jsus/procesos_la_prado/procesos/contacto.html" ><?php echo $_SERVER['PHP_SELF'];?></a>
+<div id="menu2"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/jc_header_menu.png" width="200" height="100" /><a href="http://localhost/jsus/procesos_la_prado/procesos/contacto.html" ><?php echo $_SERVER['PHP_SELF'];?></a>
 </div>
 <div id="menu">
 <?php

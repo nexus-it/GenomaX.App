@@ -1,14 +1,14 @@
 <?php 
 session_start();
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from nxs_gnx.itreports where codigo_rpt='".$_GET["nxsrpt"]."'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='".$_GET["nxsrpt"]."'";
 $result = mysqli_query($conexion, $SQL);
-// error_log($SQL);
+//error_log($SQL);
 if ($row = mysqli_fetch_row($result)) {
     $SQL=$row[0];
-    $SQL2="Select Campo_RPT From nxs_gnx.itreportsparam Where Codigo_RPT='".$_GET["nxsrpt"]."'";
+    $SQL2="Select Campo_RPT From ".$_SESSION['DB_NXS'].".itreportsparam Where Codigo_RPT='".$_GET["nxsrpt"]."'";
     $result2 = mysqli_query($conexion, $SQL2);
     while($row2 = mysqli_fetch_row($result2)) {
     	$SQL=str_replace("@".$row2[0],$_GET[$row2[0]],$SQL);

@@ -2,9 +2,9 @@
 session_start();
 	$NumWindow=$_GET["target"];
 	$nxsTabla=$_GET["table"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
 
@@ -220,7 +220,7 @@ session_start();
 // Detalle Asiento Contable
 	  $Kcont=0;
 	  $SQL="SELECT Nombre_TER, a.Codigo_CTA, a.Descripcion_CNT, Nombre_CCT, Debito_CNT, Credito_CNT From czmovcontdet a LEFT JOIN czterceros b ON a.Codigo_TER=b.Codigo_TER LEFT JOIN cztipoid e ON b.Codigo_TID=e.Codigo_TID LEFT JOIN czcentrocosto d ON a.Codigo_CCT=d.Codigo_CCT Where Codigo_CNT=".$rowREC[6]." Order By 2";
-	  error_log($SQL);
+	  //error_log($SQL);
 	  $rstRecordx = mysqli_query($conexion, $SQL);
 	  while ($rowRECx = mysqli_fetch_row($rstRecordx)) {
 	  	$Kcont++;

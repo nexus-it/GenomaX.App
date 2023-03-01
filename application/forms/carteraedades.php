@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$totregistros=0;
 	$limitsql='150';
@@ -15,7 +15,7 @@ session_start();
             
 	<div class="row">
 		<div class="col-md-8 well well-sm" id="graphedad<?php echo $NumWindow; ?>">
-            <span class="center-block"><img src="http://cdn.genomax.co/media/image/loadingform.gif" class="img-responsive" alt="Cargando..."></span>
+            <span class="center-block"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loadingform.gif" class="img-responsive" alt="Cargando..."></span>
 		</div>
 		<div class="col-md-4">
             <div class="row well well-sm hidden-print">
@@ -78,7 +78,7 @@ function veriffechas<?php echo $NumWindow; ?>() {
 
 function printcartedad<?php echo $NumWindow; ?>() {
     <?php
-    $SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From nxs_gnx.ititems Where Codigo_ITM='520';";
+    $SQL="Select Nombre_ITM, Enlace_ITM, Icono_ITM From ".$_SESSION['DB_NXS'].".ititems Where Codigo_ITM='520';";
     $resulthc = mysqli_query($conexion, $SQL);
     if ($rowhc = mysqli_fetch_array($resulthc)) 
         {

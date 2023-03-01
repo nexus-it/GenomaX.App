@@ -6,20 +6,20 @@ session_start();
     if (isset($_GET["table"])) {
         $nxsTabla=$_GET["table"];
 		$nxsWhere=' '.$_GET["where"].' ';
-		error_log($nxsWhere);
+		//error_log($nxsWhere);
 		$nxsWhere= str_replace("°", "'", $nxsWhere); 
-		error_log($nxsWhere);
+		//error_log($nxsWhere);
 		$nxsWhere=str_replace("|", " ", $nxsWhere);
-		error_log($nxsWhere);
+		//error_log($nxsWhere);
     }
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$contarow=0;
     $NameTable="";
     if ($nxsTabla!="") {
-        $SQL="Select NameSystem_TBL, NameShow_TBL from nxs_gnx.ittables where Show_TBL='1' and NameSystem_TBL='".$nxsTabla."';";
+        $SQL="Select NameSystem_TBL, NameShow_TBL from ".$_SESSION['DB_NXS'].".ittables where Show_TBL='1' and NameSystem_TBL='".$nxsTabla."';";
         $rstColumns = mysqli_query($conexion, $SQL);
         if ($rowCols = mysqli_fetch_row($rstColumns)) {
             $NameTable=$rowCols[0].' ['.$rowCols[1];
@@ -257,7 +257,7 @@ session_start();
     </div>
     <datalist id="tables_list<?php echo $NumWindow; ?>">
     <?php
-    $SQL="Select NameSystem_TBL, NameShow_TBL from nxs_gnx.ittables where Show_TBL='1' order by 1;";
+    $SQL="Select NameSystem_TBL, NameShow_TBL from ".$_SESSION['DB_NXS'].".ittables where Show_TBL='1' order by 1;";
     $rstpuc = mysqli_query($conexion, $SQL);
     while($rowPUC = mysqli_fetch_array($rstpuc)) {
         echo '<option value="'.$rowPUC[0].' ['.$rowPUC[1].']">';
@@ -357,7 +357,7 @@ function SaveEdit<?php echo $NumWindow; ?>(Fila)
   }
   mysqli_free_result($rstColumns);
   $nxsData=$nxsData.'&nxsTabla='.$nxsTabla.'"';
-  error_log($nxsData);
+  //error_log($nxsData);
 ?>
 	alert(Transact);
 	$.ajax({  

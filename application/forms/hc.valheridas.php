@@ -10,7 +10,7 @@
 			  	<li><a href="javascript:actualOdonto('<?php echo $NumWindow; ?>');"><strong>Tratamiento Actual</strong></a></li>
 			  <?php 
 			    $SQL="Select Estados_ODG, Fecha_HCF, Nota_ODG From hcodontograma a, hcfolios b, czterceros c Where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF=b.Codigo_HCF and c.Codigo_TER=b.Codigo_TER and ID_TER='".$Hystory."';";
-			    error_log($SQL);
+			    //error_log($SQL);
 			    $resultodt = mysqli_query($conexion, $SQL);
 			    while($rowodt = mysqli_fetch_array($resultodt)) {
 			  ?>
@@ -22,7 +22,7 @@
 			  </ul>
 			</div>
 			<div class="row well well-sm">
-				<div id="seccionImg" class="displayInlineBlockTop col-md-12 " style="padding: 10px; height: 500px; border-style: double; text-align: center; background-image: url(http://cdn.genomax.co/media/image/valher/posanatombas<?php echo $SexoPcte; ?>.jpg); background-repeat: no-repeat; background-position: center;background-color: white;">
+				<div id="seccionImg" class="displayInlineBlockTop col-md-12 " style="padding: 10px; height: 500px; border-style: double; text-align: center; background-image: url(<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/valher/posanatombas<?php echo $SexoPcte; ?>.jpg); background-repeat: no-repeat; background-position: center;background-color: white;">
                     <div class="vlgrid">
                         <?php
                         for ($i = 1; $i <= 47; $i++) {

@@ -2,9 +2,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	if (isset($_GET["mode"])) {
 		$modex=$_GET["mode"];
@@ -286,7 +286,7 @@ mysqli_free_result($result);
 </div>
 <datalist id="cuentaspuc<?php echo $NumWindow; ?>">
 <?php
-$SQL="SELECT concat(Codigo_CTA, ' ', Nombre_CTA) from czcuentascont where Codigo_NVL=5 and nombre_cta like '%cuenta%' order by 1  ;";
+$SQL="SELECT concat(Codigo_CTA, ' ', Nombre_CTA) from czcuentascont where Codigo_NVL=5 and nombre_cta like '%cuenta%' order by 1 limit 10 ;";
 $rstpuc = mysqli_query($conexion, $SQL);
 while($rowPUC = mysqli_fetch_array($rstpuc)) {
 	echo '<option value="'.$rowPUC[0].'">';

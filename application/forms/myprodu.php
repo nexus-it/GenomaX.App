@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 
 	function ConectarSIPx() {
@@ -75,7 +75,7 @@ session_start();
   <option value="03">Todas las Ordenes</option>
   <option value="04">Ordenes Cerradas (Incompleto)</option>
 </select>
-<a href="javascript:CargarProdu<?php echo $NumWindow; ?>();"> <img id="img_tabla<?php echo $NumWindow; ?>" src="http://cdn.genomax.co/media/image/table_import.png"  alt="Cargar Produ" align="absmiddle" title="Cargar Produ" /></a>
+<a href="javascript:CargarProdu<?php echo $NumWindow; ?>();"> <img id="img_tabla<?php echo $NumWindow; ?>" src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/table_import.png"  alt="Cargar Produ" align="absmiddle" title="Cargar Produ" /></a>
 
 </fieldset>
 <fieldset class="can-grow" id="results<?php echo $NumWindow; ?>" style="overflow:auto">
@@ -92,7 +92,7 @@ function CargarProdu<?php echo $NumWindow; ?>() {
 		<?php
 		$NoVent= substr($NumWindow, (strlen($NumWindow)-strpos($NumWindow, "_"))*(-1));
 		?>
-		document.getElementById('destino<?php echo $NumWindow; ?>').innerHTML='<div align="center">Por favor espere un momento mientras se realiza su consulta...<br><img src="http://cdn.genomax.co/media/image/loading.gif" border="0" align="absmiddle"></div>';
+		document.getElementById('destino<?php echo $NumWindow; ?>').innerHTML='<div align="center">Por favor espere un momento mientras se realiza su consulta...<br><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/loading.gif" border="0" align="absmiddle"></div>';
 		WindAct = document.getElementById("Window<?php echo $NoVent; ?>").style;
 		if (100*WindAct.width/screen.width<=60) {
 			document.getElementById("Window<?php echo $NoVent; ?>").style.width="98.7%";

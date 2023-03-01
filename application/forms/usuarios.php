@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 <form method="post" name="frm_form<?php echo $NumWindow; ?>" id="frm_form<?php echo $NumWindow; ?>" action="functions/php/nexus/uploads.php?route=images&class=users&style=profile&wind=<?php echo $NumWindow; ?>" enctype="multipart/form-data" target="upload_target<?php echo $NumWindow; ?>" onreset="document.frm_form<?php echo $NumWindow; ?>.hdn_users<?php echo $NumWindow; ?>.value='<?php echo session_id(); ?>';FotoUsu<?php echo $NumWindow; ?>('0.png');" class="container">
@@ -137,8 +137,8 @@ session_start();
 	<div id="div_foto<?php echo $NumWindow; ?>" class="foto_perfil">
 	<div id="div_preupload<?php echo $NumWindow; ?>" class="preupload" style="visibility:hidden"></div>
 	<div id="div_cmd<?php echo $NumWindow; ?>" class="foto_cmd" >
-	<img src="http://cdn.genomax.co/media/image/icons/16x16/add.png"  alt="Cambiar Foto" width="16" height="16" align="absmiddle" title="Actualizar Foto" class="pic_add" onclick="upl_file<?php echo $NumWindow; ?>.click();"/> 
-	<img src="http://cdn.genomax.co/media/image/icons/16x16/delete.png"  alt="Eliminar Foto" width="16" height="16" align="absmiddle" title="Eliminar Foto" class="pic_remove" onclick="KillPic('files/images/users/',document.getElementById('hdn_users<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/add.png"  alt="Cambiar Foto" width="16" height="16" align="absmiddle" title="Actualizar Foto" class="pic_add" onclick="upl_file<?php echo $NumWindow; ?>.click();"/> 
+	<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/delete.png"  alt="Eliminar Foto" width="16" height="16" align="absmiddle" title="Eliminar Foto" class="pic_remove" onclick="KillPic('files/images/users/',document.getElementById('hdn_users<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
 	<input name="upl_file<?php echo $NumWindow; ?>" type="file" class="input_file_upload" id="upl_file<?php echo $NumWindow; ?>" size="1" accept="image/x-png, image/gif, image/jpeg"/ onchange="frm_form<?php echo $NumWindow; ?>.submit();startUpload('<?php echo $NumWindow; ?>', 'users');" >
 	<iframe id="upload_target<?php echo $NumWindow; ?>" style="width:0; height:0;border: 0px solid #ffffff;" name="upload_target<?php echo $NumWindow; ?>" width="320" height="240" ></iframe>
   </div></div>
@@ -149,9 +149,9 @@ session_start();
 <div id="div_firma<?php echo $NumWindow; ?>" class="firma_perfil col-md-7">
 <div id="div_preupload2<?php echo $NumWindow; ?>" class="preupload" style="visibility:hidden"></div>
 <div id="div_cmd2<?php echo $NumWindow; ?>" class="firma_cmd" >
-<img src="http://cdn.genomax.co/media/image/icons/16x16/pencil_add.png"  alt="Capturar Firma" width="16" height="16" align="absmiddle" title="Capturar Firma" class="pic_capt" onclick="CargarForm('application/forms/capturecanvas.php', 'Firma Usuario');"/> 
-<img src="http://cdn.genomax.co/media/image/icons/16x16/add.png"  alt="Cambiar Firma" width="16" height="16" align="absmiddle" title="Actualizar Firma" class="pic_add" onclick="upl_file2<?php echo $NumWindow; ?>.click();"/> 
-<img src="http://cdn.genomax.co/media/image/icons/16x16/delete.png"  alt="Borrar Firma" width="16" height="16" align="absmiddle" title="Eliminar Firma" class="pic_remove" onclick="KillFirma('files/images/users/',document.getElementById('hdn_users<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
+<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/pencil_add.png"  alt="Capturar Firma" width="16" height="16" align="absmiddle" title="Capturar Firma" class="pic_capt" onclick="CargarForm('application/forms/capturecanvas.php', 'Firma Usuario');"/> 
+<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/add.png"  alt="Cambiar Firma" width="16" height="16" align="absmiddle" title="Actualizar Firma" class="pic_add" onclick="upl_file2<?php echo $NumWindow; ?>.click();"/> 
+<img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/icons/16x16/delete.png"  alt="Borrar Firma" width="16" height="16" align="absmiddle" title="Eliminar Firma" class="pic_remove" onclick="KillFirma('files/images/users/',document.getElementById('hdn_users<?php echo $NumWindow; ?>').value, '<?php echo $NumWindow; ?>');"/>
 <input name="upl_file2<?php echo $NumWindow; ?>" type="file" class="input_file_upload2" id="upl_file2<?php echo $NumWindow; ?>" size="1" accept="image/x-png, image/gif, image/jpeg"/ onchange="frm_form<?php echo $NumWindow; ?>.submit();startUpload2('<?php echo $NumWindow; ?>', 'users');" >
 <iframe id="upload_target2<?php echo $NumWindow; ?>" style="width:0; height:0;border: 0px solid #ffffff;" name="upload_target2<?php echo $NumWindow; ?>" width="320" height="240" ></iframe>
 </div></div>

@@ -4,6 +4,7 @@ var Updates="functions/php/nexus/updates.php";
 var Uploads="functions/php/nexus/uploads.php";
 var Transac="functions/php/nexus/transactions.php";
 var Transact="functions/php/transactions/";
+var nxs_cdn="https://cdn.genomax.app/";
 
 function haySession() {
 	/*$.ajax({  
@@ -1198,10 +1199,13 @@ function Guardar_ingresos(Ventana)
 			xError="Digite la fecha de remision del paciente.";}
 		if (document.getElementById('txt_remision'+Ventana).value=="") {
 			xError="Digite el numero de remision.";}
-		if (document.getElementById('txt_diagnostico'+Ventana).value=="") {
-			xError="Digite el codigo del diagnostico.";}
-		if (document.getElementById('txt_NombreDx'+Ventana).value=="No se encuentra el diagnostico") {
-			xError="Digite el codigo del diagnostico.";}
+		var elemento=document.getElementById('txt_diagnostico'+Ventana);
+		if(elemento.required) {
+			if (document.getElementById('txt_diagnostico'+Ventana).value=="") {
+				xError="Digite el codigo del diagnostico.";}
+			if (document.getElementById('txt_NombreDx'+Ventana).value=="No se encuentra el diagnostico") {
+				xError="Digite el codigo del diagnostico.";}
+		}
 		if (document.getElementById('txt_remitido'+Ventana).value=="") {
 			xError="Digite el valor remitido.";}
 	}
@@ -1275,10 +1279,13 @@ function Guardar_ingresoscx(Ventana)
 	if (document.getElementById('txt_motivo'+Ventana).value=="") {
 		xError="Digite el motivo de la consulta.";}
 	if (document.getElementById('cmb_TipoIng'+Ventana).value=="H7") {
-		if (document.getElementById('txt_diagnostico'+Ventana).value=="") {
-			xError="Digite el codigo del diagnostico.";}
-		if (document.getElementById('txt_NombreDx'+Ventana).value=="No se encuentra el diagnostico") {
-			xError="Digite el codigo del diagnostico.";}
+		var elemento=document.getElementById('txt_diagnostico'+Ventana);
+		if(elemento.required) {
+			if (document.getElementById('txt_diagnostico'+Ventana).value=="") {
+				xError="Digite el codigo del diagnostico.";}
+			if (document.getElementById('txt_NombreDx'+Ventana).value=="No se encuentra el diagnostico") {
+				xError="Digite el codigo del diagnostico.";}
+		}
 	}
 	ClaseHA=document.getElementById('cmb_TipoIng'+Ventana).value;
 	if (document.getElementById('txt_Contrato'+Ventana).value=="") {
@@ -1982,7 +1989,7 @@ function AgregarFilaOrden(Codigo1, Codigo2, Nombre, Cantidad, Empleado, Empleado
     celda2.innerHTML = Nombre; 
     celda25.innerHTML = '<input name="hdn_codigoter'+TotalFilas+Ventana+'" type="hidden" id="hdn_codigoter'+TotalFilas+Ventana+'" value="'+Empleado2+''+'" />'+Empleado; 
     celda3.innerHTML = '<input class="sinborde" name="hdn_cantidadser'+TotalFilas+Ventana+'" type="number" id="hdn_cantidadser'+TotalFilas+Ventana+'" value="'+Cantidad+'" min="1" />'; 
-    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a>'; 
+    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar servicio de la orden" /></a>'; 
     fila.appendChild(celda1); 
     fila.appendChild(celda2); 
     fila.appendChild(celda25); 
@@ -2023,7 +2030,7 @@ function AgregarFilaCargo(Fecha, Cargo, Ventana, TotalFilas, Tema)  {
 	$.get(Funciones,{'Func':'NombreCargo','codigo':Cargo},function(data){
 	    celda2.innerHTML = '<input name="hdn_codcargo'+TotalFilas+Ventana+'" type="hidden" id="hdn_codcargo'+TotalFilas+Ventana+'" value="'+Cargo+''+'" />'+data; 
 	}); 
-    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar cargo del empleado" /></a>'; 
+    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar cargo del empleado" /></a>'; 
     fila.appendChild(celda1); 
     fila.appendChild(celda2); 
     fila.appendChild(celda4); 
@@ -2056,7 +2063,7 @@ function AgregarFilaSalario(Fecha, Salario, Ventana, TotalFilas, Tema)  {
 	fila.id="tr"+TotalFilas+Ventana;
     celda1.innerHTML = '<input name="hdn_fechaini'+TotalFilas+Ventana+'" type="hidden" id="hdn_fechaini'+TotalFilas+Ventana+'" value="'+Fecha+''+'" />'+Fecha; 
     celda2.innerHTML = '<input name="hdn_valorslr'+TotalFilas+Ventana+'" type="hidden" id="hdn_valorslr'+TotalFilas+Ventana+'" value="'+Salario+''+'" />'+Salario; 
-    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar salario del empleado" /></a>'; 
+    celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar salario del empleado" /></a>'; 
     fila.appendChild(celda1); 
     fila.appendChild(celda2); 
     fila.appendChild(celda4); 
@@ -2083,7 +2090,7 @@ function AgregarFilaArea(IdArea, NomArea, Ventana, TotalFilas, Tema)  {
 	TotalFilas++;
 	fila.id="tr"+TotalFilas+Ventana;
     celda2.innerHTML = '<input name="hdn_codarea'+TotalFilas+Ventana+'" type="hidden" id="hdn_codarea'+TotalFilas+Ventana+'" value="'+IdArea+''+'" />'+NomArea; 
-	celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar area del empleado" /></a>'; 
+	celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar area del empleado" /></a>'; 
     fila.appendChild(celda2); 
     fila.appendChild(celda4); 
     miTabla.appendChild(fila); 
@@ -2107,7 +2114,7 @@ function AgregarFilaEmple(IdEmple, NomEmple, Ventana, TotalFilas, Tema)  {
 	TotalFilas++;
 	fila.id="tr"+TotalFilas+Ventana;
     celda2.innerHTML = '<input name="hdn_codemple'+TotalFilas+Ventana+'" type="hidden" id="hdn_codemple'+TotalFilas+Ventana+'" value="'+IdEmple+''+'" />'+NomEmple; 
-	celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar empleado de esta area" /></a>'; 
+	celda4.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar empleado de esta area" /></a>'; 
     fila.appendChild(celda2); 
     fila.appendChild(celda4); 
     miTabla.appendChild(fila); 
@@ -2329,7 +2336,7 @@ function AgregarFilaInvEntra(Codigo1, Nombre, Presentacion, Laboratorio, Lote, V
     celda7.innerHTML = '<input name="hdn_invima'+TotalFilas+Ventana+'" type="hidden" id="hdn_invima'+TotalFilas+Ventana+'" value="'+Invima+'" />'+Invima; 
     celda8.innerHTML = '<input name="hdn_riesgo'+TotalFilas+Ventana+'" type="hidden" id="hdn_riesgo'+TotalFilas+Ventana+'" value="'+Riesgo+'" />'+Riesgo; 
     celda9.innerHTML = '<input name="hdn_cantidad'+TotalFilas+Ventana+'" type="hidden" id="hdn_cantidad'+TotalFilas+Ventana+'" value="'+Cantidad+'" />'+Cantidad; 
-    celda10.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="themes/'+Tema+'/img/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar producto de la entrada" /></a>'; 
+    celda10.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\''+Ventana+'\');"><img src="'+nxs_cdn+'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar producto de la entrada" /></a>'; 
 
     fila.appendChild(celda1); 
     fila.appendChild(celda2); 

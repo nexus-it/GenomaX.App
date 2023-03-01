@@ -1,0 +1,6 @@
+UPDATE `itconfig` SET `Version_DCD`='[VIBRANIUM]19.10.27.004';
+ALTER TABLE `hcfolios`	ADD COLUMN `Folio_HCF` INT(11) NOT NULL AFTER `Codigo_HCF`;
+UPDATE hcfolios SET Folio_HCF=Codigo_HCF;
+UPDATE `itreports` SET `SQL_RPT`='Select a.Fecha_HCF, a.Hora_HCF, c.ID_TER, c.Nombre_TER, b.Nombre_HCT, a.Folio_HCF, concat(d.Apellido1_MED, \' \',d.Apellido2_MED,\' \',d.Nombre1_MED,\' \',d.Nombre2_MED), d.RM_MED \r\nFrom hcfolios a, hctipos b, czterceros c, gxmedicos d\r\nWhere a.Codigo_HCT=b.Codigo_HCT and c.Codigo_TER=a.Codigo_TER and d.Codigo_USR=a.Codigo_USR\r\nand a.Codigo_USR=\'@USUARIO\' and a.Fecha_HCF between \'@FECHA_INICIAL\' and \'@FECHA_FINAL\'\r\norder By 1,2' WHERE  `Codigo_RPT`='hcptesatendidos' AND `Codigo_DCD`=0;
+UPDATE `itreports` SET `SQL_RPT`='select a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, e.Logo2_HCH, b.Nombre_HCT, d.ID_TER, c.Codigo_HCF, Folio_HCF\r\nFrom\r\n itconfig a, hctipos b, hcfolios c, czterceros d, hcencabezadosdet e\r\nWhere \r\n c.Codigo_TER=d.Codigo_TER and c.Codigo_HCT=b.Codigo_HCT and b.Codigo_HCH=e.Codigo_HCH\r\n  and c.Codigo_ADM>=\'@CODIGO_INICIAL\' and c.Codigo_ADM<=\'@CODIGO_FINAL\'\r\nORDER BY c.Codigo_ADM, c.Codigo_HCF' WHERE  `Codigo_RPT`='hcadmision' AND `Codigo_DCD`=0;
+ALTER TABLE `hcfolios`	ADD INDEX `Folio_HCF` (`Folio_HCF`);

@@ -3,18 +3,18 @@
 session_start();
 
 function InterfaceCNT($Proceso, $NumDoc, $Conn) {
-    error_log($Proceso);
+    //error_log($Proceso);
     switch ($Proceso) {
 
         case 'Factura':
             $SQL="Select InterfazFC_XCT From itconfig_ct";
             $result = mysqli_query($Conn, $SQL);
 	        if($row = mysqli_fetch_row($result)) {
-                error_log($row[0]);
+                //error_log($row[0]);
                 if ($row[0]!="") {
                     $CodigoCNT="0";
                     $SQL="Select Codigo_CNT From czmovcontcab Where Codigo_FNC='".$row[0]."' and Consec_FNC='".$NumDoc."'";
-                    error_log($SQL);
+                    //error_log($SQL);
                     $result0 = mysqli_query($Conn, $SQL);
                     if($row0 = mysqli_fetch_row($result0)) {
                         $CodigoCNT=$row0['Codigo_CNT'];
@@ -22,7 +22,7 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
                     mysqli_free_result($result0);
                     $Consec=LoadConsec("czmovcontcab", "Codigo_CNT", $CodigoCNT, $Conn, "Codigo_CNT");
                     $ConsecCNT=$Consec;
-                    error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
+                    //error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
                     // Se carga el encabezado del Movimento
                     $SQL="Replace Into czmovcontcab(Codigo_CNT, Codigo_FNC, Codigo_TER, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) Select '".$ConsecCNT."', '".$row[0]."', b.Codigo_TER, DATE(a.Fecha_FAC), a.Codigo_FAC, CONCAT('Factura de Venta ',a.Codigo_FAC,'. ',b.TipoContrato_EPS), concat('Contrato ', b.Contrato_EPS,'. ',a.Nota_FAC), (a.ValPaciente_FAC + a.ValEntidad_FAC) FROM gxfacturas a, gxeps b, gxadmision c WHERE a.Codigo_EPS=b.Codigo_EPS AND c.Codigo_ADM=a.Codigo_ADM AND a.Codigo_FAC='".$NumDoc."';";
                     EjecutarSQL($SQL, $Conn);
@@ -60,8 +60,7 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
             $SQL="Select InterfazFC_XCT From itconfig_ct";
             $result = mysqli_query($Conn, $SQL);
 	        if($row = mysqli_fetch_row($result)) {
-                error_log($row[0]);
-
+                //error_log($row[0]);
             }
             mysqli_free_result($result);
             it_aud('1', 'Contabilidad', 'Interface Contable Mov Caja '.$NumDoc);
@@ -70,10 +69,10 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
             $SQL="Select InterfazCO_XCT From itconfig_ct";
             $result = mysqli_query($Conn, $SQL);
 	        if($row = mysqli_fetch_row($result)) {
-                error_log($row[0]);
+                //error_log($row[0]);
                 if ($row[0]!="") {
                     $SQL="Select Codigo_CNT From czmovcontcab Where Codigo_FNC='".$row[0]."' and Consec_FNC='".$NumDoc."'";
-                    error_log($SQL);
+                    //error_log($SQL);
                     $result0 = mysqli_query($Conn, $SQL);
                     if($row0 = mysqli_fetch_row($result0)) {
                         $CodigoCNT=$row0['Codigo_CNT'];
@@ -81,7 +80,7 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
                     mysqli_free_result($result0);
                     $Consec=LoadConsec("czmovcontcab", "Codigo_CNT", $CodigoCNT, $Conn, "Codigo_CNT");
                     $ConsecCNT=$Consec;
-                    error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
+                    //error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
                     // Se carga el encabezado del Movimento
                     $SQL="Replace Into czmovcontcab(Codigo_CNT, Codigo_FNC, Codigo_TER, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) Select '".$ConsecCNT."', '".$row[0]."', a.Codigo_TER, a.Fecha_FAC, a.Codigo_FAC, CONCAT('Factura de Compra ', a.Consec_FAC), a.Observaciones_FAC, (a.Total_FAC +a.Retencion_FAC) FROM czfacturascompra a WHERE a.Codigo_FAC='".$NumDoc."';";
                     EjecutarSQL($SQL, $Conn);
@@ -112,10 +111,10 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
             $SQL="Select InterfazEG_XCT From itconfig_ct";
             $result = mysqli_query($Conn, $SQL);
 	        if($row = mysqli_fetch_row($result)) {
-                error_log($row[0]);
+                //error_log($row[0]);
                 if ($row[0]!="") {
                     $SQL="Select Codigo_CNT From czmovcontcab Where Codigo_FNC='".$row[0]."' and Consec_FNC='".$NumDoc."'";
-                    error_log($SQL);
+                    //error_log($SQL);
                     $result0 = mysqli_query($Conn, $SQL);
                     if($row0 = mysqli_fetch_row($result0)) {
                         $CodigoCNT=$row0['Codigo_CNT'];
@@ -123,7 +122,7 @@ function InterfaceCNT($Proceso, $NumDoc, $Conn) {
                     mysqli_free_result($result0);
                     $Consec=LoadConsec("czmovcontcab", "Codigo_CNT", $CodigoCNT, $Conn, "Codigo_CNT");
                     $ConsecCNT=$Consec;
-                    error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
+                    //error_log('Consec CT:'.$CodigoCNT.'-'.$ConsecCNT);
                     // Se carga el encabezado del Movimento
                     $SQL="Replace Into czmovcontcab(Codigo_CNT, Codigo_FNC, Codigo_TER, Fecha_CNT, Consec_FNC, Referencia_CNT, Observaciones_CNT, Total_CNT) Select '".$ConsecCNT."', '".$row[0]."', a.Codigo_TER, b.Fecha_CXP, a.Consec_FAC, CONCAT('Pago Factura ', a.Codigo_CXP), CONCAT('Saldo ', a.Saldo_CXP ), b.valor_CXP FROM czcxp a, czcxpdet b WHERE a.Codigo_CXP=b.Codigo_CXP AND a.Codigo_CXP='".$NumDoc."';";
                     EjecutarSQL($SQL, $Conn);

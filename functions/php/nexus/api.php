@@ -39,7 +39,7 @@ return $response;
 
 
 function llenarSelect($sql,$filtrado){
-  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
   
     $result = mysqli_query($conexion, $sql);
@@ -56,7 +56,7 @@ function llenarSelect($sql,$filtrado){
 }
 
 function validarRegistroEmp($nit){
-  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
   $cadena = explode("-",$nit);
   $sql = "SELECT * FROM `Billing`.`companies` t1, certificates t2, software t3, users t4 where t1.id = t2.company_id and t1.id = t3.company_id and t1.user_id = t4.id and  identification_number = ".$cadena[0];
@@ -67,7 +67,7 @@ function validarRegistroEmp($nit){
 }
 
 function validarRegistroEmpRes($nit){
-  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing");
+  $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
   $cadena = explode("-",$nit);
   $sql = "SELECT * FROM `Billing`.`companies` t1, resolutions t2, type_documents t3 where t1.id = t2.company_id and t2.type_document_id = t3.id and identification_number = ".$cadena[0];

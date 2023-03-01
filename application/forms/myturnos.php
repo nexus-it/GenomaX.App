@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$elanyo = date("Y");
 	$elmes = date("m");	
@@ -14,7 +14,7 @@ session_start();
 <legend>Programación de Turnos:</legend>
   <label for="txt_codtrn<?php echo $NumWindow; ?>">Código</label>
   <input name="txt_codtrn<?php echo $NumWindow; ?>" type="text" id="txt_codtrn<?php echo $NumWindow; ?>" size="3" value="0" onkeypress="BuscarMyTrn<?php echo $NumWindow; ?>(event);"/>
-  <a href="javascript:CargarSearch('MyTurnos', 'txt_codtrn<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Programación" align="absmiddle" title="Buscar Programación" /></a>
+  <a href="javascript:CargarSearch('MyTurnos', 'txt_codtrn<?php echo $NumWindow; ?>', 'NULL');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar Programación" align="absmiddle" title="Buscar Programación" /></a>
   <label for="txt_nombre<?php echo $NumWindow; ?>">Nombre</label>
   <input name="txt_nombre<?php echo $NumWindow; ?>" type="text" id="txt_nombre<?php echo $NumWindow; ?>" size="40" />
 <br />
@@ -41,7 +41,7 @@ while($row = mysqli_fetch_array($result))
 mysqli_free_result($result); 
  ?>
   </select>
-  <a href="javascript:LoadMyTrn<?php echo $NumWindow; ?>(document.getElementById('cmb_plantilla<?php echo $NumWindow; ?>').value);"><img src="http://cdn.genomax.co/media/image/table_import.png"  alt="Cargar Plantilla" align="absmiddle" title="Cargar Plantilla" /></a></div>
+  <a href="javascript:LoadMyTrn<?php echo $NumWindow; ?>(document.getElementById('cmb_plantilla<?php echo $NumWindow; ?>').value);"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/table_import.png"  alt="Cargar Plantilla" align="absmiddle" title="Cargar Plantilla" /></a></div>
 <hr class="anulado" />
 <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleordx2" >  
 <table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblProgramacion<?php echo $NumWindow; ?>" >
@@ -109,7 +109,7 @@ mysqli_free_result($result);
 <input name="txt_idempleado2<?php echo $NumWindow; ?>" id="txt_idempleado2<?php echo $NumWindow; ?>" type="text" size="12" />
 <input type="hidden" id="hdn_idtercero2<?php echo $NumWindow; ?>" name="hdn_idtercero2<?php echo $NumWindow; ?>"/>
  | 
-<a href="javascript:AddRowMyTrns<?php echo $NumWindow; ?>();"><img src="http://cdn.genomax.co/media/image/add.png" alt="Agregar a la programación" align="absmiddle" title="Agregar a la programación" /></a>
+<a href="javascript:AddRowMyTrns<?php echo $NumWindow; ?>();"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" alt="Agregar a la programación" align="absmiddle" title="Agregar a la programación" /></a>
 </div>
 <hr class="anulado" />
 <label for="txt_observaciones<?php echo $NumWindow; ?>">Observaciones</label>
@@ -232,7 +232,7 @@ function AddRowMyTrns<?php echo $NumWindow; ?>() {
 			celda3.innerHTML = '<input name="hdn_empleado1'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_empleado1'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CodTer1+''+'" />'+texto1; 
 			celda4.innerHTML = '<input name="hdn_turno2'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_turno2'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+cmbTurno2+''+'" />'+xTurno2; 
 			celda5.innerHTML = '<input name="hdn_empleado2'+TotalFilas+'<?php echo $NumWindow; ?>" type="hidden" id="hdn_empleado2'+TotalFilas+'<?php echo $NumWindow; ?>" value="'+CodTer2+''+'" />'+texto2; 
-			celda6.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\'<?php echo $NumWindow; ?>\');"><img src="http://cdn.genomax.co/media/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar fila de la programación" /></a>'; 
+			celda6.innerHTML = '<a href="javascript:EliminarFilaOrden(\''+TotalFilas+'\',\'<?php echo $NumWindow; ?>\');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar fila de la programación" /></a>'; 
 		    fila.appendChild(celda1); 
 		    fila.appendChild(celda2); 
 		    fila.appendChild(celda3); 

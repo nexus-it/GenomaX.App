@@ -4,6 +4,12 @@ var ContaForms=1;
 var ContaReports=0;
 var ContaSearch=0;
 var ContaPass=0;
+var cdnUrl="https://cdn.genomax.app";
+
+$('.nxswindow').slimScroll({
+    height : '100%',
+
+  });
 
 function AbrirForm(Pagina, Contenedor, Params)
 {
@@ -37,7 +43,7 @@ function OpenRpt(Pagina, Contenedor, Params)
 function inicioEnvio(Destino)
 {
   var x=$(Destino);
-  x.html('<img src="../loadingform.gif">');
+  x.html('<img src="'+cdnUrl+'/image/loadingform.gif">');
 }
 
 function AbrirSearch(Contenedor, Destino, Titulo, Where)
@@ -142,7 +148,7 @@ function CargarForm(Pag, Tit, Ico) {
 	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
 	$(li0).attr('id','gxt' + ContaForms);
 	$(li0).attr('title', Tit);
-	imagenlogo="<img src=\"http://cdn.genomax.co/media/image/icons/16x16/"+Ico+"\" align=\"left\"/> ";
+	imagenlogo="<img src=\""+cdnUrl+"/image/icons/16x16/"+Ico+"\" align=\"left\"/> ";
 	var a0 = $(document.createElement('a')).attr('href','#Window_'+ContaForms).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaForms);
 	$(a0).attr('aria-controls','Ghen_'+ContaForms);
 	$(a0).attr('role','tab');
@@ -153,7 +159,7 @@ function CargarForm(Pag, Tit, Ico) {
 	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#gx-tabs');
 	$(div).attr('id','Window_' + ContaForms);
 
-	$(div).append("<div class='panel-heading' id='ztitle_" + ContaForms+"'><h4 class='panel-title'><img src=\"http://cdn.genomax.co/media/image/icons/32x32/"+Ico+"\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
+	$(div).append("<div class='panel-heading' id='ztitle_" + ContaForms+"'><h4 class='panel-title'><img src=\""+cdnUrl+"/image/icons/32x32/"+Ico+"\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
 		
 	var div3 = $(document.createElement('div')).attr('class','gxFullScreen').html(' <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>').appendTo('#ztitle_' + ContaForms);
 	$(div3).attr('title','Maximizar');
@@ -240,7 +246,7 @@ function CargarReport(Pag, Tit) {
 	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
 	$(li0).attr('id','gxt' + ContaReports);
 	$(li0).attr('title', Tit);
-	imagenlogo="<img src=\"http://cdn.genomax.co/media/image/icons/16x16/report.png\" align=\"left\"/> ";
+	imagenlogo="<img src=\""+cdnUrl+"/image/icons/16x16/report.png\" align=\"left\"/> ";
 	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaReports);
 	/*
 	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html(Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button>').appendTo('#gxt' + ContaReports);
@@ -254,7 +260,7 @@ function CargarReport(Pag, Tit) {
 	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#gx-tabs');
 	$(div).attr('id','Report_' + ContaReports);
 
-	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\"http://cdn.genomax.co/media/image/icons/32x32/report.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
+	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\""+cdnUrl+"/image/icons/32x32/report.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
 		
 	var div3 = $(document.createElement('div')).attr('class','gxFullScreen').html(' <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>').appendTo('#ztitle_' + ContaReports);
 	$(div3).attr('title','Maximizar');
@@ -297,7 +303,7 @@ function CargarDataReport(Pag, Tit) {
 	var li0 = $(document.createElement('li')).attr('role','presentation').appendTo('#gxtabs');
 	$(li0).attr('id','gxt' + ContaReports);
 	$(li0).attr('title', Tit);
-	imagenlogo="<img src=\"http://cdn.genomax.co/media/image/icons/16x16/database_table.png\" align=\"left\"/> ";
+	imagenlogo="<img src=\""+cdnUrl+"/image/icons/16x16/database_table.png\" align=\"left\"/> ";
 	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html('<div class="col-md-12">'+imagenlogo+Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button></div>').appendTo('#gxt' + ContaReports);
 	/*
 	var a0 = $(document.createElement('a')).attr('href','#Report_'+ContaReports).html(Tit+' <button id="gxtbtn'+ContaReports+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaReports+'\', event)"><span aria-hidden="true">&times;</span></button>').appendTo('#gxt' + ContaReports);
@@ -311,14 +317,14 @@ function CargarDataReport(Pag, Tit) {
 	var div = $(document.createElement('div')).attr('class','tab-pane fade panel panel-success').appendTo('#gx-tabs');
 	$(div).attr('id','Report_' + ContaReports);
 
-	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\"http://cdn.genomax.co/media/image/icons/32x32/database_table.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
+	$(div).append("<div class='panel-heading' id='ztitle_" + ContaReports+"'><h4 class='panel-title'><img src=\""+cdnUrl+"/image/icons/32x32/database_table.png\" align=\"left\"/>"+Tit+'<button title="Cerrar Ventana" id="gxtbtn'+ContaForms+'" type="button" class="close closeico" aria-label="Close" onclick="javascript:CerrarVentana(\''+ContaForms+'\', event)"><span aria-hidden="true">&times;</span></button></h4></div>');
 		
 	var div3 = $(document.createElement('div')).attr('class','gxFullScreen').html(' <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>').appendTo('#ztitle_' + ContaReports);
 	$(div3).attr('title','Maximizar');
 	$(div3).attr('onclick','gxFullScreen();');
 	var div4 = $(document.createElement('div')).attr('class','panel-body').appendTo('#Report_' + ContaReports);
 	$(div4).attr('id','gxWind_' + ContaReports);
-	var divgx = $(document.createElement('div')).attr('class','container').html('<span id="RptzWind_'+ ContaReports+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>').appendTo('#gxWind_' + ContaReports);
+	var divgx = $(document.createElement('div')).attr('class','container').html('<span id="RptzWind_'+ ContaReports+'"><img src="'+cdnUrl+'/image/loading.gif" align="left"></span>').appendTo('#gxWind_' + ContaReports);
 	$(divgx).attr('id','zRpt_' + ContaReports);
 	pagX=Pag.substring(18,Pag.indexOf('.'));
 	
@@ -398,17 +404,17 @@ function CargarWind(Tit, form, Icono, origen, ventana) {
 
 	if (typo=="reports") {
 		ContaReports=ContaForms;
-		document.getElementById('bodyWind').innerHTML='<span id="zRpt_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
+		document.getElementById('bodyWind').innerHTML='<span id="zRpt_'+ ContaForms+'"><img src="'+cdnUrl+'/image/loading.gif" align="left"></span>';
 		if (Icono=="database_table.png") {
-			document.getElementById('idWindModal').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/database_table.png" align="left">'+Tit;
+			document.getElementById('idWindModal').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/database_table.png" align="left">'+Tit;
 			OpenRpt('application/'+form, "zRpt_" + ContaReports, Parametros)
 		} else {
-			document.getElementById('idWindModal').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/report.png" align="left">'+Tit;
+			document.getElementById('idWindModal').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/report.png" align="left">'+Tit;
 			AbrirReport('application/'+form, "zRpt_" + ContaReports, Parametros);
 		}
 	} else {
-		document.getElementById('bodyWind').innerHTML='<span id="zWind_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
-		document.getElementById('idWindModal').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/'+Icono+'" align="left">'+Tit;
+		document.getElementById('bodyWind').innerHTML='<span id="zWind_'+ ContaForms+'"><img src="'+cdnUrl+'/image/loading.gif" align="left"></span>';
+		document.getElementById('idWindModal').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/'+Icono+'" align="left">'+Tit;
 		$("#zWind_" + ContaForms).load('application/'+form+"?target=zWind_" + ContaForms+Parametros);
 		console.log('application/'+form+"?target=zWind_" + ContaForms+Parametros);
 	}
@@ -434,17 +440,17 @@ function CargarWind2(Tit, form, Icono, origen, ventana) {
 
 	if (typo=="reports") {
 		ContaReports=ContaForms;
-		document.getElementById('bodyWind2').innerHTML='<span id="zRpt_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
+		document.getElementById('bodyWind2').innerHTML='<span id="zRpt_'+ ContaForms+'"><img src="'+cdnUrl+'/image/loading.gif" align="left"></span>';
 		if (Icono=="database_table.png") {
-			document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/database_table.png" align="left">'+Tit;
+			document.getElementById('idWindModal2').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/database_table.png" align="left">'+Tit;
 			OpenRpt('application/'+form, "zRpt_" + ContaReports, Parametros)
 		} else {
-			document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/report.png" align="left">'+Tit;
+			document.getElementById('idWindModal2').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/report.png" align="left">'+Tit;
 			AbrirReport('application/'+form, "zRpt_" + ContaReports, Parametros);
 		}
 	} else {
-		document.getElementById('bodyWind2').innerHTML='<span id="zWind_'+ ContaForms+'"><img src="http://cdn.genomax.co/media/image/loading.gif" align="left"></span>';
-		document.getElementById('idWindModal2').innerHTML='<img src="http://cdn.genomax.co/media/image/icons/32x32/'+Icono+'" align="left">'+Tit;
+		document.getElementById('bodyWind2').innerHTML='<span id="zWind_'+ ContaForms+'"><img src="'+cdnUrl+'/image/loading.gif" align="left"></span>';
+		document.getElementById('idWindModal2').innerHTML='<img src="'+cdnUrl+'/image/icons/32x32/'+Icono+'" align="left">'+Tit;
 		$("#zWind_" + ContaForms).load('application/'+form+"?target=zWind_" + ContaForms+Parametros);
 		console.log('application/'+form+"?target=zWind_" + ContaForms+Parametros);
 	}

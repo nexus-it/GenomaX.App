@@ -5,10 +5,10 @@ session_start();
 
 include '../../functions/php/nexus/database.php';
 
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 
 mysqli_query ($conexion, "SET NAMES 'utf8'");
-$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, Descripcion_RPT, IfNULL(Subtitle_RPT,' ') from nxs_gnx.itreports where codigo_rpt='".$_GET["rpt"]."'";
+$SQL="SELECT sql_rpt, page_rpt, orientacion_rpt, Descripcion_RPT, IfNULL(Subtitle_RPT,' ') from ".$_SESSION['DB_NXS'].".itreports where codigo_rpt='".$_GET["rpt"]."'";
 $result = mysqli_query($conexion, $SQL);
 if ($row = mysqli_fetch_row($result)) {
 	$SQL=$row[0];

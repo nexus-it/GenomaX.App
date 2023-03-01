@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 ?>
@@ -51,7 +51,7 @@ mysqli_free_result($result);
 </select> 
 </div>
 
-<a href="javascript:AgregarFilaCargo(document.frm_form<?php echo $NumWindow; ?>.txt_fechaini<?php echo $NumWindow; ?>.value, document.frm_form<?php echo $NumWindow; ?>.cmb_cargo<?php echo $NumWindow; ?>.value, '<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.hdn_controw<?php echo $NumWindow; ?>.value, '<?php echo $_SESSION["THEME_DEFAULT"]; ?>');"><img src="http://cdn.genomax.co/media/image/add.png" alt="Agregar al historial" align="absmiddle" title="Agregar al historial" /></a><br />
+<a href="javascript:AgregarFilaCargo(document.frm_form<?php echo $NumWindow; ?>.txt_fechaini<?php echo $NumWindow; ?>.value, document.frm_form<?php echo $NumWindow; ?>.cmb_cargo<?php echo $NumWindow; ?>.value, '<?php echo $NumWindow; ?>', document.frm_form<?php echo $NumWindow; ?>.hdn_controw<?php echo $NumWindow; ?>.value, '<?php echo $_SESSION["THEME_DEFAULT"]; ?>');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" alt="Agregar al historial" align="absmiddle" title="Agregar al historial" /></a><br />
 <hr align="center" width="95%" size="1"  class="anulado" />
  <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" >
 <table  width="95%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
@@ -77,7 +77,7 @@ mysqli_free_result($result);
 		echo '  <tr id="tr'.$contarow.$NumWindow.'">
     <td><input name="hdn_fechaini'.$contarow.$NumWindow.'" type="hidden" id="hdn_fechaini'.$contarow.$NumWindow.'" value="'.FormatoFecha($row[1]).'" />'.FormatoFecha($row[1]).'</td>
     <td><input name="hdn_codcargo'.$contarow.$NumWindow.'" type="hidden" id="hdn_codcargo'.$contarow.$NumWindow.'" value="'.$row[2].'" />'.$row[0].'</td>
-    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/images/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar cargo del empleado" /></a></td>
+    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar cargo del empleado" /></a></td>
   </tr>
 ';
 	}

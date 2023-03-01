@@ -1,10 +1,10 @@
 <?php
 	session_start();
   $NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';
 	include '../../functions/php/nexus/operaciones.php';
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
   $showRows=50;
   $page="1";
@@ -179,6 +179,32 @@ function putSendFactura(factura){
     $.ajax({
         type: 'POST',
         url: 'functions/php/GenomaXBackend/putSendFactura.php',
+        data: {
+          factura: factura
+        },
+        beforeSend: function()
+          {
+            
+          },
+          success: function (data) {
+            obj = JSON.parse(data);
+
+            $("#resultadoEnvioFactura").html(obj['cufe'])
+
+            estadoFacturaDoc(obj['cufe'],factura)
+          },
+          error: function() { 
+            showProgress("0", factura)
+            console.log(data);
+          }
+        });
+   }
+
+  function putSendDS(factura){
+  showProgress("1", factura)
+    $.ajax({
+        type: 'POST',
+        url: 'functions/php/GenomaXBackend/putSendDS.php',
         data: {
           factura: factura
         },

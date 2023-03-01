@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
 	$contarow=0;
 ?>
@@ -47,7 +47,7 @@ mysqli_free_result($result);
 </select>
 </div>
 
- <a href="javascript:NuevaFilaArea();"><img src="http://cdn.genomax.co/media/image/add.png" alt="Agregar area" align="absmiddle" title="Agregar area" /></a><br />
+ <a href="javascript:NuevaFilaArea();"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/add.png" alt="Agregar area" align="absmiddle" title="Agregar area" /></a><br />
 <hr align="center" width="95%" size="1"  class="anulado" />
  <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord" >
 <table  width="95%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
@@ -71,7 +71,7 @@ mysqli_free_result($result);
 		$contarow++;
 		echo '  <tr id="tr'.$contarow.$NumWindow.'">
     <td><input name="hdn_codarea'.$contarow.$NumWindow.'" type="hidden" id="hdn_codarea'.$contarow.$NumWindow.'" value="'.$row[1].'" />'.$row[0].'</td>
-    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="themes/'.$_SESSION["THEME_DEFAULT"].'/images/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar area asignada" /></a></td>
+    <td><a href="javascript:EliminarFilaOrden(\''.$contarow.'\',\''.$NumWindow.'\');"><img src="'.$_SESSION["NEXUS_CDN"].'/image/remove.png"  alt="Eliminar" align="absmiddle" title="Eliminar area asignada" /></a></td>
   </tr>
 ';
 	}

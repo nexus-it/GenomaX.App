@@ -3,9 +3,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 ?>
 
@@ -66,7 +66,7 @@ mysqli_free_result($result);
 	<div class="input-group">	
 		<input name="txt_emple<?php echo $NumWindow; ?>" id="txt_emple<?php echo $NumWindow; ?>" type="text" size="12" maxlength="15" onkeypress="BuscarEmp2<?php echo $NumWindow; ?>(event);" />
 		<span class="input-group-btn">	
-			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_emple<?php echo $NumWindow; ?>', 'NULL');"><img src="http://cdn.genomax.co/media/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a> 
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#GnmX_Search" data-whatever="Empleado" onclick="javascript:CargarSearch('Empleado', 'txt_emple<?php echo $NumWindow; ?>', 'NULL');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/showhelp.png"  alt="Buscar Empleado" align="absmiddle" title="Buscar Empleado" /></a> 
 		</span>
     </div>
 		<input name="txt_nomemple<?php echo $NumWindow; ?>" type="text" id="txt_nomemple<?php echo $NumWindow; ?>" size="60" readonly="readonly" /><a href="javascript:NuevaFilaempleado();"><i class="fas fa-search"></i></button>
@@ -88,7 +88,7 @@ mysqli_free_result($result);
 		{
 			$contafilas++;
 ?>
-<tr id="tr<?php echo $contafilas; ?><?php echo $NumWindow; ?>"><td><input name="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" type="hidden" id="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" value="<?php echo ($rowz[0]); ?>"><?php echo ($rowz[1]); ?></td><td><a href="javascript:EliminarFilaOrden('<?php echo $contafilas; ?>','<?php echo $NumWindow; ?>');"><img src="themes/'<?php echo $_SESSION["THEME_DEFAULT"]; ?>'/img/remove.png" alt="Eliminar" align="absmiddle" title="Eliminar empleado de esta area"></a></td></tr>
+<tr id="tr<?php echo $contafilas; ?><?php echo $NumWindow; ?>"><td><input name="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" type="hidden" id="hdn_codemple<?php echo $contafilas; ?><?php echo $NumWindow; ?>" value="<?php echo ($rowz[0]); ?>"><?php echo ($rowz[1]); ?></td><td><a href="javascript:EliminarFilaOrden('<?php echo $contafilas; ?>','<?php echo $NumWindow; ?>');"><img src="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/remove.png" alt="Eliminar" align="absmiddle" title="Eliminar empleado de esta area"></a></td></tr>
 <?php
 		}
 	mysqli_free_result($resultz);
@@ -100,7 +100,6 @@ mysqli_free_result($result);
 </div>
 
   </fieldset>
-<?php flush; ?>
   <fieldset>
 <legend>Listado de Areas:</legend>
 <div id="listaareas<?php echo $NumWindow; ?>" >

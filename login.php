@@ -6,7 +6,7 @@ if(isset($_SESSION["it_user"])) {
 }
 include 'functions/php/nexus/database.php';
 $SQL="Select Version_DCD, Plan_DCD, Update_DCD From itconfig";
-$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 $resultrt = mysqli_query($conexion, $SQL);
 $revision="0";
 if ($rowrt = mysqli_fetch_array($resultrt)) {
@@ -48,8 +48,8 @@ function listar_directorios_rutajs($ruta, $ver){
 		closedir($dh);
 		}
 	}else{
-	echo "
-	Actualizando sitio... <br> Intente mas tarde por favor. [Verificar ruta tema]";
+	echo '
+	<div class="lgupdt" >Actualizando sitio... <br> Intente mas tarde por favor. [Verificar ruta tema]</div>';
 	}
 }
 ?>
@@ -59,7 +59,7 @@ function listar_directorios_rutajs($ruta, $ver){
 <meta charset="utf-8"> 
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="http://cdn.genomax.co/media/image/favicon.ico">
+<link rel="shortcut icon" href="<?php echo $_SESSION["NEXUS_CDN"]; ?>/image/favicon.ico">
 <link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/bower_components/bootstrap/dist/css/bootstrap.min.css?v=<?php echo $version; ?>">
 <link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/login.css?v=<?php echo $revision; ?>">
 <link rel="stylesheet" href="themes/<?php echo $_SESSION["THEME_DEFAULT"]; ?>/bower_components/font-awesome/css/font-awesome.min.css?v=<?php echo $version; ?>">
@@ -71,7 +71,7 @@ function listar_directorios_rutajs($ruta, $ver){
 </div> -->
 <form name="frm_NiSha1" id="frm_NiSha1">
 <?php
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	$SQL="Select NIT_DCD, Licencia_DCD from itconfig";
 	$resultm = mysqli_query($conexion, $SQL);
 	while($rowm = mysqli_fetch_array($resultm)) {

@@ -2,9 +2,9 @@
 
 session_start();
 	$NumWindow=$_GET["target"];
-	include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
 	include '../../functions/php/nexus/database.php';	
-	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"]);
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 	mysqli_query ($conexion, "SET NAMES 'utf8'");	
 	$SexoPcte=$_GET["SexoPcte"];
 ?>
@@ -35,7 +35,7 @@ session_start();
 		$contarow++;
 		echo '<div class="col-xs-6 col-sm-6 col-md-2">
     <a href="javascript:selecthc'.$NumWindow.'(\''.$row[0].'\');" class="thumbnail">
-      <img src="http://cdn.genomax.co/media/image/icons/32x32/'.$row[2].'.png" alt="'.$row[1].'">
+      <img src="'.$_SESSION["NEXUS_CDN"].'/image/icons/32x32/'.$row[2].'.png" alt="'.$row[1].'">
       <div class="caption bg-success center-block" style="height:65px;">
       <p ><h5 class="text-success text-center text-capitalize">'.$row[1].'</h5></p>
         
