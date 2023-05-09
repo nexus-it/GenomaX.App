@@ -123,9 +123,9 @@ include 'mail.php';
   //unlink('miarchivo.zip');//Destruye el archivo temporal
 
 
- //$para="ing.leandro.castro@gmail.com";
+ //$para="gerencia@nexus-it.co";
 
-print_r($para);
+// var_dump ($para);exit();
 
 $indice=$factura;
 if($para){

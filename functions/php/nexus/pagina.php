@@ -139,7 +139,8 @@ function LoadHead($ver)
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>'.$_SESSION["NOMBRE_APP"].'</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="shortcut icon" href="themes/'.$_SESSION["THEME_DEFAULT"].'/img/favicon.ico">
+  <link rel="shortcut icon" href="'.$_SESSION["NEXUS_CDN"].'/image/fav'.$_SESSION["NOMBRE_APP"].'.ico">
+  <link rel="icon" type="image/x-icon" href="'.$_SESSION["NEXUS_CDN"].'/image/fav'.$_SESSION["NOMBRE_APP"].'.ico">
   ';
 	listar_directorios_ruta("settings/css/", $ver);
 	/*listar_directorios_ruta("themes/".$_SESSION['THEME_DEFAULT']."/", $ver);*/

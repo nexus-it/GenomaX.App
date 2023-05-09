@@ -3639,6 +3639,10 @@ function rptInvoice(Pref,Consecutivo)
 {
 	CargarWind("Factura "+Pref+Consecutivo, 'reports/facturasaluddet.php?PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'facturasaludlista.php',"rptinvoice" );
 }
+function rptInvoice2(Pref,Consecutivo)
+{
+	CargarWind("Factura "+Pref+Consecutivo, 'reports/facturaventadet.php?PREFIJO='+Pref+'&CODIGO_INICIAL='+Consecutivo+'&CODIGO_FINAL='+Consecutivo, 'default.png', 'facturasaludlista.php',"rptinvoice" );
+}
 function Guardar_facturaedit(Ventana)
 {
 	NomGuardar="Guardar"+Ventana;

@@ -80,6 +80,7 @@ session_start();
 				</tr> 
 					<?php 
 					$SQL="SELECT f.Nombre_TPC, b.Codigo_TRN, e.Nombre_TPR, b.Fecha_TRN, a.ID_TER, a.Nombre_TER, TIMESTAMPDIFF(MINUTE, b.Fecha_TRN, NOW()), c.Nombre_EPS, d.Nombre_ARE,  Preferencial_TPC FROM czterceros a, gxturnos b, gxeps c, gxareas d, gxturnosprocesos e, gxtipopcte f WHERE f.Codigo_TPC=b.Codigo_TPC and e.Codigo_TPR=b.Codigo_TPR and d.Codigo_ARE=b.Codigo_ARE and a.Codigo_TER = b.Codigo_TER AND b.Codigo_EPS = c.Codigo_EPS AND b.Estado_TRN = '1' AND d.Laboratorio_ARE='1' and Call_TRN='0' ORDER BY Preferencial_TPC desc, b.Fecha_TRN";
+					$SQL="SELECT f.Nombre_TPC, b.Codigo_TRN, e.Nombre_TPR, b.Fecha_TRN, a.ID_TER, a.Nombre_TER, TIMESTAMPDIFF(MINUTE, b.Fecha_TRN, NOW()), c.Nombre_EPS, d.Nombre_ARE,  Preferencial_TPC FROM czterceros a, gxturnos b, gxeps c, gxareas d, gxturnosprocesos e, gxtipopcte f WHERE f.Codigo_TPC=b.Codigo_TPC and e.Codigo_TPR=b.Codigo_TPR and d.Codigo_ARE=b.Codigo_ARE and a.Codigo_TER = b.Codigo_TER AND b.Codigo_EPS = c.Codigo_EPS AND b.Estado_TRN = '1' and Call_TRN='0' ORDER BY Preferencial_TPC desc, b.Fecha_TRN";
 					$resulthc = mysqli_query($conexion, $SQL);
 					$contarow=0;
 					while($rowhc = mysqli_fetch_array($resulthc)) 
@@ -117,7 +118,7 @@ if  ((!(isset($_GET["modulo"]))) && ($Contamodulos==1)) {
 ?>
 
 function RefreshTurno<?php echo $NumWindow; ?>() {
-	AbrirForm('application/forms/turnos_lab.php', '<?php echo $NumWindow; ?>', '&modulo=<?php echo $Elmodulo; ?>&contamodulos=<?php echo $Contamodulos; ?>');
+	AbrirForm('application/forms/turnos_cext.php', '<?php echo $NumWindow; ?>', '&modulo=<?php echo $Elmodulo; ?>&contamodulos=<?php echo $Contamodulos; ?>');
 }
 
 function Atender<?php echo $NumWindow; ?>(NumPre, Pac) {
@@ -126,11 +127,11 @@ function Atender<?php echo $NumWindow; ?>(NumPre, Pac) {
 }
 
 function selmodulo<?php echo $NumWindow; ?>() {
-	AbrirForm('application/forms/turnos_lab.php', '<?php echo $NumWindow; ?>', '&modulo='+document.getElementById('cmb_modulo<?php echo $NumWindow; ?>').value+'&contamodulos='+document.getElementById('hdn_contamodulos<?php echo $NumWindow; ?>').value);	
+	AbrirForm('application/forms/turnos_cext.php', '<?php echo $NumWindow; ?>', '&modulo='+document.getElementById('cmb_modulo<?php echo $NumWindow; ?>').value+'&contamodulos='+document.getElementById('hdn_contamodulos<?php echo $NumWindow; ?>').value);	
 }
 
 function ChngMod<?php echo $NumWindow; ?>() {
-	AbrirForm('application/forms/turnos_lab.php', '<?php echo $NumWindow; ?>', '');	
+	AbrirForm('application/forms/turnos_cext.php', '<?php echo $NumWindow; ?>', '');	
 }
 
 function blinktext<?php echo $NumWindow; ?>() {

@@ -199,7 +199,21 @@ $PREFIJO = $cadena[0];
 		//AQUI AGREGO EL IVA SI ESTE EXISTE PERO AL VALOR TOTAL DE LA FACTURA -- LEANDRO CASTRO 2022-05-15 --
 
 
-	
+
+		// Si hay descuento por copago
+		if ($rowH['ValPaciente_FAC'] > 0){
+			$discount_id = 1;
+			$discount_totals = [array(
+				"discount_id"=> 1,
+				"charge_indicator"=> false,
+				"allowance_charge_reason"=> "DESCUENTO COPAGO",
+				"amount"=> $rowH['ValPaciente_FAC'],
+				"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
+		)];
+		}else{
+			$discount_id = 10;
+			$discount_totals = [array()];
+		}
 
 		$payload= array('number'=>$NUMERACION, //$rowH['NUMERACION'],
 					'type_document_id'=>1,
@@ -239,23 +253,16 @@ $PREFIJO = $cadena[0];
 						"payment_method_id"=> $rowH['diasvence'],
 						"payment_due_date"=> $rowH['fechavence'],
 						"duration_measure"=> $rowH['diasvence']
-					),/*
-					 "allowance_charges"=> array(
-						
-							"discount_id"=> 1,
-							"charge_indicator"=> false,
-							"allowance_charge_reason"=> "DESCUENTO COPAGO",
-							"amount"=> $rowH['ValPaciente_FAC'],
-							"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
-						
-					), */
+					),
+					 "allowance_charges"=> $discount_totals, //AQUI AGREGO EL DESCUENTO, COPAGO O C MODERADORA SI ESTE EXISTE  -- JUAN PALACIO 2023-05-09 --
+
 					"legal_monetary_totals"=> array(
 						"line_extension_amount"=> $rowH['ValSubTotal_FAC'],
 						"tax_exclusive_amount"=> $rowH['ValSubTotal_FAC'],
 						"tax_inclusive_amount"=> $rowH['ValTotal_FAC'],
 						"payable_amount"=> $rowH['ValTotal_FAC']
 					),
-					"tax_totals" => $tax_totals,//AQUI AGREGO EL IVA SI ESTE EXISTE  -- LEANDRO CASTRO 2022-05-15 --
+					"tax_totals" => $tax_totals, //AQUI AGREGO EL IVA SI ESTE EXISTE  -- LEANDRO CASTRO 2022-05-15 --
 					/*"tax_totals"=>[array( 
 							"tax_id"=> "1",
 							"tax_amount"=> "0",

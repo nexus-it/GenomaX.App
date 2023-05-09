@@ -13,7 +13,6 @@
     //var_dump($datosEmp);exit();
 
 ?>
-<script src="../../functions/nxs-js/jquery-1.7.1.min.js"></script>
 
 
 
@@ -349,8 +348,6 @@
 </div>
 
 
-
-
 <div class="col-md-2">
     <div class="form-group">
         <input type="button" name="sendResolucion" id="sendResolucion" value="Registrar / Actualizar Resolucion de factura"  >
@@ -363,7 +360,6 @@
 <div class="col-md-12">
     <?php echo validarRegistroEmpRes(verficarEmpresaReg()); ?>
 </div>
-
 
 
 <p></p>

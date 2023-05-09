@@ -30,6 +30,14 @@ include '00trnsctns.php';
 	if ($MSG=='Datos registrados correctamente. ') {
 		$MSG='Se generado el folio '.add_ceros($XFolio,5);
 	}
+	//Verificamos si el contrato permite el cargue automatico de ordenes en facturacion
+	$OrdXHCEPS='1';
+	$SQL="Select OrdXHC_EPS from gxeps where Codigo_EPS='".TRIM($_POST['contrato'])."'";
+	$result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		$OrdXHCEPS=$row[0];
+	}
+	mysqli_free_result($result);
 	//Generamos registro del nuevo folio
 	$SQL="Insert Into hcfolios(Codigo_TER, Codigo_HCT, Codigo_HCF, Fecha_HCF, Hora_HCF, Codigo_ADM, Codigo_ARE, Codigo_USR, FechaReg_HCF, Folio_HCF) Values ('".$_POST['codigoter']."', '".$_POST['formatohc']."', '".$ElFolio."', date(now()), '".substr($_POST['hora'],0,5)."', '".$_POST['ingreso']."', '".$_POST['area']."', '".$_SESSION["it_CodigoUSR"]."', now(), '".$XFolio."')";
 	
@@ -605,42 +613,43 @@ include '00trnsctns.php';
 	$SQL=substr($SQL1,0,-2).substr($SQL2,0,-2).");";
 	EjecutarSQL($SQL, $conexion);
 	// GENERAR ORDEN DE SERVICIO EN CUENTA DEL PACIENTE
-	if ($_POST["codigoser"]!="0") {
-		$Consec=LoadConsec("gxordenescab", "Codigo_ORD", "0000000000", $conexion, "LPAD(Codigo_ORD,10,'0')");
-		$SQL="Insert into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".(int)$_POST['ingreso']."', now(), '".$_POST['area']."', 'ORDEN GENERADA POR HC',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizacion']."')";
-		EjecutarSQL($SQL, $conexion);
-		// buscamos el codigo del profesional
-		$CodMED="0";
-		$SQL="Select Codigo_TER from gxmedicos Where Codigo_USR='".$_SESSION["it_CodigoUSR"]."'";
-		$resultMEd = mysqli_query($conexion, $SQL);
-		if($rowMed = mysqli_fetch_row($resultMEd)) {
-			$CodMED=$rowMed[0];
+	if ($OrdXHCEPS=="1") {
+		if ($_POST["codigoser"]!="0") {
+			$Consec=LoadConsec("gxordenescab", "Codigo_ORD", "0000000000", $conexion, "LPAD(Codigo_ORD,10,'0')");
+			$SQL="Insert into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".(int)$_POST['ingreso']."', now(), '".$_POST['area']."', 'ORDEN GENERADA POR HC',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizacion']."')";
+			EjecutarSQL($SQL, $conexion);
+			// buscamos el codigo del profesional
+			$CodMED="0";
+			$SQL="Select Codigo_TER from gxmedicos Where Codigo_USR='".$_SESSION["it_CodigoUSR"]."'";
+			$resultMEd = mysqli_query($conexion, $SQL);
+			if($rowMed = mysqli_fetch_row($resultMEd)) {
+				$CodMED=$rowMed[0];
+			}
+			mysqli_free_result($resultMEd);
+			$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER) Values ('".$Consec."', '".$_POST["codigoser"]."', 1, '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '".$CodMED."')";
+			EjecutarSQL($SQL, $conexion);
+			$SQL="Update gxordenesdet b, gxmanualestarifarios c, gxcontratos d Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where b.Codigo_ORD='".$Consec."' and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER and date(now()) between c.FechaIni_TAR and c.FechaFin_TAR";
+			EjecutarSQL($SQL, $conexion);
 		}
-		mysqli_free_result($resultMEd);
-		$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER) Values ('".$Consec."', '".$_POST["codigoser"]."', 1, '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '".$CodMED."')";
-		EjecutarSQL($SQL, $conexion);
-		$SQL="Update gxordenesdet b, gxmanualestarifarios c, gxcontratos d Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where b.Codigo_ORD='".$Consec."' and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER and date(now()) between c.FechaIni_TAR and c.FechaFin_TAR";
-		EjecutarSQL($SQL, $conexion);
-	}
-	// Cargar proc quirúrgico
-	if ($DescQxHCT=="1") {
-		$Consec=LoadConsec("gxordenescab", "Codigo_ORD", "0000000000", $conexion, "LPAD(Codigo_ORD,10,'0')");
-		$SQL="Insert into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".(int)$_POST['ingreso']."', now(), '".$_POST['area']."', 'ORDEN GENERADA POR HC - Qx',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizacion']."')";
-		EjecutarSQL($SQL, $conexion);
-		// buscamos el codigo del profesional
-		$CodMED="0";
-		$SQL="Select Codigo_TER from gxmedicos Where Codigo_USR='".$_SESSION["it_CodigoUSR"]."'";
-		$resultMEd = mysqli_query($conexion, $SQL);
-		if($rowMed = mysqli_fetch_row($resultMEd)) {
-			$CodMED=$rowMed[0];
+		// Cargar proc quirúrgico
+		if ($DescQxHCT=="1") {
+			$Consec=LoadConsec("gxordenescab", "Codigo_ORD", "0000000000", $conexion, "LPAD(Codigo_ORD,10,'0')");
+			$SQL="Insert into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".(int)$_POST['ingreso']."', now(), '".$_POST['area']."', 'ORDEN GENERADA POR HC - Qx',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizacion']."')";
+			EjecutarSQL($SQL, $conexion);
+			// buscamos el codigo del profesional
+			$CodMED="0";
+			$SQL="Select Codigo_TER from gxmedicos Where Codigo_USR='".$_SESSION["it_CodigoUSR"]."'";
+			$resultMEd = mysqli_query($conexion, $SQL);
+			if($rowMed = mysqli_fetch_row($resultMEd)) {
+				$CodMED=$rowMed[0];
+			}
+			mysqli_free_result($resultMEd);
+			$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER) Values ('".$Consec."', '".$_POST["qxproc"]."', 1, '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '".$CodMED."')";
+			EjecutarSQL($SQL, $conexion);
+			$SQL="Update gxordenesdet b, gxmanualestarifarios c, gxcontratos d Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where b.Codigo_ORD='".$Consec."' and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER and date(now()) between c.FechaIni_TAR and c.FechaFin_TAR";
+			EjecutarSQL($SQL, $conexion);
 		}
-		mysqli_free_result($resultMEd);
-		$SQL="Insert into gxordenesdet(Codigo_ORD, Codigo_SER, Cantidad_ORD, Codigo_EPS, Codigo_PLA, Codigo_TER) Values ('".$Consec."', '".$_POST["qxproc"]."', 1, '".TRIM($_POST['contrato'])."', '".$_POST['plan']."', '".$CodMED."')";
-		EjecutarSQL($SQL, $conexion);
-		$SQL="Update gxordenesdet b, gxmanualestarifarios c, gxcontratos d Set b.ValorServicio_ORD= c.Valor_TAR, b.ValorEntidad_ORD=c.Valor_TAR where b.Codigo_ORD='".$Consec."' and d.Codigo_TAR=c.Codigo_TAR and b.Codigo_EPS=d.Codigo_EPS and b.Codigo_PLA=d.Codigo_PLA and c.Codigo_SER=b.Codigo_SER and date(now()) between c.FechaIni_TAR and c.FechaFin_TAR";
-		EjecutarSQL($SQL, $conexion);
 	}
-
 	it_aud('1', 'Historia Clínica', 'Tercero '.$_POST['codigoter'].' - Folio Int. '.$ElFolio);
 
 include '99trnsctns.php';

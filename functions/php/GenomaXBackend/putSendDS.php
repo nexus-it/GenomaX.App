@@ -6,8 +6,13 @@ include '../nexus/database.php';
 $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
 mysqli_query ($conexion, "SET NAMES 'utf8'");
 
+/*
+$SQL = "INSERT INTO `czautfacturacion` (`Codigo_DCD`, `Codigo_AFC`, `Prefijo_AFC`, `Descripcion_AFC`, `Tipo_AFC`, `ConsecIni_AFC`, `ConsecFin_AFC`, `ConsecNow_AFC`, `FechaIni_AFC`, `FechaFin_AFC`, `AvisoAntesDe_AFC`, `Resolucion_AFC`, `Fecha_AFC`, `ClaveTecnica_AFC`, `IdFormSiigo_AFC`, `Separador_AFC`, `Ceros_AFC`, `Estado_AFC`) VALUES (0, '13', 'DS', 'DS', '2', '1', '1000', '1', '2018-01-01', '2500-12-31', NULL, NULL, NULL, '', '', '-', ' ', '0');";
+$resultH = mysqli_query($conexion, $SQL);
+*/
+
 $SQL = "SELECT a.Razonsocial_DCD, a.NIT_DCD, a.Direccion_DCD, a.Telefonos_DCD, a.EncabezadoFact_DCD, a.PiePaginaFact_DCD, b.ConsecIni_AFC, 
-b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.Codigo_FAC
+b.ConsecFin_AFC, b.Resolucion_AFC, b.Fecha_AFC, c.factura
 , '' AS Codigo_ADM, date(c.date) as 'fechafac', c.valor AS ValPaciente_FAC, c.valor AS ValEntidad_FAC, c.valor AS ValCredito_FAC, 
 c.valor AS ValTotal_FAC,'' as Estado_FAC, e.ID_TER,e.DigitoVerif_TER, e.Nombre_TER, e.Direccion_TER, e.Telefono_TER, e.Correo_TER
 FROM itconfig a, czautfacturacion b, gxdocumentosoporte c, czterceros e
@@ -17,10 +22,13 @@ AND c.proveedor = e.ID_TER
 AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 
 
-//echo $SQL;
 
+//var_dump($SQL);exit();
+//echo $SQL;
+//print_r($SQL);
 
 $resultH = mysqli_query($conexion, $SQL);
+//var_dump($resultH);exit();
 while ($rowH = mysqli_fetch_array($resultH)) {
 	
 if($rowH['CorreoTER'] <> '--'){
@@ -118,7 +126,8 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 			"code"=>  $row['CUPS_PRC'].$sufij,
 			"type_item_identification_id"=> 4,
 			"price_amount"=> $row['valor'],
-			"base_quantity"=>  $row['cantidad']
+			"base_quantity"=>  $row['cantidad'],
+			"type_generation_transmition_id"=> 1,
 		);
 		$CUPSant=$row['CUPS_PRC'];
 
@@ -144,7 +153,9 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 			"code"=>  $row['CUPS_PRC'].$sufij,
 			"type_item_identification_id"=> 4,
 			"price_amount"=> $row['valor'],
-			"base_quantity"=>  $row['cantidad']
+			"base_quantity"=>  $row['cantidad'],
+			"type_generation_transmition_id"=> 1,
+			"start_date"=> $rowH['fechafac'],
 		);
 		$CUPSant=$row['CUPS_PRC'];
 
@@ -178,8 +189,8 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 					'type_document_id'=>11,
 					'date'=>$rowH['fechafac'],
 					'time'=>$rowH['horafac'],
-					'resolution_number'=>$rowH['Resolucion_AFC'],
-					'prefix'=>$PREFIJO, //$rowH['PREFIJO'],
+					'resolution_number'=>'18764031132950',//$rowH['Resolucion_AFC'],
+					'prefix'=>'DS',//$PREFIJO, //$rowH['PREFIJO'],
 					'notes'=>'Documento Soporte Electronico',
 					'disable_confirmation_text'=>true,
 					'establishment_name'=>$rowH['Razonsocial_DCD'],
@@ -209,9 +220,9 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 					),
 					"payment_form"=> array(
 						"payment_form_id"=> 2,
-						"payment_method_id"=> $rowH['diasvence'],
-						"payment_due_date"=> $rowH['fechavence'],
-						"duration_measure"=> $rowH['diasvence']
+						"payment_method_id"=> 1,//$rowH['diasvence'],
+						"payment_due_date"=> $rowH['fechafac'],//$rowH['fechavence'],
+						"duration_measure"=> 1,//$rowH['diasvence']
 					),/*
 					 "allowance_charges"=> array(
 						
@@ -241,11 +252,11 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 	}else{
 
 		$payload= array('number'=>$NUMERACION, //$rowH['NUMERACION'],
-					'type_document_id'=>1,
+					'type_document_id'=>11,
 					'date'=>$rowH['fechafac'],
 					'time'=>$rowH['horafac'],
-					'resolution_number'=>$rowH['Resolucion_AFC'],
-					'prefix'=>$PREFIJO, //$rowH['PREFIJO'],
+					'resolution_number'=>'18764031132950',//$rowH['Resolucion_AFC'],
+					'prefix'=>'DS', //$PREFIJO, //$rowH['PREFIJO'],
 					'notes'=>'Documento Soporte Electronico',
 					'disable_confirmation_text'=>true,
 					'establishment_name'=>$rowH['Razonsocial_DCD'],
@@ -265,8 +276,9 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 						"name"=> $name,
 						"phone"=> $phone,
 						"address"=> $address,
-						"email"=> $email,
+						"email"=> 'prueba@gmail.com',//$email,
 						"merchant_registration"=> $merchant_registration,
+						"postal_zone_code"=> '080001',
 						"type_document_identification_id"=> $type_document_identification_id,
 						"type_organization_id"=> 1,
 						"type_liability_id"=> 7,
@@ -275,9 +287,9 @@ AND c.factura = '".$_POST["factura"]."' GROUP BY a.Razonsocial_DCD ";
 					),
 					"payment_form"=> array(
 						"payment_form_id"=> 2,
-						"payment_method_id"=> $rowH['diasvence'],
-						"payment_due_date"=> $rowH['fechavence'],
-						"duration_measure"=> $rowH['diasvence']
+						"payment_method_id"=> 1,//$rowH['diasvence'],
+						"payment_due_date"=> $rowH['fechafac'],
+						"duration_measure"=> 1,//$rowH['diasvence']
 					),/*
 					 "allowance_charges"=> array(
 						

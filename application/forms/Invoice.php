@@ -1,4 +1,11 @@
 <?php
+session_start(); 
+  // include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
+  include '../../functions/php/nexus/database.php';
+  include '../../functions/php/nexus/operaciones.php';
+  $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+  mysqli_query ($conexion, "SET NAMES 'utf8'");	
+
 class Invoice{
 	
     private $host  = '127.0.0.1';
@@ -8,7 +15,7 @@ class Invoice{
 	
 
 	private $invoiceUserTable = 'factura_usuarios';	
-    	private $invoiceOrderTable = 'factura_orden';
+    private $invoiceOrderTable = 'factura_orden';
 	private $ncOrderTable = 'nc_orden';
 	private $ndOrderTable = 'nd_orden';
 	private $productTable = 'factura_producto';
@@ -21,7 +28,8 @@ class Invoice{
 	private $dbConnect = false;
     public function __construct(){
         if(!$this->dbConnect){ 
-            $conn = new mysqli($this->host, $this->user, $this->password, $this->database);
+            //$conn = new mysqli($this->host, $this->user, $this->password, $this->database);
+			$conn = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
             if($conn->connect_error){
                 die("Error failed to connect to MySQL: " . $conn->connect_error);
             }else{

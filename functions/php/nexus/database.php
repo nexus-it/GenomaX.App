@@ -986,4 +986,54 @@ body, td { font-family: HelveticaNeue, sans-serif; }
 		return 'Fue enviado correo a '.$para;
 	}
 }
+
+function DataList($sql,$name){
+   $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+    mysqli_query ($conexion, "SET NAMES 'utf8'");
+   $result = mysqli_query($conexion, $sql);
+   $DataX = '<datalist id="'.$name.'">';
+    while($row = mysqli_fetch_array($result)) {
+      $DataX=$DataX.'<option value="'.$row[1].'" -- "'.$row[2].'"></option>';
+   }
+   $DataX=$DataX.'</datalist>';
+   return $DataX;
+ }
+
+function llenarSelect($sql){
+   //$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $bd, $_SESSION["DB_PORT"]);
+   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
+   mysqli_query ($conexion, "SET NAMES 'utf8'");
+   $result = mysqli_query($conexion, $sql);
+   $llenarSelectx = array();
+    while($row = mysqli_fetch_array($result)) {
+     $llenarSelectx[] = '<option value="'.$row[0].'">'.$row[1].' - '.$row[2].'</option>';
+   }
+   //echo json_encode($llenarSelect);
+   return ($llenarSelectx);
+   //return('hola');
+ }
+ /* 
+ function verficarEmpresaReg(){
+   $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+    mysqli_query ($conexion, "SET NAMES 'utf8'");
+   $SQL="Select  NIT_DCD from itconfig";
+   $resultadoEmp = mysqli_query($conexion, $SQL);
+   if ($rowEmp = mysqli_fetch_row($resultadoEmp)) {
+      $nitEmp = $rowEmp[0]; 
+   }
+   return $nitEmp;
+   //error_log($nitEmp);
+ }
+ 
+ function datosEnvioMail($factura){
+   $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+    mysqli_query ($conexion, "SET NAMES 'utf8'");
+ 
+   $SQL = "SELECT * FROM factura_orden t1, factura_clientes t2 , factura_usuarios t3, factura_companies t4   where t1.order_receiver_nit = concat(t2.identification_number,'-',t2.dv)   AND t1.user_id = t3.id   AND t3.id = t4.user_id    and CONCAT(t1.order_prefix,'',t1.order_id) = '$factura'";
+   $SQL="";
+   $resultadoEmp = mysqli_query($conexion, $SQL);
+   if ($rowEmp = mysqli_fetch_array($resultadoEmp)) {
+      return $rowEmp;
+   }
+ } */
 ?>

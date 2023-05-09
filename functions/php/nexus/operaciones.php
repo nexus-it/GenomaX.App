@@ -4,6 +4,98 @@ session_start();
 date_default_timezone_set('America/Bogota');
 define('NUM_ITEMS_BY_PAGE', 10);
 
+function listarFacturasVenta($filtro,$ini,$fin){
+   $html="";	
+  
+  $SQL="SELECT t1.Codigo_FAC, Fecha_FAC, Nombre_TER, Nombre_EPS, t1.Codigo_ADM, IdFE_FAC, ObtenNumeros(t1.Codigo_FAC), t1.valtotal_fac  FROM gxfacturas t1 
+  INNER JOIN gxadmision t2 ON t1.Codigo_ADM = t2.Codigo_ADM
+  INNER JOIN czterceros t3 ON t3.Codigo_TER = t2.Codigo_TER 
+  INNER JOIN gxeps t4 ON t2.Codigo_EPS = t4.Codigo_EPS";
+   //$SQL .=  " where T1.codigo_fac= 'BQ-14414'  "; 
+  
+  if($filtro <> ''){
+   $SQL .=  $filtro; 
+  }
+  $SQL .= " and estado_fac = 1 ORDER BY fecha_fac desc,7 desc  limit $ini,$fin"; //  limit $ini,$fin
+  //error_log($SQL);
+  $conexion=conexion();
+  $result = mysqli_query($conexion, $SQL);
+	if($row = mysqli_fetch_array($result)) {
+      //echo $SQL;
+      	$html = '
+			<tr>
+				<th>Factura</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Valor</th>
+				<th >Acciones</th>
+			</tr>
+			';
+		$html .= '<tbody class="row items">';
+
+      $SQL_m="Select Codigo_ITM, Nombre_ITM, Enlace_ITM, Nombre_MNU, Icono_ITM from ".$_SESSION['DB_NXS'].".ititems as a, ".$_SESSION['DB_NXS'].".itmenu as c where c.Codigo_MNU=a.Codigo_MNU and Activo_ITM='1' and a.Codigo_APP='2' and a.Codigo_MOD='2' and c.Codigo_MNU='50' and Padre_ITM='489' AND Codigo_ITM = 431 order by Codigo_ITM;";
+      $result4 = mysqli_query($conexion, $SQL_m);
+      $row4 = mysqli_fetch_row($result4);
+      
+      $result = mysqli_query($conexion, $SQL);//aqui lo vuelvo a ejecutar para que refrezcue el indice, se debe validar
+      while($row = mysqli_fetch_array($result)){
+            $html .= '<tr class="item">';
+            $html .= '<td> '.($row[0]).'</td>';
+            $html .= '<td> '.($row[1]).'</td>'; 
+            $html .= '<td> '.($row[2]).'</td>';
+            // $html .= '<td> '.($row[3]).'</td>';
+            $html .= '<td align="right"> $ '.number_format($row[7],0,',','.').'</td>';
+
+            $string = str_replace(' ','',str_replace('-',' ',$row[0]));
+            $Consecutivo = preg_replace('/[^0-9]/', '', $string);
+            $cadena = explode($Consecutivo,$string);
+            $Pref = $cadena[0];
+            $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
+            $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
+            //$btnxml='onclick="descargaFactXml(\''.$row[0].'\'); "';
+            $btnxml='onclick="descargarFacturaXml(\''.$row[5].'\', \''.$row[0].'\'); "';
+	    $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice2(\''.$Pref.'\',\''.$Consecutivo.'\')"';
+            if($row[5] != '0'){
+               $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
+               $sendMail = ' ';
+            }else{
+               $sendInvoice = ' ';
+               $sendMail = ' disabled="disabled" title="Mail Enviado" ';
+            }
+            $botonera='<div class="btn-group btn-group-sm " role="group" aria-label="..." id="btngrp'.($row[0]).'">
+               <button type="button" class="btn btn-warning" '.$sendInvoice.$btnedit.' id="btnedit'.($row[0]).'" > <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$sendInvoice.$btnsend.' id="btnsend'.($row[0]).'" > <span class="glyphicon glyphicon-send" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-info" '.$sendMail.$btnmail.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-success" '.$btnxml.' id="btnmail'.($row[0]).'" > <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> </button>
+               <button type="button" class="btn btn-default" '.$btnprint.'> <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </button>
+            </div>
+            <div class="progress" style="display: none; margin-top: 0px;" name="prgFE'.($row[0]).'" id="prgFE'.($row[0]).'"> <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 99%; height: 16px; margin-top: 0px;"> <span class="sr-only">Enviando Factura</span> </div></div>
+            ';
+            $html .= '<td align="center">'.$botonera.'</td>'; 
+            /* $action1='onclick="CargarForm(\'application/'.$row4[2].'?numeroIng='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
+            $action1=  '<a title="Editar Factura" class="manito" '.$action1.'><i class="fa fa-broom"></i></a> ';
+      
+            $html .= '<td>'.$action1.'</td>'; 
+
+            if($row[5] != '0'){
+               $html .= '<td><i title="Factura Enviada" class="fa fa-paper-plane"></i><a href="#" class="estadoFacturaDoc" data-f="'.$row[0].'" data-c="'.$cufe.'" "><i title="Validar Estado Factura Enviada" class="fa fa-thermometer-quarter"></i></a><div id="resultadoEnvioFacturaEstado"></div></td>';
+            }else{
+               $html .= '<td> <a title="Enviar Factura a la DIAN" href="#" class="enviarfactdian" data="'.$row[0].'"><i class="fa fa-paper-plane"></i></a></a><div id="resultadoEnvioFactura"></div><div id="resultadoEnvioFacturaEstado"></div></td>';
+            }
+            */
+            $html .= '</tr>';
+      }
+      $html .= '</tbody>';
+
+      echo $html;
+
+	} else {
+		echo '<span class="error">No se pudo acceder informacion de facturacion.</span>';
+	}
+	mysqli_free_result($result);
+}
+
 function listarFacturasCompra($filtro,$ini,$fin){
    $html="";	
   

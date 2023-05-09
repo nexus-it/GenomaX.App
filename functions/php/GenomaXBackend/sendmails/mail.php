@@ -18,9 +18,9 @@ function send($recipiente,$factura,$datosEnvioMail){
 
         try {
             //Server settings
-            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->SMTPDebug = 2;//SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'mail.genomax.co';                     //Set the SMTP server to send through
+            $mail->Host       = 'a2plcpnl0216.prod.iad2.secureserver.net';//'mail.genomax.co';                     //Set the SMTP server to send through
             //$mail->Host       = 'servieslat.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             
@@ -31,8 +31,8 @@ function send($recipiente,$factura,$datosEnvioMail){
             $mail->Password   = 'Nexus12345*';                               //SMTP password
             //$mail->Password   = 'Tg@820715';
           
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Remitente
             $mail->setFrom('facturacion@genomax.co','Tu factura se encuentra lista');
@@ -53,7 +53,7 @@ function send($recipiente,$factura,$datosEnvioMail){
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = $nit[0].';'.$datosEnvioMail[1].';'.$factura.';01;'.$datosEnvioMail[1];
-            $mail->Body    = '<p>Estimado usuario, adjunto en este e-mail encontrarás el detalle de tu factura </p><p>Atentamente,</p><p>'.$datosEnvioMail[1].'</p>';
+            $mail->Body    = '<p>Estimado usuario, adjunto en este e-mail encontrará el detalle de tu factura </p><p>Atentamente,</p><p>'.$datosEnvioMail[1].'</p>';
            
 
             $mail->send();

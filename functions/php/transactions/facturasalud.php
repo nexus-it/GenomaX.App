@@ -1,5 +1,6 @@
 <?php
- 
+
+session_start();
 include '00trnsctns.php';
 
 	$Consec=LoadConsecFact($conexion, $_POST['sede']);
@@ -52,7 +53,7 @@ include '00trnsctns.php';
 	
 	if ($_POST["reingreso"]=="1") { // Si se realiza reingreso
 		$Consecing=LoadConsec("gxadmision", "Codigo_ADM", "0000000000", $conexion, "LPAD(Codigo_ADM,10,'0')");
-		$SQL="Insert Into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Codigo_CXT, Codigo_FNC, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, Observaciones_ADM, Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, Codigo_USR) Select ".$Consecing.", Codigo_TER, now(), Codigo_EPS, Codigo_PLA,Codigo_CXT, Codigo_FNC, Ingreso_ADM, curdate(), Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, '', Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, '".$_SESSION["it_CodigoUSR"]."' from gxadmision x Where x.Estado_ADM='F' and x.Codigo_ADM='".(int)$_POST['Ingreso']."'";
+		$SQL="Insert Into gxadmision(Codigo_ADM, Codigo_TER, Fecha_ADM, Codigo_EPS, Codigo_PLA, Codigo_CXT, Codigo_FNC, Ingreso_ADM, FechaHosp_ADM, Codigo_CAM, Codigo_DGN, Motivo_ADM, Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, Observaciones_ADM, Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, Codigo_USR) Select ".$Consecing.", Codigo_TER, now(), Codigo_EPS, Codigo_PLA,Codigo_CXT, Codigo_FNC, Ingreso_ADM, curdate(), Codigo_CAM, Codigo_DGN, concat('|',Motivo_ADM), Acudiente_ADM, Direccion_ADM, Telefono_ADM, Responsable_ADM, TelResp_ADM, Parentesco_ADM, '', Copago_ADM, Cuota_ADM, Codigo_SDE, Codigo_PTT, Codigo_ATE, '".$_SESSION["it_CodigoUSR"]."' from gxadmision x Where x.Estado_ADM='F' and x.Codigo_ADM='".(int)$_POST['Ingreso']."'";
 		EjecutarSQL($SQL, $conexion);
 		
 		it_aud('1', 'Admisiones', 'Reingreso '.$Consecing);

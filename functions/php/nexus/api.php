@@ -1,5 +1,5 @@
 <?php
-
+/*
 function llamarApi($url,$metodo,$datos,$bearer){
 
 $curl = curl_init();
@@ -54,18 +54,21 @@ function llenarSelect($sql,$filtrado){
   }
   return $llenarSelect;
 }
+*/
 
 function validarRegistroEmp($nit){
   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
   $cadena = explode("-",$nit);
   $sql = "SELECT * FROM `Billing`.`companies` t1, certificates t2, software t3, users t4 where t1.id = t2.company_id and t1.id = t3.company_id and t1.user_id = t4.id and  identification_number = ".$cadena[0];
+  //var_dump($sql);exit();
   $result = mysqli_query($conexion, $sql);
   $datosEmp = mysqli_fetch_array($result);
   
   return $datosEmp;
 }
 
+/*
 function validarRegistroEmpRes($nit){
   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
@@ -95,3 +98,6 @@ function validarRegistroEmpRes($nit){
   echo "</table>";
 
 }
+*/
+
+?>

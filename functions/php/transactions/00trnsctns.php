@@ -13,9 +13,15 @@ function logError($cons, $msg, $Conn) {
 	}
 }
 function EjecutarSQL($Cons, $Conn) {
+	$Flag=0;
 	$MyZone="SET time_zone = '".$_SESSION["DB_TIMEZONE"]."';";
 	mysqli_query($Conn, $MyZone);
-
+	if(mysqli_query($Conn, $MyZone)) {
+		$Flag=1;
+	  } else {
+        //error_log("NXS_ERROR: No se ejecuto $Cons. " . mysqli_error($Conn));
+		logError($Cons, mysqli_error($Conn), $Conn);
+    }
 	$Flag=0;
 	if(mysqli_query($Conn, $Cons)) {
 		$Flag=1;

@@ -16,7 +16,7 @@ $datosEmp = validarRegistroEmp($verficarEmpresaReg["NIT_DCD"]);
 
 ?>
 
-<title>Tecnowebs : Sistema de Facturacion</title>
+<title>INVOIX : Sistema de Facturacion</title>
 <script src="functions/js/invoice.js"></script>
 <link href="css/style.css" rel="stylesheet">
 <?php include('container.php');?>

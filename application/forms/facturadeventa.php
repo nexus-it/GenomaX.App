@@ -1,17 +1,16 @@
-
-
-<body>
-
 <?php 
-
 session_start();
 	$NumWindow=$_GET["target"];
-	
-	// include '../../themes/'.$_SESSION["THEME_DEFAULT"].'/template.php';	
-     
 	include 'Invoice.php';
 
+	//include '../../functions/php/nexus/database.php';
+	//include '../../functions/php/nexus/operaciones.php';
+	$conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+	mysqli_query ($conexion, "SET NAMES 'utf8'");	
+     
+	
 include '../../functions/php/FacturaElectronicaEstandarBackend/consultas.php';
+
 $invoice = new Invoice();
 /*
 $invoice->checkLoggedIn();
@@ -23,7 +22,6 @@ if(!empty($_POST['companyName']) && $_POST['companyName']) {
 }
 
 ?>
-<title>Sistema de Facturacion</title>
 <script src="themes/ghenx/js/loadform.js"></script>
 <script src="functions/js/invoice.js"></script>
 <link href="css/style.css" rel="stylesheet">
@@ -49,20 +47,22 @@ if(!empty($_POST['companyName']) && $_POST['companyName']) {
 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
     <h3>Para,</h3>
     <div class="form-group">
-        <?php $clienteCode = llenarSelect("SELECT Direccion_TER,concat(ID_TER,'-',IFNULL(DigitoVerif_TER,'') ) as nit ,  Nombre_TER FROM `czterceros` ", "nxs_demo");?>
-        <script>
-            $(document).on('click', "#companyName", function(){
-                    var listadocli = <?php echo $clienteCode; ?> 
-                    $("#companyName").autocomplete({
-                    source: listadocli,
-                    minLength: 1
-                    }); 
-            });
-        </script>
-        <input required="true" type="text" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" autocomplete="off" required   >
+        <?php 
+        $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+        mysqli_query ($conexion, "SET NAMES 'utf8'");
+        $sql="SELECT Direccion_TER,concat(ID_TER,'-',IFNULL(DigitoVerif_TER,'') ) as nit ,  Nombre_TER FROM `czterceros` ";
+        $result = mysqli_query($conexion, $sql);
+        $DataX = '<datalist id="companyNamelist">';
+        while($row = mysqli_fetch_array($result)) {
+            $DataX=$DataX.'<option value="'.$row[1].' -- '.$row[2].'"></option>';
+        }
+        $DataX=$DataX.'</datalist>';
+        echo $DataX;
+        ?>
+        <input required="true" type="text" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" list="companyNamelist" required   >
     </div>
     <div class="form-group">
-        <textarea class="form-control" rows="3" name="address" id="address" placeholder="Su direcci�n"></textarea>
+        <textarea class="form-control" rows="3" name="address" id="address" placeholder="Su dirección"></textarea>
     </div>
     
 </div>
@@ -83,21 +83,19 @@ if(!empty($_POST['companyName']) && $_POST['companyName']) {
         <tr>
             <td><input class="itemRow" type="checkbox"></td>
             <td>
-                <?php $productCode = llenarSelect("SELECT * FROM `factura_producto` ", "php_factura_shaima");?>
-                <script>
-                    $(document).on('click', "[id^=productCode_]", function(){
-                        var count = $(".itemRow").length;
-                        var listado = <?php echo $productCode; ?> 
-                        for(i=0;i<=count;i++){ 
-                            $("#productCode_"+i+"").autocomplete({
-                            source: listado,
-                            minLength: 1
-                            }); 
-                                                       
-                        }
-                    });
-                </script>
-                <input type="text" name="productCode[]" id="productCode_1" size="30" class="form-control" placeholder="Ingrese codigo de producto">
+                <?php 
+                $conexion = mysqli_connect($_SESSION["DB_HOST"], $_SESSION["DB_USER"], $_SESSION["DB_PASSWORD"], $_SESSION["DB_NAME"], $_SESSION["DB_PORT"]);
+                mysqli_query ($conexion, "SET NAMES 'utf8'");
+                $sql="SELECT * FROM `factura_producto` ";
+                $result = mysqli_query($conexion, $sql);
+                $DataX = '<datalist id="productCode_1list">';
+                while($row = mysqli_fetch_array($result)) {
+                    $DataX=$DataX.'<option value="'.$row[1].' -- '.$row[2].'"></option>';
+                }
+                $DataX=$DataX.'</datalist>';
+                echo $DataX;
+                ?>
+                <input type="text" name="productCode[]" id="productCode_1" size="30" class="form-control" placeholder="Ingrese codigo de producto" list="productCode_1list">
             </td>
             <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>			
             <td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
@@ -112,7 +110,7 @@ if(!empty($_POST['companyName']) && $_POST['companyName']) {
 <div class="row">
 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
     <button class="btn btn-danger delete" id="removeRows" type="button">- Borrar</button>
-    <button class="btn btn-success" id="addRows" type="button">+ Agregar M�s</button>
+    <button class="btn btn-success" id="addRows" type="button">+ Agregar Más</button>
 </div>
 </div>
 <div class="row">	
@@ -184,8 +182,4 @@ if(!empty($_POST['companyName']) && $_POST['companyName']) {
 </form>			
 </div>
 </div>	
-
-  
-</body>
-</html>
 
