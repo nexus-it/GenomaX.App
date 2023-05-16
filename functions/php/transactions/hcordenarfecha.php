@@ -41,7 +41,7 @@ include '00trnsctns.php';
 				EjecutarSQL($SQL, $conexion);
 				$SQL="Delete From hctratamiento Where Codigo_TER='".$_POST['codigoter']."' and Codigo_HCF='".$_POST['folio'.$xyz]."';";
 				EjecutarSQL($SQL, $conexion);
-				$SQL="Delete From hc_".$_POST['tipohc'.$xyz]." Where Codigo_TER='".$_POST['codigoter']."' and Codigo_HCF='".$_POST['folio'.$xyz]."';";
+				$SQL="Delete From hc_".strtolower($_POST['tipohc'.$xyz])." Where Codigo_TER='".$_POST['codigoter']."' and Codigo_HCF='".$_POST['folio'.$xyz]."';";
 				EjecutarSQL($SQL, $conexion);
 				
 			} 

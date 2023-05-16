@@ -985,7 +985,7 @@ if (isset($_GET["FORMATO"])) {
 } else {
 	$SQL="Select b.Nombre_HCT, c.Codigo_HCF, c.Codigo_ADM, a.Fecha_ADM, c.Fecha_HCF, c.Hora_HCF, d.Nombre_ARE, b.SV_HCT, b.Antecedentes_HCT, b.Dx_HCT, b.AyudasDiag_HCT, b.Med_HCT, b.Indicaciones_HCT, b.Img_HCT, c.Nota_HCF, c.FecNota_HCF, f.Nombre_TER, e.RM_MED, e.Firma_MED, c.Medico2_HCF, b.Codigo_HCT, e.Codigo_TER, a.Codigo_TER, Folio_HCF, Incapacidad_HCT, RiesgoEspecif_HCT, AntGineObs_HCT, EmbarazoAct_HCT, RiesgoObst_HCT, CtrlParacObs_HCT, CtrlPreNat_HCT, RiesgoCardV_HCT, Framingham_HCT, Ordenes_HCT, Qx_HCT, Insumos_HCT, Odontograma_HCT, ValHeridas_HCT, Cons_HCT, DescQx_HCT from hctipos b, hcfolios c, gxadmision a, gxareas d, gxmedicos e, czterceros f, czterceros g where f.Codigo_TER=e.Codigo_TER and e.Codigo_USR=c.Codigo_USR and d.Codigo_ARE=c.Codigo_ARE and a.Codigo_ADM=c.Codigo_ADM and b.codigo_hct=c.codigo_hct and c.Folio_HCF between '".$_GET["FOLIO_INICIAL"]."' and '".$_GET["FOLIO_FINAL"]."' and c.Codigo_TER=g.Codigo_TER and g.ID_TER='".$_GET["HISTORIA"]."' order by 4, 5";
 }
-// error_log($SQL);
+ error_log($SQL);
 $resultx = mysqli_query($conexion, $SQL);
 $kntfolix=0;
 while ($rowx = mysqli_fetch_row($resultx)) {
@@ -1128,7 +1128,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		$pdf->SetX($Posx);
 		
 		// VALORACION DE HERIDA - Ubicación Anatómica
-		if ($rowx[37]!="0") {
+		if ($rowx[37]=="1") {
 			$SQL="Select Codigo_SEX from gxpacientes a, czterceros b Where a.Codigo_TER=b.Codigo_TER and ID_TER='".$_GET["HISTORIA"]."'";
 			$resultx2 = mysqli_query($conexion, $SQL);
 			if ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -1446,7 +1446,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		}
 
 		// INDICACIONES Y TRATAMIENTO	
-		if ($rowx[12]!="0") {
+		if ($rowx[12]=="1") {
 			$SQL="Select a.Indicacion_HTT, a.Codigo_HTT From hctratamiento a, czterceros b where a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
 			$resultx2 = mysqli_query($conexion, $SQL);
 			$NumIndi=0;
@@ -1507,7 +1507,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 		$pdf->firmas($rowx[18], $rowx[21], $rowx[16], $rowx[17], $pdf->GetY());
 
 		// ODONTOGRAMA
-		if ($rowx[36]!="0") {
+		if ($rowx[36]=="1") {
 			if ($UnFolio==1) {
 				$pdf->AddPage();
 				$pdf->encabezadoz('ODONTOGRAMA', $rowx[1]);
@@ -1527,7 +1527,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	}
 	
 	// ORDENES DE MEDICAMENTOS
-	if ($rowx[11]!="0") {
+	if ($rowx[11]=="1") {
 		$SQL="Select c.CUM_MED, c.Nombre_MED, Dosis_HCM, Descripcion_VIA, Descripcion_FRC, Duracion_HCM, Estado_HCM, Observaciones_HCM, Cantidad_HCM, PpioActivo_MED, Descripcion_MED From hcordenesmedica a, czterceros b, gxmedicamentos c, gxviasmed d, gxfrecuenciamed e where e.Codigo_FRC=Frecuencia_HCM and d.Codigo_VIA=Via_HCM and a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' and Estado_HCM='O' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NumIndi=0;
@@ -1597,7 +1597,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 
 	}
 	// INSUMOS
-	if ($rowx[35]!="0") {
+	if ($rowx[35]=="1") {
 		$SQL="Select c.Nombre_MED, Cantidad_SER, Observaciones_SER From hcordenesins a, czterceros b, gxmedicamentos c Where a.Codigo_TER=b.Codigo_TER and c.Codigo_SER=a.Codigo_SER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NumIndi=0;
@@ -1651,7 +1651,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	}
 
 	// INCAPACIDAD
-	if ($rowx[24]!="0") {
+	if ($rowx[24]=="1") {
 		$SQL="Select f.Codigo_DGN, g.Descripcion_DGN, date(Fecha_INC), Nombre_HCI, Nombre_HMI, Nombre_HTI, FechaIni_HCI, FechaFin_HCI, Dias_HCI, Observaciones_INC  From hcincapacidades a, czterceros b, hctipoincapacidad c, hcmotivoincapacidad d, hcclaseincapacidad e, hcdiagnosticos f, gxdiagnostico g where a.Codigo_TER=f.Codigo_TER and a.Codigo_HCF=f.Codigo_HCF and f.Codigo_DGN=g.Codigo_DGN and a.Codigo_TER=b.Codigo_TER and c.Codigo_HTI=a.Codigo_HTI and d.Codigo_HMI=a.Codigo_HMI and e.Codigo_HCI=a.Codigo_HCI and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."'";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		if ($rowx2 = mysqli_fetch_row($resultx2)) {
@@ -1706,7 +1706,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 	}
 
 	// ORDENES MEDICAS Dx
-	if ($rowx[10]!="0") {
+	if ($rowx[10]=="1") {
 		$SQL="Select a.Nombre_CUP, d.CUPS_PRC, d.Nombre_PRC, b.Cantidad_HCS, b.Observaciones_HCS, Tercerizar_PRC From gxgruposcups a, hcordenesdx b, czterceros c, gxprocedimientos d Where left(d.CUPS_PRC,2)=a.Codigo_CUP and a.Tipo_CUP='G' and b.Codigo_TER=c.Codigo_TER and d.Codigo_SER=b.Codigo_SER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' order by 1,6,2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		$NombreCUP="";
@@ -1810,7 +1810,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 
 	}
 	// ORDENES CONSULTAS
-	if ($rowx[34]!="0") {
+	if ($rowx[34]=="1") {
 		$SQL="Select left(d.CUPS_PRC,1), d.CUPS_PRC, d.Nombre_PRC, b.Cantidad_HCS, b.Observaciones_HCS From gxservicios a, hcordenescons b, czterceros c, gxprocedimientos d Where a.Codigo_SER=b.Codigo_SER and b.Codigo_TER=c.Codigo_TER and d.Codigo_SER=b.Codigo_SER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		
@@ -1868,7 +1868,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 
 	}
 	// ORDENES PROCEDIMIENTOS
-	if ($rowx[34]!="0") {
+	if ($rowx[34]=="1") {
 		$SQL="Select left(d.CUPS_PRC,1), d.CUPS_PRC, d.Nombre_PRC, b.Cantidad_HCS, b.Observaciones_HCS From gxservicios a, hcordenesqx b, czterceros c, gxprocedimientos d Where a.Codigo_SER=b.Codigo_SER and b.Codigo_TER=c.Codigo_TER and d.Codigo_SER=b.Codigo_SER and c.ID_TER='".$_GET["HISTORIA"]."' and b.Codigo_HCF='".$rowx[1]."' order by 2";
 		$resultx2 = mysqli_query($conexion, $SQL);
 		
@@ -1926,7 +1926,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 
 	}
 	// ORDENES DE SERVICIOS
-	if ($rowx[33]!="0") {
+	if ($rowx[33]=="1") {
 		$SQL="Select a.TipoSer_HCS, e.Descripcion_FRC, a.Cantidad_HCS, a.Observaciones_HCS From hcordenesservicios a, czterceros b, gxfrecuenciaserv e Where e.Codigo_FRC=a.Frecuencia_HCS and a.Codigo_TER=b.Codigo_TER and a.Codigo_HCF='".$rowx[1]."' and b.ID_TER='".$_GET["HISTORIA"]."' order by 1";
 		$resultx2 = mysqli_query($conexion, $SQL);		
 		$NumIndi=0;
