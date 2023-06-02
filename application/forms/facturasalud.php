@@ -216,7 +216,7 @@
 
 	  	<div class="col-md-12">
 
- <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive" >
+ <div id="zero_detalle<?php echo $NumWindow; ?>" class="detalleord table-responsive" style="height: 240px;" >
 <table  width="99%" border="0" align="center" cellpadding="1" cellspacing="2" bgcolor="#EFEFEF" class="table table-striped table-condensed tblDetalle" id="tblDetalle<?php echo $NumWindow; ?>" >
 <tbody id="tbDetalle<?php echo $NumWindow; ?>">
 <tr id="trh<?php echo $NumWindow; ?>"> 
@@ -271,13 +271,13 @@ and LPAD(Codigo_ADM,10,'0')=LPAD(".$_GET["Ingreso"].",10,'0') Order By 1";
   <td colspan="6" id="td1t'.$NumWindow.'">
     <div class="row">
       <div class="col-md-1" align="right" >Orden:</div>
-      <div class="col-md-2" align="left"><strong>'.$rowZ[0].'</strong></div>
+      <div class="col-md-2" align="left"><strong><input name="hdn_order'.$NumWindow.'" type="hidden" id="hdn_order'.$NumWindow.'" value="'.$rowZ[0].'" />'.$rowZ[0].'</strong></div>
       <div class="col-md-1" align="right" >Fecha:</div>
       <div class="col-md-1" align="left">'.FormatoFecha($rowZ[1]).'</div>
       <div class="col-md-1" align="right" >Area:</div>
       <div class="col-md-2" align="left">'.$rowZ[2].'</div>
       <div class="col-md-1" align="right" >Autorizacion:</div>
-      <div class="col-md-3" align="left">'.$rowZ[3].'</div>
+      <div class="col-md-3" align="left"><input name="txt_auth'.$NumWindow.'" type="text" id="txt_auth'.$NumWindow.'" value="'.$rowZ[3].'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 144; border-radius: 8px; background-color: whitesmoke; height: 25px;" /></div>
     </div>
   </td>
 </tr>
@@ -328,9 +328,9 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
 		$TotalServicios++;
 		echo '    
 <tr id="tr'.$contarow.$NumWindow.'"  class="warning">
-  <td><input name="hdn_ordenser'.$contarow.$NumWindow.'" type="hidden" id="hdn_ordenser'.$contarow.$NumWindow.'" value="'.$row[5].'" /><input name="hdn_codigoser'.$contarow.$NumWindow.'" type="hidden" id="hdn_codigoser'.$contarow.$NumWindow.'" value="'.$row[0].'" />'.$row[1].'</td>
-    <td>'.$row[2].'</td>
-    <td align="center"><input name="hdn_cantidadser'.$contarow.$NumWindow.'" type="hidden" id="hdn_cantidadser'.$contarow.$NumWindow.'" value="'.$row[3].'" />'.$row[3].'</td>
+  <td><input name="hdn_ordenser'.$contarow.$NumWindow.'" type="hidden" id="hdn_ordenser'.$contarow.$NumWindow.'" value="'.$row[5].'" /><input name="hdn_codigoser'.$contarow.$NumWindow.'" type="text" id="hdn_codigoser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 95px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[1].'"  /></td>
+    <td><input name="hdn_codigosername'.$contarow.$NumWindow.'" type="text" id="hdn_codigosername'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 450px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[2].'"  /></td>
+    <td align="center"><input name="hdn_cantidadser'.$contarow.$NumWindow.'" type="number" id="hdn_cantidadser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 50px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[3].'"  /></td>
     <td align="right"><input name="hdn_pteser'.$contarow.$NumWindow.'" type="hidden" id="hdn_pteser'.$contarow.$NumWindow.'" value="'.$Pte.'" />'.number_format($Pte, 2, ",", ".").'</td>
     <td align="right"><input name="hdn_entser'.$contarow.$NumWindow.'" type="hidden" id="hdn_entser'.$contarow.$NumWindow.'" value="'.$Ent.'" />'.number_format($Ent, 2, ",", ".").'</td>
     <td align="right"><input name="hdn_totser'.$contarow.$NumWindow.'" type="hidden" id="hdn_totser'.$contarow.$NumWindow.'" value="'.$row[4].'" />'.number_format($row[3]*$row[4], 2, ",", ".").'</td>
@@ -383,12 +383,12 @@ Group By a.Codigo_SER, CUPS_PRC, Nombre_SER, Cantidad_ORD, b.Codigo_ORD
 		$TotalServicios++;
 		echo '    
 <tr id="tr'.$contarow.$NumWindow.'"  class="warning">
-  <td><input name="hdn_ordenser'.$contarow.$NumWindow.'" type="hidden" id="hdn_ordenser'.$contarow.$NumWindow.'" value="'.$row[5].'" /><input name="hdn_codigoser'.$contarow.$NumWindow.'" type="hidden" id="hdn_codigoser'.$contarow.$NumWindow.'" value="'.$row[0].'" />'.$row[1].'</td>
-    <td>'.$row[2].'</td>
-    <td align="center"><input name="hdn_cantidadser'.$contarow.$NumWindow.'" type="hidden" id="hdn_cantidadser'.$contarow.$NumWindow.'" value="'.$row[3].'" />'.$row[3].'</td>
-    <td align="right"><input name="hdn_pteser'.$contarow.$NumWindow.'" type="hidden" id="hdn_pteser'.$contarow.$NumWindow.'" value="'.$Pte.'" />'.number_format($Pte, 2, ",", ".").'</td>
-    <td align="right"><input name="hdn_entser'.$contarow.$NumWindow.'" type="hidden" id="hdn_entser'.$contarow.$NumWindow.'" value="'.$Ent.'" />'.number_format($Ent, 2, ",", ".").'</td>
-    <td align="right"><input name="hdn_totser'.$contarow.$NumWindow.'" type="hidden" id="hdn_totser'.$contarow.$NumWindow.'" value="'.$row[4].'" />'.number_format($row[3]*$row[4], 2, ",", ".").'</td>
+  <td><input name="hdn_ordenser'.$contarow.$NumWindow.'" type="hidden" id="hdn_ordenser'.$contarow.$NumWindow.'" value="'.$row[5].'" /><input name="hdn_codigoser'.$contarow.$NumWindow.'" type="text" id="hdn_codigoser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 95px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[1].'"  /></td>
+    <td><input name="hdn_codigosername'.$contarow.$NumWindow.'" type="text" id="hdn_codigosername'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 450px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[2].'"  /></td>
+    <td align="center"><input name="hdn_cantidadser'.$contarow.$NumWindow.'" type="number" id="hdn_cantidadser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 50px; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[3].'"  /></td>
+    <td align="right"><input name="hdn_pteser'.$contarow.$NumWindow.'" type="number" id="hdn_pteser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 100px;text-align: right; border-radius: 8px; background-color: white; height: 23px;" value="'.$Pte.'"  /></td>
+    <td align="right"><input name="hdn_entserx'.$contarow.$NumWindow.'" type="hidden" id="hdn_entserx'.$contarow.$NumWindow.'" value="'.$Ent.'" /><input name="hdn_entser'.$contarow.$NumWindow.'" type="number" id="hdn_entser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 100px;text-align: right; border-radius: 8px; background-color: white; height: 23px;" value="'.$Ent.'"  /></td>
+    <td align="right"><input name="hdn_totser'.$contarow.$NumWindow.'" type="number" id="hdn_totser'.$contarow.$NumWindow.'"  disabled="disabled" style="border-width: thin; border-style: dotted; width: 100px;text-align: right; border-radius: 8px; background-color: white; height: 23px;" value="'.$row[3]*$row[4].'"  /></td>
 </tr> 
 ';
 	}
@@ -555,6 +555,7 @@ function chngvalpte<?php echo $NumWindow; ?>() {
 	valtot=document.getElementById('hdn_totalenttmp<?php echo $NumWindow; ?>').value;
 	valpte=0;
 	valent=0;
+	porc=0;
 	if (document.getElementById('cmb_porcentaje<?php echo $NumWindow; ?>').value=="1") {
 		porcpte=document.getElementById('txt_valpaciente<?php echo $NumWindow; ?>').value;
 		porcpte=porcpte/100;
@@ -563,6 +564,31 @@ function chngvalpte<?php echo $NumWindow; ?>() {
 	} else {
 		valpte=document.getElementById('txt_valpaciente<?php echo $NumWindow; ?>').value;
 		valent=valtot-valpte;
+		totalrow=document.getElementById('hdn_controw<?php echo $NumWindow; ?>').value;
+		sumpcte=0;
+		for (var i=1; i <= totalrow; i++){
+			cantidadser=document.getElementById('hdn_cantidadser'+i+'<?php echo $NumWindow; ?>').value;
+			pteser=document.getElementById('hdn_pteser'+i+'<?php echo $NumWindow; ?>').value;
+			entser=document.getElementById('hdn_entserx'+i+'<?php echo $NumWindow; ?>').value;
+			totser=document.getElementById('hdn_totser'+i+'<?php echo $NumWindow; ?>').value;
+			porc=(entser*100)/valtot;
+			pteser=Math.round(valpte*porc/100);
+			sumpcte=sumpcte+pteser;
+			if (i==totalrow) {
+				if (valpte>sumpcte) {
+					difpcte=valpte-sumpcte;
+					pteser=pteser+(difpcte/cantidadser);
+				} else {
+					difpcte=sumpcte-valpte;
+					pteser=pteser-(difpcte/cantidadser);
+				}
+			}
+			entser=entser-pteser;
+			totser=entser*cantidadser;
+			document.getElementById('hdn_pteser'+i+'<?php echo $NumWindow; ?>').value=pteser;
+			document.getElementById('hdn_entser'+i+'<?php echo $NumWindow; ?>').value=entser;
+			document.getElementById('hdn_totser'+i+'<?php echo $NumWindow; ?>').value=totser;
+		}
 	}
 	document.getElementById('hdn_totalent<?php echo $NumWindow; ?>').value=valent;
 	document.getElementById('hdn_totalpte<?php echo $NumWindow; ?>').value=valpte;

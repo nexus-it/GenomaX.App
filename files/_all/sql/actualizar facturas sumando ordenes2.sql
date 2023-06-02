@@ -6,9 +6,9 @@ UPDATE gxfacturas T1,
   GROUP BY b.Codigo_ADM ) T2
    SET T1.ValTotal_FAC = T2.total- T1.ValCredito_FAC - T1.ValIVA_FAC ,T1.ValEntidad_FAC = T2.total
     WHERE T1.Codigo_ADM = T2.Codigo_ADM AND T1.ValEntidad_FAC <> T2.total
- --    AND T1.IdFE_FAC ='0'
-   AND T1.Fecha_FAC >'2022-01-01'  
--- AND T2.Codigo_ADM IN ('148474')
- AND T1.Codigo_FAC IN ('BA55011','BA60442','BA60443','BA60445','BA60449','BA60457')
- 
- 
+    AND T1.IdFE_FAC ='0'
+   AND T1.Fecha_FAC >'2023-02-01'  
+-- AND T2.Codigo_ADM IN ('40797', '40794', '40546')
+-- AND T1.Codigo_FAC IN ('MGE5260','MGE5258','MGE5254','MGE5248')
+-- AND T1.Codigo_EPS IN ('X10','X11')
+-- AND T1.ValPaciente_FAC=0
