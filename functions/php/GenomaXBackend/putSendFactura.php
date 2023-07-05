@@ -96,7 +96,7 @@ $PREFIJO = $cadena[0];
 	
 
 	$SQL_DET="SELECT c.Codigo_CFC, c.Nombre_CFC, SUM(b.Cantidad_ORD*(b.ValorPaciente_ORD+ b.ValorEntidad_ORD)) AS valor,ValIVA_FAC FROM gxordenescab a, gxordenesdet b, gxconceptosfactura c, gxservicios d WHERE a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_CFC= d.Codigo_CFC AND d.Codigo_SER=b.Codigo_SER AND a.Estado_ORD='1' AND b.Codigo_EPS='".$rowH['Codigo_EPS']."' AND b.Codigo_PLA='".$rowH['Codigo_PLA']."' AND LPAD(a.Codigo_ADM,10,'0')=LPAD('".$rowH["Codigo_ADM"]."',10,'0') GROUP BY c.Codigo_CFC, c.Nombre_CFC";
-	$SQL_DET="SELECT f.Descripcion_SER, c.CUPS_PRC, e.Nombre_SER, a.ValorEntidad_ORD as valor, SUM(a.Cantidad_ORD) AS cantidad,ValIVA_FAC FROM gxtiposervicios f, gxordenesdet a, gxordenescab b, gxprocedimientos c, gxfacturas d, gxservicios e WHERE b.Estado_ORD='1' AND f.Tipo_SER=e.Tipo_SER and a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_SER=a.Codigo_SER AND e.Codigo_SER=a.Codigo_SER AND d.Codigo_ADM=b.Codigo_ADM AND e.Tipo_SER='1' AND d.Codigo_FAC='".$_POST["factura"]."' GROUP BY e.Tipo_SER, c.CUPS_PRC, e.Nombre_SER, a.ValorServicio_ORD UNION SELECT g.Descripcion_SER, j.Codigo_MED, l.Nombre_SER, h.ValorServicio_ORD as valor, SUM(h.Cantidad_ORD) AS cantidad,ValIVA_FAC FROM gxtiposervicios g, gxordenesdet h, gxordenescab i, gxmedicamentos j, gxfacturas k, gxservicios l WHERE i.Estado_ORD='1' AND g.Tipo_SER=l.Tipo_SER and h.Codigo_ORD=i.Codigo_ORD AND j.Codigo_SER=h.Codigo_SER AND l.Codigo_SER=h.Codigo_SER AND k.Codigo_ADM=i.Codigo_ADM AND l.Tipo_SER='2' AND k.Codigo_FAC='".$_POST["factura"]."' GROUP BY l.Tipo_SER, j.Codigo_MED, l.Nombre_SER, h.ValorServicio_ORD order by 2";
+	$SQL_DET="SELECT f.Descripcion_SER, c.CUPS_PRC, e.Nombre_SER,  a.ValorEntidad_ORD as valor, SUM(a.Cantidad_ORD) AS cantidad,ValIVA_FAC FROM gxtiposervicios f, gxordenesdet a, gxordenescab b, gxprocedimientos c, gxfacturas d, gxservicios e WHERE b.Estado_ORD='1' AND f.Tipo_SER=e.Tipo_SER and a.Codigo_ORD=b.Codigo_ORD AND c.Codigo_SER=a.Codigo_SER AND e.Codigo_SER=a.Codigo_SER AND d.Codigo_ADM=b.Codigo_ADM AND e.Tipo_SER='1' AND d.Codigo_FAC='".$_POST["factura"]."' GROUP BY e.Tipo_SER, c.CUPS_PRC, e.Nombre_SER, a.ValorServicio_ORD UNION SELECT g.Descripcion_SER, j.Codigo_MED, l.Nombre_SER, h.ValorServicio_ORD as valor, SUM(h.Cantidad_ORD) AS cantidad,ValIVA_FAC FROM gxtiposervicios g, gxordenesdet h, gxordenescab i, gxmedicamentos j, gxfacturas k, gxservicios l WHERE i.Estado_ORD='1' AND g.Tipo_SER=l.Tipo_SER and h.Codigo_ORD=i.Codigo_ORD AND j.Codigo_SER=h.Codigo_SER AND l.Codigo_SER=h.Codigo_SER AND k.Codigo_ADM=i.Codigo_ADM AND l.Tipo_SER='2' AND k.Codigo_FAC='".$_POST["factura"]."' GROUP BY l.Tipo_SER, j.Codigo_MED, l.Nombre_SER, h.ValorServicio_ORD order by 2";
 	// UNION SELECT e.Tipo_SER, e.Codigo_SER, e.Nombre_SER, SUM(a.Cantidad_ORD*a.ValorServicio_ORD) AS valor FROM gxordenesdet a, gxordenescab b, gxfacturas d, gxservicios e WHERE a.Codigo_ORD=b.Codigo_ORD AND e.Codigo_SER=a.Codigo_SER AND d.Codigo_ADM=b.Codigo_ADM AND e.Tipo_SER<>'1' AND d.Codigo_FAC='".$_POST["factura"]."' GROUP BY e.Tipo_SER, e.Codigo_SER, e.Nombre_SER ORDER BY 1,2";
 	// error_log("Detalle FE: ".$SQL_DET);
 	$result = mysqli_query($conexion, $SQL_DET);
@@ -110,7 +110,17 @@ $PREFIJO = $cadena[0];
 		} else {
 			$sufij="-X";
 		}
-
+		/* if ($row['copago']<>0) {
+			$copago = [array(
+				"discount_id" => 12,
+				"charge_indicator" => false,
+				"allowance_charge_reason"=> "Descuento Copago",
+				"amount"=> 9000.00,
+				"base_amount"=> 60000.00
+			)];
+		} else {
+			$copago = [array()];
+		} */
 		//AQUI AGREGO EL IVA SI ESTE EXISTE  -- LEANDRO CASTRO 2022-05-15 --
 		if ($row['ValIVA_FAC'] > 0){
 			$tax_id = 1;
@@ -275,6 +285,22 @@ $PREFIJO = $cadena[0];
 
 	}else{
 
+		// Si hay descuento por copago
+		/* if ($rowH['ValPaciente_FAC'] > 0){
+			$discount_id = 1;
+			$discount_totals = [array(
+				"discount_id"=> 1,
+				"charge_indicator"=> false,
+				"allowance_charge_reason"=> "DESCUENTO COPAGO",
+				"amount"=> $rowH['ValPaciente_FAC'],
+				"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
+				
+		)];
+		}else{
+			$discount_id = 10;
+			$discount_totals = [array()];
+		} */
+
 		$payload= array('number'=>$NUMERACION, //$rowH['NUMERACION'],
 					'type_document_id'=>1,
 					'date'=>$rowH['fechafac'],
@@ -313,20 +339,14 @@ $PREFIJO = $cadena[0];
 						"payment_method_id"=> $rowH['diasvence'],
 						"payment_due_date"=> $rowH['fechavence'],
 						"duration_measure"=> $rowH['diasvence']
-					),/*
-					 "allowance_charges"=> array(
-						
-							"discount_id"=> 1,
-							"charge_indicator"=> false,
-							"allowance_charge_reason"=> "DESCUENTO COPAGO",
-							"amount"=> $rowH['ValPaciente_FAC'],
-							"base_amount"=> $rowH['ValPaciente_FAC'] + $rowH['ValTotal_FAC']
-						
-					), */
+					), 
+					// "allowance_charges"=> $discount_totals, //AQUI AGREGO EL DESCUENTO, COPAGO O C MODERADORA SI ESTE EXISTE  -- JUAN PALACIO 2023-05-09 --
+
 					"legal_monetary_totals"=> array(
 						"line_extension_amount"=> $rowH['ValTotal_FAC'],
 						"tax_exclusive_amount"=> "0",
 						"tax_inclusive_amount"=> $rowH['ValTotal_FAC'],
+						//"allowance_total_amount"=>$rowH['ValPaciente_FAC'],
 						"payable_amount"=> $rowH['ValTotal_FAC']
 					),
 					//"tax_totals" => $tax_totals,//AQUI AGREGO EL IVA SI ESTE EXISTE  -- LEANDRO CASTRO 2022-05-15 --
@@ -344,7 +364,7 @@ $PREFIJO = $cadena[0];
 }
 
 
-//print_r($payload);exit();
+ //print_r($payload);exit();
 
 $payload = json_encode($payload);
  //print_r($payload);exit();
@@ -395,266 +415,5 @@ ob_end_flush();
 
 
 
-/*
-
-
-'{
-	"number": 990000001,
-	"type_document_id": 1,
-	"date": "2021-09-23",
-	"time": "04:08:12",
-	"resolution_number": "18760000001",
-	"prefix": "SETP",
-    "notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
-    "disable_confirmation_text": true,
-    "establishment_name": "TECNOWEBS S.A.S",
-    "establishment_address": "BRR LIMONAR MZ 6 CS 3 ET 1 PISO 2",
-    "establishment_phone": "3226563672",
-    "establishment_municipality": 600,
-    "atacheddocument_name_prefix": "SETP990000001",
-    "establishment_email": "ing.leandro.castro@gmail.com",
-	"sendmail": true,
-    "sendmailtome": true,
-    "seze": "2021-2017",
-    "head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-    "foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-	"customer": {
-		"identification_number": 900166483,
-		"dv": 1,
-		"name": "INVERSIONES DAVAL SAS",
-		"phone": 3103891693,
-		"address": "CLL 4 NRO 33-90",
-		"email": "ing.leandro.castro@gmail.com",
-		"merchant_registration": "0000000-00",
-		"type_document_identification_id": 6,
-		"type_organization_id": 1,
-        "type_liability_id": 7,
-		"municipality_id": 822,
-		"type_regime_id": 1
-	},
-	"payment_form": {
-		"payment_form_id": 2,
-		"payment_method_id": 30,
-		"payment_due_date": "2021-09-24",
-		"duration_measure": "30"
-	},	
-	"legal_monetary_totals": {
-		"line_extension_amount": "840336.134",
-		"tax_exclusive_amount": "840336.134",
-		"tax_inclusive_amount": "1000000.00",
-		"payable_amount": "1000000.00"
-	},
-	"tax_totals": 
-	[
-		{
-			"tax_id": 1,
-			"tax_amount": "159663.865",
-			"percent": "19.00",
-			"taxable_amount": "840336.134"
-		}
-	],
-	"invoice_lines": 
-	[
-		{
-			"unit_measure_id": 70,
-			"invoiced_quantity": "1",
-			"line_extension_amount": "840336.134",
-			"free_of_charge_indicator": false,
-			"tax_totals": [
-				{
-					"tax_id": 1,
-					"tax_amount": "159663.865",
-					"taxable_amount": "840336.134",
-					"percent": "19.00"
-				}
-			],
-			"description": "COMISION POR SERVICIOS",
-            "notes": "ESTA ES UNA PRUEBA DE NOTA DE DETALLE DE LINEA.",
-			"code": "COMISION",
-			"type_item_identification_id": 4,
-			"price_amount": "1000000.00",
-			"base_quantity": "1"
-		}
-	]
-}
-
-'
-
-*/
-
-// Factura en salud
-/*
-{
-	"number": 990000374,
-	"type_document_id": 1,
-	"date": "2021-08-17",
-	"time": "04:08:12",
-	"resolution_number": "18760000001",
-	"prefix": "SETP",
-    "notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
-    "disable_confirmation_text": true,
-    "establishment_name": "TORRE SOFTWARE",
-    "establishment_address": "BRR LIMONAR MZ 6 CS 3 ET 1 PISO 2",
-    "establishment_phone": "3226563672",
-    "establishment_municipality": 600,
-    "atacheddocument_name_prefix": "FES-SETP990000244-",
-    "establishment_email": "alternate_email@alternate.com",
-	"sendmail": true,
-    "seze": "2021-2017",
-    "head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-    "foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-    "health_fields": {
-        "invoice_period_start_date": "2021-02-01",
-        "invoice_period_end_date": "2021-03-01",
-        "health_type_operation_id": 1,
-        "users_info":[
-            {
-                "provider_code": "AF-0000500-85-XX-001",
-                "health_type_document_identification_id": 4,
-                "identification_number": "A89008003",
-                "surname": "OBANDO",
-                "second_surname": "LONDOÑO",
-                "first_name": "ALEXANDER",
-                "health_type_user_id": 1,
-                "health_contracting_payment_method_id": 7,
-                "health_coverage_id": 5,
-                "autorization_numbers": "A12345;604567;AX-2345",
-                "mipres": "RNA3D345;664FF04567;ARXXX-2765345",
-                "mipres_delivery": "RN6645G-345;6-064XX54FF04567;XXX-2-OO-987D65345",
-                "contract_number": "1000-2021-0005698",
-                "policy_number": "1045-2FG01-0567228",
-                "co_payment": "3300.00",
-                "moderating_fee": "5800.00",
-                "recovery_fee": "105000.00",
-                "shared_payment": "225000.00"
-            },
-            {
-                "provider_code": "AF-0000500-85-XX-002",
-                "health_type_document_identification_id": 3,
-                "identification_number": "41946692",
-                "surname": "CARDONA",
-                "second_surname": "VILLADA",
-                "first_name": "ELIZABETH",
-                "health_type_user_id": 2,
-                "health_contracting_payment_method_id": 3,
-                "health_coverage_id": 3,
-                "autorization_numbers": "A12345;604567;AX-2345",
-                "mipres": "RNA3D345;664FF04567;ARXXX-2765345",
-                "mipres_delivery": "RN6645G-345;6-064XX54FF04567;XXX-2-OO-987D65345",
-                "contract_number": "1000-2021-0005698",
-                "policy_number": "1045-2FG01-0567228",
-                "co_payment": "3300.00",
-                "moderating_fee": "5800.00",
-                "recovery_fee": "105000.00",
-                "shared_payment": "225000.00"
-            }
-        ]
-    },
-	"customer": {
-		"identification_number": 900166483,
-		"dv": 1,
-		"name": "INVERSIONES DAVAL SAS",
-		"phone": 3103891693,
-		"address": "CLL 4 NRO 33-90",
-		"email": "alexanderobandolondono@gmail.com",
-		"merchant_registration": "0000000-00",
-		"type_document_identification_id": 6,
-		"type_organization_id": 1,
-        "type_liability_id": 7,
-		"municipality_id": 822,
-		"type_regime_id": 1
-	},
-	"payment_form": {
-		"payment_form_id": 2,
-		"payment_method_id": 30,
-		"payment_due_date": "2021-09-17",
-		"duration_measure": "30"
-	},	
-	"allowance_charges": [
-		{
-			"discount_id": 1,
-			"charge_indicator": false,
-			"allowance_charge_reason": "DESCUENTO GENERAL",
-			"amount": "230000.00",
-			"base_amount": "9663865.54"
-		}
-	],
-	"legal_monetary_totals": {
-		"line_extension_amount": "9663865.54",
-		"tax_exclusive_amount": "9663865.55",
-		"tax_inclusive_amount": "11500000.00",
-		"allowance_total_amount": "230000.00",
-		"charge_total_amount": "0.00",
-		"payable_amount": "11270000.00"
-	},
-	"tax_totals": 
-	[
-		{
-			"tax_id": 1,
-			"tax_amount": "1836134.45",
-			"percent": "19",
-			"taxable_amount": "9663865.55"
-		}
-	],
-	"invoice_lines": 
-	[
-		{
-			"unit_measure_id": 70,
-			"invoiced_quantity": "1",
-			"line_extension_amount": "1260504.20",
-			"free_of_charge_indicator": false,
-			"allowance_charges": [{
-					"charge_indicator": false,
-					"allowance_charge_reason": "DESCUENTO GENERAL",
-					"amount": "30000.00",
-					"base_amount": "1500000.00"
-				}
-			],
-			"tax_totals": [
-				{
-					"tax_id": 1,
-					"tax_amount": "239495.80",
-					"taxable_amount": "1260504.20",
-					"percent": "19.00"
-				}
-			],
-			"description": "BONOS POR SERVICIOS",
-			"code": "BONOS",
-			"type_item_identification_id": 4,
-			"price_amount": "1290504.20",
-			"base_quantity": "1"
-		}
-,
-		{
-			"unit_measure_id": 70,
-			"invoiced_quantity": "1",
-			"line_extension_amount": "8403361.34",
-			"free_of_charge_indicator": false,
-			"allowance_charges": [{
-					"charge_indicator": false,
-					"allowance_charge_reason": "DESCUENTO GENERAL",
-					"amount": "200000.00",
-					"base_amount": "10000000.00"
-				}
-			],
-			"tax_totals": [
-				{
-					"tax_id": 1,
-					"tax_amount": "1596638.65",
-					"taxable_amount": "8403361.34",
-					"percent": "19.00"
-				}
-			],
-			"description": "COMISION POR SERVICIOS",
-            "notes": "ESTA ES UNA PRUEBA DE NOTA DE DETALLE DE LINEA.",
-			"code": "COMISION",
-			"type_item_identification_id": 4,
-			"price_amount": "8603361.34",
-			"base_quantity": "1"
-		}
-		
-	]
-}
-*/
 
 ?>

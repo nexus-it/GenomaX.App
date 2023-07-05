@@ -1,0 +1,826 @@
+{
+	"info": {
+		"_postman_id": "715d304e-deb2-4350-b551-4fc6a50902d3",
+		"name": "API-Invoix1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18549635"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "LogIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "juan.herazo@gestaltsoft.com.co",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/login",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "lemyesteban75@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/logout",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "current_password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "new_password_confirmation",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/change-password",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/users",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|687IADsPOc27lVDwTwmT7llIFNZTEPFrYdPasYCw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/user-profile",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"user-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pedro",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pedro@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/register",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "LoadMenu",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/load-menu",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"load-menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dash Monthly Sales",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/monthly-sales",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"monthly-sales"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "Reports",
+					"item": [
+						{
+							"name": "InvoiX Preview",
+							"protocolProfileBehavior": {
+								"disableCookies": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "103|2HsCVDJQqPrWfRNNkSeMg2wYMUnBMmP9BsxMMRqS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/invoix-pdf/Factura",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"invoix-pdf",
+										"Factura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QuoteX Preview",
+							"protocolProfileBehavior": {
+								"disableCookies": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "103|2HsCVDJQqPrWfRNNkSeMg2wYMUnBMmP9BsxMMRqS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/quotex-pdf/Factura",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"quotex-pdf",
+										"Factura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invoice Preview",
+							"protocolProfileBehavior": {
+								"disableCookies": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "103|2HsCVDJQqPrWfRNNkSeMg2wYMUnBMmP9BsxMMRqS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/invoice-pdf/eyJpdiI6InhNS09UNTZrcGJkZG5KNWNacCtxaFE9PSIsInZhbHVlIjoiVk8zSmNzMWZXak5mdk5iVkRmMWx0QT09IiwibWFjIjoiOWE5YWRiMmEzMTc2YzA3NzgwOGMyNGM0NDdmYzFjYTM0MjJiMTkxZjU3MDBmZDBmZjgyNmM2MWIxNzI2ZTE0ZiIsInRhZyI6IiJ9/NXS256",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"invoice-pdf",
+										"eyJpdiI6InhNS09UNTZrcGJkZG5KNWNacCtxaFE9PSIsInZhbHVlIjoiVk8zSmNzMWZXak5mdk5iVkRmMWx0QT09IiwibWFjIjoiOWE5YWRiMmEzMTc2YzA3NzgwOGMyNGM0NDdmYzFjYTM0MjJiMTkxZjU3MDBmZDBmZjgyNmM2MWIxNzI2ZTE0ZiIsInRhZyI6IiJ9",
+										"NXS256"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Quote Preview",
+							"protocolProfileBehavior": {
+								"disableCookies": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "103|2HsCVDJQqPrWfRNNkSeMg2wYMUnBMmP9BsxMMRqS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/quote-pdf/eyJpdiI6InhNS09UNTZrcGJkZG5KNWNacCtxaFE9PSIsInZhbHVlIjoiVk8zSmNzMWZXak5mdk5iVkRmMWx0QT09IiwibWFjIjoiOWE5YWRiMmEzMTc2YzA3NzgwOGMyNGM0NDdmYzFjYTM0MjJiMTkxZjU3MDBmZDBmZjgyNmM2MWIxNzI2ZTE0ZiIsInRhZyI6IiJ9/NXS256",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"quote-pdf",
+										"eyJpdiI6InhNS09UNTZrcGJkZG5KNWNacCtxaFE9PSIsInZhbHVlIjoiVk8zSmNzMWZXak5mdk5iVkRmMWx0QT09IiwibWFjIjoiOWE5YWRiMmEzMTc2YzA3NzgwOGMyNGM0NDdmYzFjYTM0MjJiMTkxZjU3MDBmZDBmZjgyNmM2MWIxNzI2ZTE0ZiIsInRhZyI6IiJ9",
+										"NXS256"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ListInvoices",
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "103|2HsCVDJQqPrWfRNNkSeMg2wYMUnBMmP9BsxMMRqS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/invoices",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListCreditNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/creditnotes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"creditnotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListDebitNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/debitnotes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"debitnotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListSDocuments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/documentsupports",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"documentsupports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utils",
+			"item": [
+				{
+					"name": "Taxes",
+					"item": [
+						{
+							"name": "Taxes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/taxes",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"taxes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListTaxes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/taxeslist",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"taxeslist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tax",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.invoix.co/v1/tax/2",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"tax",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tax",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "taxname",
+											"value": "IVA19",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "IVA",
+											"type": "text"
+										},
+										{
+											"key": "percent",
+											"value": "19",
+											"type": "text"
+										},
+										{
+											"key": "id_accountsv",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "id_accountsc",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.invoix.co/v1/savetax",
+									"protocol": "https",
+									"host": [
+										"api",
+										"invoix",
+										"co"
+									],
+									"path": [
+										"v1",
+										"savetax"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ListPlans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/plans",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encrypt DB",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/CryptDB",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"CryptDB"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Juan Manuel Palacio/Dropbox/GenomaX/app/files/logogestaltsoft.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/upload-image/logo",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"upload-image",
+								"logo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Config",
+			"item": [
+				{
+					"name": "Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.invoix.co/v1/customers",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pedro",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pedro@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.invoix.co/v1/savecustomers",
+							"protocol": "https",
+							"host": [
+								"api",
+								"invoix",
+								"co"
+							],
+							"path": [
+								"v1",
+								"savecustomers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
