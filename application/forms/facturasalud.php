@@ -592,8 +592,8 @@ function chngvalpte<?php echo $NumWindow; ?>() {
 	}
 	document.getElementById('hdn_totalent<?php echo $NumWindow; ?>').value=valent;
 	document.getElementById('hdn_totalpte<?php echo $NumWindow; ?>').value=valpte;
-	document.getElementById('txt_totalentidad<?php echo $NumWindow; ?>').value=valent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");;
-	document.getElementById('txt_totalpaciente<?php echo $NumWindow; ?>').value=valpte.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");;
+	document.getElementById('txt_totalentidad<?php echo $NumWindow; ?>').value=valent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	document.getElementById('txt_totalpaciente<?php echo $NumWindow; ?>').value=valpte.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 }
 

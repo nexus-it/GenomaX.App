@@ -13,7 +13,42 @@ include '00trnsctns.php';
 	$SQL="Insert into gxfacturas(Codigo_AFC, Codigo_FAC, Codigo_ADM, Fecha_FAC, ValPaciente_FAC, ValEntidad_FAC, ValTotal_FAC, Codigo_EPS, Codigo_PLA, Codigo_USR, Nota_FAC, Month_FAC, Year_FAC, ValIVA_FAC) 
 	Values ('".$_POST['sede']."','".$Consec."', '".(int)$_POST['Ingreso']."', '".$_POST["fechafac"]." ".$_POST["horafac"]."', '".$_POST['totalpte']."',  '".$_POST["totalent"]."', '".$_POST["totalent"]."', '".$_POST["contrato"]."', '".$_POST["plan"]."', '".$_SESSION["it_CodigoUSR"]."', '".$_POST["nota"]."', '".$_POST["mes"]."', '".$_POST["anyo"]."', '".$_POST["valoriva"]."')";
 	EjecutarSQL($SQL, $conexion);
+	/*
+	$SQL="Select sum(ValorPaciente_ORD) from gxordenesdet where codigo_ord IN (SELECT codigo_ord FROM gxordenescab WHERE codigo_adm='".(int)$_POST['Ingreso']."' AND estado_ord='1')";
+	$result = mysqli_query($Conn, $SQL);
+	if($row = mysqli_fetch_row($result)) {
+		if($row[0] = $_POST['totalpte']) {
+			$valtot=$_POST["totalent"];
+			$valpte=0;
+			$valent=0;
+			$porc=0;
+			$valpte=$_POST['totalpte'];
+			$valent=$valtot-$valpte;
+			$sumpcte=0;
+			$SQL="Select codigo_ser, sum(Cantidad_ORD), avg(ValorPaciente_ORD), avg(ValorEntidad_ORD)  from gxordenesdet where codigo_ord IN (SELECT codigo_ord FROM gxordenescab WHERE codigo_adm='".(int)$_POST['Ingreso']."' AND estado_ord='1') group by codigo_ser";
+			$rexult = mysqli_query($Conn, $SQL);
+			while ($rowx = mysqli_fetch_row($rexult)) {
+				$cantidadser=$rowx[1];
+				$pteser=$rowx[2];
+				$entser=$rowx[3];
+				$totser=document.getElementById('hdn_totser'+i+'<?php echo $NumWindow; ?>').value;
+				$porc=($entser*100)/$valtot;
+				$pteser=Math.round($valpte*$porc/100);
+				$sumpcte=$sumpcte+$pteser;
 
+
+				$entser=$entser-$pteser;
+				$totser=$entser*$cantidadser;
+				document.getElementById('hdn_pteser'+i+'<?php echo $NumWindow; ?>').value=pteser;
+				document.getElementById('hdn_entser'+i+'<?php echo $NumWindow; ?>').value=entser;
+				document.getElementById('hdn_totser'+i+'<?php echo $NumWindow; ?>').value=totser;
+			}
+			mysqli_free_result($rexult);
+			
+		}
+	}
+	mysqli_free_result($result);
+	*/
 	$contador=0; 
 	$SQL="Update gxadmision Set Estado_ADM='F' Where Codigo_ADM='".(int)$_POST['Ingreso']."';";
 	EjecutarSQL($SQL, $conexion);

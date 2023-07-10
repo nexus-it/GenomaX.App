@@ -67,36 +67,7 @@ include 'mail.php';
      // echo $url;
      //error_log($url);
 
-    /*      
-      //include "http://localhost/GenomaX.App-main/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura;
-      
-      $url = "http://localhost/GenomaX.App-main/application/reports/facturasaluddet.php";
-      //$url = "http://localhost/GenomaX.App-main/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura;
-      
-      $payload= array('PREFIJO'=>$Pref,'CODIGO_INICIAL'=>$Consecutivo,'CODIGO_FINAL'=>$Consecutivo,'namedoc'=>$factura);
-      
-
-      $ch = curl_init();
-      curl_setopt($ch,CURLOPT_URL, $url);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-      //Si lo deseamos podemos recuperar la salida de la ejecuci�n de la URL
-      $resultado = curl_exec($ch);
-      //var_dump($resultado);exit();
-
-
-      if($errno = curl_errno($ch)){
-        $errno_message = curl_errno($errno);
-        echo "cURL error ({$errno}):\n {$errno_message}";
-        var_dump($errno);
-      }
-
-      //error_log($resultado);
-      //cerrar conexi�n
-      curl_close($ch);
-
-*/
+    
 
 
   // Creamos un instancia de la clase ZipArchive

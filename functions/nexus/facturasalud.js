@@ -46,7 +46,10 @@ function Guardar_facturasalud(Ventana)
 	//Se verifica la validez de los campos...
 	if (document.getElementById('txt_Ingreso'+Ventana).value=="") {
 		xError="Digite el codigo de la admision";}
-
+		// Se verifica Si existe un valor a pagar paciente
+		if (document.getElementById('txt_totalpaciente'+Ventana).value!="0,00") {
+			eval('chngvalpte' + Ventana + '()');
+		}
 	//Ejecucion de las intrucciones para guardar los registros
 	if (xError=="") {
 		$.ajax({  
