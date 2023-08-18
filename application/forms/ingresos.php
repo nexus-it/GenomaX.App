@@ -48,11 +48,15 @@
 </div>
 	</div>
 	<?php
-	$SQL="Select EditDate_XAD From itconfig_ad;";
+	$SQL="Select EditDate_XAD, AuthReq_XAD From itconfig_ad;";
 	$result = mysqli_query($conexion, $SQL);
+	$AuthReq_XAD=' disabled="disabled" Value="." ';
 	$EditDate_XAD=' disabled="disabled" ';
 	if ($row = mysqli_fetch_array($result)) 
 	{
+		if($row["AuthReq_XAD"]=="1") {
+			$AuthReq_XAD=' ';
+		}
 		if($row["EditDate_XAD"]=="1") {
 			$EditDate_XAD=' ';
 		}
@@ -297,7 +301,7 @@ mysqli_free_result($result);
 	<div class="col-md-2">
 <div class="form-group">
 <label for="txt_autorizacion<?php echo $NumWindow; ?>">No. Autorizacion</label>
-<input name="txt_autorizacion<?php echo $NumWindow; ?>" type="text" id="txt_autorizacion<?php echo $NumWindow; ?>"  />
+<input name="txt_autorizacion<?php echo $NumWindow; ?>" type="text" id="txt_autorizacion<?php echo $NumWindow; ?>"  <?php echo $AuthReq_XAD; ?>> />
 </div>
 	</div>
 

@@ -8,7 +8,7 @@ UPDATE gxfacturas T1,
     WHERE T1.Codigo_ADM = T2.Codigo_ADM AND T1.ValEntidad_FAC <> T2.total
     AND T1.IdFE_FAC ='0'
    AND T1.Fecha_FAC >'2023-02-01'  
- AND T2.Codigo_ADM IN ('41011')
+-- AND T2.Codigo_ADM IN ('41011')
 -- AND T1.Codigo_FAC IN ('MGE5260','MGE5258','MGE5254','MGE5248')
 -- AND T1.Codigo_EPS IN ('X10','X11')
 -- AND T1.ValPaciente_FAC=0
