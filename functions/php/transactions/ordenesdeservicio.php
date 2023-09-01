@@ -10,7 +10,14 @@ include '00trnsctns.php';
 	EjecutarSQL($SQL, $conexion);
 	$SQL="Delete From gxprocedimientosdet Where Codigo_ORD='".$Consec."';";
 	EjecutarSQL($SQL, $conexion);
-	$SQL="Replace into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".(int)$_POST['Ingreso']."', '".($_POST['fechaord'])." 00:00:00', '".$_POST['area']."', '".$_POST['descripcion']."',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizaord']."')";
+	$ingreso = $_POST['Ingreso']; // Obtén el ingreso del formulario
+    // Elimina los ceros a la izquierda y otros caracteres no numéricos
+    $ingreso_limpio = ltrim(preg_replace('/[^0-9]/', '', $ingreso), '0');
+    // Agrega la última letra si es parte del valor
+    if (preg_match('/[A-Za-z]$/', $ingreso)) {
+        $ingreso_limpio .= substr($ingreso, -1);
+    }
+	$SQL="Replace into gxordenescab(Codigo_ORD, Codigo_ADM, Fecha_ORD, Codigo_ARE, Descripcion_ORD, Codigo_USR, Estado_ORD, Autorizacion_ORD) Values ('".$Consec."', '".$ingreso_limpio."', '".($_POST['fechaord'])." 00:00:00', '".$_POST['area']."', '".$_POST['descripcion']."',  '".$_SESSION["it_CodigoUSR"]."', '1', '".$_POST['autorizaord']."')";
 	EjecutarSQL($SQL, $conexion);
 
 	$contador=0; 

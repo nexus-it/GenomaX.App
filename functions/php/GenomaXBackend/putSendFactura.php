@@ -81,7 +81,7 @@ $correoter = $rowH['emailTER'];
 		$type_liability_id = $rowH['typeliabilityid'];
 		$municipality_id = $rowH['municipalityid'];
 		$type_regime_id = 2;
-	}
+	} 
 
 $string = $_POST["factura"];
 //var_dump($_POST["factura"]);

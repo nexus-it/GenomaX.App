@@ -386,7 +386,9 @@ function desxml(data){
                 ad_xml = obj['ResponseDian']['Envelope']['Body']['GetStatusResponse']['GetStatusResult']['XmlFileName']
                 document.getElementById("btnedit"+factura).disabled = true;
                 document.getElementById("btnsend"+factura).disabled = true;
-                descargaxml(ad_xml,factura);
+                console.log('ad_xml '+ad_xml);
+                console.log('factura '+factura);
+                descargaxml(ad_xml,factura); 
                 //MsgBox1('https://backend.estrateg.com/API/storage/app/public/'.$nit+'/'+$factura+'ad'+$ad_xml+'.xml');
 
               }

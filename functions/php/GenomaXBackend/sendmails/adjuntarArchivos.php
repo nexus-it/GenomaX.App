@@ -17,7 +17,7 @@ include 'mail.php';
     $nit = $cade[0];  //nit empresa que envia la factura
 
 
-    $datosEnvioMail = datosEnvioMail($factura);
+    $datosEnvioMail = datosEnvioMail($factura); 
     //$para = $datosEnvioMail[4];
     $para = $datosEnvioMail[5];
 
