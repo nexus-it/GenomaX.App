@@ -17,7 +17,7 @@ include 'mail.php';
     $nit = $cade[0];  //nit empresa que envia la factura
 
 
-    $datosEnvioMail = datosEnvioMail($factura); 
+    $datosEnvioMail = datosEnvioMail($factura);
     //$para = $datosEnvioMail[4];
     $para = $datosEnvioMail[5];
 
@@ -58,16 +58,46 @@ include 'mail.php';
       $Pref = $cadena[0];
 
 
-       //print_r("http://localhost/GenomaX_dev/application/reports/facturasaluddet_SV.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]);
-    $payload = file_get_contents("http://localhost/GenomaX/application/reports/facturasaluddet_SV.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]);
-      
-     $url = "http://localhost/GenomaX_dev/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"];
+       //print_r("https://enterprise.genomax.app/application/reports/facturasaluddet_SV.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]."&DB_PORT=".$_SESSION["DB_PORT"]);
+    //$payload = file_get_contents("https://enterprise.genomax.app/application/reports/facturasaluddet_SV.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]."&DB_PORT=".$_SESSION["DB_PORT"]);
+     //var_dump($payload);exit();
+     
+     $url = "https://enterprise.genomax.app/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]."&DB_PORT=".$_SESSION["DB_PORT"];
      
      
      // echo $url;
      //error_log($url);
+/*
+          
+      //include "http://localhost/GenomaX.App-main/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura;
+      
+      $url = "https://enterprise.genomax.app/application/reports/facturasaluddet_SV.php";
+      //$url = "http://localhost/GenomaX.App-main/application/reports/facturasaluddet.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$factura;
+      
+      $payload= array('PREFIJO'=>$Pref,'CODIGO_INICIAL'=>$Consecutivo,'CODIGO_FINAL'=>$Consecutivo,'namedoc'=>$factura);
+      
 
-    
+      $ch = curl_init();
+      curl_setopt($ch,CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+      //Si lo deseamos podemos recuperar la salida de la ejecuci�n de la URL
+      $resultado = curl_exec($ch);
+      //var_dump($resultado);exit();
+
+
+      if($errno = curl_errno($ch)){
+        $errno_message = curl_errno($errno);
+        echo "cURL error ({$errno}):\n {$errno_message}";
+        var_dump($errno);
+      }
+
+      //error_log($resultado);
+      //cerrar conexi�n
+      curl_close($ch);
+
+*/
 
 
   // Creamos un instancia de la clase ZipArchive
@@ -95,7 +125,7 @@ include 'mail.php';
 
 
  //$para="gerencia@nexus-it.co";
-
+ //$para="ing.leandro.castro@gmail.com";
 // var_dump ($para);exit();
 
 $indice=$factura;

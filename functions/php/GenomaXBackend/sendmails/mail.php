@@ -18,24 +18,24 @@ function send($recipiente,$factura,$datosEnvioMail){
 
         try {
             //Server settings
-            $mail->SMTPDebug = 2;//SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'a2plcpnl0216.prod.iad2.secureserver.net';//'mail.genomax.co';                     //Set the SMTP server to send through
-            //$mail->Host       = 'servieslat.com';                     //Set the SMTP server to send through
+            $mail->Host       = 'genomax.app';//'mail.genomax.co';                     //Set the SMTP server to send through
+            $mail->Host       = 'servieslat.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             
-            $mail->Username   = 'facturacion@genomax.co';                    //SMTP username
-            //$mail->Username   = 'fe@servieslat.com'; 
+            $mail->Username   = 'facturacion@genomax.app';                    //SMTP username
+            $mail->Username   = 'fe@servieslat.com'; 
 
             
-            $mail->Password   = 'Nexus12345*';                               //SMTP password
-            //$mail->Password   = 'Tg@820715';
+            $mail->Password   = 'Genomax2019*';                               //SMTP password
+            $mail->Password   = 'Tg@820715';
           
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Remitente
-            $mail->setFrom('facturacion@genomax.co','Tu factura se encuentra lista');
+            $mail->setFrom('fe@servieslat.com','Tu factura se encuentra lista');
            //Destinatario
             $mail->addAddress($recipiente);     //Add a recipient
 
@@ -56,9 +56,13 @@ function send($recipiente,$factura,$datosEnvioMail){
             $mail->Body    = '<p>Estimado usuario, adjunto en este e-mail encontrará el detalle de tu factura </p><p>Atentamente,</p><p>'.$datosEnvioMail[1].'</p>';
            
 
-            $mail->send();
-            echo 'Message has been sent';
-            actualizarEstadoEnvioFact($factura);
+          if ($mail->send()) {
+              echo 'Message has been sent';
+              actualizarEstadoEnvioFact($factura, true); // Actualiza el estado de envío a true o éxito
+          } else {
+              echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+              actualizarEstadoEnvioFact($factura, false); // Actualiza el estado de envío a false o error
+          }
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
