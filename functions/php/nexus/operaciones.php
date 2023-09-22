@@ -318,14 +318,15 @@ function listarFacturas($filtro,$ini,$fin){
             $Pref = $cadena[0];
             $btnedit='onclick="CargarForm(\'application/'.$row4[2].'?Ingreso='.$row[4].'\', \''.$row4[1].'\', \''.$row4[4].'\'); AddFavsForm(\''.$row4[0].'\'); "'; 
             $btnsend='onclick="putSendFactura(\''.$row[0].'\'); "';
-            $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); "';
+            $cadena_url = "https://enterprise.genomax.app/application/reports/facturasaluddet_SV.php?PREFIJO=".$Pref."&CODIGO_INICIAL=".$Consecutivo."&CODIGO_FINAL=".$Consecutivo."&namedoc=".$row[0]."&DB_SUFFIX=".$_SESSION["DB_SUFFIX"]."&DB_HOST=".$_SESSION["DB_HOST"]."&DB_USER=".$_SESSION["DB_USER"]."&DB_PASSWORD=".$_SESSION["DB_PASSWORD"]."&DB_NAME=".$_SESSION["DB_NAME"]."&DB_PORT=".$_SESSION["DB_PORT"];
+            $btnmail='onclick="estadoFacturaDoc(\''.$row[5].'\', \''.$row[0].'\'); prueba(\''.$cadena_url.'\');"';
             //$btnxml='href="https://backend.estrateg.com/API/storage/app/public/900993679/FE-'.$row[0].'.xml" download="FE-'.$row[0].'.xml"';
             $btnxml='onclick="descargarFacturaXml(\''.$row[5].'\', \''.$row[0].'\'); "';
             $btnprint=' title="Vista previa factura '.$row[0].'" data-toggle="modal" data-target="#GnmX_WinModal" onclick="rptInvoice(\''.$Pref.'\',\''.$Consecutivo.'\')"';
             if($row[5] != '0'){
                $sendInvoice = ' disabled="disabled" title="Factura Enviada" ';
                $sendEdit = ' disabled="disabled" title="Factura Enviada" ';
-               $sendMail = ' title="Enviar factura por correo" ';
+               $sendMail = '  title="Enviar por correo" ';
                $sendXML = ' title="Descargar XML" ';
             }else{
                $sendInvoice = ' title="Enviar factura a la DIAN" ';
@@ -885,3 +886,8 @@ function ValidarCUfe($nit,$prefix,$number){
  }
 
 ?>
+<script>
+   function prueba(url){
+      window.open(url);
+   }
+   </script>

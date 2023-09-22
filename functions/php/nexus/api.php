@@ -1,5 +1,5 @@
 <?php
-/*
+
 function llamarApi($url,$metodo,$datos,$bearer){
 
 $curl = curl_init();
@@ -35,7 +35,7 @@ curl_close($curl);
 //echo $response;
 return $response;
 }
-
+/*
 
 
 function llenarSelect($sql,$filtrado){
@@ -68,7 +68,7 @@ function validarRegistroEmp($nit){
   return $datosEmp;
 }
 
-/*
+
 function validarRegistroEmpRes($nit){
   $conexion = mysqli_connect("backend.estrateg.com", "makoto", "M@koto23*", "Billing", "3306");
 	mysqli_query ($conexion, "SET NAMES 'utf8'");
@@ -98,6 +98,6 @@ function validarRegistroEmpRes($nit){
   echo "</table>";
 
 }
-*/
+
 
 ?>

@@ -1535,7 +1535,7 @@ while ($rowx = mysqli_fetch_row($resultx)) {
 			if ($NumIndi==0) {
 				if ($UnFolio==1) {
 					$pdf->AddPage();
-					$pdf->encabezadoz('ORDEN DE MEDICAMENTOS', $rowx[1]);
+					$pdf->encabezadoz('FORMULA MEDICA', $rowx[1]);
 					// DIAGNOSTICOS
 					if ($rowx[9]!="0") {
 						$pdf->diagnosticoz($_GET["HISTORIA"], $rowx[1]);
