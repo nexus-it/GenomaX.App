@@ -159,7 +159,7 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 			$LeFirma='../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg';
 			file_put_contents($LeFirma, $row[3]);
 		}	
-		// $this->Image('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg',11,234,40);
+		 $this->Image('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg',11,234,40);
 		$SQL="Select repLegal_TER, FirmaGrte_XFC, FirmaPcte_XFC From itconfig_fc a, czterceros b Where b.Codigo_TER='X'";
 		$resultG = mysqli_query($conexion, $SQL);
 		$respon='Responsable: ';
