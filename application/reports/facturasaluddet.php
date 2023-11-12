@@ -155,12 +155,17 @@ function PieFactura($subtotal, $totpcte, $notcred, $lineas, $lineas2, $codfac, $
 	$result = mysqli_query($conexion, $SQL);
 	
 	while ($row = mysqli_fetch_row($result)) {
-		if (!(file_exists('../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg'))) {
-			$LeFirma='../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg';
-			file_put_contents($LeFirma, $row[3]);
+		$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg';
+		if (!(file_exists($LeFirma))) {
+			if (!(is_null($row[3]))) {
+				file_put_contents($LeFirma, $row[3]);
+			} else {
+				$LeFirma='../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/hc/white.jpg';
+			}
+			
 		}
-		if (file_exists('../../files/'.SUFFIXO.'/images/firmas/users/'.$row[0].'.jpg')) {
-			$this->Image('../../files/'.$_SESSION["DB_SUFFIX"].'/images/firmas/users/'.$row[0].'.jpg',11,234,40);
+		if (file_exists($LeFirma)) {
+			$this->Image($LeFirma,11,234,40);
 		}
 		$SQL="Select repLegal_TER, FirmaGrte_XFC, FirmaPcte_XFC From itconfig_fc a, czterceros b Where b.Codigo_TER='X'";
 		$resultG = mysqli_query($conexion, $SQL);
